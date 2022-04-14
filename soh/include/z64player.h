@@ -332,15 +332,15 @@ typedef struct {
     /* 0x86 */ Vec3s unk_86[2];
     /* 0x92 */ u16 unk_92;
     /* 0x94 */ u16 unk_94;
-    /* 0x98 */ LinkAnimationHeader* unk_98;
-    /* 0x9C */ LinkAnimationHeader* unk_9C;
-    /* 0xA0 */ LinkAnimationHeader* unk_A0;
-    /* 0xA4 */ LinkAnimationHeader* unk_A4;
-    /* 0xA8 */ LinkAnimationHeader* unk_A8;
-    /* 0xAC */ LinkAnimationHeader* unk_AC[4];
-    /* 0xBC */ LinkAnimationHeader* unk_BC[2];
-    /* 0xC4 */ LinkAnimationHeader* unk_C4[2];
-    /* 0xCC */ LinkAnimationHeader* unk_CC[2];
+    /* 0x98 */ const LinkAnimationHeader* unk_98;
+    /* 0x9C */ const LinkAnimationHeader* unk_9C;
+    /* 0xA0 */ const LinkAnimationHeader* unk_A0;
+    /* 0xA4 */ const LinkAnimationHeader* unk_A4;
+    /* 0xA8 */ const LinkAnimationHeader* unk_A8;
+    /* 0xAC */ const LinkAnimationHeader* unk_AC[4];
+    /* 0xBC */ const LinkAnimationHeader* unk_BC[2];
+    /* 0xC4 */ const LinkAnimationHeader* unk_C4[2];
+    /* 0xCC */ const LinkAnimationHeader* unk_CC[2];
 } PlayerAgeProperties; // size = 0xD4
 
 typedef struct {
@@ -438,7 +438,7 @@ typedef struct Player {
     /* 0x0151 */ s8         heldItemActionParam; // Action param for the item currently used
     /* 0x0152 */ u8         heldItemId; // Item id for the item currently used
     /* 0x0153 */ s8         prevBoots; // previous boots from `PlayerBoots`
-    /* 0x0154 */ s8         itemActionParam; // the difference between this and heldItemActionParam is unclear
+    /* 0x0154 */ s8         itemActionParam; // the difference between thisv and heldItemActionParam is unclear
     /* 0x0155 */ char       unk_155[0x003];
     /* 0x0158 */ u8         modelGroup;
     /* 0x0159 */ u8         nextModelGroup;
@@ -448,10 +448,10 @@ typedef struct Player {
     /* 0x015D */ u8         rightHandType;
     /* 0x015E */ u8         sheathType;
     /* 0x015F */ u8         currentMask; // current mask equipped from `PlayerMask`
-    /* 0x0160 */ Gfx** rightHandDLists;
-    /* 0x0164 */ Gfx** leftHandDLists;
-    /* 0x0168 */ Gfx** sheathDLists;
-    /* 0x016C */ Gfx** waistDLists;
+    /* 0x0160 */ const Gfx** rightHandDLists;
+    /* 0x0164 */ const Gfx** leftHandDLists;
+    /* 0x0168 */ const Gfx** sheathDLists;
+    /* 0x016C */ const Gfx** waistDLists;
     /* 0x0170 */ u8         giObjectLoading;
     /* 0x0174 */ DmaRequest giObjectDmaRequest;
     /* 0x0194 */ OSMesgQueue giObjectLoadQueue;

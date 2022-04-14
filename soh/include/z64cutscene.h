@@ -7,7 +7,7 @@ typedef struct {
     /* 0x00 */ u16 entrance;       // entrance index upon which the cutscene should trigger
     /* 0x02 */ u8  ageRestriction; // 0 for adult only, 1 for child only, 2 for both ages
     /* 0x03 */ u8  flag;           // eventChkInf flag bound to the entrance cutscene
-    /* 0x04 */ void* segAddr;      // segment offset location of the cutscene
+    /* 0x04 */ const void* segAddr;      // segment offset location of the cutscene
 } EntranceCutscene; // size = 0x8
 
 typedef struct {
@@ -149,7 +149,7 @@ typedef enum {
  * Example: #include "file.c" EARLY
  */
 typedef union CutsceneData {
-    s32 i;
+    u32 u;
     f32 f;
     s16 s[2];
     s8  b[4];

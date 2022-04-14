@@ -51,7 +51,7 @@ namespace Ship {
 		std::string ConfSection = GetBindingConfSection();
 		std::shared_ptr<ConfigFile> pConf = GlobalCtx2::GetInstance()->GetConfig();
 		ConfigFile& Conf = *pConf.get();
-		Conf[ConfSection][szButtonName] = dwScancode;
+		Conf[ConfSection][szButtonName] = static_cast<char>(dwScancode);
 
 		// Reload the button mapping from Config
 		LoadBinding();

@@ -1,89 +1,76 @@
-#include "MemoryStream.h"
+#include "Utils/MemoryStream.h"
+
 #include <cstring>
 
-#ifndef _MSC_VER
-#define memcpy_s(dest, destSize, source, sourceSize) memcpy(dest, source, destSize)
-#endif
-
-MemoryStream::MemoryStream()
+MemoryStream::MemoryStream(const std::byte* const nBuffer, const std::size_t bufferSize)
 {
-	buffer = std::vector<char>();
-	//buffer.reserve(1024 * 16);
-	bufferSize = 0;
-	baseAddress = 0;
+	buffer.assign(nBuffer, nBuffer + bufferSize);
 }
 
-MemoryStream::MemoryStream(char* nBuffer, size_t nBufferSize) : MemoryStream()
-{
-	buffer = std::vector<char>(nBuffer, nBuffer + nBufferSize);
-	bufferSize = nBufferSize;
-	baseAddress = 0;
-}
-
-MemoryStream::~MemoryStream()
-{
-}
-
-uint64_t MemoryStream::GetLength()
+std::size_t MemoryStream::GetLength()
 {
 	return buffer.size();
 }
 
-void MemoryStream::Seek(int32_t offset, SeekOffsetType seekType)
+void MemoryStream::Seek(const std::int32_t offset, const SeekOffsetType seekType)
 {
 	if (seekType == SeekOffsetType::Start)
+	{
 		baseAddress = offset;
+	}
 	else if (seekType == SeekOffsetType::Current)
+	{
 		baseAddress += offset;
+	}
 	else if (seekType == SeekOffsetType::End)
-		baseAddress = bufferSize - 1 - offset;
+	{
+		baseAddress = buffer.size() - 1 - offset;
+	}
 }
 
-std::unique_ptr<char[]> MemoryStream::Read(size_t length)
+std::unique_ptr<std::byte[]> MemoryStream::Read(const std::size_t length)
 {
-	std::unique_ptr<char[]> result = std::make_unique<char[]>(length);
+	auto result = std::make_unique<std::byte[]>(length);
 
-	memcpy_s(result.get(), length, &buffer[baseAddress], length);
+	memcpy_s(result.get(), length, &buffer[baseAddress], buffer.size() - baseAddress); //memcpy_s(result.get(), length, &buffer[baseAddress], length);
 	baseAddress += length;
 
 	return result;
 }
 
-void MemoryStream::Read(const char* dest, size_t length)
+void MemoryStream::Read(std::byte* const dest, const std::size_t length)
 {
-	memcpy_s((void*)dest, length, &buffer[baseAddress], length);
+	memcpy_s(dest, length, &buffer[baseAddress], buffer.size() - baseAddress);
 	baseAddress += length;
 }
 
-int8_t MemoryStream::ReadByte()
+std::byte MemoryStream::ReadByte()
 {
 	return buffer[baseAddress++];
 }
 
-void MemoryStream::Write(char* srcBuffer, size_t length)
+void MemoryStream::Write(const std::byte* const srcBuffer, const std::size_t length)
 {
 	if (baseAddress + length >= buffer.size())
 	{
 		buffer.resize(baseAddress + length);
-		bufferSize += length;
 	}
 
-	memcpy_s(&buffer[baseAddress], length, srcBuffer, length);
+	memcpy_s(&buffer[baseAddress], buffer.size() - baseAddress, srcBuffer, length);
 	baseAddress += length;
 }
 
-void MemoryStream::WriteByte(int8_t value)
+void MemoryStream::WriteByte(const std::byte value)
 {
-	if (baseAddress >= buffer.size())
+	if (baseAddress + 1 >= buffer.size())
 	{
 		buffer.resize(baseAddress + 1);
-		bufferSize = baseAddress;
 	}
 
 	buffer[baseAddress++] = value;
 }
 
-std::vector<char> MemoryStream::ToVector()
+std::vector<std::byte> MemoryStream::ToVector()
 {
 	return buffer;
 }

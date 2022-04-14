@@ -1,11 +1,10 @@
-#include "../Text.h"
-#include "Utils/BinaryReader.h"
+#include "Text.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::TextFactory
 {
-    class TextFactory
-    {
-    public:
-        static Text* ReadText(BinaryReader* reader);
-    };
+
+[[nodiscard]] Text* ReadText(BinaryReader* reader);
+
 }

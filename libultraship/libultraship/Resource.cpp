@@ -11,24 +11,19 @@ namespace Ship
     {
         id = reader->ReadUInt64();
         res->id = id;
-        reader->ReadUInt32(); // Resource minor version number
-        reader->ReadUInt64(); // ROM CRC
-        reader->ReadUInt32(); // ROM Enum
+        [[maybe_unused]] const auto minorVersion = reader->ReadUInt32(); // Resource minor version number
+        [[maybe_unused]] const auto crc = reader->ReadUInt64(); // ROM CRC
+        [[maybe_unused]] const auto romEnum = reader->ReadUInt32(); // ROM Enum
 
         // Reserved for future file format versions...
         reader->Seek(64, SeekOffsetType::Start);
     }
-    void ResourceFile::ParseFileXML(tinyxml2::XMLElement* reader, Resource* res)
+    void ResourceFile::ParseFileXML(tinyxml2::XMLElement* reader, Resource*)
     {
         id = reader->Int64Attribute("id", -1);
     }
 
-    void ResourceFile::WriteFileBinary(BinaryWriter* writer, Resource* res)
-    {
-        
-    }
-
-    void ResourceFile::WriteFileXML(tinyxml2::XMLElement* writer, Resource* res)
+    void ResourceFile::WriteFileXML(tinyxml2::XMLElement*, Resource*)
     {
 
     }
@@ -38,7 +33,7 @@ namespace Ship
         free(cachedGameAsset); 
         cachedGameAsset = nullptr;
 
-        for (int i = 0; i < patches.size(); i++)
+        for (std::size_t i = 0; i < patches.size(); i++)
         {
             std::string hashStr = resMgr->HashToString(patches[i].crc);
             auto resShared = resMgr->GetCachedFile(hashStr);

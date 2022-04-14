@@ -10,7 +10,9 @@ namespace Ship
 		ResourceFile::ParseFileBinary(reader, res);
 
 		while (reader->GetBaseAddress() % 8 != 0)
-			reader->ReadByte();
+		{
+			reader->Seek(1, SeekOffsetType::Current);
+		}
 
 		while (true)
 		{
@@ -18,7 +20,7 @@ namespace Ship
 
 			dl->instructions.push_back(data);
 				
-			uint8_t opcode = data >> 24;
+			uint8_t opcode = static_cast<std::uint8_t>(data >> 24);
 
 			// These are 128-bit commands, so read an extra 64 bits...
 			if (opcode == G_SETTIMG_OTR || opcode == G_DL_OTR || opcode == G_VTX_OTR || opcode == G_BRANCH_Z_OTR || opcode == G_MARKER || opcode == G_MTX_OTR)

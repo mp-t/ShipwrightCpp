@@ -10,13 +10,11 @@
 #undef PATH_HACK
 #undef Path
 
-extern "C" {
 #include <z64.h>
 #include "variables.h"
 #include "functions.h"
 #include "macros.h"
 extern GlobalContext* gGlobalCtx;
-}
 
 #include "cvar.h"
 
@@ -211,10 +209,10 @@ static bool AmmoHandler(const std::vector<std::string>& args) {
         return CMD_FAILED;
     }
 
-    // I dont think you can do OOB with just this
+    // I dont think you can do OOB with just thisv
     AMMO(it->second) = count;
     
-    //To use a change by uncomment this
+    //To use a change by uncomment thisv
     //Inventory_ChangeAmmo(it->second, count);
 }
 
@@ -253,7 +251,7 @@ static bool BottleHandler(const std::vector<std::string>& args) {
         return CMD_FAILED;
     }
 
-    // I dont think you can do OOB with just this
+    // I dont think you can do OOB with just thisv
     gSaveContext.inventory.items[0x11 + slot] = it->second;
 
     return CMD_SUCCESS;

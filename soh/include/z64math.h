@@ -3,6 +3,8 @@
 
 #include "ultra64.h"
 
+#include <numbers>
+
 #define VEC_SET(V,X,Y,Z) (V).x=(X);(V).y=(Y);(V).z=(Z)
 
 #ifdef __cplusplus
@@ -101,14 +103,14 @@ typedef struct {
 
 // Trig macros
 #define DEGF_TO_BINANG(degreesf) (s16)(degreesf * 182.04167f + .5f)
-#define RADF_TO_BINANG(radf) (s16)(radf * (32768.0f / M_PI))
-#define RADF_TO_DEGF(radf) (radf * (180.0f / M_PI))
-#define DEGF_TO_RADF(degf) (degf * (M_PI / 180.0f))
+#define RADF_TO_BINANG(radf) (s16)(radf * (32768.0f / std::numbers::pi_v<float>))
+#define RADF_TO_DEGF(radf) (radf * (180.0f / std::numbers::pi_v<float>))
+#define DEGF_TO_RADF(degf) (degf * (std::numbers::pi_v<float> / 180.0f))
 #define BINANG_ROT180(angle) ((s16)(angle - 0x7FFF))
 #define BINANG_SUB(a, b) ((s16)(a - b))
-#define DEG_TO_RAD(degrees) ((degrees) * (M_PI / 180.0f))
+#define DEG_TO_RAD(degrees) ((degrees) * (std::numbers::pi_v<float> / 180.0f))
 #define BINANG_TO_DEGF(binang) ((f32)binang * (360.0001525f / 65535.0f))
-#define BINANG_TO_RAD(binang) (((f32)binang / 32768.0f) * M_PI)
+#define BINANG_TO_RAD(binang) (((f32)binang / 32768.0f) * std::numbers::pi_v<float>)
 
 // Vector macros
 #define SQXZ(vec) ((vec.x) * (vec.x) + (vec.z) * (vec.z))

@@ -41,7 +41,7 @@ namespace Ship {
 			archive->mpqHandles[archivePath] = archive->mainMPQ;
 			return std::make_shared<Archive>(*archive);
 		} else {
-			SPDLOG_ERROR("({}) We tried to create an archive, but it has fallen and cannot get up.");
+			SPDLOG_ERROR("({}) We tried to create an archive, but it has fallen and cannot get up.", error);
 			return nullptr;
 		}
 	}
@@ -57,7 +57,7 @@ namespace Ship {
 		}
 
 		DWORD dwFileSize = SFileGetFileSize(fileHandle, 0);
-		std::shared_ptr<char[]> fileData(new char[dwFileSize]);
+		std::shared_ptr<std::byte[]> fileData(new std::byte[dwFileSize]);
 		DWORD dwBytes;
 
 		if (!SFileReadFile(fileHandle, fileData.get(), dwFileSize, &dwBytes, NULL)) {
@@ -106,7 +106,7 @@ namespace Ship {
 		}
 
 		DWORD dwFileSize = SFileGetFileSize(fileHandle, 0);
-		std::shared_ptr<char[]> fileData(new char[dwFileSize]);
+		std::shared_ptr<std::byte[]> fileData(new std::byte[dwFileSize]);
 		DWORD dwBytes;
 
 		if (!SFileReadFile(fileHandle, fileData.get(), dwFileSize, &dwBytes, NULL)) {
@@ -242,7 +242,6 @@ namespace Ship {
 
 	bool Archive::HasFile(const std::string& filename) {
 		bool result = false;
-		auto start = std::chrono::steady_clock::now();
 
 		auto lst = ListFiles(filename);
 		
@@ -252,9 +251,6 @@ namespace Ship {
 				break;
 			}
 		}
-
-		auto end = std::chrono::steady_clock::now();
-		auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
 		return result;
 	}
@@ -317,7 +313,7 @@ namespace Ship {
 		if (genCRCMap) {
 			auto listFile = LoadFile("(listfile)", false);
 
-			std::vector<std::string> lines = StringHelper::Split(std::string(listFile->buffer.get(), listFile->dwBufferSize), "\n");
+			std::vector<std::string> lines = StringHelper::Split(std::string(reinterpret_cast<const char*>(listFile->buffer.get()), listFile->dwBufferSize), "\n");
 
 			for (size_t i = 0; i < lines.size(); i++) {
 				std::string line = StringHelper::Strip(lines[i], "\r");

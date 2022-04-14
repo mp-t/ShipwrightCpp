@@ -1,11 +1,10 @@
-#include "../Scene.h"
-#include "Utils/BinaryReader.h"
+#include "Scene.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::SceneFactory
 {
-    class SceneFactory
-    {
-    public:
-        static Scene* ReadScene(BinaryReader* reader);
-    };
+
+[[nodiscard]] Scene* ReadScene(BinaryReader* reader);
+
 }

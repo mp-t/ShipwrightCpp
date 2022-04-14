@@ -2,7 +2,7 @@
 
 struct HookParameter {
     const char* name;
-    void* parameter;
+    const void* parameter;
 };
 
 #define LOOKUP_TEXTURE  "F3D::LookupCacheTexture"
@@ -36,8 +36,6 @@ struct HookParameter {
 
 // End
 
-#ifdef __cplusplus
-
 #define HOOK_PARAMETER(name, ptr) HookParameter({ name, static_cast<void*>(ptr) })
 #define BIND_HOOK(name, func) ModInternal::registerHookListener({ name, [this](HookEvent call) { func(call); }})
 #define BIND_PTR(name, type) static_cast<type>(call->baseArgs[name])
@@ -50,8 +48,8 @@ struct HookParameter {
 
 struct HookCall {
     std::string name;
-    std::map<std::string, void*> baseArgs;
-    std::map<std::string, void*> hookedArgs;
+    std::map<std::string, const void*> baseArgs;
+    std::map<std::string, const void*> hookedArgs;
     bool cancelled = false;
 };
 
@@ -70,10 +68,6 @@ namespace ModInternal {
     bool callBindHook(int length, ...);
 }
 
-#else
-
-void bind_hook(char* name);
+void bind_hook(const char* name);
 void init_hook(int length, ...);
 bool call_hook(int length, ...);
-
-#endif

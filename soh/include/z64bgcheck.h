@@ -78,7 +78,7 @@ typedef struct {
     // 0x0800_0000 = wall damage
 } SurfaceType;
 
-typedef struct {
+struct CollisionHeader {
     /* 0x00 */ Vec3s minBounds; // minimum coordinates of poly bounding box
     /* 0x06 */ Vec3s maxBounds; // maximum coordinates of poly bounding box
     /* 0x0C */ u16 numVertices;
@@ -89,7 +89,7 @@ typedef struct {
     /* 0x20 */ CamData* cameraDataList;
     /* 0x24 */ u16 numWaterBoxes;
     /* 0x28 */ WaterBox* waterBoxes;
-} CollisionHeader; // original name: BGDataInfo
+}; // original name: BGDataInfo
 
 typedef struct {
     s16 polyId;
@@ -129,7 +129,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ struct Actor* actor;
-    /* 0x04 */ CollisionHeader* colHeader;
+    /* 0x04 */ const CollisionHeader* colHeader;
     /* 0x08 */ DynaLookup dynaLookup;
     /* 0x10 */ u16 vtxStartIndex;
     /* 0x14 */ ScaleRotPos prevTransform;

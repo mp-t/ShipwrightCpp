@@ -1,11 +1,18 @@
 #pragma once
 
+#include "Cvar.h"
+#include "GlobalCtx2.h"
+#include "Lib/ImGui/imgui.h"
+#include "Lib/ImGui/imgui_internal.h"
+
 #include <map>
 #include <vector>
 #include <string>
 #include <functional>
 
-#include "Lib/ImGui/imgui.h"
+#ifdef ERROR
+#undef ERROR
+#endif
 
 #define LOG(msg, ...) SohImGui::console->Append("Main", Priority::LOG_LVL, msg, __VA_ARGS__)
 #define INFO(msg, ...) SohImGui::console->Append("Main", Priority::INFO_LVL, msg, __VA_ARGS__)

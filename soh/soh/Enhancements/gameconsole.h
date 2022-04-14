@@ -7,11 +7,6 @@
 
 #define MAX_CVARS 2048
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 typedef enum
 {
     CONSOLECOMMAND_RESULT_SUCCESS,
@@ -34,9 +29,5 @@ extern GlobalContext* gGlobalCtx;
 void GameConsole_Init();
 
 s32 GameConsole_Split(char* str, char** argv);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

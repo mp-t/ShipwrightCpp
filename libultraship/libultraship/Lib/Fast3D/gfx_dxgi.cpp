@@ -102,14 +102,6 @@ static void run_as_dpi_aware(Fun f) {
     // which is done by using SetThreadDpiAwarenessContext before and after creating
     // any window. When the message handler runs, the corresponding context also applies.
 
-    // From windef.h, missing in MinGW.
-    DECLARE_HANDLE(DPI_AWARENESS_CONTEXT);
-    #define DPI_AWARENESS_CONTEXT_UNAWARE               ((DPI_AWARENESS_CONTEXT)-1)
-    #define DPI_AWARENESS_CONTEXT_SYSTEM_AWARE          ((DPI_AWARENESS_CONTEXT)-2)
-    #define DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE     ((DPI_AWARENESS_CONTEXT)-3)
-    #define DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2  ((DPI_AWARENESS_CONTEXT)-4)
-    #define DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED     ((DPI_AWARENESS_CONTEXT)-5)
-
     DPI_AWARENESS_CONTEXT (WINAPI *SetThreadDpiAwarenessContext)(DPI_AWARENESS_CONTEXT dpiContext);
     *(FARPROC *)&SetThreadDpiAwarenessContext = GetProcAddress(GetModuleHandleW(L"user32.dll"), "SetThreadDpiAwarenessContext");
     DPI_AWARENESS_CONTEXT old_awareness_context = nullptr;
@@ -208,13 +200,13 @@ static void gfx_dxgi_on_resize(void) {
     }
 }
 
-static void onkeydown(WPARAM w_param, LPARAM l_param) {
+static void onkeydown(WPARAM, LPARAM l_param) {
     int key = ((l_param >> 16) & 0x1ff);
     if (dxgi.on_key_down != nullptr) {
         dxgi.on_key_down(key);
     }
 }
-static void onkeyup(WPARAM w_param, LPARAM l_param) {
+static void onkeyup(WPARAM, LPARAM l_param) {
     int key = ((l_param >> 16) & 0x1ff);
     if (dxgi.on_key_up != nullptr) {
         dxgi.on_key_up(key);
@@ -307,7 +299,7 @@ void gfx_dxgi_init(const char *game_name, bool start_in_fullscreen) {
     wcex.lpszClassName  = WINCLASS_NAME;
     wcex.hIconSm        = nullptr;
 
-    ATOM winclass = RegisterClassExW(&wcex);
+    RegisterClassExW(&wcex);
 
 
     run_as_dpi_aware([&] () {
@@ -421,33 +413,26 @@ static bool gfx_dxgi_start_frame(void) {
         DXGI_FRAME_STATISTICS *last = &dxgi.frame_stats.rbegin()->second;
         uint64_t sync_qpc_diff = last->SyncQPCTime.QuadPart - first->SyncQPCTime.QuadPart;
         UINT sync_vsync_diff = last->SyncRefreshCount - first->SyncRefreshCount;
-        UINT present_vsync_diff = last->PresentRefreshCount - first->PresentRefreshCount;
-        UINT present_diff = last->PresentCount - first->PresentCount;
 
         if (sync_vsync_diff == 0) {
             sync_vsync_diff = 1;
         }
 
         double estimated_vsync_interval = (double)sync_qpc_diff / (double)sync_vsync_diff;
-        uint64_t estimated_vsync_interval_us = qpc_to_us(estimated_vsync_interval);
+        uint64_t estimated_vsync_interval_us = qpc_to_us(static_cast<std::uint64_t>(estimated_vsync_interval));
         //printf("Estimated vsync_interval: %d\n", (int)estimated_vsync_interval_us);
         if (estimated_vsync_interval_us < 2 || estimated_vsync_interval_us > 1000000) {
             // Unreasonable, maybe a monitor change
             estimated_vsync_interval_us = 16666;
-            estimated_vsync_interval = estimated_vsync_interval_us * dxgi.qpc_freq / 1000000;
+            estimated_vsync_interval = static_cast<double>(estimated_vsync_interval_us * dxgi.qpc_freq / 1000000);
         }
 
         UINT queued_vsyncs = 0;
-        bool is_first = true;
         for (const std::pair<UINT, UINT>& p : dxgi.pending_frame_stats) {
-            /*if (is_first && dxgi.zero_latency) {
-                is_first = false;
-                continue;
-            }*/
             queued_vsyncs += p.second;
         }
 
-        uint64_t last_frame_present_end_qpc = (last->SyncQPCTime.QuadPart - dxgi.qpc_init) + estimated_vsync_interval * queued_vsyncs;
+        uint64_t last_frame_present_end_qpc = static_cast<std::uint64_t>((last->SyncQPCTime.QuadPart - dxgi.qpc_init) + estimated_vsync_interval * queued_vsyncs);
         uint64_t last_end_us = qpc_to_us(last_frame_present_end_qpc);
 
         double vsyncs_to_wait = (double)(int64_t)(dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR - last_end_us) / estimated_vsync_interval_us;
@@ -462,7 +447,7 @@ static bool gfx_dxgi_start_frame(void) {
                 if (vsyncs_to_wait < 1) {
                     vsyncs_to_wait = 1;
                 }
-                dxgi.frame_timestamp = FRAME_INTERVAL_US_DENOMINATOR * (last_end_us + vsyncs_to_wait * estimated_vsync_interval_us);
+                dxgi.frame_timestamp = static_cast<decltype(dxgi.frame_timestamp)>(FRAME_INTERVAL_US_DENOMINATOR * (last_end_us + vsyncs_to_wait * estimated_vsync_interval_us));
             } else {
                 // Drop frame
                 //printf("Dropping frame\n");
@@ -470,10 +455,10 @@ static bool gfx_dxgi_start_frame(void) {
                 return false;
             }
         }
-        double orig_wait = vsyncs_to_wait;
+
         if (floor(vsyncs_to_wait) != vsyncs_to_wait) {
-            uint64_t left = last_end_us + floor(vsyncs_to_wait) * estimated_vsync_interval_us;
-            uint64_t right = last_end_us + ceil(vsyncs_to_wait) * estimated_vsync_interval_us;
+            uint64_t left = static_cast<std::uint64_t>(last_end_us + floor(vsyncs_to_wait) * estimated_vsync_interval_us);
+            uint64_t right = static_cast<std::uint64_t>(last_end_us + ceil(vsyncs_to_wait) * estimated_vsync_interval_us);
             uint64_t adjusted_desired_time = dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR + (last_end_us + (FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR) > dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR ? 2000 : -2000);
             int64_t diff_left = adjusted_desired_time - left;
             int64_t diff_right = right - adjusted_desired_time;
@@ -500,7 +485,7 @@ static bool gfx_dxgi_start_frame(void) {
             vsyncs_to_wait = 4;
             dxgi.use_timer = true;
         }
-        dxgi.length_in_vsync_frames = vsyncs_to_wait;
+        dxgi.length_in_vsync_frames = static_cast<decltype(dxgi.length_in_vsync_frames)>(vsyncs_to_wait);
     } else {
         dxgi.length_in_vsync_frames = 1;
         dxgi.use_timer = true;
@@ -654,7 +639,7 @@ void ThrowIfFailed(HRESULT res, HWND h_wnd, const char *message) {
     }
 }
 
-extern "C" struct GfxWindowManagerAPI gfx_dxgi_api = {
+struct GfxWindowManagerAPI gfx_dxgi_api = {
     gfx_dxgi_init,
     gfx_dxgi_set_keyboard_callbacks,
     gfx_dxgi_set_fullscreen_changed_callback,

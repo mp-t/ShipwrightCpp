@@ -1,12 +1,11 @@
 #pragma once
-#include "../Matrix.h"
-#include "Utils/BinaryReader.h"
+#include "Matrix.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::MtxFactory
 {
-	class MtxFactory
-	{
-	public:
-		static Matrix* ReadMtx(BinaryReader* reader);
-	};
+
+[[nodiscard]] Matrix* ReadMtx(BinaryReader* reader);
+
 }

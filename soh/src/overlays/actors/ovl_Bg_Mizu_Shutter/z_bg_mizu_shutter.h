@@ -15,7 +15,7 @@ typedef struct BgMizuShutter {
     /* 0x0164 */ BgMizuShutterActionFunc actionFunc;
     /* 0x0168 */ s32 timer;
     /* 0x016C */ s32 timerMax;
-    /* 0x0170 */ Gfx* displayList;
+    /* 0x0170 */ const Gfx* displayList;
     /* 0x0174 */ f32 maxSpeed;
     /* 0x0178 */ Vec3f closedPos;
     /* 0x0184 */ Vec3f openPos;

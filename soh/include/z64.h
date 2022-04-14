@@ -30,14 +30,12 @@
 #include "ichain.h"
 #include "regs.h"
 
-#ifdef __cplusplus
 namespace Ship
 {
     class Resource;
     class Scene;
     class DisplayList;
 };
-#endif
 
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
@@ -55,13 +53,8 @@ namespace Ship
 #define Z_PRIORITY_DMAMGR      16
 #define Z_PRIORITY_IRQMGR      17
 
-// NOTE: Once we start supporting other builds, this can be changed with an ifdef
+// NOTE: Once we start supporting other builds, thisv can be changed with an ifdef
 #define REGION_NATIVE REGION_EU
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
 
 typedef struct{
     /* 0x00 */ char unk[0x4];
@@ -131,7 +124,7 @@ typedef struct GraphicsContext {
     /* 0x0000 */ Gfx* polyOpaBuffer; // Pointer to "Zelda 0"
     /* 0x0004 */ Gfx* polyXluBuffer; // Pointer to "Zelda 1"
     /* 0xXXX */  Gfx* polyKalBuffer; // Pointer to "Rome"
-    /* 0x0008 */ char unk_008[0x08]; // Unused, could this be pointers to "Zelda 2" / "Zelda 3"
+    /* 0x0008 */ char unk_008[0x08]; // Unused, could thisv be pointers to "Zelda 2" / "Zelda 3"
     /* 0x0010 */ Gfx* overlayBuffer; // Pointer to "Zelda 4"
     /* 0x0014 */ u32 unk_014;
     /* 0x0018 */ char unk_018[0x20];
@@ -145,7 +138,7 @@ typedef struct GraphicsContext {
     /* 0x01B4 */ TwoHeadGfxArena work;
     /* 0x01C4 */ char unk_01C4[0xC0];
     /* 0x0284 */ OSViMode* viMode;
-    /* 0x0288 */ char unk_0288[0x20]; // Unused, could this be Zelda 2/3 ?
+    /* 0x0288 */ char unk_0288[0x20]; // Unused, could thisv be Zelda 2/3 ?
     /* 0x02A8 */ TwoHeadGfxArena overlay; // "Zelda 4"
     /* 0x02B8 */ TwoHeadGfxArena polyOpa; // "Zelda 0"
     /* 0x02C8 */ TwoHeadGfxArena polyXlu; // "Zelda 1"
@@ -239,7 +232,7 @@ typedef struct {
 } TargetContext; // size = 0x98
 
 typedef struct {
-    /* 0x00 */ void*      texture;
+    /* 0x00 */ const char*      texture;
     /* 0x04 */ s16      x;
     /* 0x06 */ s16      y;
     /* 0x08 */ u8       width;
@@ -251,8 +244,8 @@ typedef struct {
 } TitleCardContext; // size = 0x10
 
 typedef struct {
-    /* 0x00 */ s32    length; // number of actors loaded of this category
-    /* 0x04 */ Actor* head; // pointer to head of the linked list of this category (most recent actor added)
+    /* 0x00 */ s32    length; // number of actors loaded of thisv category
+    /* 0x04 */ Actor* head; // pointer to head of the linked list of thisv category (most recent actor added)
 } ActorListEntry; // size = 0x08
 
 typedef struct {
@@ -283,7 +276,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ char  unk_00[0x4];
-    /* 0x04 */ void* segment;
+    /* 0x04 */ const void* segment;
     /* 0x08 */ u8    state;
     /* 0x0C */ f32   unk_0C;
     /* 0x10 */ u16   frames;
@@ -294,8 +287,8 @@ typedef struct {
     /* 0x1B */ u8    unk_1B;
     /* 0x1C */ CutsceneCameraPoint* cameraFocus;
     /* 0x20 */ CutsceneCameraPoint* cameraPosition;
-    /* 0x24 */ CsCmdActorAction* linkAction;
-    /* 0x28 */ CsCmdActorAction* npcActions[10]; // "npcdemopnt"
+    /* 0x24 */ const CsCmdActorAction* linkAction;
+    /* 0x28 */ const CsCmdActorAction* npcActions[10]; // "npcdemopnt"
 } CutsceneContext; // size = 0x50
 
 typedef struct {
@@ -567,10 +560,10 @@ typedef struct {
     /* 0xE300 */ s32    msgLength; // original name : "msg_data"
     /* 0xE304 */ u8     msgMode; // original name: "msg_mode"
     /* 0xE305 */ char   unk_E305[0x1];
-    /* 0xE306 */ u8     msgBufDecoded[200]; // decoded message buffer, may be smaller than this
+    /* 0xE306 */ u8     msgBufDecoded[200]; // decoded message buffer, may be smaller than thisv
     /* 0xE3CE */ u16    msgBufPos; // original name : "rdp"
     /* 0xE3D0 */ u16    unk_E3D0; // unused, only ever set to 0
-    /* 0xE3D2 */ u16    textDrawPos; // draw all decoded characters up to this buffer position
+    /* 0xE3D2 */ u16    textDrawPos; // draw all decoded characters up to thisv buffer position
     /* 0xE3D4 */ u16    decodedTextLen; // decoded message buffer length
     /* 0xE3D6 */ u16    textUnskippable;
     /* 0xE3D8 */ s16    textPosX;
@@ -588,7 +581,7 @@ typedef struct {
     /* 0xE3EA */ u16    lastPlayedSong; // original references : "Ocarina_Flog" , "Ocarina_Free"
     /* 0xE3EE */ u16    ocarinaMode; // original name : "ocarina_mode"
     /* 0xE3F0 */ u16    ocarinaAction; // original name : "ocarina_no"
-    /* 0xE3F2 */ u16    unk_E3F2; // this is like "lastPlayedSong" but set less often, original name : "chk_ocarina_no"
+    /* 0xE3F2 */ u16    unk_E3F2; // thisv is like "lastPlayedSong" but set less often, original name : "chk_ocarina_no"
     /* 0xE3F4 */ u16    unk_E3F4; // unused, only set to 0 in z_actor
     /* 0xE3F6 */ u16    textboxBackgroundIdx;
     /* 0xE3F8 */ u8     textboxBackgroundForeColorIdx;
@@ -618,7 +611,7 @@ typedef enum {
     /* 0x07 */ DO_ACTION_DIVE,
     /* 0x08 */ DO_ACTION_FASTER,
     /* 0x09 */ DO_ACTION_THROW,
-    /* 0x0A */ DO_ACTION_NONE, // in do_action_static, the texture at this position is NAVI, however this value is in practice the "No Action" value
+    /* 0x0A */ DO_ACTION_NONE, // in do_action_static, the texture at thisv position is NAVI, however thisv value is in practice the "No Action" value
     /* 0x0B */ DO_ACTION_CLIMB,
     /* 0x0C */ DO_ACTION_DROP,
     /* 0x0D */ DO_ACTION_DOWN,
@@ -863,17 +856,12 @@ void* xluDL;
 #endif
 } PolygonDlist; // size = 0x8
 
-
-#ifdef __cplusplus
-#define Polygon _Polygon
-#endif
-
 typedef struct {
     /* 0x00 */ u8    type;
     /* 0x01 */ u8    num; // number of dlist entries
     /* 0x04 */ void* start;
     /* 0x08 */ void* end;
-} Polygon; // size = 0xC
+} Polygon_; // size = 0xC
 
 typedef struct {
     /* 0x00 */ u8    type;
@@ -942,7 +930,7 @@ typedef struct {
 } PolygonType2; // size = 0xC
 
 typedef union {
-    Polygon      polygon;
+    Polygon_     polygon;
     PolygonType0 polygon0;
     PolygonType1 polygon1;
     PolygonType2 polygon2;
@@ -960,7 +948,7 @@ typedef struct {
     /* 0x10 */ char unk_10[0x4];
 } Room; // size = 0x14
 
-typedef struct {
+struct RoomContext {
     /* 0x00 */ Room  curRoom;
     /* 0x14 */ Room  prevRoom;
     /* 0x28 */ void* bufPtrs[2];
@@ -977,7 +965,7 @@ typedef struct {
 #else
     void* roomToLoad;
 #endif
-} RoomContext; // size = 0x78
+}; // size = 0x78
 
 typedef struct {
     /* 0x000 */ s16 colATCount;
@@ -1124,7 +1112,7 @@ typedef struct {
 struct SelectContext;
 
 typedef struct {
-    /* 0x00 */ char* name;
+    /* 0x00 */ const char* name;
     /* 0x04 */ void (*loadFunc)(struct SelectContext*, s32);
     /* 0x08 */ s32 entranceIndex;
 } SceneSelectEntry; // size = 0xC
@@ -1170,7 +1158,7 @@ typedef struct {
 } TransitionActorContext;
 
 // Global Context (dbg ram start: 80212020)
-typedef struct GlobalContext {
+struct GlobalContext {
     /* 0x00000 */ GameState state;
     /* 0x000A4 */ s16 sceneNum;
     /* 0x000A6 */ u8 sceneConfig;
@@ -1255,7 +1243,7 @@ typedef struct GlobalContext {
     /* 0x1242B */ u8 unk_1242B;
     /* 0x1242C */ SceneTableEntry* loadedScene;
     /* 0x12430 */ char unk_12430[0xE8];
-} GlobalContext; // size = 0x12518
+}; // size = 0x12518
 
 typedef struct {
     /* 0x0000 */ GameState state;
@@ -1402,7 +1390,7 @@ typedef struct {
     /* 0x0C */ void*     vramStart; // if applicable
     /* 0x10 */ void*     vramEnd;   // if applicable
     /* 0x14 */ UNK_PTR   unk_14;
-    /* 0x18 */ void*     init;    // initializes and executes the given context
+    /* 0x18 */ GameStateFunc init; // initializes and executes the given context
     /* 0x1C */ void*     destroy; // deconstructs the context, and sets the next context to load
     /* 0x20 */ UNK_PTR   unk_20;
     /* 0x24 */ UNK_PTR   unk_24;
@@ -1435,7 +1423,7 @@ typedef enum {
     /* 16 */ F_B8
 } FloorID;
 
-// All arrays pointed in this struct are indexed by "map indexes"
+// All arrays pointed in thisv struct are indexed by "map indexes"
 // In dungeons, the map index corresponds to the dungeon index (which also indexes keys, items, etc)
 // In overworld areas, the map index corresponds to the overworld area index (spot 00, 01, etc)
 typedef struct {
@@ -1474,7 +1462,7 @@ typedef struct {
 #define PAUSE_MAP_MARK_BOSS 1
 
 typedef struct {
-    /* 0x00 */ s16 chestFlag; // chest icon is only displayed if this flag is not set for the current room, -1 for no flag
+    /* 0x00 */ s16 chestFlag; // chest icon is only displayed if thisv flag is not set for the current room, -1 for no flag
     /* 0x04 */ f32 x, y; // coordinates to place the icon (top-left corner)
 } PauseMapMarkPoint; // size = 0x0C
 
@@ -1570,7 +1558,8 @@ typedef struct {
     /* 0x38 */ void(*inputCallback)();
 } FaultDrawer; // size = 0x3C
 
-typedef struct {
+struct GfxPrint
+{
     /* 0x00 */ PrintCallback callback;
     /* 0x04 */ Gfx* dList;
     /* 0x08 */ u16 posX;
@@ -1580,7 +1569,7 @@ typedef struct {
     /* 0x0F */ u8 flags;
     /* 0x10 */ Color_RGBA8_u32 color;
     /* 0x14 */ char unk_14[0x1C]; // unused
-} GfxPrint; // size = 0x30
+}; // size = 0x30
 
 #define GFXP_UNUSED "\x8E"
 #define GFXP_UNUSED_CHAR 0x8E
@@ -1610,11 +1599,11 @@ typedef struct StackEntry {
     /* 0x18 */ const char* name;
 } StackEntry;
 
-typedef enum {
+enum StackStatus {
     STACK_STATUS_OK = 0,
     STACK_STATUS_WARNING = 1,
     STACK_STATUS_OVERFLOW = 2
-} StackStatus;
+};
 
 typedef struct {
     /* 0x00 */ u32 magic; // IS64
@@ -1657,8 +1646,8 @@ typedef struct IrqMgrClient {
 } IrqMgrClient;
 
 typedef struct {
-    /* 0x000 */ OSScMsg retraceMsg; // this apparently got moved from OSSched
-    /* 0x020 */ OSScMsg prenmiMsg; // this apparently got moved from OSSched
+    /* 0x000 */ OSScMsg retraceMsg; // thisv apparently got moved from OSSched
+    /* 0x020 */ OSScMsg prenmiMsg; // thisv apparently got moved from OSSched
     /* 0x040 */ OSScMsg nmiMsg;
     /* 0x060 */ OSMesgQueue queue;
     /* 0x078 */ OSMesg msgBuf[8];
@@ -1892,7 +1881,7 @@ typedef struct {
     /* 0x50 */ u8* symbols;
 } JpegHuffmanTable; // size = 0x54
 
-// this struct might be inaccurate but it's not used outside jpegutils.c anyways
+// thisv struct might be inaccurate but it's not used outside jpegutils.c anyways
 typedef struct {
     /* 0x000 */ u8 codeOffs[16];
     /* 0x010 */ u16 dcCodes[120];
@@ -2088,9 +2077,5 @@ typedef struct {
 
 #define ROM_FILE_UNSET \
     { 0 }
-
-#ifdef __cplusplus
-};
-#endif
 
 #endif

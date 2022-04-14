@@ -1,14 +1,10 @@
 #include "SohConsole.h"
 
+#include "SohImGuiImpl.h"
+#include "Utils/StringHelper.h"
+
 #include <iostream>
 #include <sstream>
-
-#include "Cvar.h"
-#include "GlobalCtx2.h"
-#include "SohImGuiImpl.h"
-#include "Lib/ImGui/imgui.h"
-#include "Utils/StringHelper.h"
-#include "Lib/ImGui/imgui_internal.h"
 
 std::map<ImGuiKey, std::string> Bindings;
 std::map<ImGuiKey, std::string> BindingToggle;
@@ -28,14 +24,14 @@ static bool ClearCommand(const std::vector<std::string>&) {
 
 std::string toLowerCase(std::string in) {
 	std::string cpy(in);
-	std::ranges::transform(cpy, cpy.begin(), [](unsigned char c) { return std::tolower(c); });
+	std::ranges::transform(cpy, cpy.begin(), [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
 	return cpy;
 }
 
 static bool BindCommand(const std::vector<std::string>& args) {
 	if(args.size() > 2) {
 		const ImGuiIO* io = &ImGui::GetIO();;
-		for (int k = 0; k < std::size(io->KeysData); k++) {
+		for (int k = 0; k < static_cast<int>(std::size(io->KeysData)); k++) {
 			std::string key(ImGui::GetKeyName(k));
 
 			if(toLowerCase(args[1]) == toLowerCase(key)) {
@@ -55,7 +51,7 @@ static bool BindCommand(const std::vector<std::string>& args) {
 static bool BindToggleCommand(const std::vector<std::string>& args) {
 	if (args.size() > 2) {
 		const ImGuiIO* io = &ImGui::GetIO();;
-		for (int k = 0; k < std::size(io->KeysData); k++) {
+		for (int k = 0; k < static_cast<int>(std::size(io->KeysData)); k++) {
 			std::string key(ImGui::GetKeyName(k));
 
 			if (toLowerCase(args[1]) == toLowerCase(key)) {
@@ -98,7 +94,7 @@ void Console::Update() {
 	}
 }
 
-extern "C" uint8_t __enableGameInput;
+extern uint8_t __enableGameInput;
 
 void Console::Draw() {
 	bool input_focus = false;
@@ -174,10 +170,10 @@ void Console::Draw() {
 		ImGui::SameLine();
 		ImGui::SetNextItemWidth(150);
 		if (ImGui::BeginCombo("##level", this->level_filter.c_str())) {
-			for (const auto& filter : priority_filters) {
-				const bool is_selected = (filter == std::string(this->level_filter));
-				if (ImGui::Selectable(filter.c_str(), is_selected))
-					this->level_filter = filter;
+			for (const auto& f : priority_filters) {
+				const bool is_selected = (f == std::string(this->level_filter));
+				if (ImGui::Selectable(f.c_str(), is_selected))
+					this->level_filter = f;
 					if (is_selected) ImGui::SetItemDefaultFocus();
 			}
 			ImGui::EndCombo();
@@ -194,7 +190,7 @@ void Console::Draw() {
 			if (ImGui::BeginTable("History", 1)) {
 
 				if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_DownArrow)))
-					if (this->selectedId < this->Log.size() - 1) ++this->selectedId;
+					if (this->selectedId < static_cast<int>(this->Log.size() - 1)) ++this->selectedId;
 				if (ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_UpArrow)))
 					if (this->selectedId > 0) --this->selectedId;
 

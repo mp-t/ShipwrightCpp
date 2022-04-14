@@ -12,8 +12,8 @@
 #include <Blob.h>
 
 extern Ship::Resource* OTRGameplay_LoadFile(GlobalContext* globalCtx, const char* fileName);
-extern "C" s32 Object_Spawn(ObjectContext* objectCtx, s16 objectId);
-extern "C" RomFile sNaviMsgFiles[];
+s32 Object_Spawn(ObjectContext* objectCtx, s16 objectId);
+RomFile sNaviMsgFiles[];
 s32 OTRScene_ExecuteCommands(GlobalContext* globalCtx, Ship::Scene* scene);
 
 bool func_80098508(GlobalContext* globalCtx, Ship::SceneCommand* cmd)
@@ -95,7 +95,7 @@ bool func_800985DC(GlobalContext* globalCtx, Ship::SceneCommand* cmd) {
 // Scene Command 0x02: Unused 02
 bool func_80098630(GlobalContext* globalCtx, Ship::SceneCommand* cmd)
 {
-    // Do we need to implement this?
+    // Do we need to implement thisv?
     //globalCtx->unk_11DFC = SEGMENTED_TO_VIRTUAL(cmd->unused02.segment);
 
     return false;
@@ -430,7 +430,7 @@ bool func_80098958(GlobalContext* globalCtx, Ship::SceneCommand* cmd)
     return false;
 }
 
-extern "C" void* func_800982FC(ObjectContext * objectCtx, s32 bankIndex, s16 objectId);
+void* func_800982FC(ObjectContext * objectCtx, s32 bankIndex, s16 objectId);
 
 // Scene Command 0x0B: Object List
 bool func_8009899C(GlobalContext* globalCtx, Ship::SceneCommand* cmd)
@@ -876,7 +876,7 @@ s32 OTRScene_ExecuteCommands(GlobalContext* globalCtx, Ship::Scene* scene)
     return 0;
 }
 
-extern "C" s32 OTRfunc_800973FC(GlobalContext* globalCtx, RoomContext* roomCtx) {
+s32 OTRfunc_800973FC(GlobalContext* globalCtx, RoomContext* roomCtx) {
     if (roomCtx->status == 1) {
         //if (!osRecvMesg(&roomCtx->loadQueue, NULL, OS_MESG_NOBLOCK)) {
         if (1)
@@ -898,7 +898,7 @@ extern "C" s32 OTRfunc_800973FC(GlobalContext* globalCtx, RoomContext* roomCtx) 
     return 1;
 }
 
-extern "C" s32 OTRfunc_8009728C(GlobalContext* globalCtx, RoomContext* roomCtx, s32 roomNum) {
+s32 OTRfunc_8009728C(GlobalContext* globalCtx, RoomContext* roomCtx, s32 roomNum) {
     u32 size;
 
     if (roomCtx->status == 0) {

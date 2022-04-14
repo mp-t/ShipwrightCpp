@@ -54,10 +54,10 @@ typedef struct LegacyLimb {
 } LegacyLimb; // size = 0x20
 
 // Model has limbs with only rigid meshes
-typedef struct {
+struct SkeletonHeader {
     /* 0x00 */ void** segment;
     /* 0x04 */ u8 limbCount;
-} SkeletonHeader; // size = 0x8
+}; // size = 0x8
 
 // Model has limbs with flexible meshes
 typedef struct {
@@ -72,9 +72,9 @@ typedef struct {
     /* 0x04 */ u16 z;
 } JointIndex; // size = 0x06
 
-typedef struct {
+struct AnimationHeaderCommon {
     /* 0x00 */ s16 frameCount;
-} AnimationHeaderCommon;
+};
 
 typedef struct {
     /* 0x00 */ AnimationHeaderCommon common;
@@ -106,10 +106,10 @@ typedef struct {
     /* 0x08 */ JointKey* jointKey;
 } LegacyAnimationHeader; // size = 0xC
 
-typedef s32 (*OverrideLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+typedef s32 (*OverrideLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                    void*);
 
-typedef void (*PostLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*);
+typedef void (*PostLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void*);
 
 typedef s32 (*OverrideLimbDraw)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void*, Gfx** gfx);
@@ -226,7 +226,7 @@ typedef struct {
 typedef struct {
     /* 0x0000 */ u8 limbCount;
     /* 0x0004 */ SkelCurveLimb** limbList;
-    /* 0x0008 */ TransformUpdateIndex* transUpdIdx;
+    /* 0x0008 */ const TransformUpdateIndex* transUpdIdx;
     /* 0x000C */ f32 unk_0C; // seems to be unused
     /* 0x0010 */ f32 animFinalFrame;
     /* 0x0014 */ f32 animSpeed;
@@ -245,9 +245,9 @@ typedef struct SkelAnime {
     /* 0x02 */ u8 dListCount;     // Number of display lists in a flexible skeleton
     /* 0x03 */ s8 taper;          // Tapering to use when morphing between animations. Only used by Door_Warp1.
     /* 0x04 */ void** skeleton;   // An array of pointers to limbs. Can be StandardLimb, LodLimb, or SkinLimb.
-    /* 0x08 */ void* animation;   // Can be an AnimationHeader or LinkAnimationHeader.
+    /* 0x08 */ const void* animation;   // Can be an AnimationHeader or LinkAnimationHeader.
     /* 0x0C */ f32 startFrame;    // In mode 4, start of partial loop.
-    /* 0x10 */ f32 endFrame;      // In mode 2, Update returns true when curFrame is equal to this. In mode 4, end of partial loop.
+    /* 0x10 */ f32 endFrame;      // In mode 2, Update returns true when curFrame is equal to thisv. In mode 4, end of partial loop.
     /* 0x14 */ f32 animLength;    // Total number of frames in the current animation's file.
     /* 0x18 */ f32 curFrame;      // Current frame in the animation
     /* 0x1C */ f32 playSpeed;     // Multiplied by R_UPDATE_RATE / 3 to get the animation's frame rate.
@@ -255,7 +255,8 @@ typedef struct SkelAnime {
     /* 0x24 */ Vec3s* morphTable; // Table of values used to morph between animations
     /* 0x28 */ f32 morphWeight;   // Weight of the current animation morph as a fraction in [0,1]
     /* 0x2C */ f32 morphRate;     // Reciprocal of the number of frames in the morph
-    /* 0x30 */ s32 (*update)();   // Can be Loop, Partial loop, Play once, Morph, or Tapered morph. Link only has Loop, Play once, and Morph
+    /* 0x30 */ void* update;      // Can be Loop, Partial loop, Play once, Morph, or Tapered morph. Link only
+                                  // has Loop, Play once, and Morph
     /* 0x34 */ s8 initFlags;      // Flags used when initializing Link's skeleton
     /* 0x35 */ u8 moveFlags;      // Flags used for animations that move the actor in worldspace.
     /* 0x36 */ s16 prevRot;       // Previous rotation in worldspace.

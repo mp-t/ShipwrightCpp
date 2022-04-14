@@ -1,12 +1,11 @@
 #pragma once
-#include "../Vertex.h"
-#include "Utils/BinaryReader.h"
+#include "Vertex.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::VertexFactory
 {
-	class VertexFactory
-	{
-	public:
-		static Vertex* ReadVtx(BinaryReader* reader);
-	};
+	
+[[nodiscard]] Vertex* ReadVtx(BinaryReader* reader);
+
 }

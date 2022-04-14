@@ -37,7 +37,7 @@ namespace Ship {
 		wStickY = 0;
 	}
 
-	void KeyboardController::WriteToSource(ControllerCallback* controller)
+	void KeyboardController::WriteToSource(ControllerCallback*)
 	{
 
 	}

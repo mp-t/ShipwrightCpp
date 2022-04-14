@@ -640,25 +640,25 @@ template <typename Handler>
 FMT_INLINE digits::result grisu_gen_digits(fp value, uint64_t error, int& exp,
                                            Handler& handler) {
   const fp one(1ULL << -value.e, value.e);
-  // The integral part of scaled value (p1 in Grisu) = value / one. It cannot be
+  // The integral_ part of scaled value (p1 in Grisu) = value / one. It cannot be
   // zero because it contains a product of two 64-bit numbers with MSB set (due
   // to normalization) - 1, shifted right by at most 60 bits.
-  auto integral = static_cast<uint32_t>(value.f >> -one.e);
-  FMT_ASSERT(integral != 0, "");
-  FMT_ASSERT(integral == value.f >> -one.e, "");
+  auto integral_ = static_cast<uint32_t>(value.f >> -one.e);
+  FMT_ASSERT(integral_ != 0, "");
+  FMT_ASSERT(integral_ == value.f >> -one.e, "");
   // The fractional part of scaled value (p2 in Grisu) c = value % one.
   uint64_t fractional = value.f & (one.f - 1);
-  exp = count_digits(integral);  // kappa in Grisu.
+  exp = count_digits(integral_);  // kappa in Grisu.
   // Divide by 10 to prevent overflow.
   auto result = handler.on_start(power_of_10_64(exp - 1) << -one.e,
                                  value.f / 10, error * 10, exp);
   if (result != digits::more) return result;
-  // Generate digits for the integral part. This can produce up to 10 digits.
+  // Generate digits for the integral_ part. This can produce up to 10 digits.
   do {
     uint32_t digit = 0;
     auto divmod_integral = [&](uint32_t divisor) {
-      digit = integral / divisor;
-      integral %= divisor;
+      digit = integral_ / divisor;
+      integral_ %= divisor;
     };
     // This optimization by Milo Yip reduces the number of integer divisions by
     // one per iteration.
@@ -691,14 +691,14 @@ FMT_INLINE digits::result grisu_gen_digits(fp value, uint64_t error, int& exp,
       divmod_integral(10);
       break;
     case 1:
-      digit = integral;
-      integral = 0;
+      digit = integral_;
+      integral_ = 0;
       break;
     default:
       FMT_ASSERT(false, "invalid number of digits");
     }
     --exp;
-    auto remainder = (static_cast<uint64_t>(integral) << -one.e) + fractional;
+    auto remainder = (static_cast<uint64_t>(integral_) << -one.e) + fractional;
     result = handler.on_digit(static_cast<char>('0' + digit),
                               power_of_10_64(exp) << -one.e, remainder, error,
                               exp, true);
@@ -742,14 +742,14 @@ struct fixed_handler {
   }
 
   digits::result on_digit(char digit, uint64_t divisor, uint64_t remainder,
-                          uint64_t error, int, bool integral) {
+                          uint64_t error, int, bool integral_) {
     FMT_ASSERT(remainder < divisor, "");
     buf[size++] = digit;
-    if (!integral && error >= remainder) return digits::error;
+    if (!integral_ && error >= remainder) return digits::error;
     if (size < precision) return digits::more;
-    if (!integral) {
+    if (!integral_) {
       // Check if error * 2 < divisor with overflow prevention.
-      // The check is not needed for the integral part because error = 1
+      // The check is not needed for the integral_ part because error = 1
       // and divisor > (1 << 32) there.
       if (error >= divisor || error >= divisor - error) return digits::error;
     } else {

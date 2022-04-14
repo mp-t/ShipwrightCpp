@@ -1,16 +1,17 @@
-#include "BinaryReader.h"
-#include <cmath>
-#include <stdexcept>
-#include "Stream.h"
+#include "Utils/BinaryReader.h"
+#include "Utils/Stream.h"
 
-BinaryReader::BinaryReader(Stream* nStream)
+#include <cmath>
+#include <limits>
+#include <stdexcept>
+#include <utility>
+
+BinaryReader::BinaryReader(Stream* const stream) : stream(stream)
 {
-	stream.reset(nStream);
 }
 
-BinaryReader::BinaryReader(std::shared_ptr<Stream> nStream)
+BinaryReader::BinaryReader(std::unique_ptr<Stream>&& stream) : stream(std::move(stream))
 {
-	stream = nStream;
 }
 
 void BinaryReader::Close()
@@ -18,131 +19,112 @@ void BinaryReader::Close()
 	stream->Close();
 }
 
-void BinaryReader::Seek(uint32_t offset, SeekOffsetType seekType)
+void BinaryReader::Seek(const std::uint32_t offset, const SeekOffsetType seekType)
 {
 	stream->Seek(offset, seekType);
 }
 
-uint32_t BinaryReader::GetBaseAddress()
+std::size_t BinaryReader::GetBaseAddress()
 {
 	return stream->GetBaseAddress();
 }
 
-void BinaryReader::Read([[maybe_unused]] char* buffer, int32_t length)
+void BinaryReader::Read(std::byte* const buffer, const std::size_t length)
 {
-	stream->Read(length);
+	stream->Read(buffer, length);
 }
 
 char BinaryReader::ReadChar()
 {
-	return (char)stream->ReadByte();
+	return static_cast<char>(stream->ReadByte());
 }
 
-int8_t BinaryReader::ReadByte()
+std::int8_t BinaryReader::ReadByte()
 {
-	return stream->ReadByte();
+	return static_cast<std::int8_t>(stream->ReadByte());
 }
 
-uint8_t BinaryReader::ReadUByte()
+std::uint8_t BinaryReader::ReadUByte()
 {
-	return (uint8_t)stream->ReadByte();
+	return static_cast<std::uint8_t>(stream->ReadByte());
 }
 
-int16_t BinaryReader::ReadInt16()
+std::int16_t BinaryReader::ReadInt16()
 {
-	int16_t result = 0;
+	std::int16_t result = 0;
 
-	stream->Read((char*)&result, sizeof(int16_t));
+	stream->Read(reinterpret_cast<std::byte*>(&result), sizeof(std::int16_t));
 	return result;
 }
 
-int32_t BinaryReader::ReadInt32()
+std::int32_t BinaryReader::ReadInt32()
 {
-	int32_t result = 0;
+	std::int32_t result = 0;
 
-	stream->Read((char*)&result, sizeof(int32_t));
+	stream->Read(reinterpret_cast<std::byte*>(&result), sizeof(std::int32_t));
 	return result;
 }
 
-uint16_t BinaryReader::ReadUInt16()
+std::uint16_t BinaryReader::ReadUInt16()
 {
-	uint16_t result = 0;
+	std::uint16_t result = 0;
 
-	stream->Read((char*)&result, sizeof(uint16_t));
+	stream->Read(reinterpret_cast<std::byte*>(&result), sizeof(std::uint16_t));
 	return result;
 }
 
-uint32_t BinaryReader::ReadUInt32()
+std::uint32_t BinaryReader::ReadUInt32()
 {
-	uint32_t result = 0;
+	std::uint32_t result = 0;
 
-	stream->Read((char*)&result, sizeof(uint32_t));
+	stream->Read(reinterpret_cast<std::byte*>(&result), sizeof(std::uint32_t));
 	return result;
 }
 
-uint64_t BinaryReader::ReadUInt64()
+std::uint64_t BinaryReader::ReadUInt64()
 {
-	uint64_t result = 0;
+	std::uint64_t result = 0;
 
-	stream->Read((char*)&result, sizeof(uint64_t));
+	stream->Read(reinterpret_cast<std::byte*>(&result), sizeof(std::uint64_t));
 	return result;
 }
 
 float BinaryReader::ReadSingle()
 {
-	float result = NAN;
+	float result = std::numeric_limits<float>::quiet_NaN();
 
-	stream->Read((char*)&result, sizeof(float));
+	stream->Read(reinterpret_cast<std::byte*>(&result), sizeof(float));
 
 	if (std::isnan(result))
+	{
 		throw std::runtime_error("BinaryReader::ReadSingle(): Error reading stream");
+	}
 
 	return result;
 }
 
 double BinaryReader::ReadDouble()
 {
-	double result = NAN;
+	double result = std::numeric_limits<double>::quiet_NaN();
 
-	stream->Read((char*)&result, sizeof(double));
+	stream->Read(reinterpret_cast<std::byte*>(&result), sizeof(double));
 	if (std::isnan(result))
+	{
 		throw std::runtime_error("BinaryReader::ReadDouble(): Error reading stream");
+	}
 
 	return result;
-}
-
-Vec3f BinaryReader::ReadVec3f()
-{
-	return Vec3f();
-}
-
-Vec3s BinaryReader::ReadVec3s()
-{
-	return Vec3s(0, 0, 0);
-}
-
-Vec3s BinaryReader::ReadVec3b()
-{
-	return Vec3s(0, 0, 0);
-}
-
-Vec2f BinaryReader::ReadVec2f()
-{
-	return Vec2f();
-}
-
-Color3b BinaryReader::ReadColor3b()
-{
-	return Color3b();
 }
 
 std::string BinaryReader::ReadString()
 {
 	std::string res;
-	int numChars = ReadInt32();
+	auto numChars = ReadInt32();
 
-	for (int i = 0; i < numChars; i++)
+	while (numChars-->0)
+	{
 		res += ReadChar();
+	}
 
 	return res;
 }

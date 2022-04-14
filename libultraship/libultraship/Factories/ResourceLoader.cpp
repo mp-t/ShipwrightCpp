@@ -21,13 +21,11 @@ namespace Ship
 {
     Resource* ResourceLoader::LoadResource(std::shared_ptr<File> FileToLoad)
     {
-        auto memStream = std::make_shared<MemoryStream>(FileToLoad->buffer.get(), FileToLoad->dwBufferSize);
-        auto reader = std::make_shared<BinaryReader>(memStream);
+        auto reader = std::make_shared<BinaryReader>(std::make_unique<MemoryStream>(FileToLoad->buffer.get(), FileToLoad->dwBufferSize));
 
-        Endianess endianess = (Endianess)reader->ReadByte();
+        [[maybe_unused]] const auto endianess = reader->ReadByte();
 
-        for (int i = 0; i < 3; i++)
-            reader->ReadByte();
+        reader->Seek(3, SeekOffsetType::Current);
         
         // OTRTODO: Setup the binaryreader to use the resource's endianess
         

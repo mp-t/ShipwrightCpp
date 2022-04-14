@@ -1,11 +1,10 @@
-#include "../Texture.h"
-#include "Utils/BinaryReader.h"
+#include "Texture.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::TextureFactory
 {
-    class TextureFactory
-    {
-    public:
-        static Texture* ReadTexture(BinaryReader* reader);
-    };
+
+[[nodiscard]] Texture* ReadTexture(BinaryReader* reader);
+
 }

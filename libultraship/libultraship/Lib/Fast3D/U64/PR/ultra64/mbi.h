@@ -32,7 +32,7 @@
 #define G_ON    (1)
 #define G_OFF   (0)
 
-#include <stdint.h>
+#include <cstdint>
 #include "gbi.h"
 #include "abi.h"
 

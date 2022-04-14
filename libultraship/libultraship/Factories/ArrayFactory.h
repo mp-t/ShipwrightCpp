@@ -1,11 +1,10 @@
-#include "../Array.h"
-#include "Utils/BinaryReader.h"
+#include "Array.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::ArrayFactory
 {
-    class ArrayFactory
-    {
-    public:
-        static Array* ReadArray(BinaryReader* reader);
-    };
+
+[[nodiscard]] Array* ReadArray(BinaryReader* reader);
+
 }

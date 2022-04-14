@@ -24,22 +24,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils\BinaryWriter.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\BitConverter.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Directory.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\File.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\MemoryStream.h">
-      <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Path.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Stream.h">
@@ -57,20 +45,17 @@
     <ClInclude Include="Color3b.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StrHash.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Vec2f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vec3f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StrHash.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Utils\BinaryWriter.cpp">
-      <Filter>Header Files\Source Files\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\MemoryStream.cpp">
       <Filter>Header Files\Source Files\Utils</Filter>
     </ClCompile>
@@ -81,6 +66,9 @@
       <Filter>Header Files\Source Files\Libraries</Filter>
     </ClCompile>
     <ClCompile Include="Utils\StringHelper.cpp">
+      <Filter>Header Files\Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
       <Filter>Header Files\Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>

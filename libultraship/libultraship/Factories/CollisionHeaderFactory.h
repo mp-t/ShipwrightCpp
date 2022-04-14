@@ -1,11 +1,10 @@
-#include "../CollisionHeader.h"
-#include "Utils/BinaryReader.h"
+#include "CollisionHeader.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::CollisionHeaderFactory
 {
-    class CollisionHeaderFactory
-    {
-    public:
-        static CollisionHeader* ReadCollisionHeader(BinaryReader* reader);
-    };
+
+[[nodiscard]] CollisionHeader* ReadCollisionHeader(BinaryReader* reader);
+
 }

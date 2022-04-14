@@ -1,11 +1,10 @@
-#include "../Material.h"
-#include "Utils/BinaryReader.h"
+#include "Material.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::MaterialFactory
 {
-    class MaterialFactory
-    {
-    public:
-        static Material* ReadMaterial(BinaryReader* reader);
-    };
+
+[[nodiscard]] Material* ReadMaterial(BinaryReader* reader);
+
 }

@@ -1,11 +1,10 @@
-#include "../SkeletonLimb.h"
-#include "Utils/BinaryReader.h"
+#include "SkeletonLimb.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::SkeletonLimbFactory
 {
-    class SkeletonLimbFactory
-    {
-    public:
-        static SkeletonLimb* ReadSkeletonLimb(BinaryReader* reader);
-    };
+
+[[nodiscard]] SkeletonLimb* ReadSkeletonLimb(BinaryReader* reader);
+
 }

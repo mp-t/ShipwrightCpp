@@ -1,33 +1,35 @@
 #pragma once
 
+#include "Utils/Stream.h"
+
+#include <cstddef>
+#include <cstdint>
 #include <memory>
 #include <vector>
-#include "Stream.h"
 
 class MemoryStream : public Stream
 {
 public:
-	MemoryStream();
-	MemoryStream(char* nBuffer, size_t nBufferSize);
-	~MemoryStream();
+	MemoryStream() = default;
+	MemoryStream(const std::byte* buffer, std::size_t bufferSize);
+	~MemoryStream() = default;
 
-	uint64_t GetLength() override;
+	[[nodiscard]] std::size_t GetLength() override;
 
-	void Seek(int32_t offset, SeekOffsetType seekType) override;
+	void Seek(std::int32_t offset, SeekOffsetType seekType) override;
 
-	std::unique_ptr<char[]> Read(size_t length) override;
-	void Read(const char* dest, size_t length) override;
-	int8_t ReadByte() override;
+	[[nodiscard]] std::unique_ptr<std::byte[]> Read(std::size_t length) override;
+	void Read(std::byte* dest, std::size_t length) override;
+	[[nodiscard]] std::byte ReadByte() override;
 
-	void Write(char* srcBuffer, size_t length) override;
-	void WriteByte(int8_t value) override;
+	void Write(const std::byte* srcBuffer, std::size_t length) override;
+	void WriteByte(std::byte value) override;
 
-	std::vector<char> ToVector();
+	[[nodiscard]] std::vector<std::byte> ToVector();
 
 	void Flush() override;
 	void Close() override;
 
 protected:
-	std::vector<char> buffer;
-	std::size_t bufferSize;
+	std::vector<std::byte> buffer;
 };

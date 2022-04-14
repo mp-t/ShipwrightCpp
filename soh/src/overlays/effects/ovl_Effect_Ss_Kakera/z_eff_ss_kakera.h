@@ -4,7 +4,7 @@
 #include "ultra64.h"
 #include "global.h"
 
-typedef struct {
+struct EffectSsKakeraInitParams {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3f velocity;
     /* 0x18 */ Vec3f unk_18;
@@ -19,8 +19,8 @@ typedef struct {
     /* 0x34 */ s32 life;
     /* 0x38 */ s16 colorIdx;
     /* 0x3A */ s16 objId;
-    /* 0x3C */ Gfx* dList;
-} EffectSsKakeraInitParams; // size = 0x40
+    /* 0x3C */ const Gfx* dList;
+}; // size = 0x40
 
 #define KAKERA_OBJECT_DEFAULT -1
 

@@ -43,7 +43,7 @@ namespace Ship {
 			started = false;
 			initialized = true;
 		}
-		catch (HRESULT res) {
+		catch (HRESULT) {
 			return false;
 		}
 
@@ -54,7 +54,7 @@ namespace Ship {
 		try {
 			ThrowIfFailed(CoCreateInstance(CLSID_MMDeviceEnumerator, nullptr, CLSCTX_ALL, IID_PPV_ARGS(&DeviceEnumerator)));
 		}
-		catch (HRESULT res) {
+		catch (HRESULT) {
 			return false;
 		}
 
@@ -74,7 +74,7 @@ namespace Ship {
 			ThrowIfFailed(client->GetCurrentPadding(&padding));
 			return padding;
 		}
-		catch (HRESULT res) {
+		catch (HRESULT) {
 			return 0;
 		}
 	}
@@ -113,23 +113,23 @@ namespace Ship {
 				ThrowIfFailed(client->Start());
 			}
 		}
-		catch (HRESULT res) {
+		catch (HRESULT) {
 		}
 	}
 
-	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDeviceStateChanged(LPCWSTR pwstrDeviceId, DWORD dwNewState) {
+	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDeviceStateChanged(LPCWSTR, DWORD) {
 		return S_OK;
 	}
 
-	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDeviceAdded(LPCWSTR pwstrDeviceId) {
+	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDeviceAdded(LPCWSTR) {
 		return S_OK;
 	}
 
-	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDeviceRemoved(LPCWSTR pwstrDeviceId) {
+	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDeviceRemoved(LPCWSTR) {
 		return S_OK;
 	}
 
-	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDefaultDeviceChanged(EDataFlow flow, ERole role, LPCWSTR pwstrDefaultDeviceId) {
+	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnDefaultDeviceChanged(EDataFlow flow, ERole role, LPCWSTR) {
 		if (flow == eRender && role == eConsole) {
 			// This callback runs on a separate thread,
 			// but it's not important how fast this write takes effect.
@@ -138,7 +138,7 @@ namespace Ship {
 		return S_OK;
 	}
 
-	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnPropertyValueChanged(LPCWSTR pwstrDeviceId, const PROPERTYKEY key) {
+	HRESULT STDMETHODCALLTYPE WasapiAudioPlayer::OnPropertyValueChanged(LPCWSTR, PROPERTYKEY) {
 		return S_OK;
 	}
 

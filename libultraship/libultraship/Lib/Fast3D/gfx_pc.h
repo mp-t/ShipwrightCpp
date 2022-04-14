@@ -46,9 +46,6 @@ struct TextureCacheValue {
 #endif
 };
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 extern struct GfxDimensions gfx_current_dimensions;
 
 void gfx_init(struct GfxWindowManagerAPI* wapi, struct GfxRenderingAPI* rapi, const char* game_name, bool start_in_fullscreen);
@@ -61,7 +58,4 @@ void gfx_texture_cache_clear();
 int gfx_create_framebuffer(uint32_t width, uint32_t height);
 uint16_t gfx_get_pixel_depth(float x, float y);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

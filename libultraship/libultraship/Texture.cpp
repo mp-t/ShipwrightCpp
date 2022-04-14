@@ -9,8 +9,8 @@ namespace Ship
         ResourceFile::ParseFileBinary(reader, tex);
 
         tex->texType = (TextureType)reader->ReadUInt32();
-        tex->width = reader->ReadUInt32();
-        tex->height = reader->ReadUInt32();
+        tex->width = static_cast<std::uint16_t>(reader->ReadUInt32());
+        tex->height = static_cast<std::uint16_t>(reader->ReadUInt32());
 
         uint32_t dataSize = reader->ReadUInt32();
 

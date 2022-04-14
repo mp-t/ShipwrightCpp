@@ -1,21 +1,14 @@
 #pragma once
 
-#include <cstdint>
-
 struct Vec3f
 {
-	float x, y, z;
+	float x = 0;
+	float y = 0;
+	float z = 0;
 
-	Vec3f()
+	constexpr Vec3f() = default;
+
+	constexpr Vec3f(const float x, const float y, const float z) : x(x), y(y), z(z)
 	{
-		x = 0;
-		y = 0;
-		z = 0;
-	};
-	Vec3f(float nX, float nY, float nZ)
-	{
-		x = nX;
-		y = nY;
-		z = nZ;
-	};
+	}
 };

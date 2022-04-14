@@ -20,7 +20,7 @@ typedef struct BgMizuBwall {
     /* 0x02AC */ s32 scrollAlpha4;
     /* 0x02B0 */ s32 breakTimer;
     /* 0x02B4 */ char unk_2B4[4];
-    /* 0x02B8 */ Gfx* dList;
+    /* 0x02B8 */ const Gfx* dList;
 } BgMizuBwall; // size = 0x02BC
 
 typedef enum {

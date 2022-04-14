@@ -1,11 +1,10 @@
-#include "../Blob.h"
-#include "Utils/BinaryReader.h"
+#include "Blob.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::BlobFactory
 {
-    class BlobFactory
-    {
-    public:
-        static Blob* ReadBlob(BinaryReader* reader);
-    };
+
+[[nodiscard]] Blob* ReadBlob(BinaryReader* reader);
+
 }

@@ -23,9 +23,9 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
 void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx);
 void KaleidoScope_UpdatePrompt(GlobalContext* globalCtx);
 Gfx* KaleidoScope_QuadTextureIA4(Gfx* gfx, void* texture, s16 width, s16 height, u16 point);
-Gfx* KaleidoScope_QuadTextureIA8(Gfx* gfx, void* texture, s16 width, s16 height, u16 point);
+Gfx* KaleidoScope_QuadTextureIA8(Gfx* gfx, const void* texture, s16 width, s16 height, u16 point);
 void KaleidoScope_MoveCursorToSpecialPos(GlobalContext* globalCtx, u16 specialPos);
-void KaleidoScope_DrawQuadTextureRGBA32(GraphicsContext* gfxCtx, void* texture, u16 width, u16 height, u16 point);
+void KaleidoScope_DrawQuadTextureRGBA32(GraphicsContext* gfxCtx, const void* texture, u16 width, u16 height, u16 point);
 void KaleidoScope_ProcessPlayerPreRender();
 void KaleidoScope_SetupPlayerPreRender(GlobalContext* globalCtx);
 void KaleidoScope_DrawCursor(GlobalContext* globalCtx, u16 pageIndex);
@@ -34,5 +34,7 @@ void KaleidoScope_UpdateDungeonMap(GlobalContext* globalCtx);
 void PauseMapMark_Draw(GlobalContext* globalCtx);
 
 void KaleidoScope_UpdateCursorSize(PauseContext* pauseCtx);
+
+void func_800944C4_KAL(GraphicsContext* gfxCtx);
 
 #endif

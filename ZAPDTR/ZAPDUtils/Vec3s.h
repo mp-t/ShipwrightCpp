@@ -4,18 +4,13 @@
 
 struct Vec3s
 {
-	int16_t x, y, z;
+	std::int16_t x = 0;
+	std::int16_t y = 0;
+	std::int16_t z = 0;
 
-	Vec3s()
+	constexpr Vec3s() = default;
+
+	constexpr Vec3s(const std::int16_t x, const std::int16_t y, const std::int16_t z) : x(x), y(y), z(z)
 	{
-		x = 0;
-		y = 0;
-		z = 0;
-	};
-	Vec3s(int16_t nX, int16_t nY, int16_t nZ)
-	{
-		x = nX;
-		y = nY;
-		z = nZ;
-	};
+	}
 };

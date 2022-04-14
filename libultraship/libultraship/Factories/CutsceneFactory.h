@@ -1,11 +1,10 @@
-#include "../Cutscene.h"
-#include "Utils/BinaryReader.h"
+#include "Cutscene.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::CutsceneFactory
 {
-    class CutsceneFactory
-    {
-    public:
-        static Cutscene* ReadCutscene(BinaryReader* reader);
-    };
+
+[[nodiscard]] Cutscene* ReadCutscene(BinaryReader* reader);
+
 }

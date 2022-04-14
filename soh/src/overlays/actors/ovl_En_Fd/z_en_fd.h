@@ -6,7 +6,7 @@
 
 struct EnFd;
 
-typedef void (*EnFdActionFunc)(struct EnFd* this, GlobalContext* globalCtx);
+typedef void (*EnFdActionFunc)(struct EnFd* thisv, GlobalContext* globalCtx);
 
 typedef enum {
     FD_EFFECT_NONE,

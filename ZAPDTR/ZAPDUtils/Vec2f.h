@@ -1,19 +1,13 @@
 #pragma once
 
-#include <cstdint>
-
 struct Vec2f
 {
-	float x, y;
+	float x = 0;
+	float y = 0;
 
-	Vec2f()
+	constexpr Vec2f() = default;
+
+	constexpr Vec2f(const float x, const float y) : x(x), y(y)
 	{
-		x = 0;
-		y = 0;
-	};
-	Vec2f(float nX, float nY)
-	{
-		x = nX;
-		y = nY;
-	};
+	}
 };

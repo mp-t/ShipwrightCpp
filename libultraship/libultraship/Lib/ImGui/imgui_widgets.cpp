@@ -1007,7 +1007,7 @@ bool ImGui::ScrollbarEx(const ImRect& bb_frame, ImGuiID id, ImGuiAxis axis, ImS6
     return held;
 }
 
-void ImGui::ImageRotated(ImTextureID tex_id, ImVec2 center, ImVec2 size, float angle) {
+void ImGui::ImageRotated(ImTextureID tex_id, ImVec2 center, ImVec2 size, [[maybe_unused]] float angle) {
 
     ImGuiWindow* window = GetCurrentWindow();
     if (window->SkipItems)

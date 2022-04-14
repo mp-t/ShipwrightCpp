@@ -106,44 +106,44 @@ typedef struct {
     /* 0x2 */ s16 arg;
 } AdsrEnvelope; // size = 0x4
 
-typedef struct {
+struct AdpcmLoop {
     /* 0x00 */ u32 start;
     /* 0x04 */ u32 end;
     /* 0x08 */ u32 count;
     /* 0x0C */ char unk_0C[0x4];
     /* 0x10 */ s16 state[16]; // only exists if count != 0. 8-byte aligned
-} AdpcmLoop; // size = 0x30 (or 0x10)
+}; // size = 0x30 (or 0x10)
 
-typedef struct {
+struct AdpcmBook {
     /* 0x00 */ s32 order;
     /* 0x04 */ s32 npredictors;
     /* 0x08 */ s16 book[1]; // size 8 * order * npredictors. 8-byte aligned
-} AdpcmBook; // size >= 0x8
+}; // size >= 0x8
 
-typedef struct {
+struct SoundFontSample {
     union {
-        struct {
+        struct SoundFontSampleBits {
             /* 0x00 */ u32 codec : 4;
             /* 0x00 */ u32 medium : 2;
             /* 0x00 */ u32 unk_bit26 : 1;
             /* 0x00 */ u32 unk_bit25 : 1;
             /* 0x01 */ u32 size : 24;
-        };
+         } bits;
         u32 asU32;
     };
 
     /* 0x04 */ u8* sampleAddr;
     /* 0x08 */ AdpcmLoop* loop;
     /* 0x0C */ AdpcmBook* book;
-} SoundFontSample; // size = 0x10
+}; // size = 0x10
 
-typedef struct {
+struct SoundFontSound {
     /* 0x00 */ SoundFontSample* sample;
     /* 0x04 */ union {
         u32 tuningAsU32;
         f32 tuning;// frequency scale factor
     };            
-} SoundFontSound; // size = 0x8
+}; // size = 0x8
 
 typedef struct {
     /* 0x00 */ s16 numSamplesAfterDownsampling; // never read
@@ -198,7 +198,7 @@ typedef struct {
     /* 0x298 */ AdpcmLoop loop;
 } SynthesisReverb; // size = 0x2C8
 
-typedef struct {
+struct Instrument {
     /* 0x00 */ u8 loaded;
     /* 0x01 */ u8 normalRangeLo;
     /* 0x02 */ u8 normalRangeHi;
@@ -207,17 +207,17 @@ typedef struct {
     /* 0x08 */ SoundFontSound lowNotesSound;
     /* 0x10 */ SoundFontSound normalNotesSound;
     /* 0x18 */ SoundFontSound highNotesSound;
-} Instrument; // size = 0x20
+}; // size = 0x20
 
-typedef struct {
+struct Drum {
     /* 0x00 */ u8 releaseRate;
     /* 0x01 */ u8 pan;
     /* 0x02 */ u8 loaded;
     /* 0x04 */ SoundFontSound sound;
     /* 0x14 */ AdsrEnvelope* envelope;
-} Drum; // size = 0x14
+}; // size = 0x14
 
-typedef struct {
+struct SoundFont {
     /* 0x00 */ u8 numInstruments;
     /* 0x01 */ u8 numDrums;
     /* 0x02 */ u8 sampleBankId1;
@@ -226,15 +226,15 @@ typedef struct {
     /* 0x08 */ Instrument** instruments;
     /* 0x0C */ Drum** drums;
     /* 0x10 */ SoundFontSound* soundEffects;
-} SoundFont; // size = 0x14
+}; // size = 0x14
 
-typedef struct {
+struct SeqScriptState {
     /* 0x00 */ u8* pc;
     /* 0x04 */ u8* stack[4];
     /* 0x14 */ u8 remLoopIters[4];
     /* 0x18 */ u8 depth;
     /* 0x19 */ s8 value;
-} SeqScriptState; // size = 0x1C
+}; // size = 0x1C
 
 // Also known as a Group, according to debug strings.
 typedef struct {
@@ -422,7 +422,7 @@ typedef struct SequenceLayer {
     /* 0x0E */ u16 portamentoTime;
     /* 0x10 */ s16 transposition; // #semitones added to play commands
                                   // (seq instruction encoding only allows referring to the limited range
-                                  // 0..0x3F; this makes 0x40..0x7F accessible as well)
+                                  // 0..0x3F; thisv makes 0x40..0x7F accessible as well)
     /* 0x12 */ s16 shortNoteDefaultDelay;
     /* 0x14 */ s16 lastDelay;
     /* 0x18 */ AdsrSettings adsr;
@@ -685,7 +685,7 @@ typedef struct {
             u8 arg1;
             u8 arg0;
             u8 op;
-        };
+        } args;
     };
     union {
         void* data;
@@ -694,15 +694,15 @@ typedef struct {
         struct {
             u8 pad2[2];
             u16 asUShort;
-        };
+        } u16_;
         struct {
             u8 pad1[3];
             s8 asSbyte;
-        };
+        } s8_;
         struct {
             u8 pad0[3];
             u8 asUbyte;
-        };
+        } u8_;
         u32 asUInt;
     };
 } AudioCmd;
@@ -717,7 +717,7 @@ typedef struct {
     /* 0x10 */ u32 bytesRemaining;
     /* 0x14 */ u32 chunkSize;
     /* 0x18 */ s32 unkMediumParam;
-    /* 0x1C */ u32 retMsg;
+    /* 0x1C */ OSMesg retMsg;
     /* 0x20 */ OSMesgQueue* retQueue;
     /* 0x24 */ OSMesgQueue msgQueue;
     /* 0x3C */ OSMesg msg;
@@ -729,7 +729,7 @@ typedef struct {
     /* 0x01 */ u8 seqOrFontId;
     /* 0x02 */ u16 instId;
     /* 0x04 */ s32 unkMediumParam;
-    /* 0x08 */ s32 curDevAddr;
+    /* 0x08 */ u32 curDevAddr;
     /* 0x0C */ u8* curRamAddr;
     /* 0x10 */ u8* ramAddr;
     /* 0x14 */ s32 status;
@@ -1061,14 +1061,7 @@ typedef enum {
     /* -1 */ OCARINA_NOTE_INVALID = 0xFF
 } OcarinaNoteIdx;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void Audio_SetGameVolume(int player_id, f32 volume);
 float Audio_GetGameVolume(int player_id);
 
-#ifdef __cplusplus
-}
-#endif
 #endif

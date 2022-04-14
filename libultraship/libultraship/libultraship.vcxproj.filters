@@ -171,9 +171,6 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\Resources\Files</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files\Resources\Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerAnimation.cpp">
       <Filter>Source Files\Resources\Files</Filter>
     </ClCompile>
@@ -306,9 +303,6 @@
     <ClCompile Include="Lib\ImGui\backends\imgui_impl_win32.cpp">
       <Filter>Source Files\Lib\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="mixer.c">
-      <Filter>Source Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="SDLAudioPlayer.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
@@ -338,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="GameSettings.cpp">
       <Filter>Source Files\CustomImpl</Filter>
+    </ClCompile>
+    <ClCompile Include="mixer.cpp">
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -504,9 +501,6 @@
       <Filter>Header Files\Resources\Files</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
-      <Filter>Header Files\Resources\Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
       <Filter>Header Files\Resources\Files</Filter>
     </ClInclude>
     <ClInclude Include="Path.h">

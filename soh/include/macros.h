@@ -206,4 +206,7 @@ extern GraphicsContext* __gfxCtx;
 
 #define SEG_ADDR(seg, addr) (addr | (seg << 24) | 0xF0000000)
 
+constexpr float SHT_MAX = 32767.0f;
+constexpr float SHT_MINV = (1.0f / SHT_MAX);
+
 #endif

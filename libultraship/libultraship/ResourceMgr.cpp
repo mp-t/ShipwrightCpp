@@ -261,7 +261,7 @@ namespace Ship {
 		auto PromiseList = CacheDirectoryAsync(SearchMask);
 		auto LoadedList = std::make_shared<std::vector<std::shared_ptr<Resource>>>();
 
-		for (int32_t i = 0; i < PromiseList->size(); i++) {
+		for (std::size_t i = 0; i < PromiseList->size(); i++) {
 			auto Promise = PromiseList->at(i);
 
 			std::unique_lock<std::mutex> Lock(Promise->ResourceLoadMutex);
@@ -280,7 +280,7 @@ namespace Ship {
 		auto PromiseList = CacheDirectoryAsync(SearchMask);
 		auto LoadedList = std::make_shared<std::vector<std::shared_ptr<Resource>>>();
 
-		for (int32_t i = 0; i < PromiseList->size(); i++) {
+		for (std::size_t i = 0; i < PromiseList->size(); i++) {
 			auto Promise = PromiseList->at(i);
 
 			std::unique_lock<std::mutex> Lock(Promise->ResourceLoadMutex);

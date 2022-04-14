@@ -1,11 +1,10 @@
-#include "../DisplayList.h"
-#include "Utils/BinaryReader.h"
+#include "DisplayList.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::DisplayListFactory
 {
-    class DisplayListFactory
-    {
-    public:
-        static DisplayList* ReadDisplayList(BinaryReader* reader);
-    };
+
+[[nodiscard]] DisplayList* ReadDisplayList(BinaryReader* reader);
+
 }

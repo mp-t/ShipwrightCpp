@@ -550,7 +550,7 @@ static void ImGui_ImplSDL2_UpdateMouseCursor()
     ImGuiIO& io = ImGui::GetIO();
     if (io.ConfigFlags & ImGuiConfigFlags_NoMouseCursorChange)
         return;
-    ImGui_ImplSDL2_Data* bd = ImGui_ImplSDL2_GetBackendData();
+    [[maybe_unused]] ImGui_ImplSDL2_Data* bd = ImGui_ImplSDL2_GetBackendData();
 
     ImGuiMouseCursor imgui_cursor = ImGui::GetMouseCursor();
     if (io.MouseDrawCursor || imgui_cursor == ImGuiMouseCursor_None)

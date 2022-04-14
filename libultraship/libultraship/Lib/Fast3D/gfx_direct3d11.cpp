@@ -188,7 +188,7 @@ void create_depth_stencil_objects(uint32_t width, uint32_t height, ID3D11Texture
             DXGI_FORMAT_R32_FLOAT : DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
         srv_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
         srv_desc.Texture2D.MostDetailedMip = 0;
-        srv_desc.Texture2D.MipLevels = -1;
+        srv_desc.Texture2D.MipLevels = ~1u;
 
         ThrowIfFailed(d3d.device->CreateShaderResourceView(*texture, &srv_desc, srv));
     }
@@ -449,7 +449,7 @@ static bool gfx_d3d11_z_is_from_0_to_1(void) {
     return true;
 }
 
-static void gfx_d3d11_unload_shader(struct ShaderProgram *old_prg) {
+static void gfx_d3d11_unload_shader(struct ShaderProgram*) {
 }
 
 static void gfx_d3d11_load_shader(struct ShaderProgram *new_prg) {
@@ -514,9 +514,9 @@ static struct ShaderProgram *gfx_d3d11_create_and_load_new_shader(uint64_t shade
     if (cc_features.opt_fog) {
         ied[ied_index++] = { "FOG", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
     }
-    for (unsigned int i = 0; i < cc_features.num_inputs; i++) {
+    for (int i = 0; i < cc_features.num_inputs; i++) {
         DXGI_FORMAT format = cc_features.opt_alpha ? DXGI_FORMAT_R32G32B32A32_FLOAT : DXGI_FORMAT_R32G32B32_FLOAT;
-        ied[ied_index++] = { "INPUT", i, format, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+        ied[ied_index++] = { "INPUT", static_cast<UINT>(i), format, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
     }
 
     ThrowIfFailed(d3d.device->CreateInputLayout(ied, ied_index, vs->GetBufferPointer(), vs->GetBufferSize(), prg->input_layout.GetAddressOf()));
@@ -546,8 +546,8 @@ static struct ShaderProgram *gfx_d3d11_create_and_load_new_shader(uint64_t shade
 
     prg->shader_id0 = shader_id0;
     prg->shader_id1 = shader_id1;
-    prg->num_inputs = cc_features.num_inputs;
-    prg->num_floats = num_floats;
+    prg->num_inputs = static_cast<decltype(prg->num_inputs)>(cc_features.num_inputs);
+    prg->num_floats = static_cast<decltype(prg->num_floats)>(num_floats);
     prg->used_textures[0] = cc_features.used_textures[0];
     prg->used_textures[1] = cc_features.used_textures[1];
 
@@ -572,8 +572,7 @@ static uint32_t gfx_d3d11_new_texture(void) {
     return (uint32_t)(d3d.textures.size() - 1);
 }
 
-static void gfx_d3d11_delete_texture(uint32_t texID) {
-    //glDeleteTextures(1, &texID);
+static void gfx_d3d11_delete_texture(uint32_t) {
 }
 
 static void gfx_d3d11_select_texture(int tile, uint32_t texture_id) {
@@ -666,10 +665,10 @@ static void gfx_d3d11_set_zmode_decal(bool zmode_decal) {
 
 static void gfx_d3d11_set_viewport(int x, int y, int width, int height) {
     D3D11_VIEWPORT viewport;
-    viewport.TopLeftX = x;
-    viewport.TopLeftY = d3d.render_target_height - y - height;
-    viewport.Width = width;
-    viewport.Height = height;
+    viewport.TopLeftX = static_cast<float>(x);
+    viewport.TopLeftY = static_cast<float>(d3d.render_target_height - y - height);
+    viewport.Width = static_cast<float>(width);
+    viewport.Height = static_cast<float>(height);
     viewport.MinDepth = 0.0f;
     viewport.MaxDepth = 1.0f;
 
@@ -686,7 +685,7 @@ static void gfx_d3d11_set_scissor(int x, int y, int width, int height) {
     d3d.context->RSSetScissorRects(1, &rect);
 }
 
-static void gfx_d3d11_set_use_alpha(bool use_alpha) {
+static void gfx_d3d11_set_use_alpha(bool) {
     // Already part of the pipeline state from shader info
 }
 
@@ -948,7 +947,7 @@ uint16_t gfx_d3d11_get_pixel_depth(float x, float y) {
     d3d.context->CSSetShaderResources(0, 1, null_arr);
     d3d.context->OMSetRenderTargets(1, d3d.backbuffer_view.GetAddressOf(), d3d.depth_stencil_view.Get());
 
-    return res * 65532.0f;
+    return static_cast<std::uint16_t>(res * 65532.0f);
 }
 
 uint16_t gfx_d3d11_get_pixel_depth_old(float x, float y) {
@@ -972,7 +971,7 @@ uint16_t gfx_d3d11_get_pixel_depth_old(float x, float y) {
         }
     }
     d3d.context->Unmap(d3d.depth_stencil_copy_texture.Get(), 0);
-    return res * 65532.0f;
+    return static_cast<std::uint16_t>(res * 65532.0f);
 }
 
 } // namespace

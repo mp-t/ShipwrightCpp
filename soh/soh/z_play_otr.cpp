@@ -6,8 +6,7 @@
 #include "vt.h"
 #include "Vertex.h"
 
-extern "C" void Gameplay_InitScene(GlobalContext * globalCtx, s32 spawn);
-extern "C" void Gameplay_InitEnvironment(GlobalContext * globalCtx, s16 skyboxId);
+void Gameplay_InitEnvironment(GlobalContext * globalCtx, s16 skyboxId);
 void OTRGameplay_InitScene(GlobalContext* globalCtx, s32 spawn);
 s32 OTRScene_ExecuteCommands(GlobalContext* globalCtx, Ship::Scene* sceneCmd);
 
@@ -18,7 +17,7 @@ Ship::Resource* OTRGameplay_LoadFile(GlobalContext* globalCtx, const char* fileN
     return res.get();
 }
 
-extern "C" void OTRGameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s32 spawn) {
+void OTRGameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s32 spawn) {
     SceneTableEntry* scene = &gSceneTable[sceneNum];
 
     scene->unk_13 = 0;
@@ -33,7 +32,7 @@ extern "C" void OTRGameplay_SpawnScene(GlobalContext* globalCtx, s32 sceneNum, s
     globalCtx->sceneSegment = (Ship::Scene*)OTRGameplay_LoadFile(globalCtx, scenePath.c_str());
     scene->unk_13 = 0;
 
-    //ASSERT(globalCtx->sceneSegment != NULL, "this->sceneSegment != NULL", "../z_play.c", 4960);
+    //ASSERT(globalCtx->sceneSegment != NULL, "thisv->sceneSegment != NULL", "../z_play.c", 4960);
     //gSegments[2] = VIRTUAL_TO_PHYSICAL(globalCtx->sceneSegment);
 
     OTRGameplay_InitScene(globalCtx, spawn);

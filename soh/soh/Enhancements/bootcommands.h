@@ -7,7 +7,7 @@ typedef s32 (*BootCommandFunc)(char** argv, s32 argc); // Returns the number of 
 
 typedef struct BootCommand
 {
-    char* name;
+    const char* name;
     BootCommandFunc func;
 } BootCommand;
 

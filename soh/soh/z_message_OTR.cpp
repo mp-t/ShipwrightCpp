@@ -7,11 +7,10 @@
 #include "vt.h"
 #include <Text.h>
 
-extern "C" MessageTableEntry* sNesMessageEntryTablePtr;
-extern "C" MessageTableEntry* sStaffMessageEntryTablePtr;
-//extern "C" MessageTableEntry* _message_0xFFFC_nes;
+MessageTableEntry* sNesMessageEntryTablePtr;
+MessageTableEntry* sStaffMessageEntryTablePtr;
 
-extern "C" void OTRMessage_Init()
+void OTRMessage_Init()
 {
 	auto file = std::static_pointer_cast<Ship::Text>(OTRGlobals::Instance->context->GetResourceManager()->LoadResource("text/nes_message_data_static/nes_message_data_static"));
 

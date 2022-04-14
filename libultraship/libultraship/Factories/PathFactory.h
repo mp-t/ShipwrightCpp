@@ -1,11 +1,10 @@
-#include "../Path.h"
-#include "Utils/BinaryReader.h"
+#include "Path.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::PathFactory
 {
-    class PathFactory
-    {
-    public:
-        static Path* ReadPath(BinaryReader* reader);
-    };
+
+[[nodiscard]] Path* ReadPath(BinaryReader* reader);
+
 }

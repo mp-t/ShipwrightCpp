@@ -1,9 +1,8 @@
 #include "../../Window.h"
 #ifdef ENABLE_OPENGL
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
+#include <cstdint>
+#include <cstdio>
 
 #include <map>
 
@@ -441,11 +440,11 @@ static struct ShaderProgram* gfx_opengl_create_and_load_new_shader(uint64_t shad
     }
 
     prg->opengl_program_id = shader_program;
-    prg->num_inputs = cc_features.num_inputs;
+    prg->num_inputs = static_cast<decltype(prg->num_inputs)>(cc_features.num_inputs);
     prg->used_textures[0] = cc_features.used_textures[0];
     prg->used_textures[1] = cc_features.used_textures[1];
-    prg->num_floats = num_floats;
-    prg->num_attribs = cnt;
+    prg->num_floats = static_cast<decltype(prg->num_floats)>(num_floats);
+    prg->num_attribs = static_cast<decltype(prg->num_attribs)>(cnt);
 
     gfx_opengl_load_shader(prg);
 
@@ -631,18 +630,18 @@ static void gfx_opengl_finish_render(void) {
 }
 
 static int gfx_opengl_create_framebuffer(uint32_t width, uint32_t height) {
-    GLuint textureColorbuffer;
+    GLuint newTextureColorbuffer;
 
-    glGenTextures(1, &textureColorbuffer);
-    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+    glGenTextures(1, &newTextureColorbuffer);
+    glBindTexture(GL_TEXTURE_2D, newTextureColorbuffer);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    GLuint rbo;
-    glGenRenderbuffers(1, &rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    GLuint new_rbo;
+    glGenRenderbuffers(1, &new_rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, new_rbo);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
@@ -650,11 +649,11 @@ static int gfx_opengl_create_framebuffer(uint32_t width, uint32_t height) {
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, newTextureColorbuffer, 0);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, new_rbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-    fb2tex[fbo] = make_pair(textureColorbuffer, rbo);
+    fb2tex[fbo] = make_pair(newTextureColorbuffer, new_rbo);
 
     //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -700,9 +699,9 @@ void gfx_opengl_select_texture_fb(int fbID)
 static uint16_t gfx_opengl_get_pixel_depth(float x, float y) {
     float depth;
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+    glReadPixels(static_cast<GLint>(x), static_cast<GLint>(y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    return depth * 65532.0f;
+    return static_cast<uint16_t>(depth * 65532.0f);
 }
 
 struct GfxRenderingAPI gfx_opengl_api = {

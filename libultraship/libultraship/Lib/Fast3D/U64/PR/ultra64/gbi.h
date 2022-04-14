@@ -1642,7 +1642,7 @@ typedef struct {
  * This union is the fundamental type of the display list.
  * It is, by law, exactly 64 bits in size.
  */
-typedef union {
+union Gfx {
     Gwords      words;
 #if !defined(F3D_OLD) && IS_BIG_ENDIAN && !IS_64_BIT
     Gdma        dma;
@@ -1664,7 +1664,7 @@ typedef union {
     Gloadtlut   loadtlut;
 #endif
     long long int   force_structure_alignment;
-} Gfx;
+};
 
 /*
  * Macros to assemble the graphics display list

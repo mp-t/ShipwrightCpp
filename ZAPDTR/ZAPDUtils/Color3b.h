@@ -4,18 +4,13 @@
 
 struct Color3b
 {
-	uint8_t r, g, b;
+	std::uint8_t r = 0;
+	std::uint8_t g = 0;
+	std::uint8_t b = 0;
 
-	Color3b()
+	constexpr Color3b() = default;
+
+	constexpr Color3b(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b) : r(r), g(g), b(b)
 	{
-		r = 0;
-		g = 0;
-		b = 0;
-	};
-	Color3b(uint8_t nR, uint8_t nG, uint8_t nB)
-	{
-		r = nR;
-		g = nG;
-		b = nB;
-	};
+	}
 };

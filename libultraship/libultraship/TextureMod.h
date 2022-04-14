@@ -51,7 +51,7 @@ namespace Ship {
 			int red = data[x];
 			int green = data[x + 1];
 			int blue = data[x + 2];
-			int gray = (red + green + blue) / 3;
+			std::uint8_t gray = static_cast<uint8_t>((red + green + blue) / 3);
 			data[x] = gray;
 			data[x + 1] = gray;
 			data[x + 2] = gray;

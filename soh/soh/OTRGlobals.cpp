@@ -34,19 +34,18 @@ OTRGlobals::~OTRGlobals() {
 }
 
 extern uintptr_t clearMtx;
-extern "C" Mtx gMtxClear;
-extern "C" MtxF gMtxFClear;
-extern "C" void OTRMessage_Init();
+Mtx gMtxClear;
+MtxF gMtxFClear;
 
 // C->C++ Bridge
-extern "C" void InitOTR() {
+void InitOTR() {
     OTRGlobals::Instance = new OTRGlobals();
     clearMtx = (uintptr_t)&gMtxClear;
     OTRMessage_Init();
     DebugConsole_Init();
 }
 
-extern "C" uint64_t GetFrequency() {
+uint64_t GetFrequency() {
     LARGE_INTEGER nFreq;
 
     QueryPerformanceFrequency(&nFreq);
@@ -54,7 +53,7 @@ extern "C" uint64_t GetFrequency() {
     return nFreq.QuadPart;
 }
 
-extern "C" uint64_t GetPerfCounter() {
+uint64_t GetPerfCounter() {
     LARGE_INTEGER ticks;
     QueryPerformanceCounter(&ticks);
 
@@ -62,12 +61,12 @@ extern "C" uint64_t GetPerfCounter() {
 }
 
 // C->C++ Bridge
-extern "C" void Graph_ProcessFrame(void (*run_one_game_iter)(void)) {
+void Graph_ProcessFrame(void (*run_one_game_iter)()) {
     OTRGlobals::Instance->context->GetWindow()->MainLoop(run_one_game_iter);
 }
 
 // C->C++ Bridge
-extern "C" void Graph_ProcessGfxCommands(Gfx* commands) {
+void Graph_ProcessGfxCommands(Gfx* commands) {
     OTRGlobals::Instance->context->GetWindow()->RunCommands(commands);
 
     // OTRTODO: FIGURE OUT END FRAME POINT
@@ -78,45 +77,45 @@ extern "C" void Graph_ProcessGfxCommands(Gfx* commands) {
 
 float divisor_num = 0.0f;
 
-extern "C" void OTRSetFrameDivisor(int divisor) {
+void OTRSetFrameDivisor(int divisor) {
    OTRGlobals::Instance->context->GetWindow()->SetFrameDivisor(divisor);
 }
 
-extern "C" uint16_t OTRGetPixelDepth(float x, float y) {
+uint16_t OTRGetPixelDepth(float x, float y) {
     return OTRGlobals::Instance->context->GetWindow()->GetPixelDepth(x, y);
 }
 
-extern "C" int32_t OTRGetLastScancode()
+int32_t OTRGetLastScancode()
 {
     return OTRGlobals::Instance->context->GetWindow()->lastScancode;
 }
 
-extern "C" void OTRResetScancode()
+void OTRResetScancode()
 {
     OTRGlobals::Instance->context->GetWindow()->lastScancode = -1;
 }
 
-extern "C" void ResourceMgr_CacheDirectory(const char* resName) {
+void ResourceMgr_CacheDirectory(const char* resName) {
     OTRGlobals::Instance->context->GetResourceManager()->CacheDirectory(resName);
 }
-extern "C" void ResourceMgr_DirtyDirectory(const char* resName) {
+void ResourceMgr_DirtyDirectory(const char* resName) {
     OTRGlobals::Instance->context->GetResourceManager()->DirtyDirectory(resName);
 }
 
-extern "C" void ResourceMgr_InvalidateCache() {
+void ResourceMgr_InvalidateCache() {
     OTRGlobals::Instance->context->GetResourceManager()->InvalidateResourceCache();
 }
 
 
-extern "C" void ResourceMgr_LoadFile(const char* resName) {
+void ResourceMgr_LoadFile(const char* resName) {
     OTRGlobals::Instance->context->GetResourceManager()->LoadResource(resName);
 }
 
-extern "C" char* ResourceMgr_LoadFileRaw(const char* resName) {
-    return OTRGlobals::Instance->context->GetResourceManager()->LoadFile(resName)->buffer.get();
+char* ResourceMgr_LoadFileRaw(const char* resName) {
+    return reinterpret_cast<char*>(OTRGlobals::Instance->context->GetResourceManager()->LoadFile(resName)->buffer.get());
 }
 
-extern "C" char* ResourceMgr_LoadFileFromDisk(const char* filePath) {
+char* ResourceMgr_LoadFileFromDisk(const char* filePath) {
     FILE* file = fopen(filePath, "r");
     fseek(file, 0, SEEK_END);
     int fSize = ftell(file);
@@ -130,7 +129,7 @@ extern "C" char* ResourceMgr_LoadFileFromDisk(const char* filePath) {
     return data;
 }
 
-extern "C" char* ResourceMgr_LoadJPEG(char* data, int dataSize)
+char* ResourceMgr_LoadJPEG(char* data, int dataSize)
 {
     static char* finalBuffer = 0;
 
@@ -168,9 +167,9 @@ extern "C" char* ResourceMgr_LoadJPEG(char* data, int dataSize)
     return (char*)finalBuffer;
 }
 
-extern "C" char* ResourceMgr_LoadTexByName(char* texPath);
+char* ResourceMgr_LoadTexByName(const char* texPath);
 
-extern "C" char* ResourceMgr_LoadTexOrDListByName(char* filePath) {
+char* ResourceMgr_LoadTexOrDListByName(char* filePath) {
     auto res = OTRGlobals::Instance->context->GetResourceManager()->LoadResource(filePath);
 
     if (res->resType == Ship::ResourceType::DisplayList)
@@ -181,28 +180,28 @@ extern "C" char* ResourceMgr_LoadTexOrDListByName(char* filePath) {
         return ResourceMgr_LoadTexByName(filePath);
 }
 
-extern "C" char* ResourceMgr_LoadPlayerAnimByName(char* animPath) {
+char* ResourceMgr_LoadPlayerAnimByName(char* animPath) {
     auto anim = std::static_pointer_cast<Ship::PlayerAnimation>(
         OTRGlobals::Instance->context->GetResourceManager()->LoadResource(animPath));
 
     return (char*)&anim->limbRotData[0];
 }
 
-extern "C" Gfx* ResourceMgr_LoadGfxByName(char* path)
+Gfx* ResourceMgr_LoadGfxByName(const char* path)
 {
     auto res = std::static_pointer_cast<Ship::DisplayList>(
         OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
     return (Gfx*)&res->instructions[0];
 }
 
-extern "C" char* ResourceMgr_LoadArrayByName(char* path)
+char* ResourceMgr_LoadArrayByName(char* path)
 {
     auto res = std::static_pointer_cast<Ship::Array>(OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
 
     return (char*)res->scalars.data();
 }
 
-extern "C" char* ResourceMgr_LoadArrayByNameAsVec3s(char* path) {
+char* ResourceMgr_LoadArrayByNameAsVec3s(const char* path) {
     auto res =
         std::static_pointer_cast<Ship::Array>(OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
 
@@ -224,7 +223,7 @@ extern "C" char* ResourceMgr_LoadArrayByNameAsVec3s(char* path) {
     }
 }
 
-extern "C" CollisionHeader* ResourceMgr_LoadColByName(char* path)
+CollisionHeader* ResourceMgr_LoadColByName(const char* path)
 {
     auto colRes = std::static_pointer_cast<Ship::CollisionHeader>(OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
 
@@ -318,15 +317,16 @@ extern "C" CollisionHeader* ResourceMgr_LoadColByName(char* path)
     return (CollisionHeader*)colHeader;
 }
 
-extern "C" Vtx * ResourceMgr_LoadVtxByName(char* path)
+Vtx * ResourceMgr_LoadVtxByName(const char* path)
 {
 	auto res = std::static_pointer_cast<Ship::Array>(OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
 	return (Vtx*)res->vertices.data();
 }
 
-extern "C" int ResourceMgr_OTRSigCheck(char* imgData)
+int ResourceMgr_OTRSigCheck(const void* pImgData)
 {
-	uintptr_t i = (uintptr_t)(imgData);
+    const char* imgData = static_cast<const char*>(pImgData);
+	const uintptr_t i = reinterpret_cast<uintptr_t>(imgData);
 
     if (i == 0xD9000000 || i == 0xE7000000 || (i & 0xF0000000) == 0xF0000000)
         return 0;
@@ -340,7 +340,7 @@ extern "C" int ResourceMgr_OTRSigCheck(char* imgData)
     return 0;
 }
 
-extern "C" AnimationHeaderCommon* ResourceMgr_LoadAnimByName(char* path) {
+AnimationHeaderCommon* ResourceMgr_LoadAnimByName(const char* path) {
     auto res = std::static_pointer_cast<Ship::Animation>(
         OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
 
@@ -409,7 +409,7 @@ extern "C" AnimationHeaderCommon* ResourceMgr_LoadAnimByName(char* path) {
     return anim;
 }
 
-extern "C" SkeletonHeader* ResourceMgr_LoadSkeletonByName(char* path) {
+SkeletonHeader* ResourceMgr_LoadSkeletonByName(const char* path) {
     auto res = std::static_pointer_cast<Ship::Skeleton>(OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
 
     if (res->cachedGameAsset != nullptr)
@@ -596,10 +596,10 @@ extern "C" SkeletonHeader* ResourceMgr_LoadSkeletonByName(char* path) {
     return baseHeader;
 }
 
-extern "C" s32* ResourceMgr_LoadCSByName(char* path)
+u8* ResourceMgr_LoadCSByName(const char* path)
 {
     auto res = std::static_pointer_cast<Ship::Cutscene>(OTRGlobals::Instance->context->GetResourceManager()->LoadResource(path));
-    return (s32*)res->commands.data();
+    return reinterpret_cast<u8*>(res->commands.data());
 }
 
 std::wstring StringToU16(const std::string& s) {
@@ -648,7 +648,7 @@ std::wstring StringToU16(const std::string& s) {
     return utf16;
 }
 
-extern "C" void OTRGfxPrint(const char* str, void* printer, void (*printImpl)(void*, char)) {
+void OTRGfxPrint(const char* str, GfxPrint* printer, void (*printImpl)(GfxPrint*, u8)) {
     const std::vector<uint32_t> hira1 = {
         u'を', u'ぁ', u'ぃ', u'ぅ', u'ぇ', u'ぉ', u'ゃ', u'ゅ', u'ょ', u'っ', u'-',  u'あ', u'い',
         u'う', u'え', u'お', u'か', u'き', u'く', u'け', u'こ', u'さ', u'し', u'す', u'せ', u'そ',
@@ -681,15 +681,15 @@ extern "C" void OTRGfxPrint(const char* str, void* printer, void (*printImpl)(vo
     }
 }
 
-extern "C" uint32_t OTRGetCurrentWidth() {
+uint32_t OTRGetCurrentWidth() {
     return OTRGlobals::Instance->context->GetWindow()->GetCurrentWidth();
 }
 
-extern "C" uint32_t OTRGetCurrentHeight() {
+uint32_t OTRGetCurrentHeight() {
     return OTRGlobals::Instance->context->GetWindow()->GetCurrentHeight();
 }
 
-extern "C" void OTRControllerCallback(ControllerCallback* controller) {
+void OTRControllerCallback(ControllerCallback* controller) {
     auto controllers = OTRGlobals::Instance->context->GetWindow()->Controllers;
     for (int i = 0; i < controllers.size(); i++) {
         for (int j = 0; j < controllers[i].size(); j++) {
@@ -698,61 +698,61 @@ extern "C" void OTRControllerCallback(ControllerCallback* controller) {
     }
 }
 
-extern "C" float OTRGetAspectRatio() {
+float OTRGetAspectRatio() {
     return gfx_current_dimensions.aspect_ratio;
 }
 
-extern "C" float OTRGetDimensionFromLeftEdge(float v) {
+float OTRGetDimensionFromLeftEdge(float v) {
     return (SCREEN_WIDTH / 2 - SCREEN_HEIGHT / 2 * OTRGetAspectRatio() + (v));
 }
 
-extern "C" float OTRGetDimensionFromRightEdge(float v) {
+float OTRGetDimensionFromRightEdge(float v) {
     return (SCREEN_WIDTH / 2 + SCREEN_HEIGHT / 2 * OTRGetAspectRatio() - (SCREEN_WIDTH - v));
 }
 
 f32 floorf(f32 x);
 f32 ceilf(f32 x);
 
-extern "C" int16_t OTRGetRectDimensionFromLeftEdge(float v) {
+int16_t OTRGetRectDimensionFromLeftEdge(float v) {
     return ((int)floorf(OTRGetDimensionFromLeftEdge(v)));
 }
 
-extern "C" int16_t OTRGetRectDimensionFromRightEdge(float v) {
+int16_t OTRGetRectDimensionFromRightEdge(float v) {
     return ((int)ceilf(OTRGetDimensionFromRightEdge(v)));
 }
 
-extern "C" void bswapSoundFontSound(SoundFontSound* swappable) {
+void bswapSoundFontSound(SoundFontSound* swappable) {
     swappable->sample = (SoundFontSample*)_byteswap_ulong((u32)swappable->sample);
     swappable->tuningAsU32 = _byteswap_ulong((u32)swappable->tuningAsU32);
 }
 
-extern "C" void bswapDrum(Drum* swappable) {
+void bswapDrum(Drum* swappable) {
     bswapSoundFontSound(&swappable->sound);
     swappable->envelope = (AdsrEnvelope*)_byteswap_ulong((u32)swappable->envelope);
 }
 
-extern "C" void bswapInstrument(Instrument* swappable) {
+void bswapInstrument(Instrument* swappable) {
     swappable->envelope = (AdsrEnvelope*)_byteswap_ulong((u32)swappable->envelope);
     bswapSoundFontSound(&swappable->lowNotesSound);
     bswapSoundFontSound(&swappable->normalNotesSound);
     bswapSoundFontSound(&swappable->highNotesSound);
 }
 
-extern "C" void bswapSoundFontSample(SoundFontSample* swappable) {
+void bswapSoundFontSample(SoundFontSample* swappable) {
     u32 origBitfield = _byteswap_ulong(swappable->asU32);
 
-    swappable->codec = (origBitfield >> 28) & 0x0F;
-    swappable->medium = (origBitfield >> 24) & 0x03;
-    swappable->unk_bit26 = (origBitfield >> 22) & 0x01;
-    swappable->unk_bit25 = (origBitfield >> 21) & 0x01;
-    swappable->size = (origBitfield) & 0x00FFFFFF;
+    swappable->bits.codec = (origBitfield >> 28) & 0x0F;
+    swappable->bits.medium = (origBitfield >> 24) & 0x03;
+    swappable->bits.unk_bit26 = (origBitfield >> 22) & 0x01;
+    swappable->bits.unk_bit25 = (origBitfield >> 21) & 0x01;
+    swappable->bits.size = (origBitfield) & 0x00FFFFFF;
 
     swappable->sampleAddr = (u8*)_byteswap_ulong((u32)swappable->sampleAddr);
     swappable->loop = (AdpcmLoop*)_byteswap_ulong((u32)swappable->loop);
     swappable->book = (AdpcmBook*)_byteswap_ulong((u32)swappable->book);
 }
 
-extern "C" void bswapAdpcmLoop(AdpcmLoop* swappable) {
+void bswapAdpcmLoop(AdpcmLoop* swappable) {
     swappable->start = (u32)_byteswap_ulong((u32)swappable->start);
     swappable->end = (u32)_byteswap_ulong((u32)swappable->end);
     swappable->count = (u32)_byteswap_ulong((u32)swappable->count);
@@ -764,7 +764,7 @@ extern "C" void bswapAdpcmLoop(AdpcmLoop* swappable) {
     }
 }
 
-extern "C" void bswapAdpcmBook(AdpcmBook* swappable) {
+void bswapAdpcmBook(AdpcmBook* swappable) {
     swappable->order = (u32)_byteswap_ulong((u32)swappable->order);
     swappable->npredictors = (u32)_byteswap_ulong((u32)swappable->npredictors);
 
@@ -772,7 +772,7 @@ extern "C" void bswapAdpcmBook(AdpcmBook* swappable) {
         swappable->book[i] = (s16)_byteswap_ushort(swappable->book[i]);
 }
 
-extern "C" bool AudioPlayer_Init(void) {
+bool AudioPlayer_Init(void) {
     if (OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer() != nullptr) {
         return OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer()->Init();
     }
@@ -780,19 +780,19 @@ extern "C" bool AudioPlayer_Init(void) {
     return false;
 }
 
-extern "C" int AudioPlayer_Buffered(void) {
+int AudioPlayer_Buffered(void) {
     if (OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer() != nullptr) {
         return OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer()->Buffered();
     }
 }
 
-extern "C" int AudioPlayer_GetDesiredBuffered(void) {
+int AudioPlayer_GetDesiredBuffered(void) {
     if (OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer() != nullptr) {
         return OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer()->GetDesiredBuffered();
     }
 }
 
-extern "C" void AudioPlayer_Play(const uint8_t* buf, uint32_t len) {
+void AudioPlayer_Play(const uint8_t* buf, uint32_t len) {
     if (OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer() != nullptr) {
         OTRGlobals::Instance->context->GetWindow()->GetAudioPlayer()->Play(buf, len);
     }

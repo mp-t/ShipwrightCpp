@@ -1,11 +1,10 @@
-#include "../Animation.h"
-#include "Utils/BinaryReader.h"
+#include "Animation.h"
 
-namespace Ship
+class BinaryReader;
+
+namespace Ship::AnimationFactory
 {
-    class AnimationFactory
-    {
-    public:
-        static Animation* ReadAnimation(BinaryReader* reader);
-    };
+
+[[nodiscard]] Animation* ReadAnimation(BinaryReader* reader);
+
 }

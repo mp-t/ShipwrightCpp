@@ -39,23 +39,23 @@ namespace Ship {
 	}
 
 	void TextureModule::Hook_LookupTexture(HookEvent call) {
-		const auto raw_path = BIND_PTR("path", char*);
+		const auto raw_path = BIND_PTR("path", const char*);
 		if (raw_path == nullptr) return;
 
-		const auto api = BIND_PTR("gfx_api", GfxRenderingAPI*);
+		const auto api = BIND_PTR("gfx_api", const GfxRenderingAPI*);
 		const auto path = normalize(raw_path) + ".png";
-		const auto node = BIND_PTR("node", TextureCacheNode**);
-		const auto fmt = BIND_VAR("fmt", uint32_t*);
-		const auto siz = BIND_VAR("siz", uint32_t*);
-		const auto tile = BIND_VAR("tile", int*);
-		const auto palette = BIND_VAR("palette", uint32_t*);
-		const auto orig_addr = BIND_VAR("addr", const uint8_t**);
+		auto node = BIND_VAR("node", TextureCacheNode* const*); // WAT
+		const auto fmt = BIND_VAR("fmt", const uint32_t*);
+		const auto siz = BIND_VAR("siz", const uint32_t*);
+		const auto tile = BIND_VAR("tile", const int*);
+		const auto palette = BIND_VAR("palette", const uint32_t*);
+		const auto orig_addr = BIND_VAR("addr", uint8_t* const *);
 
 		// INFO("The game is trying to load %s", path.c_str());
 
 		if (this->TextureCache.contains(path) && this->TextureCache[path][tile] != nullptr) {
-			*node = this->TextureCache[path][tile];
-			api->select_texture(tile, (*node)->second.texture_id);
+			node = this->TextureCache[path][tile];
+			api->select_texture(tile, node->second.texture_id);
 			call->cancelled = true;
 			return;
 		}
@@ -85,7 +85,7 @@ namespace Ship {
 		const auto entry = new TextureCacheNode(key, value);
 		api->select_texture(tile, entry->second.texture_id);
 		api->set_sampler_parameters(tile, false, 0, 0);
-		*node = entry;
+		node = entry;
 
 		uint8_t* img_data = stbi_load_from_memory(reinterpret_cast<const stbi_uc*>(tex_data->data), tex_data->size, &tex_data->width, &tex_data->height, nullptr, 4);
 

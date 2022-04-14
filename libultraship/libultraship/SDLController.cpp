@@ -6,7 +6,7 @@
 #include "stox.h"
 #include "Window.h"
 
-extern "C" uint8_t __osMaxControllers;
+extern uint8_t __osMaxControllers;
 float gyroDriftX;
 float gyroDriftY;
 
@@ -116,12 +116,12 @@ namespace Ship {
         std::shared_ptr<ConfigFile> pConf = GlobalCtx2::GetInstance()->GetConfig();
         ConfigFile& Conf = *pConf.get();
 
-        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTX] = Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTX) + "_threshold"]);
-        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTY] = Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTY) + "_threshold"]);
-        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTX] = Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTX) + "_threshold"]);
-        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTY] = Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTY) + "_threshold"]);
-        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERLEFT] = Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERLEFT) + "_threshold"]);
-        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERRIGHT] = Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) + "_threshold"]);
+        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTX] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTX) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTY] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTY) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTX] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTX) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTY] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTY) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERLEFT] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERLEFT) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERRIGHT] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) + "_threshold"]));
     }
 
 
@@ -156,14 +156,12 @@ namespace Ship {
             ay *= scale;
         }
 
-        wStickX = +ax;
-        wStickY = -ay;
+        wStickX = static_cast<decltype(wStickX)>(+ax);
+        wStickY = static_cast<decltype(wStickX)>(-ay);
     }
 
     void SDLController::ReadFromSource() {
         std::string ConfSection = GetBindingConfSection();
-        std::shared_ptr<ConfigFile> pConf = GlobalCtx2::GetInstance()->GetConfig();
-        ConfigFile& Conf = *pConf.get();
 
         SDL_GameControllerUpdate();
 
@@ -326,7 +324,7 @@ namespace Ship {
             if (StickAxisX != SDL_CONTROLLER_AXIS_INVALID && StickAxisY != SDL_CONTROLLER_AXIS_INVALID) {
                 auto AxisValueX = SDL_GameControllerGetAxis(Cont, StickAxisX);
                 auto AxisValueY = SDL_GameControllerGetAxis(Cont, StickAxisY);
-                NormalizeStickAxis(AxisValueX, AxisValueY, StickDeadzone);
+                NormalizeStickAxis(AxisValueX, AxisValueY, static_cast<std::int16_t>(StickDeadzone));
             }
         }
     }
@@ -335,7 +333,7 @@ namespace Ship {
     {
         if (SDL_GameControllerHasRumble(Cont)) {
             if (controller->rumble > 0) {
-                SDL_GameControllerRumble(Cont, 0xFFFF * Game::Settings.controller.rumble_strength, 0xFFFF * Game::Settings.controller.rumble_strength, 1);
+                SDL_GameControllerRumble(Cont, static_cast<Uint16>(0xFFFF * Game::Settings.controller.rumble_strength), static_cast<Uint16>(0xFFFF * Game::Settings.controller.rumble_strength), 1);
             }
         }
 

@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <cstdio>
 
 #if !defined(__linux__) && defined(ENABLE_OPENGL)
 
@@ -7,6 +7,13 @@
 #else
 #define FOR_WINDOWS 0
 #endif
+
+#include "gfx_window_manager_api.h"
+#include "gfx_screen_config.h"
+#include <WTypesbase.h>
+#include <time.h>
+
+#include "../../SohImGuiImpl.h"
 
 #if FOR_WINDOWS
 #include <GL/glew.h>
@@ -19,17 +26,9 @@
 #include <SDL2/SDL_opengles2.h>
 #endif
 
-#include "../../SohImGuiImpl.h"
-
-#include "gfx_window_manager_api.h"
-#include "gfx_screen_config.h"
-#include <WTypesbase.h>
-#include <time.h>
-
 #define GFX_API_NAME "SDL2 - OpenGL"
 
 static SDL_Window *wnd;
-static SDL_GLContext ctx;
 static int inverted_scancode_table[512];
 static int vsync_enabled = 0;
 static unsigned int window_width = DESIRED_SCREEN_WIDTH;
@@ -137,7 +136,7 @@ static void gfx_sdl_init(const char *game_name, bool start_in_fullscreen) {
     //SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
     char title[512];
-    int len = sprintf(title, "%s (%s)", game_name, GFX_API_NAME);
+    sprintf(title, "%s (%s)", game_name, GFX_API_NAME);
 
     wnd = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             window_width, window_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
@@ -146,7 +145,7 @@ static void gfx_sdl_init(const char *game_name, bool start_in_fullscreen) {
         set_fullscreen(true, false);
     }
 
-    ctx = SDL_GL_CreateContext(wnd);
+    SDL_GLContext ctx = SDL_GL_CreateContext(wnd);
 
     SDL_GL_SetSwapInterval(1);
 

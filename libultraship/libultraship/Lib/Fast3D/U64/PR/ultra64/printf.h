@@ -22,7 +22,7 @@ typedef struct {
     /* 0x34 */ u8 qual;
 } _Pft; // size = 0x38
 
-typedef void* (*PrintCallback)(void*, const char*, u32);
+typedef void (*PrintCallback)(void*, const char*, u32);
 
 #define FLAGS_SPACE 1
 #define FLAGS_PLUS 2

@@ -22,6 +22,7 @@ namespace Ship
 	class Vertex : public Resource
 	{
 	public:
+		Vertex() = default;
 		std::vector<Vtx> vtxList;
 	};
 }

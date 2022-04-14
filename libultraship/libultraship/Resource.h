@@ -2,7 +2,6 @@
 
 #include <stdint.h>
 #include "Utils/BinaryReader.h"
-#include "Utils/BinaryWriter.h"
 #include "GlobalCtx2.h"
 #include "StrHash.h"
 #include "File.h"
@@ -95,7 +94,6 @@ namespace Ship
 
         virtual void ParseFileBinary(BinaryReader* reader, Resource* res);
         virtual void ParseFileXML(tinyxml2::XMLElement* reader, Resource* res);
-        virtual void WriteFileBinary(BinaryWriter* writer, Resource* res);
         virtual void WriteFileXML(tinyxml2::XMLElement* writer, Resource* res);
     };
 

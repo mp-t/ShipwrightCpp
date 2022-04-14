@@ -1,7 +1,7 @@
 #ifndef ULTRA64_TYPES_H
 #define ULTRA64_TYPES_H
 
-#include <stdint.h>
+#include <cstdint>
 
 typedef signed char            s8;
 typedef unsigned char          u8;
@@ -36,7 +36,7 @@ typedef union {
     struct {
         u16 intPart[4][4];
         u16 fracPart[4][4];
-    };
+    } m_raw;
     long long int forc_structure_alignment;
 } Mtx;
 
@@ -48,7 +48,7 @@ typedef union {
               xy, yy, zy, wy,
               xz, yz, zz, wz,
               xw, yw, zw, ww;
-    };
+    } mf_raw;
 } MtxF;
 
 #endif

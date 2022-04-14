@@ -4,7 +4,6 @@ namespace Ship
 {
 	Scene::~Scene()
 	{
-		int bp = 0;
 	}
 
 	void SceneV0::ParseFileBinary(BinaryReader* reader, Resource* res)
@@ -24,7 +23,7 @@ namespace Ship
 	{
 		SceneCommandID cmdID = (SceneCommandID)reader->ReadInt32();
 
-		reader->Seek(-4, SeekOffsetType::Current);
+		reader->Seek(static_cast<std::uint32_t>(-4), SeekOffsetType::Current);
 
 		switch (cmdID)
 		{
@@ -55,7 +54,7 @@ namespace Ship
 		case SceneCommandID::EndMarker: return new EndMarker(reader);
 		default:
 			SPDLOG_ERROR("UNIMPLEMENTED COMMAND: {}", (int)cmdID);
-			reader->ReadInt32();
+			[[maybe_unused]] const auto v = reader->ReadInt32();
 			break;
 		}
 
@@ -125,8 +124,8 @@ namespace Ship
 
 	SetCsCamera::SetCsCamera(BinaryReader* reader) : SceneCommand(reader)
 	{
-		reader->ReadByte(); // camSize
-		reader->ReadInt32(); // segOffset
+		[[maybe_unused]] const auto camSize = reader->ReadByte();
+		[[maybe_unused]] const auto segOffset = reader->ReadInt32();
 
 		// OTRTODO: FINISH!
 	}
@@ -158,7 +157,7 @@ namespace Ship
 
 			if (meshHeaderType == 0)
 			{
-				int polyType = reader->ReadByte();
+				[[maybe_unused]] const int polyType = reader->ReadByte();
 				mesh.x = 0;
 				mesh.y = 0;
 				mesh.z = 0;
@@ -166,7 +165,7 @@ namespace Ship
 			}
 			else if (meshHeaderType == 2)
 			{
-				int polyType = reader->ReadByte();
+				[[maybe_unused]] const int polyType = reader->ReadByte();
 				mesh.x = reader->ReadInt16();
 				mesh.y = reader->ReadInt16();
 				mesh.z = reader->ReadInt16();
@@ -182,7 +181,7 @@ namespace Ship
 				uint32_t imgCnt = reader->ReadUInt32();
 				mesh.images.reserve(imgCnt);
 
-				for (uint32_t i = 0; i < imgCnt; i++)
+				for (uint32_t j = 0; j < imgCnt; j++)
 				{
 					BGImage img;
 
@@ -201,9 +200,7 @@ namespace Ship
 					mesh.images.push_back(img);
 				}
 
-				int polyType = reader->ReadByte();
-
-				int bp = 0;
+				[[maybe_unused]] const int polyType = reader->ReadByte();
 			}
 
 

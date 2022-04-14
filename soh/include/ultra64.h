@@ -4,12 +4,6 @@
 #include "ultra64/types.h"
 #include "unk.h"
 
-#include "libc/stdarg.h"
-#include "libc/stdbool.h"
-#include "libc/stddef.h"
-#include "libc/stdlib.h"
-#include "libc/math.h"
-
 #include "ultra64/exception.h"
 #include "ultra64/rcp.h"
 #include "ultra64/rdp.h"

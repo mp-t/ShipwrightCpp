@@ -1,23 +1,23 @@
+#include "Archive.h"
+
 #include "SohImGuiImpl.h"
 
 #include <iostream>
 #include <utility>
 
-#include "Archive.h"
+#include "../Fast3D/gfx_pc.h"
+#include "Cvar.h"
 #include "Environment.h"
 #include "GameSettings.h"
-#include "SohConsole.h"
-#include "SohHooks.h"
-#include "Lib/ImGui/imgui_internal.h"
 #include "GlobalCtx2.h"
-#include "ResourceMgr.h"
-#include "TextureMod.h"
-#include "Window.h"
-#include "Cvar.h"
-#include "../Fast3D/gfx_pc.h"
-#include "Lib/stb/stb_image.h"
 #include "Lib/Fast3D/gfx_rendering_api.h"
+#include "Lib/ImGui/imgui_internal.h"
+#include "Lib/stb/stb_image.h"
+#include "ResourceMgr.h"
+#include "SohHooks.h"
+#include "TextureMod.h"
 #include "Utils/StringHelper.h"
+#include "Window.h"
 
 #ifdef ENABLE_OPENGL
 #include "Lib/ImGui/backends/imgui_impl_opengl3.h"
@@ -28,7 +28,6 @@
 #if defined(ENABLE_DX11) || defined(ENABLE_DX12)
 #include "Lib/ImGui/backends/imgui_impl_dx11.h"
 #include "Lib/ImGui/backends/imgui_impl_win32.h"
-#include <Windows.h>
 
 IMGUI_IMPL_API LRESULT  ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -39,7 +38,7 @@ bool oldCursorState = true;
 
 #define TOGGLE_BTN ImGuiKey_F1
 #define HOOK(b) if(b) needs_save = true;
-OSContPad* pads;
+const OSContPad* pads;
 
 std::map<std::string, GameAsset*> DefaultAssets;
 
@@ -206,7 +205,7 @@ namespace SohImGui {
         } });
 
         ModInternal::registerHookListener({ CONTROLLER_READ, [](const HookEvent ev) {
-            pads = static_cast<OSContPad*>(ev->baseArgs["cont_pad"]);
+            pads = static_cast<const OSContPad*>(ev->baseArgs["cont_pad"]);
         } });
         Game::InitSettings();
     }
@@ -219,7 +218,7 @@ namespace SohImGui {
         ImGuiProcessEvent(event);
     }
 
-#define BindButton(btn, status) ImGui::Image(impl.backend == Backend::DX11 ? GetTextureByID(DefaultAssets[btn]->textureId) : (ImTextureID)(DefaultAssets[btn]->textureId), ImVec2(16.0f * scale, 16.0f * scale), ImVec2(0, 0), ImVec2(1.0f, 1.0f), ImVec4(255, 255, 255, (status) ? 255 : 0));
+#define BindButton(btn, status) ImGui::Image(impl.backend == Backend::DX11 ? GetTextureByID(DefaultAssets[btn]->textureId) : (ImTextureID)(DefaultAssets[btn]->textureId), ImVec2(16.0f * scale, 16.0f * scale), ImVec2(0.f, 0.f), ImVec2(1.0f, 1.0f), ImVec4(255.f, 255.f, 255.f, (status) ? 255.f : 0.f));
 
     void BindAudioSlider(const char* name, const char* key, float* value, SeqPlayers playerId) {
         ImGui::Text(name, static_cast<int>(100 * *(value)));
@@ -249,7 +248,7 @@ namespace SohImGui {
 
         const ImGuiViewport* viewport = ImGui::GetMainViewport();
         ImGui::SetNextWindowPos(viewport->WorkPos);
-        ImGui::SetNextWindowSize(ImVec2(wnd->GetCurrentWidth(), wnd->GetCurrentHeight()));
+        ImGui::SetNextWindowSize(ImVec2(static_cast<float>(wnd->GetCurrentWidth()), static_cast<float>(wnd->GetCurrentHeight())));
         ImGui::SetNextWindowViewport(viewport->ID);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::Begin("Main - Deck", nullptr, window_flags);
@@ -384,15 +383,15 @@ namespace SohImGui {
         ImVec2 main_pos = ImGui::GetWindowPos();
         ImVec2 size = ImGui::GetContentRegionAvail();
         ImVec2 pos = ImVec2(0, 0);
-        gfx_current_dimensions.width = size.x * gfx_current_dimensions.internal_mul;
-        gfx_current_dimensions.height = size.y * gfx_current_dimensions.internal_mul;
+        gfx_current_dimensions.width = static_cast<decltype(gfx_current_dimensions.width)>(size.x * gfx_current_dimensions.internal_mul);
+        gfx_current_dimensions.height = static_cast<decltype(gfx_current_dimensions.height)>(size.y * gfx_current_dimensions.internal_mul);
         if (UseInternalRes()) {
             if (Game::Settings.debug.n64mode) {
                 gfx_current_dimensions.width = 320;
                 gfx_current_dimensions.height = 240;
-                const int sw = size.y * 320 / 240;
+                const int sw = static_cast<int>(size.y * 320 / 240);
                 pos = ImVec2(size.x / 2 - sw / 2, 0);
-                size = ImVec2(sw, size.y);
+                size = ImVec2(static_cast<float>(sw), size.y);
             }
         }
 
