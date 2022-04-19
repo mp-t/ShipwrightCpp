@@ -24,7 +24,7 @@ void BgMoriHashigo_SetupLadderFall(BgMoriHashigo* thisv);
 void BgMoriHashigo_LadderFall(BgMoriHashigo* thisv, GlobalContext* globalCtx);
 void BgMoriHashigo_SetupLadderRest(BgMoriHashigo* thisv);
 
-const ActorInit Bg_Mori_Hashigo_InitVars = {
+ActorInit Bg_Mori_Hashigo_InitVars = {
     ACTOR_BG_MORI_HASHIGO,
     ACTORCAT_BG,
     FLAGS,

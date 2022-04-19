@@ -25,7 +25,7 @@ void func_80A7A940(EnIn* thisv, GlobalContext* globalCtx);
 void func_80A7AA40(EnIn* thisv, GlobalContext* globalCtx);
 void func_80A7A4BC(EnIn* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_In_InitVars = {
+ActorInit En_In_InitVars = {
     ACTOR_EN_IN,
     ACTORCAT_NPC,
     FLAGS,
@@ -83,12 +83,12 @@ static AnimationFrameCountInfo sAnimationInfo[] = {
     { &object_in_Anim_01431C, 1.0f, ANIMMODE_LOOP, 0.0f }, { &object_in_Anim_014CA8, 1.0f, ANIMMODE_LOOP, 0.0f },
 };
 
-static AnimationHeader* D_80A7B918[] = {
+static const AnimationHeader* D_80A7B918[] = {
     &object_in_Anim_0151C8, &object_in_Anim_015DF0, &object_in_Anim_016B3C, &object_in_Anim_015814,
     &object_in_Anim_01646C, &object_in_Anim_0175D0, &object_in_Anim_017B58, &object_in_Anim_018C38,
 };
 
-static Gfx* sAdultEraDLs[] = {
+static const Gfx* sAdultEraDLs[] = {
     NULL,
     NULL,
     gIngoAdultEraLeftThighDL,
@@ -941,7 +941,7 @@ void EnIn_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnIn_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnIn_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnIn* thisv = (EnIn*)thisx;
     Vec3s sp2C;
 
@@ -969,7 +969,7 @@ s32 EnIn_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return 0;
 }
 
-void EnIn_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnIn_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnIn* thisv = (EnIn*)thisx;
     Vec3f D_80A7B9A8 = { 1600.0, 0.0f, 0.0f };
 
@@ -990,7 +990,7 @@ void EnIn_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnIn_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gIngoEyeOpenTex, gIngoEyeHalfTex, gIngoEyeClosedTex, gIngoEyeClosed2Tex };
+    static const void* eyeTextures[] = { gIngoEyeOpenTex, gIngoEyeHalfTex, gIngoEyeClosedTex, gIngoEyeClosed2Tex };
 
     EnIn* thisv = (EnIn*)thisx;
 

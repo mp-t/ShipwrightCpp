@@ -17,7 +17,7 @@ void BgInGate_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80892890(BgInGate* thisv, GlobalContext* globalCtx);
 void BgInGate_DoNothing(BgInGate* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Ingate_InitVars = {
+ActorInit Bg_Ingate_InitVars = {
     ACTOR_BG_INGATE,
     ACTORCAT_PROP,
     FLAGS,

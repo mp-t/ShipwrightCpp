@@ -42,7 +42,7 @@ void EnSyatekiMan_Blink(EnSyatekiMan* thisv);
 
 void EnSyatekiMan_SetBgm(void);
 
-const ActorInit En_Syateki_Man_InitVars = {
+ActorInit En_Syateki_Man_InitVars = {
     ACTOR_EN_SYATEKI_MAN,
     ACTORCAT_NPC,
     FLAGS,
@@ -475,7 +475,7 @@ void EnSyatekiMan_Update(Actor* thisx, GlobalContext* globalCtx) {
     func_80038290(globalCtx, &thisv->actor, &thisv->headRot, &thisv->bodyRot, thisv->actor.focus.pos);
 }
 
-s32 EnSyatekiMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnSyatekiMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                   void* thisx) {
     EnSyatekiMan* thisv = (EnSyatekiMan*)thisx;
     s32 turnDirection;

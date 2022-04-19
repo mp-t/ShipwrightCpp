@@ -62,7 +62,7 @@ void DemoEffect_InitPositionFromCsAction(DemoEffect* thisv, GlobalContext* globa
 void DemoEffect_MoveToCsEndpoint(DemoEffect* thisv, GlobalContext* globalCtx, s32 csActionId, s32 shouldUpdateFacing);
 void DemoEffect_MoveGetItem(DemoEffect* thisv, GlobalContext* globalCtx, s32 csActionId, f32 speed);
 
-const ActorInit Demo_Effect_InitVars = {
+ActorInit Demo_Effect_InitVars = {
     ACTOR_DEMO_EFFECT,
     ACTORCAT_BG,
     FLAGS,
@@ -1858,7 +1858,7 @@ void DemoEffect_DrawGodLgt(Actor* thisx, GlobalContext* globalCtx) {
 void DemoEffect_DrawLightEffect(Actor* thisx, GlobalContext* globalCtx) {
     DemoEffect* thisv = (DemoEffect*)thisx;
     u8* alpha;
-    Gfx* disp;
+    const Gfx* disp;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_effect.c", 2842);
 
@@ -1867,7 +1867,7 @@ void DemoEffect_DrawLightEffect(Actor* thisx, GlobalContext* globalCtx) {
         if (thisv->light.flicker == 0) {
             thisv->light.flicker = 1;
         } else {
-            disp = (uintptr_t)gEffFlash1DL; // necessary to match, should be able to remove after fake matches are fixed
+            disp = gEffFlash1DL; // necessary to match, should be able to remove after fake matches are fixed
             alpha = &thisv->light.alpha;
             func_80093D84(globalCtx->state.gfxCtx);
             gDPSetPrimColor(POLY_XLU_DISP++, 0, 128, thisv->primXluColor[0], thisv->primXluColor[1],

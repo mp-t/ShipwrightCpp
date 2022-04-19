@@ -24,7 +24,7 @@ void EnIceHono_SetupActionDroppedFlame(EnIceHono* thisv);
 void EnIceHono_SetupActionSpreadFlames(EnIceHono* thisv);
 void EnIceHono_SetupActionSmallFlame(EnIceHono* thisv);
 
-const ActorInit En_Ice_Hono_InitVars = {
+ActorInit En_Ice_Hono_InitVars = {
     ACTOR_EN_ICE_HONO,
     ACTORCAT_ITEMACTION,
     FLAGS,

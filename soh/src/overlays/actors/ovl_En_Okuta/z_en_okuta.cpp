@@ -19,7 +19,7 @@ void EnOkuta_Die(EnOkuta* thisv, GlobalContext* globalCtx);
 void EnOkuta_Freeze(EnOkuta* thisv, GlobalContext* globalCtx);
 void EnOkuta_ProjectileFly(EnOkuta* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Okuta_InitVars = {
+ActorInit En_Okuta_InitVars = {
     ACTOR_EN_OKUTA,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -677,7 +677,7 @@ s32 EnOkuta_GetSnoutScale(EnOkuta* thisv, f32 curFrame, Vec3f* scale) {
     return true;
 }
 
-s32 EnOkuta_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnOkuta_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                              void* thisx) {
     EnOkuta* thisv = (EnOkuta*)thisx;
     f32 curFrame = thisv->skelAnime.curFrame;

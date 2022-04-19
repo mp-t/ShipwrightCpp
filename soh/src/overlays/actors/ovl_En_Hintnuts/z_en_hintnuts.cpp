@@ -27,7 +27,7 @@ void EnHintnuts_Talk(EnHintnuts* thisv, GlobalContext* globalCtx);
 void EnHintnuts_Leave(EnHintnuts* thisv, GlobalContext* globalCtx);
 void EnHintnuts_Freeze(EnHintnuts* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Hintnuts_InitVars = {
+ActorInit En_Hintnuts_InitVars = {
     ACTOR_EN_HINTNUTS,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -503,7 +503,7 @@ void EnHintnuts_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnHintnuts_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnHintnuts_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx) {
     Vec3f vec;
     f32 curFrame;

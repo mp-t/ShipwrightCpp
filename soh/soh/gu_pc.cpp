@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-void guMtxF2L(float mf[4][4], Mtx* m) {
+void guMtxF2L(MtxF* mf, Mtx* m) {
     unsigned int r, c;
     s32 tmp1;
     s32 tmp2;
@@ -10,15 +10,15 @@ void guMtxF2L(float mf[4][4], Mtx* m) {
     s32* m2 = &m->m[2][0];
     for (r = 0; r < 4; r++) {
         for (c = 0; c < 2; c++) {
-            tmp1 = mf[r][2 * c] * 65536.0f;
-            tmp2 = mf[r][2 * c + 1] * 65536.0f;
+            tmp1 = mf->mf[r][2 * c] * 65536.0f;
+            tmp2 = mf->mf[r][2 * c + 1] * 65536.0f;
             *m1++ = (tmp1 & 0xffff0000) | ((tmp2 >> 0x10) & 0xffff);
             *m2++ = ((tmp1 << 0x10) & 0xffff0000) | (tmp2 & 0xffff);
         }
     }
 }
 
-void guMtxL2F(float mf[4][4], Mtx* m) {
+void guMtxL2F(MtxF* mf, Mtx* m) {
     unsigned int r, c;
     u32 tmp1;
     u32 tmp2;
@@ -33,20 +33,20 @@ void guMtxL2F(float mf[4][4], Mtx* m) {
             tmp2 = ((*m1++ << 0x10) & 0xffff0000) | (*m2++ & 0xffff);
             stmp1 = *(s32*)&tmp1;
             stmp2 = *(s32*)&tmp2;
-            mf[r][c * 2 + 0] = stmp1 / 65536.0f;
-            mf[r][c * 2 + 1] = stmp2 / 65536.0f;
+            mf->mf[r][c * 2 + 0] = stmp1 / 65536.0f;
+            mf->mf[r][c * 2 + 1] = stmp2 / 65536.0f;
         }
     }
 }
 
-void guMtxIdentF(f32 mf[4][4]) {
+void guMtxIdentF(MtxF* mf) {
     unsigned int r, c;
     for (r = 0; r < 4; r++) {
         for (c = 0; c < 4; c++) {
             if (r == c) {
-                mf[r][c] = 1.0f;
+                mf->mf[r][c] = 1.0f;
             } else {
-                mf[r][c] = 0.0f;
+                mf->mf[r][c] = 0.0f;
             }
         }
     }
@@ -69,29 +69,29 @@ void guMtxIdent(Mtx* m) {
     }
 }
 
-void guTranslateF(float m[4][4], float x, float y, float z) {
+void guTranslateF(MtxF* m, float x, float y, float z) {
     guMtxIdentF(m);
-    m[3][0] = x;
-    m[3][1] = y;
-    m[3][2] = z;
+    m->mf[3][0] = x;
+    m->mf[3][1] = y;
+    m->mf[3][2] = z;
 }
 void guTranslate(Mtx* m, float x, float y, float z) {
-    float mf[4][4];
-    guTranslateF(mf, x, y, z);
-    guMtxF2L(mf, m);
+    MtxF mf;
+    guTranslateF(&mf, x, y, z);
+    guMtxF2L(&mf, m);
 }
 
-void guScaleF(float mf[4][4], float x, float y, float z) {
+void guScaleF(MtxF* mf, float x, float y, float z) {
     guMtxIdentF(mf);
-    mf[0][0] = x;
-    mf[1][1] = y;
-    mf[2][2] = z;
-    mf[3][3] = 1.0;
+    mf->mf[0][0] = x;
+    mf->mf[1][1] = y;
+    mf->mf[2][2] = z;
+    mf->mf[3][3] = 1.0;
 }
 void guScale(Mtx* m, float x, float y, float z) {
-    float mf[4][4];
-    guScaleF(mf, x, y, z);
-    guMtxF2L(mf, m);
+    MtxF mf;
+    guScaleF(&mf, x, y, z);
+    guMtxF2L(&mf, m);
 }
 
 void guNormalize(f32* x, f32* y, f32* z) {

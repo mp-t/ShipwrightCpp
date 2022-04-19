@@ -18,7 +18,7 @@ void ObjMure_ActiveState(ObjMure* thisv, GlobalContext* globalCtx);
 
 s32 ObjMure_GetMaxChildSpawns(ObjMure* thisv);
 
-const ActorInit Obj_Mure_InitVars = {
+ActorInit Obj_Mure_InitVars = {
     ACTOR_OBJ_MURE,
     ACTORCAT_ITEMACTION,
     FLAGS,

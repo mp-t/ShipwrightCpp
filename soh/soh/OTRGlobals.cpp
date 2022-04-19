@@ -34,8 +34,8 @@ OTRGlobals::~OTRGlobals() {
 }
 
 extern uintptr_t clearMtx;
-Mtx gMtxClear;
-MtxF gMtxFClear;
+extern Mtx gMtxClear;
+extern MtxF gMtxFClear;
 
 // C->C++ Bridge
 void InitOTR() {
@@ -129,7 +129,7 @@ char* ResourceMgr_LoadFileFromDisk(const char* filePath) {
     return data;
 }
 
-char* ResourceMgr_LoadJPEG(char* data, int dataSize)
+char* ResourceMgr_LoadJPEG(const char* data, int dataSize)
 {
     static char* finalBuffer = 0;
 

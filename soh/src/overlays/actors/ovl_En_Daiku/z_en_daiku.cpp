@@ -38,10 +38,10 @@ void EnDaiku_InitEscape(EnDaiku* thisv, GlobalContext* globalCtx);
 void EnDaiku_EscapeRotate(EnDaiku* thisv, GlobalContext* globalCtx);
 void EnDaiku_InitSubCamera(EnDaiku* thisv, GlobalContext* globalCtx);
 void EnDaiku_EscapeRun(EnDaiku* thisv, GlobalContext* globalCtx);
-s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
-void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s* rot, void* thisx);
+s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
+void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, const Gfx** dList, Vec3s* rot, void* thisx);
 
-const ActorInit En_Daiku_InitVars = {
+ActorInit En_Daiku_InitVars = {
     ACTOR_EN_DAIKU,
     ACTORCAT_NPC,
     FLAGS,
@@ -609,7 +609,7 @@ void EnDaiku_Draw(Actor* thisx, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_daiku.c", 1255);
 }
 
-s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnDaiku* thisv = (EnDaiku*)thisx;
 
     switch (limb) {
@@ -626,8 +626,8 @@ s32 EnDaiku_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Ve
     return false;
 }
 
-void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Gfx* hairDLists[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
+void EnDaiku_PostLimbDraw(GlobalContext* globalCtx, s32 limb, const Gfx** dList, Vec3s* rot, void* thisx) {
+    static const Gfx* hairDLists[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
                                  object_daiku_DL_005880 };
     static Vec3f targetPosHeadLocal = { 700, 1100, 0 };
     EnDaiku* thisv = (EnDaiku*)thisx;

@@ -39,7 +39,7 @@ static ColliderCylinderInit D_80AB0BD0 = {
 
 static CollisionCheckInfoInit2 D_80AB0BFC = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
-const ActorInit En_Mu_InitVars = {
+ActorInit En_Mu_InitVars = {
     ACTOR_EN_MU,
     ACTORCAT_NPC,
     FLAGS,
@@ -176,7 +176,7 @@ void EnMu_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actor.focus.pos.y += 60.0f;
 }
 
-s32 EnMu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnMu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnMu* thisv = (EnMu*)thisx;
 
     if ((limbIndex == 5) || (limbIndex == 6) || (limbIndex == 7) || (limbIndex == 11) || (limbIndex == 12) ||
@@ -187,13 +187,13 @@ s32 EnMu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnMu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnMu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
 }
 
 Gfx* EnMu_DisplayListSetColor(GraphicsContext* gfxCtx, u8 r, u8 g, u8 b, u8 a) {
     Gfx* dlist;
 
-    dlist = Graph_Alloc(gfxCtx, 2 * sizeof(Gfx));
+    dlist = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 2 * sizeof(Gfx)));
     gDPSetEnvColor(dlist, r, g, b, a);
     gSPEndDisplayList(dlist + 1);
     return dlist;

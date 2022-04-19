@@ -28,7 +28,7 @@ void EnBili_Die(EnBili* thisv, GlobalContext* globalCtx);
 void EnBili_Stunned(EnBili* thisv, GlobalContext* globalCtx);
 void EnBili_Frozen(EnBili* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Bili_InitVars = {
+ActorInit En_Bili_InitVars = {
     ACTOR_EN_BILI,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -722,7 +722,7 @@ void EnBili_PulseLimb4(EnBili* thisv, f32 frame, Vec3f* arg2) {
     }
 }
 
-s32 EnBili_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnBili_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                             Gfx** gfx) {
     EnBili* thisv = (EnBili*)thisx;
     Vec3f limbScale = { 1.0f, 1.0f, 1.0f };
@@ -741,7 +741,7 @@ s32 EnBili_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     return false;
 }
 
-static void* sTentaclesTextures[] = {
+static const void* sTentaclesTextures[] = {
     gBiriTentacles0Tex, gBiriTentacles1Tex, gBiriTentacles2Tex, gBiriTentacles3Tex,
     gBiriTentacles4Tex, gBiriTentacles5Tex, gBiriTentacles6Tex, gBiriTentacles7Tex,
 };

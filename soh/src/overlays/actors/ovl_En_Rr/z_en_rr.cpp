@@ -64,7 +64,7 @@ void EnRr_Death(EnRr* thisv, GlobalContext* globalCtx);
 void EnRr_Retreat(EnRr* thisv, GlobalContext* globalCtx);
 void EnRr_Stunned(EnRr* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Rr_InitVars = {
+ActorInit En_Rr_InitVars = {
     ACTOR_EN_RR,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -77,7 +77,7 @@ const ActorInit En_Rr_InitVars = {
     NULL,
 };
 
-static char* sDropNames[] = {
+static const char* sDropNames[] = {
     // "type 7", "small magic jar", "arrow", "fairy", "20 rupees", "50 rupees"
     "タイプ７  ", "魔法の壷小", "矢        ", "妖精      ", "20ルピー  ", "50ルピー  ",
 };
@@ -843,7 +843,7 @@ void EnRr_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Vec3f zeroVec;
     EnRr* thisv = (EnRr*)thisx;
     s32 i;
-    Mtx* segMtx = Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Mtx));
+    Mtx* segMtx = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Mtx)));
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rr.c", 1478);
     if (1) {}

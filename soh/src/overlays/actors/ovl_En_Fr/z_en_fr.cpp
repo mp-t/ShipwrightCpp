@@ -121,7 +121,7 @@ static s32 sSongToFrog[] = {
     FROG_PURPLE, FROG_WHITE, FROG_YELLOW, FROG_BLUE, FROG_RED,
 };
 
-const ActorInit En_Fr_InitVars = {
+ActorInit En_Fr_InitVars = {
     ACTOR_EN_FR,
     ACTORCAT_NPC,
     FLAGS,
@@ -1036,14 +1036,14 @@ void EnFr_UpdateIdle(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnFr_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnFr_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     if ((limbIndex == 7) || (limbIndex == 8)) {
         *dList = NULL;
     }
     return 0;
 }
 
-void EnFr_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnFr_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnFr* thisv = (EnFr*)thisx;
 
     if ((limbIndex == 7) || (limbIndex == 8)) {
@@ -1059,7 +1059,7 @@ void EnFr_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnFr_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         object_fr_Tex_0059A0,
         object_fr_Tex_005BA0,
     };

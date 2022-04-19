@@ -39,7 +39,7 @@ void func_80968B70(Actor* thisx, GlobalContext* globalCtx);
 void func_80968FB0(Actor* thisx, GlobalContext* globalCtx);
 void func_809691BC(Demo6K* thisv, GlobalContext* globalCtx, s32 params);
 
-const ActorInit Demo_6K_InitVars = {
+ActorInit Demo_6K_InitVars = {
     ACTOR_DEMO_6K,
     ACTORCAT_PROP,
     FLAGS,

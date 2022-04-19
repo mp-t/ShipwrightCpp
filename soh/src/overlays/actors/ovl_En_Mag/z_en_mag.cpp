@@ -14,7 +14,7 @@ void EnMag_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnMag_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMag_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Mag_InitVars = {
+ActorInit En_Mag_InitVars = {
     ACTOR_EN_MAG,
     ACTORCAT_PROP,
     FLAGS,
@@ -493,7 +493,7 @@ void EnMag_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 #endif
 
-void EnMag_DrawTextureI8(Gfx** gfxp, void* texture, s16 texWidth, s16 texHeight, s16 rectLeft, s16 rectTop,
+void EnMag_DrawTextureI8(Gfx** gfxp, const void* texture, s16 texWidth, s16 texHeight, s16 rectLeft, s16 rectTop,
                          s16 rectWidth, s16 rectHeight, u16 dsdx, u16 dtdy) {
     Gfx* gfx = *gfxp;
 
@@ -506,7 +506,7 @@ void EnMag_DrawTextureI8(Gfx** gfxp, void* texture, s16 texWidth, s16 texHeight,
     *gfxp = gfx;
 }
 
-void EnMag_DrawEffectTextures(Gfx** gfxp, void* maskTex, void* effectTex, s16 maskWidth, s16 maskHeight,
+void EnMag_DrawEffectTextures(Gfx** gfxp, const void* maskTex, const void* effectTex, s16 maskWidth, s16 maskHeight,
                               s16 effectWidth, s16 effectHeight, s16 rectLeft, s16 rectTop, s16 rectWidth,
                               s16 rectHeight, u16 dsdx, u16 dtdy, u16 shifts, u16 shiftt, u16 flag, EnMag* thisv) {
     Gfx* gfx = *gfxp;
@@ -539,7 +539,7 @@ void EnMag_DrawImageRGBA32(Gfx** gfxp, s16 centerX, s16 centerY, u8* source, u32
     s32 pad;
     s32 i;
 
-    source = ResourceMgr_LoadTexByName(source);
+    source = reinterpret_cast<u8*>(ResourceMgr_LoadTexByName(reinterpret_cast<const char*>(source)));
 
     func_80094D28(&gfx);
 
@@ -803,7 +803,7 @@ void EnMag_DrawInner(Actor* thisx, GlobalContext* globalCtx, Gfx** gfxp) {
     static u8 pressStartFontIndexes[] = {
         0x19, 0x1B, 0x0E, 0x1C, 0x1C, 0x1C, 0x1D, 0x0A, 0x1B, 0x1D,
     };
-    static void* effectMaskTextures[] = {
+    static const void* effectMaskTextures[] = {
         gTitleEffectMask00Tex, gTitleEffectMask01Tex, gTitleEffectMask02Tex,
         gTitleEffectMask10Tex, gTitleEffectMask11Tex, gTitleEffectMask12Tex,
         gTitleEffectMask20Tex, gTitleEffectMask21Tex, gTitleEffectMask22Tex,

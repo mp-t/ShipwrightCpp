@@ -26,7 +26,7 @@ void EnDntDemo_Judge(EnDntDemo* thisv, GlobalContext* globalCtx);
 void EnDntDemo_Results(EnDntDemo* thisv, GlobalContext* globalCtx);
 void EnDntDemo_Prize(EnDntDemo* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dnt_Demo_InitVars = {
+ActorInit En_Dnt_Demo_InitVars = {
     ACTOR_EN_DNT_DEMO,
     ACTORCAT_PROP,
     FLAGS,

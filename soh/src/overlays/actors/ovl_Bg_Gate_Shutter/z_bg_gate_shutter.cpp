@@ -20,7 +20,7 @@ void func_80878300(BgGateShutter* thisv, GlobalContext* globalCtx);
 void func_808783AC(BgGateShutter* thisv, GlobalContext* globalCtx);
 void func_808783D4(BgGateShutter* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Gate_Shutter_InitVars = {
+ActorInit Bg_Gate_Shutter_InitVars = {
     ACTOR_BG_GATE_SHUTTER,
     ACTORCAT_ITEMACTION,
     FLAGS,

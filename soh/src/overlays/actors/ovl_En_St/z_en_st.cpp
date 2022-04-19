@@ -23,7 +23,7 @@ void EnSt_FinishBouncing(EnSt* thisv, GlobalContext* globalCtx);
 
 #include "overlays/ovl_En_St/ovl_En_St.h"
 
-const ActorInit En_St_InitVars = {
+ActorInit En_St_InitVars = {
     ACTOR_EN_ST,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -238,11 +238,11 @@ void EnSt_AddBlurVertex(EnSt* thisv) {
     Matrix_MultVec3f(&v1, &v1Pos);
     Matrix_MultVec3f(&v2, &v2Pos);
     Matrix_Pop();
-    EffectBlure_AddVertex(Effect_GetByIndex(thisv->blureIdx), &v1Pos, &v2Pos);
+    EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)), &v1Pos, &v2Pos);
 }
 
 void EnSt_AddBlurSpace(EnSt* thisv) {
-    EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIdx));
+    EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)));
 }
 
 void EnSt_SetWaitingAnimation(EnSt* thisv) {
@@ -1049,7 +1049,7 @@ void EnSt_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dListP, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnSt* thisv = (EnSt*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_st.c", 2260);
@@ -1073,7 +1073,7 @@ s32 EnSt_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP,
     return false;
 }
 
-void EnSt_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dListP, Vec3s* rot, void* thisx) {
+void EnSt_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dListP, Vec3s* rot, void* thisx) {
     EnSt* thisv = (EnSt*)thisx;
 
     Collider_UpdateSpheres(limbIndex, &thisv->colSph);

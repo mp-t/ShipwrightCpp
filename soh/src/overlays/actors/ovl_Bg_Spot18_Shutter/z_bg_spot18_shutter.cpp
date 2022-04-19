@@ -20,7 +20,7 @@ void func_808B9618(BgSpot18Shutter* thisv, GlobalContext* globalCtx);
 void func_808B9698(BgSpot18Shutter* thisv, GlobalContext* globalCtx);
 void func_808B971C(BgSpot18Shutter* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot18_Shutter_InitVars = {
+ActorInit Bg_Spot18_Shutter_InitVars = {
     ACTOR_BG_SPOT18_SHUTTER,
     ACTORCAT_PROP,
     FLAGS,

@@ -19,7 +19,7 @@ s32 func_80994750(DoorGerudo* thisv, GlobalContext* globalCtx);
 void func_8099496C(DoorGerudo* thisv, GlobalContext* globalCtx);
 void func_809949C8(DoorGerudo* thisv, GlobalContext* globalCtx);
 
-const ActorInit Door_Gerudo_InitVars = {
+ActorInit Door_Gerudo_InitVars = {
     ACTOR_DOOR_GERUDO,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -39,7 +39,7 @@ static InitChainEntry sInitChain[] = {
 void DoorGerudo_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     DoorGerudo* thisv = (DoorGerudo*)thisx;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
 
     Actor_ProcessInitChain(&thisv->dyna.actor, sInitChain);
     CollisionHeader_GetVirtual(&gGerudoCellDoorCol, &colHeader);

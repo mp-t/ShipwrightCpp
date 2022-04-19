@@ -42,7 +42,7 @@ static DemoGeffDrawFunc sDrawFuncs[] = {
     func_80978344,
 };
 
-const ActorInit Demo_Geff_InitVars = {
+ActorInit Demo_Geff_InitVars = {
     ACTOR_DEMO_GEFF,
     ACTORCAT_BOSS,
     FLAGS,
@@ -70,7 +70,7 @@ void DemoGeff_Init(Actor* thisx, GlobalContext* globalCtx) {
     thisv->drawConfig = 0;
 }
 
-void func_80977EA8(GlobalContext* globalCtx, Gfx* dlist) {
+void func_80977EA8(GlobalContext* globalCtx, const Gfx* dlist) {
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
 
     OPEN_DISPS(gfxCtx, "../z_demo_geff.c", 181);

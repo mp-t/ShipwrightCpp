@@ -14,7 +14,7 @@ void EndTitle_Update(Actor* thisx, GlobalContext* globalCtx);
 void EndTitle_DrawFull(Actor* thisx, GlobalContext* globalCtx);
 void EndTitle_DrawNintendoLogo(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit End_Title_InitVars = {
+ActorInit End_Title_InitVars = {
     ACTOR_END_TITLE,
     ACTORCAT_ITEMACTION,
     FLAGS,

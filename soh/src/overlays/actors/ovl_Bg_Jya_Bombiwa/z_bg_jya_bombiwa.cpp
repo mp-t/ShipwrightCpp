@@ -16,7 +16,7 @@ void BgJyaBombiwa_Destroy(Actor* thisvx, GlobalContext* globalCtx);
 void BgJyaBombiwa_Update(Actor* thisvx, GlobalContext* globalCtx);
 void BgJyaBombiwa_Draw(Actor* thisvx, GlobalContext* globalCtx);
 
-const ActorInit Bg_Jya_Bombiwa_InitVars = {
+ActorInit Bg_Jya_Bombiwa_InitVars = {
     ACTOR_BG_JYA_BOMBIWA,
     ACTORCAT_BG,
     FLAGS,

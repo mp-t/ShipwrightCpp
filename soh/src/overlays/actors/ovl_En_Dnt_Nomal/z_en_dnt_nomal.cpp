@@ -56,7 +56,7 @@ void EnDntNomal_StageAttackHide(EnDntNomal* thisv, GlobalContext* globalCtx);
 void EnDntNomal_StageAttack(EnDntNomal* thisv, GlobalContext* globalCtx);
 void EnDntNomal_StageReturn(EnDntNomal* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dnt_Nomal_InitVars = {
+ActorInit En_Dnt_Nomal_InitVars = {
     ACTOR_EN_DNT_NOMAL,
     ACTORCAT_PROP,
     FLAGS,
@@ -171,7 +171,7 @@ void EnDntNomal_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnDntNomal_WaitForObject(EnDntNomal* thisv, GlobalContext* globalCtx) {
     if (Object_IsLoaded(&globalCtx->objectCtx, thisv->objIndex)) {
-        gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[thisv->objIndex].segment);
+        gSegments[6] = reinterpret_cast<std::uintptr_t>( PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[thisv->objIndex].segment) );
         thisv->actor.objBankIndex = thisv->objIndex;
         ActorShape_Init(&thisv->actor.shape, 0.0f, ActorShadow_DrawCircle, 0.0f);
         thisv->actor.gravity = -2.0f;
@@ -820,7 +820,7 @@ void EnDntNomal_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnDntNomal_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnDntNomal_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx) {
     EnDntNomal* thisv = (EnDntNomal*)thisx;
 
@@ -834,7 +834,7 @@ s32 EnDntNomal_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
     return false;
 }
 
-void EnDntNomal_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnDntNomal_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnDntNomal* thisv = (EnDntNomal*)thisx;
     Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
 
@@ -848,7 +848,7 @@ void EnDntNomal_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 }
 
 void EnDntNomal_DrawStageScrub(Actor* thisx, GlobalContext* globalCtx) {
-    static void* blinkTex[] = { gDntStageEyeOpenTex, gDntStageEyeHalfTex, gDntStageEyeShutTex };
+    static const void* blinkTex[] = { gDntStageEyeOpenTex, gDntStageEyeHalfTex, gDntStageEyeShutTex };
     EnDntNomal* thisv = (EnDntNomal*)thisx;
     Vec3f dustScale = { 0.25f, 0.25f, 0.25f };
     s32 pad;

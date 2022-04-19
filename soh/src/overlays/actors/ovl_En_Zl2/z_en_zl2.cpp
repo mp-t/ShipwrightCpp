@@ -18,7 +18,7 @@ void EnZl2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnZl2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnZl2_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-s32 func_80B4F45C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx, Gfx** gfx);
+s32 func_80B4F45C(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx, Gfx** gfx);
 
 void func_80B50BBC(EnZl2* thisv, GlobalContext* globalCtx);
 void func_80B50BEC(EnZl2* thisv, GlobalContext* globalCtx);
@@ -60,11 +60,11 @@ void func_80B523BC(EnZl2* thisv, GlobalContext* globalCtx);
 void func_80B523C8(EnZl2* thisv, GlobalContext* globalCtx);
 void func_80B525D4(EnZl2* thisv, GlobalContext* globalCtx);
 
-static void* sEyeTextures[] = { gZelda2EyeOpenTex, gZelda2EyeHalfTex, gZelda2EyeShutTex,
+static const void* sEyeTextures[] = { gZelda2EyeOpenTex, gZelda2EyeHalfTex, gZelda2EyeShutTex,
                                 gZelda2Eye03Tex,   gZelda2Eye04Tex,   gZelda2Eye05Tex,
                                 gZelda2Eye06Tex,   gZelda2Eye07Tex,   gZelda2Eye08Tex };
 
-static void* sMouthTextures[] = { gZelda2MouthSeriousTex, gZelda2MouthHappyTex, gZelda2MouthOpenTex };
+static const void* sMouthTextures[] = { gZelda2MouthSeriousTex, gZelda2MouthHappyTex, gZelda2MouthOpenTex };
 
 static EnZl2ActionFunc sActionFuncs[] = {
     func_80B521A0, func_80B50BBC, func_80B50BEC, func_80B50C40, func_80B50CA8, func_80B50CFC,
@@ -85,7 +85,7 @@ static EnZl2DrawFunc sDrawFuncs[] = {
     func_80B525D4,
 };
 
-const ActorInit En_Zl2_InitVars = {
+ActorInit En_Zl2_InitVars = {
     ACTOR_EN_ZL2,
     ACTORCAT_NPC,
     FLAGS,
@@ -211,7 +211,7 @@ s32 EnZl2_UpdateSkelAnime(EnZl2* thisv) {
     return SkelAnime_Update(&thisv->skelAnime);
 }
 
-CsCmdActorAction* EnZl2_GetNpcAction(GlobalContext* globalCtx, s32 idx) {
+const CsCmdActorAction* EnZl2_GetNpcAction(GlobalContext* globalCtx, s32 idx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[idx];
     }
@@ -219,7 +219,7 @@ CsCmdActorAction* EnZl2_GetNpcAction(GlobalContext* globalCtx, s32 idx) {
 }
 
 void func_80B4EDB8(EnZl2* thisv, GlobalContext* globalCtx, s32 arg2) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, arg2);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, arg2);
 
     if (npcAction != NULL) {
         thisv->actor.world.pos.x = npcAction->startPos.x;
@@ -433,7 +433,7 @@ void func_80B4F230(EnZl2* thisv, s16 arg1, s32 arg2) {
     thisv->unk_20C[arg2] = arg1;
 }
 
-s32 func_80B4F45C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 func_80B4F45C(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                   Gfx** gfx) {
     s32 pad;
     EnZl2* thisv = (EnZl2*)thisx;
@@ -444,7 +444,7 @@ s32 func_80B4F45C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
     s16* unk_1DC = thisv->unk_1DC;
 
     if (limbIndex == 14) {
-        sp74 = Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 7);
+        sp74 = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 7));
         gSPSegment((*gfx)++, 0x0C, sp74);
 
         Matrix_Push();
@@ -533,7 +533,7 @@ s32 func_80B4F45C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
     return false;
 }
 
-void EnZl2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnZl2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     EnZl2* thisv = (EnZl2*)thisx;
     s32 pad[2];
 
@@ -565,7 +565,7 @@ void func_80B4FCCC(EnZl2* thisv, GlobalContext* globalCtx) {
     gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[unk_274].segment);
 }
 
-void func_80B4FD00(EnZl2* thisv, AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {
+void func_80B4FD00(EnZl2* thisv, const AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {
     f32 frameCount = Animation_GetLastFrame(animation);
     f32 playbackSpeed;
     f32 unk0;
@@ -680,7 +680,7 @@ void func_80B5008C(EnZl2* thisv) {
 }
 
 void func_80B500E0(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
     Vec3f* thisPos = &thisv->actor.world.pos;
     f32 startX;
     f32 startY;
@@ -712,7 +712,7 @@ void func_80B501C4(EnZl2* thisv, s32 alpha) {
 }
 
 void func_80B501E8(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
 
     if (npcAction != NULL) {
         thisv->actor.shape.shadowAlpha = thisv->alpha =
@@ -729,7 +729,7 @@ void func_80B50260(EnZl2* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B50278(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
 
     thisv->actor.world.pos.x = npcAction->startPos.x;
     thisv->actor.world.pos.y = npcAction->startPos.y;
@@ -743,7 +743,7 @@ void func_80B50278(EnZl2* thisv, GlobalContext* globalCtx) {
 void func_80B50304(EnZl2* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     ActorShape* shape = &thisv->actor.shape;
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
     f32 actionXDelta;
     f32 actionZDelta;
 
@@ -758,7 +758,7 @@ void func_80B50304(EnZl2* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B503DC(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
 
     if ((npcAction != NULL) && (globalCtx->csCtx.frames >= npcAction->endFrame)) {
         thisv->action = 4;
@@ -903,7 +903,7 @@ void func_80B50980(EnZl2* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B509A0(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
 
     if (npcAction != NULL) {
         if (globalCtx->csCtx.frames >= npcAction->endFrame) {
@@ -915,7 +915,7 @@ void func_80B509A0(EnZl2* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B50A04(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
     s32 newAction;
     s32 unk_240;
 
@@ -1326,7 +1326,7 @@ void func_80B518C0(EnZl2* thisv) {
 }
 
 void func_80B51948(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
     s32 newAction;
     s32 unk_240;
 
@@ -1447,7 +1447,7 @@ void func_80B51D24(EnZl2* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B51DA4(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
     Vec3f* thisPos = &thisv->actor.world.pos;
     f32 startX;
     f32 startY;
@@ -1483,7 +1483,7 @@ void func_80B51EA8(EnZl2* thisv) {
 
 void func_80B51EBC(EnZl2* thisv, GlobalContext* globalCtx) {
     ActorShape* shape = &thisv->actor.shape;
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
     s32 pad[2];
 
     thisv->actor.world.rot.y = shape->rot.y = npcAction->rot.y;
@@ -1494,7 +1494,7 @@ void func_80B51EBC(EnZl2* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B51F38(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
 
     if (npcAction != NULL) {
         if (globalCtx->csCtx.frames - 8 >= npcAction->endFrame) {
@@ -1505,7 +1505,7 @@ void func_80B51F38(EnZl2* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B51FA8(EnZl2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnZl2_GetNpcAction(globalCtx, 0);
     s32 action;
     s32 unk_240;
 
@@ -1615,7 +1615,7 @@ void EnZl2_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnZl2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnZl2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                            Gfx** gfx) {
     EnZl2* thisv = (EnZl2*)thisx;
 
@@ -1634,11 +1634,11 @@ void func_80B523C8(EnZl2* thisv, GlobalContext* globalCtx) {
     s32 pad[3];
     s16 eyeTexIndex = thisv->eyeTexIndex;
     s16 eyeTexIndex2 = thisv->eyeTexIndex2;
-    void* eyeTex = sEyeTextures[eyeTexIndex];
-    void* eyeTex2 = sEyeTextures[eyeTexIndex2];
+    const void* eyeTex = sEyeTextures[eyeTexIndex];
+    const void* eyeTex2 = sEyeTextures[eyeTexIndex2];
     SkelAnime* skelAnime = &thisv->skelAnime;
     s16 mouthTexIndex = thisv->mouthTexIndex;
-    void* mouthTex = sMouthTextures[mouthTexIndex];
+    const void* mouthTex = sMouthTextures[mouthTexIndex];
     s32 pad1;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1623);
@@ -1660,10 +1660,10 @@ void func_80B523C8(EnZl2* thisv, GlobalContext* globalCtx) {
 void func_80B525D4(EnZl2* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTex = sEyeTextures[eyeTexIndex];
+    const void* eyeTex = sEyeTextures[eyeTexIndex];
     s16 mouthTexIndex = thisv->mouthTexIndex;
     SkelAnime* skelAnime = &thisv->skelAnime;
-    void* mouthTex = sMouthTextures[mouthTexIndex];
+    const void* mouthTex = sMouthTextures[mouthTexIndex];
     s32 pad1;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl2.c", 1663);

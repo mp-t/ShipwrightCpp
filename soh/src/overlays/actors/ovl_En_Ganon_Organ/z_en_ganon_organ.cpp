@@ -14,7 +14,7 @@ void EnGanonOrgan_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonOrgan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonOrgan_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Ganon_Organ_InitVars = {
+ActorInit En_Ganon_Organ_InitVars = {
     ACTOR_EN_GANON_ORGAN,
     ACTORCAT_BOSS,
     FLAGS,
@@ -54,7 +54,7 @@ void EnGanonOrgan_Update(Actor* thisx, GlobalContext* globalCtx) {
 Gfx* EnGanonOrgan_EmptyDList(GraphicsContext* gfxCtx) {
     Gfx* displayList;
 
-    displayList = Graph_Alloc(gfxCtx, sizeof(Gfx));
+    displayList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx)));
     gSPEndDisplayList(displayList);
     return displayList;
 }
@@ -63,7 +63,7 @@ Gfx* func_80A280BC(GraphicsContext* gfxCtx, BossGanon* dorf) {
     Gfx* displayList;
     Gfx* displayListHead;
 
-    displayList = Graph_Alloc(gfxCtx, 4 * sizeof(Gfx));
+    displayList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 4 * sizeof(Gfx)));
     displayListHead = displayList;
     gDPPipeSync(displayListHead++);
     if (1) {}
@@ -78,7 +78,7 @@ Gfx* func_80A28148(GraphicsContext* gfxCtx, BossGanon* dorf) {
     Gfx* displayList;
     Gfx* displayListHead;
 
-    displayList = Graph_Alloc(gfxCtx, 4 * sizeof(Gfx));
+    displayList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 4 * sizeof(Gfx)));
     displayListHead = displayList;
 
     gDPPipeSync(displayListHead++);

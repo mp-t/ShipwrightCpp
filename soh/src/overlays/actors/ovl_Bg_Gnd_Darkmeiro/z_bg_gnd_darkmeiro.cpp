@@ -21,7 +21,7 @@ void BgGndDarkmeiro_UpdateBlockTimer(BgGndDarkmeiro* thisv, GlobalContext* globa
 void BgGndDarkmeiro_UpdateStaticBlock(BgGndDarkmeiro* thisv, GlobalContext* globalCtx);
 void BgGndDarkmeiro_UpdateSwitchBlock(BgGndDarkmeiro* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Gnd_Darkmeiro_InitVars = {
+ActorInit Bg_Gnd_Darkmeiro_InitVars = {
     ACTOR_BG_GND_DARKMEIRO,
     ACTORCAT_PROP,
     FLAGS,

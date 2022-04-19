@@ -18,7 +18,7 @@ void ObjBombiwa_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void ObjBombiwa_Break(ObjBombiwa* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Bombiwa_InitVars = {
+ActorInit Obj_Bombiwa_InitVars = {
     ACTOR_OBJ_BOMBIWA,
     ACTORCAT_PROP,
     FLAGS,

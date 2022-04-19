@@ -456,7 +456,7 @@ typedef struct Player {
     /* 0x0174 */ DmaRequest giObjectDmaRequest;
     /* 0x0194 */ OSMesgQueue giObjectLoadQueue;
     /* 0x01AC */ OSMesg     giObjectLoadMsg;
-    /* 0x01B0 */ void* giObjectSegment; // also used for title card textures
+    /* 0x01B0 */ const void* giObjectSegment; // also used for title card textures
     /* 0x01B4 */ SkelAnime  skelAnime;
     /* 0x01F8 */ Vec3s      jointTable[PLAYER_LIMB_BUF_COUNT];
     /* 0x0288 */ Vec3s      morphTable[PLAYER_LIMB_BUF_COUNT];

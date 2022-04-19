@@ -34,7 +34,7 @@ s32 DemoIk_UpdateSkelAnime(DemoIk* thisv) {
     return SkelAnime_Update(&thisv->skelAnime);
 }
 
-CsCmdActorAction* DemoIk_GetCue(GlobalContext* globalCtx, s32 index) {
+const CsCmdActorAction* DemoIk_GetCue(GlobalContext* globalCtx, s32 index) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[index];
     }
@@ -42,7 +42,7 @@ CsCmdActorAction* DemoIk_GetCue(GlobalContext* globalCtx, s32 index) {
 }
 
 s32 DemoIk_CheckCue(GlobalContext* globalCtx, u16 action, s32 index) {
-    CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, index);
+    const CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, index);
 
     if ((cue != NULL) && (cue->action == action)) {
         return 1;
@@ -64,7 +64,7 @@ f32 DemoIk_GetCurFrame(DemoIk* thisv) {
 }
 
 Gfx* DemoIk_SetColors(GraphicsContext* gfxCtx, u8 primR, u8 primG, u8 primB, u8 envR, u8 envG, u8 envB) {
-    Gfx* head = Graph_Alloc(gfxCtx, 3 * sizeof(Gfx));
+    Gfx* head = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 3 * sizeof(Gfx)));
     Gfx* entry = head;
 
     gDPSetPrimColor(entry++, 0x00, 0x00, primR, primG, primB, 255);
@@ -144,7 +144,7 @@ void DemoIk_SpawnDeadDb(DemoIk* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoIk_MoveToStartPos(DemoIk* thisv, GlobalContext* globalCtx, s32 index) {
-    CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, index);
+    const CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, index);
 
     if (cue != NULL) {
         thisv->actor.world.pos.x = cue->startPos.x;
@@ -156,8 +156,8 @@ void DemoIk_MoveToStartPos(DemoIk* thisv, GlobalContext* globalCtx, s32 index) {
 
 void DemoIk_Type1Init(DemoIk* thisv, GlobalContext* globalCtx) {
     s32 pad[3];
-    SkeletonHeader* skeleton;
-    AnimationHeader* animation;
+    const SkeletonHeader* skeleton;
+    const AnimationHeader* animation;
     f32 phi_f0;
 
     switch (thisv->actor.params) {
@@ -205,7 +205,7 @@ void func_809839AC(DemoIk* thisv) {
 }
 
 void func_809839D0(DemoIk* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, DemoIk_GetIndexFromParams(thisv->actor.params));
+    const CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, DemoIk_GetIndexFromParams(thisv->actor.params));
 
     if (cue != NULL) {
         s32 nextCsAction = cue->action;
@@ -255,7 +255,7 @@ void DemoIk_Type1Action2(DemoIk* thisv, GlobalContext* globalCtx) {
     func_809839D0(thisv, globalCtx);
 }
 
-void DemoIk_Type1PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void DemoIk_Type1PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     DemoIk* thisv = (DemoIk*)thisx;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
 
@@ -295,8 +295,8 @@ void DemoIk_Type1Draw(DemoIk* thisv, GlobalContext* globalCtx) {
 
 void DemoIk_Type2Init(DemoIk* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
-    FlexSkeletonHeader* skeleton;
-    AnimationHeader* animation;
+    const FlexSkeletonHeader* skeleton;
+    const AnimationHeader* animation;
 
     switch (thisv->actor.params) {
         case 3:
@@ -359,7 +359,7 @@ void func_8098402C(DemoIk* thisv) {
 }
 
 void func_80984048(DemoIk* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, 4);
+    const CsCmdActorAction* cue = DemoIk_GetCue(globalCtx, 4);
 
     if (cue != NULL) {
         s32 nextCsAction = cue->action;
@@ -402,7 +402,7 @@ void DemoIk_Type2Action2(DemoIk* thisv, GlobalContext* globalCtx) {
     func_80984048(thisv, globalCtx);
 }
 
-s32 DemoIk_Type2OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 DemoIk_Type2OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                  void* thisx) {
     DemoIk* thisv = (DemoIk*)thisx;
 
@@ -412,7 +412,7 @@ s32 DemoIk_Type2OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
     return 0;
 }
 
-void DemoIk_Type2PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void DemoIk_Type2PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     DemoIk* thisv = (DemoIk*)thisx;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     f32 frame = DemoIk_GetCurFrame(thisv);
@@ -501,7 +501,7 @@ void DemoIk_Draw(Actor* thisx, GlobalContext* globalCtx) {
     sDrawFuncs[thisv->drawMode](thisv, globalCtx);
 }
 
-const ActorInit Demo_Ik_InitVars = {
+ActorInit Demo_Ik_InitVars = {
     ACTOR_DEMO_IK,
     ACTORCAT_NPC,
     FLAGS,

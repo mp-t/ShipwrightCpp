@@ -193,7 +193,7 @@ void DemoGj_Explode(DemoGj* thisv, GlobalContext* globalCtx, Vec3f* initialPos, 
             phi_s0 = 0x21;
         }
 
-        Gfx* gfx = ResourceMgr_LoadGfxByName(gGanonRubbleDL);
+        Gfx* gfx = ResourceMgr_LoadGfxByName(reinterpret_cast<const char*>(gGanonRubbleDL));
 
         EffectSsKakera_Spawn(globalCtx, &explosionPos, &velocity, initialPos, -200, phi_s0, 10, 10, 0,
                              Rand_ZeroOne() * 20.0f + 20.0f, 20, 300, (s32)(Rand_ZeroOne() * 30.0f) + 30, -1,
@@ -240,9 +240,9 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_STOP),
 };
 
-void DemoGj_InitCommon(DemoGj* thisv, GlobalContext* globalCtx, CollisionHeader* header) {
+void DemoGj_InitCommon(DemoGj* thisv, GlobalContext* globalCtx, const CollisionHeader* header) {
     s32 pad[3];
-    CollisionHeader* newHeader;
+    const CollisionHeader* newHeader;
 
     if (header != NULL) {
         Actor_ProcessInitChain(&thisv->dyna.actor, sInitChain);
@@ -255,7 +255,7 @@ void DemoGj_InitCommon(DemoGj* thisv, GlobalContext* globalCtx, CollisionHeader*
 
 // TODO: find a better name
 s32 DemoGj_InitSetIndexes(DemoGj* thisv, GlobalContext* globalCtx, s32 updateMode, s32 drawConfig,
-                          CollisionHeader* header) {
+                          const CollisionHeader* header) {
     if (!DemoGj_IsSceneInvalid()) {
         thisv->updateMode = updateMode;
         thisv->drawConfig = drawConfig;
@@ -266,7 +266,7 @@ s32 DemoGj_InitSetIndexes(DemoGj* thisv, GlobalContext* globalCtx, s32 updateMod
     return false;
 }
 
-void DemoGj_DrawCommon(DemoGj* thisv, GlobalContext* globalCtx, Gfx* displayList) {
+void DemoGj_DrawCommon(DemoGj* thisv, GlobalContext* globalCtx, const Gfx* displayList) {
     if (kREG(0) == 0) {
         GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
 
@@ -284,7 +284,7 @@ void DemoGj_DrawCommon(DemoGj* thisv, GlobalContext* globalCtx, Gfx* displayList
     }
 }
 
-void DemoGj_DrawRotated(DemoGj* thisv, GlobalContext* globalCtx, Gfx* displayList) {
+void DemoGj_DrawRotated(DemoGj* thisv, GlobalContext* globalCtx, const Gfx* displayList) {
     s32 pad;
     GraphicsContext* gfxCtx;
     s16 x = thisv->rotationVec.x;
@@ -294,7 +294,7 @@ void DemoGj_DrawRotated(DemoGj* thisv, GlobalContext* globalCtx, Gfx* displayLis
     Mtx* matrix;
 
     gfxCtx = globalCtx->state.gfxCtx;
-    matrix = Graph_Alloc(gfxCtx, sizeof(Mtx));
+    matrix = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
 
     OPEN_DISPS(gfxCtx, "../z_demo_gj.c", 1187);
 
@@ -1449,7 +1449,7 @@ void DemoGj_Draw(Actor* thisx, GlobalContext* globalCtx) {
     sDrawFuncs[thisv->drawConfig](thisv, globalCtx);
 }
 
-const ActorInit Demo_Gj_InitVars = {
+ActorInit Demo_Gj_InitVars = {
     ACTOR_DEMO_GJ,
     ACTORCAT_PROP,
     FLAGS,

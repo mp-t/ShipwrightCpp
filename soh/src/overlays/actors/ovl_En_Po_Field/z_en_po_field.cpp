@@ -36,7 +36,7 @@ void EnPoField_SoulDisappear(EnPoField* thisv, GlobalContext* globalCtx);
 void EnPoField_SoulInteract(EnPoField* thisv, GlobalContext* globalCtx);
 void EnPoField_SpawnFlame(EnPoField* thisv);
 
-const ActorInit En_Po_Field_InitVars = {
+ActorInit En_Po_Field_InitVars = {
     ACTOR_EN_PO_FIELD,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -381,7 +381,7 @@ void EnPoField_CorrectYPos(EnPoField* thisv, GlobalContext* globalCtx) {
     thisv->actor.world.pos.y = Math_SinS(thisv->unk_194 * 0x800) * 13.0f + thisv->actor.home.pos.y;
 }
 
-f32 EnPoField_SetFleeSpeed(EnPoField* thisv, GlobalContext* globalCtx) {
+void EnPoField_SetFleeSpeed(EnPoField* thisv, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
     f32 speed = ((player->stateFlags1 & 0x800000) && player->rideActor != NULL) ? player->rideActor->speedXZ : 12.0f;
 
@@ -877,7 +877,7 @@ void EnPoField_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnPoField_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnPoField_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx, Gfx** gfxP) {
     EnPoField* thisv = (EnPoField*)thisx;
 
@@ -898,7 +898,7 @@ s32 EnPoField_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
     return false;
 }
 
-void EnPoField_PostLimDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfxP) {
+void EnPoField_PostLimDraw2(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfxP) {
     EnPoField* thisv = (EnPoField*)thisx;
 
     if (thisv->actionFunc == EnPoField_Death && thisv->actionTimer >= 2 && limbIndex == 8) {
@@ -915,9 +915,9 @@ void EnPoField_PostLimDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
         }
         Matrix_Get(&sLimb7Mtx);
         if (thisv->actionFunc == EnPoField_Death && thisv->actionTimer == 27) {
-            thisv->actor.world.pos.x = sLimb7Mtx.xw;
-            thisv->actor.world.pos.y = sLimb7Mtx.yw;
-            thisv->actor.world.pos.z = sLimb7Mtx.zw;
+            thisv->actor.world.pos.x = sLimb7Mtx.mf_raw.xw;
+            thisv->actor.world.pos.y = sLimb7Mtx.mf_raw.yw;
+            thisv->actor.world.pos.z = sLimb7Mtx.mf_raw.zw;
         }
         Lights_PointGlowSetInfo(&thisv->lightInfo, vec.x, vec.y, vec.z, thisv->soulColor.r, thisv->soulColor.g,
                                 thisv->soulColor.b, thisv->soulColor.a * (200.0f / 255));

@@ -36,14 +36,14 @@ void Skin_InitAnimatedLimb(GlobalContext* globalCtx, Skin* skin, s32 limbIndex) 
  * Initializes a skin skeleton to looping animation, dynamically allocating the frame tables,
  * and dynamically allocating and initializing the Vtx and SkinLimbVtx buffers for its animated limbs
  */
-void Skin_Init(GlobalContext* globalCtx, Skin* skin, SkeletonHeader* skeletonHeader, AnimationHeader* animationHeader) {
+void Skin_Init(GlobalContext* globalCtx, Skin* skin, const SkeletonHeader* skeletonHeader, const AnimationHeader* animationHeader) {
     if (ResourceMgr_OTRSigCheck(skeletonHeader))
         skeletonHeader = ResourceMgr_LoadSkeletonByName(reinterpret_cast<const char*>(skeletonHeader));
 
     s32 limbCount;
     s32 i;
     SkinLimb** skeleton;
-    SkeletonHeader* virtSkelHeader = SEGMENTED_TO_VIRTUAL(skeletonHeader);
+    const SkeletonHeader* virtSkelHeader = SEGMENTED_TO_VIRTUAL(skeletonHeader);
 
     skin->limbCount = virtSkelHeader->limbCount;
     skin->skeletonHeader = virtSkelHeader;

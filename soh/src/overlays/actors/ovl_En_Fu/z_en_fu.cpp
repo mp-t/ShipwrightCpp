@@ -28,7 +28,7 @@ void func_80A1DBA0(EnFu* thisv, GlobalContext* globalCtx);
 void func_80A1DBD4(EnFu* thisv, GlobalContext* globalCtx);
 void func_80A1DB60(EnFu* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Fu_InitVars = {
+ActorInit En_Fu_InitVars = {
     ACTOR_EN_FU,
     ACTORCAT_NPC,
     FLAGS,
@@ -242,7 +242,7 @@ void EnFu_Update(Actor* thisx, GlobalContext* globalCtx) {
     Actor_MoveForward(&thisv->actor);
     Actor_UpdateBgCheckInfo(globalCtx, &thisv->actor, 0.0f, 0.0f, 0.0f, 4);
     if ((!(thisv->behaviorFlags & FU_WAIT)) && (SkelAnime_Update(&thisv->skelanime) != 0)) {
-        Animation_Change(&thisv->skelanime, thisv->skelanime.animation, 1.0f, 0.0f,
+        Animation_Change(&thisv->skelanime, static_cast<const AnimationHeader*>(thisv->skelanime.animation), 1.0f, 0.0f,
                          Animation_GetLastFrame(thisv->skelanime.animation), ANIMMODE_ONCE, 0.0f);
     }
     thisv->actionFunc(thisv, globalCtx);
@@ -257,7 +257,7 @@ void EnFu_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnFu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnFu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnFu* thisv = (EnFu*)thisx;
     s32 pad;
 
@@ -284,7 +284,7 @@ s32 EnFu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnFu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnFu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnFu* thisv = (EnFu*)thisx;
 
     if (limbIndex == FU_LIMB_HEAD) {
@@ -293,8 +293,8 @@ void EnFu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnFu_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyesSegments[] = { gWindmillManEyeClosedTex, gWindmillManEyeAngryTex };
-    static void* sMouthSegments[] = { gWindmillManMouthOpenTex, gWindmillManMouthAngryTex };
+    static const void* sEyesSegments[] = { gWindmillManEyeClosedTex, gWindmillManEyeAngryTex };
+    static const void* sMouthSegments[] = { gWindmillManMouthOpenTex, gWindmillManMouthAngryTex };
     s32 pad;
     EnFu* thisv = (EnFu*)thisx;
 

@@ -18,7 +18,7 @@ s32 ElfMsg2_GetMessageId(ElfMsg2* thisv);
 void ElfMsg2_WaitUntilActivated(ElfMsg2* thisv, GlobalContext* globalCtx);
 void ElfMsg2_WaitForTextRead(ElfMsg2* thisv, GlobalContext* globalCtx);
 
-const ActorInit Elf_Msg2_InitVars = {
+ActorInit Elf_Msg2_InitVars = {
     ACTOR_ELF_MSG2,
     ACTORCAT_BG,
     FLAGS,

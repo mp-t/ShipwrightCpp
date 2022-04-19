@@ -30,7 +30,7 @@ void EnDekunuts_BeDamaged(EnDekunuts* thisv, GlobalContext* globalCtx);
 void EnDekunuts_BeStunned(EnDekunuts* thisv, GlobalContext* globalCtx);
 void EnDekunuts_Die(EnDekunuts* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dekunuts_InitVars = {
+ActorInit En_Dekunuts_InitVars = {
     ACTOR_EN_DEKUNUTS,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -494,7 +494,7 @@ void EnDekunuts_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnDekunuts_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnDekunuts_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx) {
     EnDekunuts* thisv = (EnDekunuts*)thisx;
     f32 x;

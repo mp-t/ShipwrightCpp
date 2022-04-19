@@ -23,7 +23,7 @@ void EnVm_Attack(EnVm* thisv, GlobalContext* globalCtx);
 void EnVm_Stun(EnVm* thisv, GlobalContext* globalCtx);
 void EnVm_Die(EnVm* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Vm_InitVars = {
+ActorInit En_Vm_InitVars = {
     ACTOR_EN_VM,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -122,7 +122,7 @@ static Vec3f D_80B2EB70 = { -500.0f, 0.0f, 0.0f };
 
 static Vec3f D_80B2EB7C = { 0.4f, 0.4f, 0.4f };
 
-static void* D_80B2EB88[] = {
+static const void* D_80B2EB88[] = {
     gEffEnemyDeathFlame1Tex, gEffEnemyDeathFlame2Tex,  gEffEnemyDeathFlame3Tex, gEffEnemyDeathFlame4Tex,
     gEffEnemyDeathFlame5Tex, gEffEnemyDeathFlame6Tex,  gEffEnemyDeathFlame7Tex, gEffEnemyDeathFlame8Tex,
     gEffEnemyDeathFlame9Tex, gEffEnemyDeathFlame10Tex,
@@ -449,7 +449,7 @@ void EnVm_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actor.focus.pos.y += (6500.0f + thisv->actor.shape.yOffset) * thisv->actor.scale.y;
 }
 
-s32 EnVm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnVm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnVm* thisv = (EnVm*)thisx;
 
     if (limbIndex == 2) {
@@ -464,7 +464,7 @@ s32 EnVm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnVm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnVm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnVm* thisv = (EnVm*)thisx;
     Vec3f sp80 = D_80B2EAF8;
     Vec3f sp74 = D_80B2EB04;

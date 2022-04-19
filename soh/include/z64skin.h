@@ -72,7 +72,7 @@ typedef struct {
 } SkinLimbVtx; // size = 0xC
 
 typedef struct {
-    /* 0x000 */ SkeletonHeader* skeletonHeader;
+    /* 0x000 */ const SkeletonHeader* skeletonHeader;
     /* 0x004 */ MtxF mtx;
     /* 0x044 */ s32 limbCount;
     /* 0x048 */ SkinLimbVtx* vtxTable; // double buffered list of vertices for each limb

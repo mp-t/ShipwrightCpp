@@ -18,7 +18,7 @@ void BgGndFiremeiro_Sink(BgGndFiremeiro* thisv, GlobalContext* globalCtx);
 void BgGndFiremeiro_Shake(BgGndFiremeiro* thisv, GlobalContext* globalCtx);
 void BgGndFiremeiro_Rise(BgGndFiremeiro* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Gnd_Firemeiro_InitVars = {
+ActorInit Bg_Gnd_Firemeiro_InitVars = {
     ACTOR_BG_GND_FIREMEIRO,
     ACTORCAT_PROP,
     FLAGS,

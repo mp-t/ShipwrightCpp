@@ -14,97 +14,97 @@
 #include "vt.h"
 #include "SohHooks.h"
 
-static void* sEquipmentFRATexs[] = {
+static const void* sEquipmentFRATexs[] = {
     gPauseEquipment00FRATex, gPauseEquipment01Tex, gPauseEquipment02Tex, gPauseEquipment03Tex, gPauseEquipment04Tex,
     gPauseEquipment10FRATex, gPauseEquipment11Tex, gPauseEquipment12Tex, gPauseEquipment13Tex, gPauseEquipment14Tex,
     gPauseEquipment20FRATex, gPauseEquipment21Tex, gPauseEquipment22Tex, gPauseEquipment23Tex, gPauseEquipment24Tex,
 };
-static void* sSelectItemFRATexs[] = {
+static const void* sSelectItemFRATexs[] = {
     gPauseSelectItem00FRATex, gPauseSelectItem01Tex,    gPauseSelectItem02Tex,    gPauseSelectItem03Tex,
     gPauseSelectItem04Tex,    gPauseSelectItem10FRATex, gPauseSelectItem11Tex,    gPauseSelectItem12Tex,
     gPauseSelectItem13Tex,    gPauseSelectItem14Tex,    gPauseSelectItem20FRATex, gPauseSelectItem21Tex,
     gPauseSelectItem22Tex,    gPauseSelectItem23Tex,    gPauseSelectItem24Tex,
 };
-static void* sMapFRATexs[] = {
+static const void* sMapFRATexs[] = {
     gPauseMap00Tex,    gPauseMap01Tex, gPauseMap02Tex, gPauseMap03Tex, gPauseMap04Tex,
     gPauseMap10FRATex, gPauseMap11Tex, gPauseMap12Tex, gPauseMap13Tex, gPauseMap14Tex,
     gPauseMap20Tex,    gPauseMap21Tex, gPauseMap22Tex, gPauseMap23Tex, gPauseMap24Tex,
 };
-static void* sQuestStatusFRATexs[] = {
+static const void* sQuestStatusFRATexs[] = {
     gPauseQuestStatus00Tex, gPauseQuestStatus01Tex,    gPauseQuestStatus02Tex, gPauseQuestStatus03Tex,
     gPauseQuestStatus04Tex, gPauseQuestStatus10FRATex, gPauseQuestStatus11Tex, gPauseQuestStatus12Tex,
     gPauseQuestStatus13Tex, gPauseQuestStatus14Tex,    gPauseQuestStatus20Tex, gPauseQuestStatus21Tex,
     gPauseQuestStatus22Tex, gPauseQuestStatus23Tex,    gPauseQuestStatus24Tex,
 };
-static void* sSaveFRATexs[] = {
+static const void* sSaveFRATexs[] = {
     gPauseSave00FRATex, gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
     gPauseSave10FRATex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
     gPauseSave20FRATex, gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
 };
 
-static void* sEquipmentGERTexs[] = {
+static const void* sEquipmentGERTexs[] = {
     gPauseEquipment00GERTex, gPauseEquipment01Tex, gPauseEquipment02Tex, gPauseEquipment03Tex, gPauseEquipment04Tex,
     gPauseEquipment10GERTex, gPauseEquipment11Tex, gPauseEquipment12Tex, gPauseEquipment13Tex, gPauseEquipment14Tex,
     gPauseEquipment20GERTex, gPauseEquipment21Tex, gPauseEquipment22Tex, gPauseEquipment23Tex, gPauseEquipment24Tex,
 };
-static void* sSelectItemGERTexs[] = {
+static const void* sSelectItemGERTexs[] = {
     gPauseSelectItem00GERTex, gPauseSelectItem01Tex,    gPauseSelectItem02Tex,    gPauseSelectItem03Tex,
     gPauseSelectItem04Tex,    gPauseSelectItem10GERTex, gPauseSelectItem11Tex,    gPauseSelectItem12Tex,
     gPauseSelectItem13Tex,    gPauseSelectItem14Tex,    gPauseSelectItem20GERTex, gPauseSelectItem21Tex,
     gPauseSelectItem22Tex,    gPauseSelectItem23Tex,    gPauseSelectItem24Tex,
 };
-static void* sMapGERTexs[] = {
+static const void* sMapGERTexs[] = {
     gPauseMap00Tex,    gPauseMap01Tex, gPauseMap02Tex, gPauseMap03Tex, gPauseMap04Tex,
     gPauseMap10GERTex, gPauseMap11Tex, gPauseMap12Tex, gPauseMap13Tex, gPauseMap14Tex,
     gPauseMap20Tex,    gPauseMap21Tex, gPauseMap22Tex, gPauseMap23Tex, gPauseMap24Tex,
 };
-static void* sQuestStatusGERTexs[] = {
+static const void* sQuestStatusGERTexs[] = {
     gPauseQuestStatus00Tex, gPauseQuestStatus01Tex,    gPauseQuestStatus02Tex, gPauseQuestStatus03Tex,
     gPauseQuestStatus04Tex, gPauseQuestStatus10GERTex, gPauseQuestStatus11Tex, gPauseQuestStatus12Tex,
     gPauseQuestStatus13Tex, gPauseQuestStatus14Tex,    gPauseQuestStatus20Tex, gPauseQuestStatus21Tex,
     gPauseQuestStatus22Tex, gPauseQuestStatus23Tex,    gPauseQuestStatus24Tex,
 };
-static void* sSaveGERTexs[] = {
+static const void* sSaveGERTexs[] = {
     gPauseSave00Tex,    gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
     gPauseSave10GERTex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
     gPauseSave20GERTex, gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
 };
 
-static void* sEquipmentENGTexs[] = {
+static const void* sEquipmentENGTexs[] = {
     gPauseEquipment00Tex,    gPauseEquipment01Tex, gPauseEquipment02Tex, gPauseEquipment03Tex, gPauseEquipment04Tex,
     gPauseEquipment10ENGTex, gPauseEquipment11Tex, gPauseEquipment12Tex, gPauseEquipment13Tex, gPauseEquipment14Tex,
     gPauseEquipment20Tex,    gPauseEquipment21Tex, gPauseEquipment22Tex, gPauseEquipment23Tex, gPauseEquipment24Tex,
 };
-static void* sSelectItemENGTexs[] = {
+static const void* sSelectItemENGTexs[] = {
     gPauseSelectItem00ENGTex, gPauseSelectItem01Tex,    gPauseSelectItem02Tex,    gPauseSelectItem03Tex,
     gPauseSelectItem04Tex,    gPauseSelectItem10ENGTex, gPauseSelectItem11Tex,    gPauseSelectItem12Tex,
     gPauseSelectItem13Tex,    gPauseSelectItem14Tex,    gPauseSelectItem20ENGTex, gPauseSelectItem21Tex,
     gPauseSelectItem22Tex,    gPauseSelectItem23Tex,    gPauseSelectItem24Tex,
 };
-static void* sMapENGTexs[] = {
+static const void* sMapENGTexs[] = {
     gPauseMap00Tex,    gPauseMap01Tex, gPauseMap02Tex, gPauseMap03Tex, gPauseMap04Tex,
     gPauseMap10ENGTex, gPauseMap11Tex, gPauseMap12Tex, gPauseMap13Tex, gPauseMap14Tex,
     gPauseMap20Tex,    gPauseMap21Tex, gPauseMap22Tex, gPauseMap23Tex, gPauseMap24Tex,
 };
-static void* sQuestStatusENGTexs[] = {
+static const void* sQuestStatusENGTexs[] = {
     gPauseQuestStatus00ENGTex, gPauseQuestStatus01Tex,    gPauseQuestStatus02Tex,    gPauseQuestStatus03Tex,
     gPauseQuestStatus04Tex,    gPauseQuestStatus10ENGTex, gPauseQuestStatus11Tex,    gPauseQuestStatus12Tex,
     gPauseQuestStatus13Tex,    gPauseQuestStatus14Tex,    gPauseQuestStatus20ENGTex, gPauseQuestStatus21Tex,
     gPauseQuestStatus22Tex,    gPauseQuestStatus23Tex,    gPauseQuestStatus24Tex,
 };
-static void* sSaveENGTexs[] = {
+static const void* sSaveENGTexs[] = {
     gPauseSave00Tex,    gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
     gPauseSave10ENGTex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
     gPauseSave20Tex,    gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
 };
 
-static void* sGameOverTexs[] = {
+static const void* sGameOverTexs[] = {
     gPauseSave00Tex,     gPauseSave01Tex, gPauseSave02Tex, gPauseSave03Tex, gPauseSave04Tex,
     gPauseGameOver10Tex, gPauseSave11Tex, gPauseSave12Tex, gPauseSave13Tex, gPauseSave14Tex,
     gPauseSave20Tex,     gPauseSave21Tex, gPauseSave22Tex, gPauseSave23Tex, gPauseSave24Tex,
 };
 
-static void* sDungeonMapTexs[] = {
+static const void* sDungeonMapTexs[] = {
     gDekuTreePauseScreenMapFloor3LeftTex,
     gDekuTreePauseScreenMapFloor3RightTex,
     gDekuTreePauseScreenMapFloor2LeftTex,
@@ -175,37 +175,42 @@ static void* sDungeonMapTexs[] = {
     gIceCavernPauseScreenMapFloor1RightTex,
 };
 
-static void* sEquipmentTexs[] = {
+//WAT
+static const void** sEquipmentTexs[] = {
     sEquipmentENGTexs,
     sEquipmentGERTexs,
     sEquipmentFRATexs,
 };
 
-static void* sSelectItemTexs[] = {
+//WAT
+static const void** sSelectItemTexs[] = {
     sSelectItemENGTexs,
     sSelectItemGERTexs,
     sSelectItemFRATexs,
 };
 
-static void* sMapTexs[] = {
+//WAT
+static const void** sMapTexs[] = {
     sMapENGTexs,
     sMapGERTexs,
     sMapFRATexs,
 };
 
-static void* sQuestStatusTexs[] = {
+//WAT
+static const void** sQuestStatusTexs[] = {
     sQuestStatusENGTexs,
     sQuestStatusGERTexs,
     sQuestStatusFRATexs,
 };
 
-static void* sSaveTexs[] = {
+//WAT
+static const void** sSaveTexs[] = {
     sSaveENGTexs,
     sSaveGERTexs,
     sSaveFRATexs,
 };
 
-static void* iconNameTextures[] =
+static const void* iconNameTextures[] =
 {
     gDekuStickItemNameENGTex,
     gDekuNutItemNameENGTex,
@@ -579,7 +584,7 @@ static void* iconNameTextures[] =
     gBiggoronsSwordItemNameFRATex,
 };
 
-static void* mapNameTextures[] =
+static const void* mapNameTextures[] =
 {
     gHauntedWastelandPointNameENGTex,
     gGerudosFortressPointNameENGTex,
@@ -747,7 +752,7 @@ u8 gAreaGsFlags[] = {
     0x0F, 0x07, 0x0F, 0x0F, 0xFF, 0xFF, 0xFF, 0x1F, 0x0F, 0x03, 0x0F,
 };
 
-static void* sCursorTexs[] = {
+static const void* sCursorTexs[] = {
     gPauseMenuCursorTopLeftTex,
     gPauseMenuCursorTopRightTex,
     gPauseMenuCursorBottomLeftTex,
@@ -760,25 +765,25 @@ static s16 sCursorColors[][3] = {
     { 0, 255, 50 },
 };
 
-static void* sSavePromptTexs[] = {
+static const void* sSavePromptTexs[] = {
     gPauseSavePromptENGTex,
     gPauseSavePromptGERTex,
     gPauseSavePromptFRATex,
 };
 
-static void* sSaveConfirmationTexs[] = {
+static const void* sSaveConfirmationTexs[] = {
     gPauseSaveConfirmationENGTex,
     gPauseSaveConfirmationGERTex,
     gPauseSaveConfirmationFRATex,
 };
 
-static void* sContinuePromptTexs[] = {
+static const void* sContinuePromptTexs[] = {
     gContinuePlayingENGTex,
     gContinuePlayingGERTex,
     gContinuePlayingFRATex,
 };
 
-static void* sPromptChoiceTexs[][2] = {
+static const void* sPromptChoiceTexs[][2] = {
     { gPauseYesENGTex, gPauseNoENGTex },
     { gPauseYesGERTex, gPauseNoGERTex },
     { gPauseYesFRATex, gPauseNoFRATex },
@@ -1026,7 +1031,7 @@ void KaleidoScope_DrawCursor(GlobalContext* globalCtx, u16 pageIndex) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_kaleido_scope_PAL.c", 985);
 }
 
-Gfx* KaleidoScope_DrawPageSections(Gfx* gfx, Vtx* vertices, void** textures) {
+Gfx* KaleidoScope_DrawPageSections(Gfx* gfx, Vtx* vertices, const void** textures) {
     s32 i;
     s32 j;
 
@@ -1450,28 +1455,28 @@ void KaleidoScope_DrawPages(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
 }
 
 void KaleidoScope_DrawInfoPanel(GlobalContext* globalCtx) {
-    static void* D_8082AD54[3] = {
+    static const void* D_8082AD54[3] = {
         gPauseToEquipENGTex,
         gPauseToEquipGERTex,
         gPauseToEquipFRATex,
     };
-    static void* D_8082AD60[3] = {
+    static const void* D_8082AD60[3] = {
         gPauseToDecideENGTex,
         gPauseToDecideGERTex,
         gPauseToDecideFRATex,
     };
-    static void* D_8082AD6C[3] = {
+    static const void* D_8082AD6C[3] = {
         gPauseToPlayMelodyENGTex,
         gPauseToPlayMelodyGERTex,
         gPauseToPlayMelodyFRATex,
     };
-    static void* D_8082AD78[][3] = {
+    static const void* D_8082AD78[][3] = {
         { gPauseToEquipmentENGTex, gPauseToEquipmentGERTex, gPauseToEquipmentFRATex },
         { gPauseToSelectItemENGTex, gPauseToSelectItemGERTex, gPauseToSelectItemFRATex },
         { gPauseToMapENGTex, gPauseToMapGERTex, gPauseToMapFRATex },
         { gPauseToQuestStatusENGTex, gPauseToQuestStatusGERTex, gPauseToQuestStatusFRATex },
     };
-    static void* D_8082ADA8[][3] = {
+    static const void* D_8082ADA8[][3] = {
         { gPauseToMapENGTex, gPauseToMapGERTex, gPauseToMapFRATex },
         { gPauseToQuestStatusENGTex, gPauseToQuestStatusGERTex, gPauseToQuestStatusFRATex },
         { gPauseToEquipmentENGTex, gPauseToEquipmentGERTex, gPauseToEquipmentFRATex },
@@ -1907,7 +1912,7 @@ void KaleidoScope_UpdateNamePanel(GlobalContext* globalCtx) {
                     sp2A += 12;
                 }
 
-                memcpy(pauseCtx->nameSegment, ResourceMgr_LoadTexByName(mapNameTextures[sp2A]), 0x400);
+                memcpy(pauseCtx->nameSegment, ResourceMgr_LoadTexByName(static_cast<const char*>(mapNameTextures[sp2A])), 0x400);
             } else {
                 osSyncPrintf("zoom_name=%d\n", pauseCtx->namedItem);
 
@@ -1920,7 +1925,7 @@ void KaleidoScope_UpdateNamePanel(GlobalContext* globalCtx) {
 
                 osSyncPrintf("J_N=%d  point=%d\n", gSaveContext.language, sp2A);
 
-                memcpy(pauseCtx->nameSegment, ResourceMgr_LoadTexByName(iconNameTextures[sp2A]), 0x400);
+                memcpy(pauseCtx->nameSegment, ResourceMgr_LoadTexByName(static_cast<const char*>(iconNameTextures[sp2A])), 0x400);
             }
 
             pauseCtx->nameDisplayTimer = 0;
@@ -2338,14 +2343,14 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         pauseCtx->offsetY = 80;
     }
 
-    pauseCtx->itemPageVtx = Graph_Alloc(gfxCtx, 60 * sizeof(Vtx));
+    pauseCtx->itemPageVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 60 * sizeof(Vtx)));
     func_80823A0C(globalCtx, pauseCtx->itemPageVtx, 0, 0);
 
-    pauseCtx->equipPageVtx = Graph_Alloc(gfxCtx, 60 * sizeof(Vtx));
+    pauseCtx->equipPageVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 60 * sizeof(Vtx)));
     func_80823A0C(globalCtx, pauseCtx->equipPageVtx, 1, 0);
 
     if (!sInDungeonScene) {
-        pauseCtx->mapPageVtx = Graph_Alloc(gfxCtx, 248 * sizeof(Vtx));
+        pauseCtx->mapPageVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 248 * sizeof(Vtx)));
         phi_t3 = func_80823A0C(globalCtx, pauseCtx->mapPageVtx, 4, 32);
 
         for (phi_t2 = 0, phi_t5 = 58; phi_t2 < 15; phi_t2++, phi_t3 += 4, phi_t5 -= 9) {
@@ -2391,14 +2396,14 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
 
         pauseCtx->mapPageVtx[phi_t3 - 2].v.tc[1] = pauseCtx->mapPageVtx[phi_t3 - 1].v.tc[1] = 0x40;
     } else {
-        pauseCtx->mapPageVtx = Graph_Alloc(gfxCtx, 128 * sizeof(Vtx));
+        pauseCtx->mapPageVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 128 * sizeof(Vtx)));
         func_80823A0C(globalCtx, pauseCtx->mapPageVtx, 2, 17);
     }
 
-    pauseCtx->questPageVtx = Graph_Alloc(gfxCtx, 60 * sizeof(Vtx));
+    pauseCtx->questPageVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 60 * sizeof(Vtx)));
     func_80823A0C(globalCtx, pauseCtx->questPageVtx, 3, 0);
 
-    pauseCtx->cursorVtx = Graph_Alloc(gfxCtx, 20 * sizeof(Vtx));
+    pauseCtx->cursorVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 20 * sizeof(Vtx)));
 
     for (phi_t2 = 0; phi_t2 < 20; phi_t2++) {
         pauseCtx->cursorVtx[phi_t2].v.ob[0] = pauseCtx->cursorVtx[phi_t2].v.ob[1] =
@@ -2422,7 +2427,7 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
     pauseCtx->cursorVtx[17].v.tc[0] = pauseCtx->cursorVtx[18].v.tc[1] = pauseCtx->cursorVtx[19].v.tc[0] =
         pauseCtx->cursorVtx[19].v.tc[1] = 0x400;
 
-    pauseCtx->itemVtx = Graph_Alloc(gfxCtx, 164 * sizeof(Vtx));
+    pauseCtx->itemVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 164 * sizeof(Vtx)));
 
     for (phi_t4 = 0, phi_t2 = 0, phi_t5 = 58; phi_t4 < 4; phi_t4++, phi_t5 -= 32) {
         for (phi_t1 = -96, phi_t3 = 0; phi_t3 < 6; phi_t3++, phi_t2 += 4, phi_t1 += 32) {
@@ -2563,7 +2568,7 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         }
     }
 
-    pauseCtx->equipVtx = Graph_Alloc(gfxCtx, 112 * sizeof(Vtx));
+    pauseCtx->equipVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 112 * sizeof(Vtx)));
 
     for (phi_t4 = 0, phi_t2 = 0, phi_t5 = 58; phi_t2 < 4; phi_t2++, phi_t5 -= 32) {
         for (phi_t3 = 0; phi_t3 < 4; phi_t3++, phi_t4 += 4) {
@@ -2691,7 +2696,7 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         phi_t4 += 4;
     }
 
-    pauseCtx->questVtx = Graph_Alloc(gfxCtx, 188 * sizeof(Vtx));
+    pauseCtx->questVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 188 * sizeof(Vtx)));
 
     for (phi_t4 = 0, phi_t3 = 0; phi_t3 < 47; phi_t3++, phi_t4 += 4) {
         phi_t2_2 = D_8082B1F8[phi_t3];
@@ -2760,9 +2765,9 @@ void KaleidoScope_InitVertices(GlobalContext* globalCtx, GraphicsContext* gfxCtx
             pauseCtx->questVtx[phi_t4 + 2].v.cn[3] = pauseCtx->questVtx[phi_t4 + 3].v.cn[3] = pauseCtx->alpha;
     }
 
-    pauseCtx->infoPanelVtx = Graph_Alloc(gfxCtx, 28 * sizeof(Vtx));
+    pauseCtx->infoPanelVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 28 * sizeof(Vtx)));
 
-    pauseCtx->saveVtx = Graph_Alloc(gfxCtx, 80 * sizeof(Vtx));
+    pauseCtx->saveVtx = static_cast<Vtx*>(Graph_Alloc(gfxCtx, 80 * sizeof(Vtx)));
     func_80823A0C(globalCtx, pauseCtx->saveVtx, 5, 5);
 }
 
@@ -2870,20 +2875,20 @@ uint32_t _bswap32(uint32_t a)
     return a;
 }
 
-void KaleidoScope_GrayOutTextureRGBA32(u32* texture, u16 pixelCount) {
+void KaleidoScope_GrayOutTextureRGBA32(const u32* textureName, u16 pixelCount) {
     u32 rgb;
     u16 gray;
     u16 i;
 
     bind_hook( GRAYOUT_TEXTURE);
     init_hook(2,
-        (struct HookParameter){ .name = "texture",    .parameter = &texture },
-        (struct HookParameter){ .name = "pixelCount", .parameter = &pixelCount }
+        HookParameter{ .name = "texture",    .parameter = &textureName },
+        HookParameter{ .name = "pixelCount", .parameter = &pixelCount }
     );
     if (!call_hook(0))
         return;
 
-    texture = ResourceMgr_LoadTexByName(texture);
+    u32* texture = reinterpret_cast<u32*>(ResourceMgr_LoadTexByName(reinterpret_cast<const char*>(textureName)));
 
     for (i = 0; i < pixelCount; i++) {
         uint32_t px = texture[i];
@@ -3015,8 +3020,8 @@ void KaleidoScope_UpdateCursorSize(PauseContext* pauseCtx) {
 void KaleidoScope_LoadDungeonMap(GlobalContext* globalCtx) {
     InterfaceContext* interfaceCtx = &globalCtx->interfaceCtx;
 
-    memcpy(interfaceCtx->mapSegment, ResourceMgr_LoadTexByName(sDungeonMapTexs[R_MAP_TEX_INDEX]), 0x800);
-    memcpy(interfaceCtx->mapSegment + 0x800, ResourceMgr_LoadTexByName(sDungeonMapTexs[R_MAP_TEX_INDEX + 1]), 0x800);
+    memcpy(interfaceCtx->mapSegment, ResourceMgr_LoadTexByName(static_cast<const char*>(sDungeonMapTexs[R_MAP_TEX_INDEX])), 0x800);
+    memcpy(interfaceCtx->mapSegment + 0x800, ResourceMgr_LoadTexByName(static_cast<const char*>(sDungeonMapTexs[R_MAP_TEX_INDEX + 1])), 0x800);
 }
 
 void KaleidoScope_UpdateDungeonMap(GlobalContext* globalCtx) {
@@ -3096,12 +3101,12 @@ void KaleidoScope_Update(GlobalContext* globalCtx)
 
             pauseCtx->unk_204 = -314.0f;
 
-            pauseCtx->playerSegment = (void*)(((uintptr_t)globalCtx->objectCtx.spaceStart + 0x30) & ~0x3F);
+            pauseCtx->playerSegment = reinterpret_cast<u8*>(((uintptr_t)globalCtx->objectCtx.spaceStart + 0x30) & ~0x3F);
 
             size1 = func_80091738(globalCtx, pauseCtx->playerSegment, &pauseCtx->playerSkelAnime);
             osSyncPrintf("プレイヤー size1＝%x\n", size1);
 
-            pauseCtx->iconItemSegment = (void*)(((uintptr_t)pauseCtx->playerSegment + size1 + 0xF) & ~0xF);
+            pauseCtx->iconItemSegment = reinterpret_cast<u8*>(((uintptr_t)pauseCtx->playerSegment + size1 + 0xF) & ~0xF);
 
             size0 = (uintptr_t)_icon_item_staticSegmentRomEnd - (uintptr_t)_icon_item_staticSegmentRomStart;
             osSyncPrintf("icon_item size0=%x\n", size0);
@@ -3113,12 +3118,12 @@ void KaleidoScope_Update(GlobalContext* globalCtx)
             for (i = 0; i < ARRAY_COUNTU(gItemAgeReqs); i++) {
                 if ((gItemAgeReqs[i] != 9) && (gItemAgeReqs[i] != ((void)0, gSaveContext.linkAge)))
                 {
-                    gSPInvalidateTexCache(globalCtx->state.gfxCtx->polyKal.p++, ResourceMgr_LoadTexByName(gItemIcons[i]));
-                    KaleidoScope_GrayOutTextureRGBA32(SEGMENTED_TO_VIRTUAL(gItemIcons[i]), 0x400);
+                    gSPInvalidateTexCache(globalCtx->state.gfxCtx->polyKal.p++, reinterpret_cast<std::uintptr_t>(ResourceMgr_LoadTexByName(gItemIcons[i])));
+                    KaleidoScope_GrayOutTextureRGBA32(reinterpret_cast<const u32*>(SEGMENTED_TO_VIRTUAL(gItemIcons[i])), 0x400);
                 }
             }
 
-            pauseCtx->iconItem24Segment = (void*)(((uintptr_t)pauseCtx->iconItemSegment + size0 + 0xF) & ~0xF);
+            pauseCtx->iconItem24Segment = reinterpret_cast<u8*>(((uintptr_t)pauseCtx->iconItemSegment + size0 + 0xF) & ~0xF);
 
 #if 1
             //size = (uintptr_t)_icon_item_24_staticSegmentRomEnd - (uintptr_t)_icon_item_24_staticSegmentRomStart;
@@ -3126,7 +3131,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx)
             //DmaMgr_SendRequest1(pauseCtx->iconItem24Segment, (uintptr_t)_icon_item_24_staticSegmentRomStart, size,
                                 //"../z_kaleido_scope_PAL.c", 3675);
 
-            pauseCtx->iconItemAltSegment = (void*)(((uintptr_t)pauseCtx->iconItem24Segment + size + 0xF) & ~0xF);
+            pauseCtx->iconItemAltSegment = reinterpret_cast<u8*>(((uintptr_t)pauseCtx->iconItem24Segment + size + 0xF) & ~0xF);
 #endif
 
             switch (globalCtx->sceneNum) {
@@ -3174,7 +3179,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx)
 
             // OTRTODO: LANGUAGE SUPPORT
 #if 1
-            pauseCtx->iconItemLangSegment = (void*)(((uintptr_t)pauseCtx->iconItemAltSegment + size2 + 0xF) & ~0xF);
+            pauseCtx->iconItemLangSegment = reinterpret_cast<u8*>(((uintptr_t)pauseCtx->iconItemAltSegment + size2 + 0xF) & ~0xF);
 
             if (gSaveContext.language == LANGUAGE_ENG) {
                 //size = (uintptr_t)_icon_item_nes_staticSegmentRomEnd - (uintptr_t)_icon_item_nes_staticSegmentRomStart;
@@ -3195,7 +3200,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx)
 #endif
 
             //pauseCtx->nameSegment = (void*)(((uintptr_t)pauseCtx->iconItemLangSegment + size + 0xF) & ~0xF);
-            pauseCtx->nameSegment = malloc(0x400 + 0xA00); // OTRTODO: GET RID OF THIS
+            pauseCtx->nameSegment = static_cast<u8*>(std::malloc(0x400 + 0xA00)); // OTRTODO: GET RID OF THIS
 
             osSyncPrintf("サイズ＝%x\n", size2 + size1 + size0 + size);
             osSyncPrintf("item_name I_N_PT=%x\n", 0x800);
@@ -3204,7 +3209,7 @@ void KaleidoScope_Update(GlobalContext* globalCtx)
 
             if (((void)0, gSaveContext.worldMapArea) < 22) {
                 if (gSaveContext.language == LANGUAGE_ENG) {
-                    memcpy(pauseCtx->nameSegment + 0x400, ResourceMgr_LoadTexByName(mapNameTextures[36 + gSaveContext.worldMapArea]), 0xA00);
+                    memcpy(pauseCtx->nameSegment + 0x400, ResourceMgr_LoadTexByName(static_cast<const char*>(mapNameTextures[36 + gSaveContext.worldMapArea])), 0xA00);
                 } else if (gSaveContext.language == LANGUAGE_GER) {
                     DmaMgr_SendRequest1(pauseCtx->nameSegment + 0x400,
                                         (uintptr_t)_map_name_staticSegmentRomStart +
@@ -3719,25 +3724,25 @@ void KaleidoScope_Update(GlobalContext* globalCtx)
             Interface_ChangeAlpha(1);
 
 #if 1
-            pauseCtx->iconItemSegment = (void*)(((uintptr_t)globalCtx->objectCtx.spaceStart + 0x30) & ~0x3F);
+            pauseCtx->iconItemSegment = reinterpret_cast<u8*>(((uintptr_t)globalCtx->objectCtx.spaceStart + 0x30) & ~0x3F);
             size0 = (uintptr_t)_icon_item_staticSegmentRomEnd - (uintptr_t)_icon_item_staticSegmentRomStart;
             osSyncPrintf("icon_item size0=%x\n", size0);
             DmaMgr_SendRequest1(pauseCtx->iconItemSegment, (uintptr_t)_icon_item_staticSegmentRomStart, size0,
                                 "../z_kaleido_scope_PAL.c", 4356);
 
-            pauseCtx->iconItem24Segment = (void*)(((uintptr_t)pauseCtx->iconItemSegment + size0 + 0xF) & ~0xF);
+            pauseCtx->iconItem24Segment = reinterpret_cast<u8*>(((uintptr_t)pauseCtx->iconItemSegment + size0 + 0xF) & ~0xF);
             //size = (uintptr_t)_icon_item_24_staticSegmentRomEnd - (uintptr_t)_icon_item_24_staticSegmentRomStart;
             osSyncPrintf("icon_item24 size=%x\n", size);
             //DmaMgr_SendRequest1(pauseCtx->iconItem24Segment, (uintptr_t)_icon_item_24_staticSegmentRomStart, size,
                                 //"../z_kaleido_scope_PAL.c", 4363);
 
-            pauseCtx->iconItemAltSegment = (void*)(((uintptr_t)pauseCtx->iconItem24Segment + size + 0xF) & ~0xF);
+            pauseCtx->iconItemAltSegment = reinterpret_cast<u8*>(((uintptr_t)pauseCtx->iconItem24Segment + size + 0xF) & ~0xF);
             //size2 = (uintptr_t)_icon_item_gameover_staticSegmentRomEnd - (uintptr_t)_icon_item_gameover_staticSegmentRomStart;
             //osSyncPrintf("icon_item_dungeon gameover-size2=%x\n", size2);
             //DmaMgr_SendRequest1(pauseCtx->iconItemAltSegment, (uintptr_t)_icon_item_gameover_staticSegmentRomStart, size2,
                                 //"../z_kaleido_scope_PAL.c", 4370);
 
-            pauseCtx->iconItemLangSegment = (void*)(((uintptr_t)pauseCtx->iconItemAltSegment + size2 + 0xF) & ~0xF);
+            pauseCtx->iconItemLangSegment = reinterpret_cast<u8*>(((uintptr_t)pauseCtx->iconItemAltSegment + size2 + 0xF) & ~0xF);
 
             /*
             if (gSaveContext.language == LANGUAGE_ENG) {

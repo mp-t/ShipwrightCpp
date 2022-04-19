@@ -37,7 +37,7 @@ void DmaMgr_ThreadEntry(void* arg0);
 s32 DmaMgr_SendRequestImpl(DmaRequest* req, uintptr_t ram, uintptr_t vrom, size_t size, u32 unk, OSMesgQueue* queue, OSMesg msg);
 s32 DmaMgr_SendRequest0(uintptr_t ram, uintptr_t vrom, size_t size);
 void DmaMgr_Init(void);
-s32 DmaMgr_SendRequest2(DmaRequest* req, uintptr_t ram, uintptr_t vrom, size_t size, u32 unk5, OSMesgQueue* queue, OSMesg msg,
+void DmaMgr_SendRequest2(DmaRequest* req, uintptr_t ram, uintptr_t vrom, size_t size, u32 unk5, OSMesgQueue* queue, OSMesg msg,
                         const char* file, s32 line);
 s32 DmaMgr_SendRequest1(void* ram0, uintptr_t vrom, size_t size, const char* file, s32 line);
 void* Yaz0_FirstDMA(void);
@@ -141,7 +141,7 @@ void __osViSwapContext(void);
 OSMesgQueue* osPiGetCmdQueue(void);
 s32 osEPiReadIo(OSPiHandle* handle, u32 devAddr, u32* data);
 void osViSetSpecialFeatures(u32 func);
-OSPiHandle* osCartRomInit(void);
+OSPiHandle* osCartRomInit();
 void __osSetFpcCsr(u32);
 u32 __osGetFpcCsr();
 s32 osEPiWriteIo(OSPiHandle* handle, u32 devAddr, u32 data);
@@ -476,7 +476,7 @@ Actor* Actor_Find(ActorContext* actorCtx, s32 actorId, s32 actorCategory);
 void Enemy_StartFinishingBlow(GlobalContext* globalCtx, Actor* actor);
 s16 func_80032CB4(s16* arg0, s16 arg1, s16 arg2, s16 arg3);
 void BodyBreak_Alloc(BodyBreak* bodyBreak, s32 count, GlobalContext* globalCtx);
-void BodyBreak_SetInfo(BodyBreak* bodyBreak, s32 limbIndex, s32 minLimbIndex, s32 maxLimbIndex, u32 count, Gfx** dList,
+void BodyBreak_SetInfo(BodyBreak* bodyBreak, s32 limbIndex, s32 minLimbIndex, s32 maxLimbIndex, u32 count, const Gfx** dList,
                        s16 objectId);
 s32 BodyBreak_SpawnParts(Actor* actor, BodyBreak* bodyBreak, GlobalContext* globalCtx, s16 type);
 void Actor_SpawnFloorDustRing(GlobalContext* globalCtx, Actor* actor, Vec3f* posXZ, f32 radius, s32 amountMinusOne,
@@ -1095,7 +1095,7 @@ s32 func_80090440(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Ve
 u8 func_80090480(GlobalContext* globalCtx, ColliderQuad* collider, WeaponInfo* weaponDim, Vec3f* newTip,
                  Vec3f* newBase);
 void Player_DrawGetItem(GlobalContext* globalCtx, Player* player);
-void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* data);
+void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* data);
 u32 func_80091738(GlobalContext* globalCtx, u8* segment, SkelAnime* skelAnime);
 void func_8009214C(GlobalContext* globalCtx, u8* segment, SkelAnime* skelAnime, Vec3f* pos, Vec3s* rot, f32 scale,
                    s32 sword, s32 tunic, s32 shield, s32 boots);
@@ -1172,7 +1172,7 @@ Gfx* Gfx_EnvColor(GraphicsContext* gfxCtx, s32 r, s32 g, s32 b, s32 a);
 void func_80095248(GraphicsContext* gfxCtx, u8 r, u8 g, u8 b);
 void func_80095974(GraphicsContext* gfxCtx);
 void func_80095AA0(GlobalContext* globalCtx, Room* room, Input* arg2, UNK_TYPE arg3);
-void func_8009638C(Gfx** displayList, void* source, void* tlut, u16 width, u16 height, u8 fmt, u8 siz, u16 mode0,
+void func_8009638C(Gfx** displayList, void* source, const void* tlut, u16 width, u16 height, u8 fmt, u8 siz, u16 mode0,
                    u16 tlutCount, f32 frameX, f32 frameY);
 void func_80096FD4(GlobalContext* globalCtx, Room* room);
 u32 func_80096FE8(GlobalContext* globalCtx, RoomContext* roomCtx);
@@ -1234,31 +1234,31 @@ void LinkAnimation_AnimateFrame(GlobalContext* globalCtx, SkelAnime* skelAnime);
 void Animation_SetMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, f32 morphFrames);
 void LinkAnimation_Change(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation, f32 playSpeed,
                           f32 startFrame, f32 endFrame, u8 mode, f32 morphFrames);
-void LinkAnimation_PlayOnce(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation);
-void LinkAnimation_PlayOnceSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_PlayOnce(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation);
+void LinkAnimation_PlayOnceSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                     f32 playSpeed);
-void LinkAnimation_PlayLoop(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation);
-void LinkAnimation_PlayLoopSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_PlayLoop(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation);
+void LinkAnimation_PlayLoopSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                     f32 playSpeed);
 void LinkAnimation_CopyJointToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime);
 void LinkAnimation_CopyMorphToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime);
-void LinkAnimation_LoadToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_LoadToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                f32 frame);
-void LinkAnimation_LoadToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_LoadToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                f32 frame);
 void LinkAnimation_InterpJointMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, f32 frame);
-void LinkAnimation_BlendToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation1,
-                                f32 frame1, LinkAnimationHeader* animation2, f32 frame2, f32 weight, Vec3s* blendTable);
-void LinkAnimation_BlendToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation1,
-                                f32 frame1, LinkAnimationHeader* animation2, f32 frame2, f32 weight, Vec3s* blendTable);
+void LinkAnimation_BlendToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation1,
+                                f32 frame1, const LinkAnimationHeader* animation2, f32 frame2, f32 weight, Vec3s* blendTable);
+void LinkAnimation_BlendToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation1,
+                                f32 frame1, const LinkAnimationHeader* animation2, f32 frame2, f32 weight, Vec3s* blendTable);
 void LinkAnimation_EndLoop(SkelAnime* skelAnime);
 s32 LinkAnimation_OnFrame(SkelAnime* skelAnime, f32 frame);
-s32 SkelAnime_Init(GlobalContext* globalCtx, SkelAnime* skelAnime, const SkeletonHeader* skeletonHeaderSeg,
+void SkelAnime_Init(GlobalContext* globalCtx, SkelAnime* skelAnime, const SkeletonHeader* skeletonHeaderSeg,
                    const AnimationHeader* animation, Vec3s* jointTable, Vec3s* morphTable, s32 limbCount);
-s32 SkelAnime_InitFlex(GlobalContext* globalCtx, SkelAnime* skelAnime, const FlexSkeletonHeader* skeletonHeaderSeg,
+void SkelAnime_InitFlex(GlobalContext* globalCtx, SkelAnime* skelAnime, const FlexSkeletonHeader* skeletonHeaderSeg,
                        const AnimationHeader* animation, Vec3s* jointTable, Vec3s* morphTable, s32 limbCount);
-s32 SkelAnime_InitSkin(GlobalContext* globalCtx, SkelAnime* skelAnime, SkeletonHeader* skeletonHeaderSeg,
-                       AnimationHeader* animation);
+void SkelAnime_InitSkin(GlobalContext* globalCtx, SkelAnime* skelAnime, const SkeletonHeader* skeletonHeaderSeg,
+                       const AnimationHeader* animation);
 s32 SkelAnime_Update(SkelAnime* skelAnime);
 void Animation_ChangeImpl(SkelAnime* skelAnime, const AnimationHeader* animation, f32 playSpeed, f32 startFrame, f32 endFrame,
                           u8 mode, f32 morphFrames, s8 taper);
@@ -1266,10 +1266,10 @@ void Animation_Change(SkelAnime* skelAnime, const AnimationHeader* animation, f3
                       u8 mode, f32 morphFrames);
 void Animation_PlayOnce(SkelAnime* skelAnime, const AnimationHeader* animation);
 void Animation_MorphToPlayOnce(SkelAnime* skelAnime, const AnimationHeader* animation, f32 morphFrames);
-void Animation_PlayOnceSetSpeed(SkelAnime* skelAnime, AnimationHeader* animation, f32 playSpeed);
+void Animation_PlayOnceSetSpeed(SkelAnime* skelAnime, const AnimationHeader* animation, f32 playSpeed);
 void Animation_PlayLoop(SkelAnime* skelAnime, const AnimationHeader* animation);
 void Animation_MorphToLoop(SkelAnime* skelAnime, const AnimationHeader* animation, f32 morphFrames);
-void Animation_PlayLoopSetSpeed(SkelAnime* skelAnime, AnimationHeader* animation, f32 playSpeed);
+void Animation_PlayLoopSetSpeed(SkelAnime* skelAnime, const AnimationHeader* animation, f32 playSpeed);
 void Animation_EndLoop(SkelAnime* skelAnime);
 void Animation_Reverse(SkelAnime* skelAnime);
 void SkelAnime_CopyFrameTableTrue(SkelAnime* skelAnime, Vec3s* dst, Vec3s* src, u8* copyFlag);
@@ -1281,13 +1281,13 @@ void SkelAnime_CopyFrameTable(SkelAnime* skelAnime, Vec3s* dst, Vec3s* src);
 
 void Skin_UpdateVertices(MtxF* mtx, SkinVertex* skinVertices, SkinLimbModif* modifEntry, Vtx* vtxBuf, Vec3f* pos);
 void Skin_DrawAnimatedLimb(GraphicsContext* gfxCtx, Skin* skin, s32 limbIndex, s32 arg3, s32 drawFlags);
-void Skin_DrawLimb(GraphicsContext* gfxCtx, Skin* skin, s32 limbIndex, Gfx* dlistOverride, s32 drawFlags);
+void Skin_DrawLimb(GraphicsContext* gfxCtx, Skin* skin, s32 limbIndex, const Gfx* dlistOverride, s32 drawFlags);
 void func_800A6330(Actor* actor, GlobalContext* globalCtx, Skin* skin, SkinPostDraw postDraw, s32 setTranslation);
 void func_800A6360(Actor* actor, GlobalContext* globalCtx, Skin* skin, SkinPostDraw postDraw, SkinOverrideLimbDraw overrideLimbDraw, s32 setTranslation);
 void func_800A6394(Actor* actor, GlobalContext* globalCtx, Skin* skin, SkinPostDraw postDraw, SkinOverrideLimbDraw overrideLimbDraw, s32 setTranslation, s32 arg6);
 void func_800A63CC(Actor* actor, GlobalContext* globalCtx, Skin* skin, SkinPostDraw postDraw, SkinOverrideLimbDraw overrideLimbDraw, s32 setTranslation, s32 arg6, s32 drawFlags);
 void Skin_GetLimbPos(Skin* skin, s32 limbIndex, Vec3f* arg2, Vec3f* dst);
-void Skin_Init(GlobalContext* globalCtx, Skin* skin, SkeletonHeader* skeletonHeader, AnimationHeader* animationHeader);
+void Skin_Init(GlobalContext* globalCtx, Skin* skin, const SkeletonHeader* skeletonHeader, const AnimationHeader* animationHeader);
 void Skin_Free(GlobalContext* globalCtx, Skin* skin);
 s32 Skin_ApplyAnimTransformations(Skin* skin, MtxF* mf, Actor* actor, s32 setTranslation);
 
@@ -1343,7 +1343,7 @@ void View_SetViewport(View* view, Viewport* viewport);
 void View_GetViewport(View* view, Viewport* viewport);
 void func_800AA76C(View* view, f32 arg1, f32 arg2, f32 arg3);
 void func_800AA78C(View* view, f32 arg1, f32 arg2, f32 arg3);
-s32 func_800AA7AC(View* view, f32 arg1);
+void func_800AA7AC(View* view, f32 arg1);
 void func_800AA7B8(View* view);
 void func_800AA814(View* view);
 void func_800AA840(View* view, Vec3f vec1, Vec3f vec2, f32 arg3);
@@ -2256,7 +2256,7 @@ void __osPackRequestData(u8 poll);
 s32 osContStartReadData(OSMesgQueue* mq);
 void osContGetReadData(OSContPad* pad);
 void __osPackReadData(void);
-void guPerspectiveF(f32 mf[4][4], u16* perspNorm, f32 fovy, f32 aspect, f32 near, f32 far, f32 scale);
+void guPerspectiveF(MtxF* mf, u16* perspNorm, f32 fovy, f32 aspect, f32 near, f32 far, f32 scale);
 void guPerspective(Mtx* m, u16* perspNorm, f32 fovy, f32 aspect, f32 near, f32 far, f32 scale);
 s32 __osSpRawStartDma(s32 direction, void* devAddr, void* dramAddr, size_t size);
 s32 __osSiRawStartDma(s32 dir, void* addr);
@@ -2266,7 +2266,7 @@ s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, ptrdiff_t si
 s32 __osPfsGetStatus(OSMesgQueue* queue, s32 channel);
 void __osPfsRequestOneChannel(s32 channel, u8 poll);
 void __osPfsGetOneChannelData(s32 channel, OSContStatus* contData);
-void guMtxIdentF(f32 mf[4][4]);
+void guMtxIdentF(MtxF* mf);
 void guLookAtF(f32 mf[4][4], f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp);
 void guLookAt(Mtx*, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp);
 s32 osPfsAllocateFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName, s32 length, s32* fileNo);
@@ -2285,7 +2285,7 @@ s32 osPfsFindFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* e
 s32 osAfterPreNMI(void);
 s32 osContStartQuery(OSMesgQueue* mq);
 void osContGetQuery(OSContStatus* data);
-void guLookAtHiliteF(f32 mf[4][4], LookAt* l, Hilite* h, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt,
+void guLookAtHiliteF(MtxF* mf, LookAt* l, Hilite* h, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt,
                      f32 xUp, f32 yUp, f32 zUp, f32 xl1, f32 yl1, f32 zl1, f32 xl2, f32 yl2, f32 zl2, s32 hiliteWidth,
                      s32 hiliteHeight);
 void guLookAtHilite(Mtx* m, LookAt* l, Hilite* h, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp,
@@ -2296,7 +2296,7 @@ void guMtxIdent(Mtx*);
 void guPositionF(f32 mf[4][4], f32 rot, f32 pitch, f32 yaw, f32 scale, f32 x, f32 y, f32 z);
 void guPosition(Mtx*, f32, f32, f32, f32, f32, f32, f32);
 OSYieldResult osSpTaskYielded(OSTask* task);
-void guRotateF(f32 m[4][4], f32 a, f32 x, f32 y, f32 z);
+void guRotateF(MtxF* m, f32 a, f32 x, f32 y, f32 z);
 void guRotate(Mtx*, f32 angle, f32 x, f32 y, f32 z);
 s32 osAiSetFrequency(u32 frequency);
 OSThread* __osGetActiveQueue(void);
@@ -2305,7 +2305,7 @@ u32 osDpGetStatus(void);
 void osDpSetStatus(u32 status);
 s32 osPfsDeleteFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName);
 s32 __osPfsReleasePages(OSPfs* pfs, __OSInode* inode, u8 initialPage, u8 bank, __OSInodeUnit* finalPage);
-void guOrthoF(f32[4][4], f32, f32, f32, f32, f32, f32, f32);
+void guOrthoF(MtxF*, f32, f32, f32, f32, f32, f32, f32);
 void guOrtho(Mtx*, f32, f32, f32, f32, f32, f32, f32);
 s16 coss(u16);
 void osViSetEvent(OSMesgQueue* mq, OSMesg m, u32 retraceCount);
@@ -2316,7 +2316,7 @@ void __osPfsGetInitData(u8* pattern, OSContStatus* contData);
 void guS2DInitBg(uObjBg* bg);
 #endif
 s32 __osPfsSelectBank(OSPfs* pfs, u8 bank);
-s32 osContSetCh(u8 ch);
+void osContSetCh(u8 ch);
 s32 osPfsFileState(OSPfs* pfs, s32 fileNo, OSPfsState* state);
 s32 osPfsInitPak(OSMesgQueue* mq, OSPfs* pfs, s32 channel);
 s32 __osPfsCheckRamArea(OSPfs* pfs);
@@ -2386,5 +2386,7 @@ void LoadSkyboxTexAtOffset(SkyboxContext* skyboxCtx, int segmentIndex, const cha
                            int offset);
 void LoadSkyboxPalette(GlobalContext* globalCtx, SkyboxContext* skyboxCtx, int paletteIndex, const char* palTex, int width,
                        int height);
+void func_800949A8_KAL(GraphicsContext* gfxCtx);
+void gDPSetTextureImageFB(Gfx* pkt, u32 format, u32 size, u32 width, int fb);
 
 #endif

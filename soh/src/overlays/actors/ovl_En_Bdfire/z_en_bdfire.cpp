@@ -18,7 +18,7 @@ void EnBdfire_DrawFire(EnBdfire* thisv, GlobalContext* globalCtx);
 void func_809BC2A4(EnBdfire* thisv, GlobalContext* globalCtx);
 void func_809BC598(EnBdfire* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Bdfire_InitVars = {
+ActorInit En_Bdfire_InitVars = {
     0,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -196,7 +196,7 @@ void EnBdfire_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBdfire_DrawFire(EnBdfire* thisv, GlobalContext* globalCtx) {
-    static void* D_809BCB10[] = {
+    static const void* D_809BCB10[] = {
         object_kingdodongo_Tex_0264E0, object_kingdodongo_Tex_0274E0, object_kingdodongo_Tex_0284E0,
         object_kingdodongo_Tex_0294E0, object_kingdodongo_Tex_02A4E0, object_kingdodongo_Tex_02B4E0,
         object_kingdodongo_Tex_02C4E0, object_kingdodongo_Tex_02D4E0,

@@ -26,7 +26,7 @@ void func_8097D130(DemoGo* thisv, GlobalContext* globalCtx);
 void func_8097D290(DemoGo* thisv, GlobalContext* globalCtx);
 void func_8097D29C(DemoGo* thisv, GlobalContext* globalCtx);
 
-static void* sEyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+static const void* sEyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
 
 static DemoGoActionFunc D_8097D44C[] = {
     func_8097CFDC, func_8097CFFC, func_8097D01C, func_8097D058, func_8097D088, func_8097D0D0, func_8097D130,
@@ -37,7 +37,7 @@ static DemoGoDrawFunc D_8097D468[] = {
     func_8097D29C,
 };
 
-const ActorInit Demo_Go_InitVars = {
+ActorInit Demo_Go_InitVars = {
     ACTOR_DEMO_GO,
     ACTORCAT_NPC,
     FLAGS,
@@ -127,7 +127,7 @@ void func_8097CB0C(DemoGo* thisv, GlobalContext* globalCtx) {
     Actor* thisx = &thisv->actor;
     PosRot* world = &thisx->world;
     CutsceneContext* csCtx = &globalCtx->csCtx;
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
     f32 temp_ret;
     s32 pad;
     Vec3f startPos;
@@ -167,7 +167,7 @@ void func_8097CCC0(DemoGo* thisv) {
 }
 
 void func_8097CCE0(DemoGo* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
     Actor* thisx = &thisv->actor;
     s32 rotYDelta;
     s32 newRotY;
@@ -221,7 +221,7 @@ void func_8097CE20(DemoGo* thisv, GlobalContext* globalCtx) {
 
 void func_8097CE78(DemoGo* thisv, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         npcAction = csCtx->npcActions[func_8097C870(thisv)];
@@ -239,7 +239,7 @@ void func_8097CEEC(DemoGo* thisv, GlobalContext* globalCtx) {
 }
 
 void func_8097CF20(DemoGo* thisv, GlobalContext* globalCtx, s32 arg2) {
-    AnimationHeader* animation = &gGoronAnim_0029A8;
+    const AnimationHeader* animation = &gGoronAnim_0029A8;
     if (arg2 != 0) {
         Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
                          -8.0f);
@@ -313,7 +313,7 @@ void DemoGo_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void DemoGo_Init(Actor* thisx, GlobalContext* globalCtx) {
     DemoGo* thisv = (DemoGo*)thisx;
-    AnimationHeader* animation = &gGoronAnim_004930;
+    const AnimationHeader* animation = &gGoronAnim_004930;
 
     ActorShape_Init(&thisv->actor.shape, 0.0f, ActorShadow_DrawCircle, 30.0f);
     SkelAnime_InitFlex(globalCtx, &thisv->skelAnime, &gGoronSkel, NULL, NULL, NULL, 0);
@@ -328,8 +328,8 @@ void func_8097D29C(DemoGo* thisv, GlobalContext* globalCtx) {
     s32 pad;
     s16 eyeTexIdx = thisv->unk_190;
     SkelAnime* skelAnime = &thisv->skelAnime;
-    void* eyeTexture = sEyeTextures[eyeTexIdx];
-    void* mouthTexture = gGoronCsMouthSmileTex;
+    const void* eyeTexture = sEyeTextures[eyeTexIdx];
+    const void* mouthTexture = gGoronCsMouthSmileTex;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_go.c", 732);
 

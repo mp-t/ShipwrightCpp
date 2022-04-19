@@ -17,7 +17,7 @@ void func_808AE5A8(BgSpot05Soko* thisv, GlobalContext* globalCtx);
 void func_808AE5B4(BgSpot05Soko* thisv, GlobalContext* globalCtx);
 void func_808AE630(BgSpot05Soko* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot05_Soko_InitVars = {
+ActorInit Bg_Spot05_Soko_InitVars = {
     ACTOR_BG_SPOT05_SOKO,
     ACTORCAT_PROP,
     FLAGS,

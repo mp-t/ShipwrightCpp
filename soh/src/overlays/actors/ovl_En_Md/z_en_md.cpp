@@ -21,7 +21,7 @@ void func_80AAB948(EnMd* thisv, GlobalContext* globalCtx);
 void func_80AABC10(EnMd* thisv, GlobalContext* globalCtx);
 void func_80AABD0C(EnMd* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Md_InitVars = {
+ActorInit En_Md_InitVars = {
     ACTOR_EN_MD,
     ACTORCAT_NPC,
     FLAGS,
@@ -808,7 +808,7 @@ void EnMd_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnMd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnMd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnMd* thisv = (EnMd*)thisx;
     Vec3s vec;
@@ -834,7 +834,7 @@ s32 EnMd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnMd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnMd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     EnMd* thisv = (EnMd*)thisx;
     Vec3f vec = { 400.0f, 0.0f, 0.0f };
 
@@ -844,7 +844,7 @@ void EnMd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnMd_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyeTextures[] = {
+    static const void* sEyeTextures[] = {
         gMidoEyeOpenTex,
         gMidoEyeHalfTex,
         gMidoEyeClosedTex,

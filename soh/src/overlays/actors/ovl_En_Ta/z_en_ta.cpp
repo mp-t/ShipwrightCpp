@@ -31,7 +31,7 @@ void func_80B167FC(EnTa* thisv);
 void func_80B16854(EnTa* thisv);
 void func_80B16938(EnTa* thisv);
 
-const ActorInit En_Ta_InitVars = {
+ActorInit En_Ta_InitVars = {
     ACTOR_EN_TA,
     ACTORCAT_NPC,
     FLAGS,
@@ -1163,7 +1163,7 @@ void EnTa_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnTa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnTa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnTa* thisv = (EnTa*)thisx;
 
     switch (limbIndex) {
@@ -1189,7 +1189,7 @@ s32 EnTa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnTa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnTa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f D_80B16E7C = {
         1100.0f,
         1000.0f,
@@ -1203,7 +1203,7 @@ void EnTa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnTa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gTalonEyeOpenTex,
         gTalonEyeHalfTex,
         gTalonEyeClosedTex,

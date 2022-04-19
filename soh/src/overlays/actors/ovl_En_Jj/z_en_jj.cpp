@@ -28,7 +28,7 @@ void EnJj_WaitForFish(EnJj* thisv, GlobalContext* globalCtx);
 void EnJj_BeginCutscene(EnJj* thisv, GlobalContext* globalCtx);
 void EnJj_RemoveDust(EnJj* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Jj_InitVars = {
+ActorInit En_Jj_InitVars = {
     ACTOR_EN_JJ,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -43,7 +43,7 @@ const ActorInit En_Jj_InitVars = {
 
 static s32 sUnused = 0;
 
-#include "z_en_jj_cutscene_data.c" EARLY
+#include "z_en_jj_cutscene_data.cpp" EARLY
 
 static s32 sUnused2[] = { 0, 0 };
 
@@ -81,7 +81,7 @@ void EnJj_SetupAction(EnJj* thisv, EnJjActionFunc actionFunc) {
 void EnJj_Init(Actor* thisx, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
     EnJj* thisv = (EnJj*)thisx;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
 
     Actor_ProcessInitChain(&thisv->dyna.actor, sInitChain);
     ActorShape_Init(&thisv->dyna.actor.shape, 0.0f, NULL, 0.0f);
@@ -306,7 +306,7 @@ void EnJj_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnJj_Draw(Actor* thisx, GlobalContext* globalCtx2) {
-    static void* eyeTextures[] = { gJabuJabuEyeOpenTex, gJabuJabuEyeHalfTex, gJabuJabuEyeClosedTex };
+    static const void* eyeTextures[] = { gJabuJabuEyeOpenTex, gJabuJabuEyeHalfTex, gJabuJabuEyeClosedTex };
     GlobalContext* globalCtx = globalCtx2;
     EnJj* thisv = (EnJj*)thisx;
 

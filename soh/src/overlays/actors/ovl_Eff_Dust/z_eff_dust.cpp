@@ -22,7 +22,7 @@ void EffDust_UpdateFunc_8099DFC0(EffDust* thisv, GlobalContext* globalCtx);
 void EffDust_DrawFunc_8099E4F4(Actor* thisx, GlobalContext* globalCtx);
 void EffDust_DrawFunc_8099E784(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Eff_Dust_InitVars = {
+ActorInit Eff_Dust_InitVars = {
     ACTOR_EFF_DUST,
     ACTORCAT_NPC,
     FLAGS,
@@ -62,7 +62,7 @@ void EffDust_InitPosAndDistance(EffDust* thisv) {
 
 void EffDust_Init(Actor* thisx, GlobalContext* globalCtx) {
     EffDust* thisv = (EffDust*)thisx;
-    EffDustType dustEffect = thisv->actor.params;
+    EffDustType dustEffect = static_cast<EffDustType>(thisv->actor.params);
 
     EffDust_InitPosAndDistance(thisv);
 

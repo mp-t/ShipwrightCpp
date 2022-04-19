@@ -18,7 +18,7 @@ void func_80A6DCCC(EnHorseZelda* thisv, GlobalContext* globalCtx);
 void func_80A6DDFC(EnHorseZelda* thisv, GlobalContext* globalCtx);
 void func_80A6DC7C(EnHorseZelda* thisv);
 
-const ActorInit En_Horse_Zelda_InitVars = {
+ActorInit En_Horse_Zelda_InitVars = {
     ACTOR_EN_HORSE_ZELDA,
     ACTORCAT_BG,
     FLAGS,
@@ -31,7 +31,7 @@ const ActorInit En_Horse_Zelda_InitVars = {
     NULL,
 };
 
-static AnimationHeader* sAnimationHeaders[] = { &gHorseZeldaGallopingAnim };
+static const AnimationHeader* sAnimationHeaders[] = { &gHorseZeldaGallopingAnim };
 
 static f32 splaySpeeds[] = { 2.0f / 3.0f };
 

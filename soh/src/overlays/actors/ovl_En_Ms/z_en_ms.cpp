@@ -20,7 +20,7 @@ void EnMs_Talk(EnMs* thisv, GlobalContext* globalCtx);
 void EnMs_Sell(EnMs* thisv, GlobalContext* globalCtx);
 void EnMs_TalkAfterPurchase(EnMs* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Ms_InitVars = {
+ActorInit En_Ms_InitVars = {
     ACTOR_EN_MS,
     ACTORCAT_NPC,
     FLAGS,

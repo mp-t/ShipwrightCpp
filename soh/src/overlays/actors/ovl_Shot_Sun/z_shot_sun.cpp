@@ -20,7 +20,7 @@ void ShotSun_TriggerFairy(ShotSun* thisv, GlobalContext* globalCtx);
 void func_80BADF0C(ShotSun* thisv, GlobalContext* globalCtx);
 void ShotSun_UpdateHyliaSun(ShotSun* thisv, GlobalContext* globalCtx);
 
-const ActorInit Shot_Sun_InitVars = {
+ActorInit Shot_Sun_InitVars = {
     ACTOR_SHOT_SUN,
     ACTORCAT_PROP,
     FLAGS,

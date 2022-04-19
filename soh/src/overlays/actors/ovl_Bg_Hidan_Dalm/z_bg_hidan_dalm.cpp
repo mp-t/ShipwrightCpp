@@ -17,7 +17,7 @@ void BgHidanDalm_Draw(Actor* thisx, GlobalContext* globalCtx);
 void BgHidanDalm_Wait(BgHidanDalm* thisv, GlobalContext* globalCtx);
 void BgHidanDalm_Shrink(BgHidanDalm* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Hidan_Dalm_InitVars = {
+ActorInit Bg_Hidan_Dalm_InitVars = {
     ACTOR_BG_HIDAN_DALM,
     ACTORCAT_BG,
     FLAGS,

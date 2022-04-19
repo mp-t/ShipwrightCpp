@@ -236,7 +236,7 @@ typedef struct {
     /* 0x00 */ MtxF* matrices;
     /* 0x04 */ s16* objectIds;
     /* 0x08 */ s16 count;
-    /* 0x0C */ Gfx** dLists;
+    /* 0x0C */ const Gfx** dLists;
     /* 0x10 */ s32 val; // used for various purposes: both a status indicator and counter
     /* 0x14 */ s32 prevLimbIndex;
 } BodyBreak;

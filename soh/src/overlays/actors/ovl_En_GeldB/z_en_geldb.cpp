@@ -69,7 +69,7 @@ void EnGeldB_Block(EnGeldB* thisv, GlobalContext* globalCtx);
 void EnGeldB_Sidestep(EnGeldB* thisv, GlobalContext* globalCtx);
 void EnGeldB_Defeated(EnGeldB* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_GeldB_InitVars = {
+ActorInit En_GeldB_InitVars = {
     ACTOR_EN_GELDB,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1426,7 +1426,7 @@ void EnGeldB_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                              void* thisx) {
     EnGeldB* thisv = (EnGeldB*)thisx;
 
@@ -1450,7 +1450,7 @@ s32 EnGeldB_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
     return false;
 }
 
-void EnGeldB_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnGeldB_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f footOffset = { 300.0f, 0.0f, 0.0f };
     static Vec3f swordTipOffset = { 0.0f, -3000.0f, 0.0f };
     static Vec3f swordHiltOffset = { 400.0f, 0.0f, 0.0f };
@@ -1476,10 +1476,10 @@ void EnGeldB_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
         Matrix_MultVec3f(&swordHiltOffset, &swordHilt);
 
         if ((thisv->swordState < 0) || ((thisv->action != GELDB_SLASH) && (thisv->action != GELDB_SPIN_ATTACK))) {
-            EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIndex));
+            EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIndex)));
             thisv->swordState = 0;
         } else if (thisv->swordState > 0) {
-            EffectBlure_AddVertex(Effect_GetByIndex(thisv->blureIndex), &swordTip, &swordHilt);
+            EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIndex)), &swordTip, &swordHilt);
         }
     } else {
         Actor_SetFeetPos(&thisv->actor, limbIndex, GELDB_LIMB_L_FOOT, &footOffset, GELDB_LIMB_R_FOOT, &footOffset);
@@ -1546,7 +1546,7 @@ void EnGeldB_Draw(Actor* thisx, GlobalContext* globalCtx) {
         { 3000.0f, 0.0f, 1600.0f },
         { 3000.0f, 6000.0f, 1600.0f },
     };
-    static void* eyeTextures[] = { gGerudoRedEyeOpenTex, gGerudoRedEyeHalfTex, gGerudoRedEyeShutTex,
+    static const void* eyeTextures[] = { gGerudoRedEyeOpenTex, gGerudoRedEyeHalfTex, gGerudoRedEyeShutTex,
                                    gGerudoRedEyeHalfTex };
     s32 pad;
     EnGeldB* thisv = (EnGeldB*)thisx;

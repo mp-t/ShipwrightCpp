@@ -49,7 +49,7 @@ void BossGoma_WallClimb(BossGoma* thisv, GlobalContext* globalCtx);
 void BossGoma_CeilingMoveToCenter(BossGoma* thisv, GlobalContext* globalCtx);
 void BossGoma_SpawnChildGohma(BossGoma* thisv, GlobalContext* globalCtx, s16 i);
 
-const ActorInit Boss_Goma_InitVars = {
+ActorInit Boss_Goma_InitVars = {
     ACTOR_BOSS_GOMA,
     ACTORCAT_BOSS,
     FLAGS,

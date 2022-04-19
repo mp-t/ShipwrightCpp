@@ -22,7 +22,7 @@ void func_80B17934(EnTakaraMan* thisv, GlobalContext* globalCtx);
 void func_80B17A6C(EnTakaraMan* thisv, GlobalContext* globalCtx);
 void func_80B17AC4(EnTakaraMan* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Takara_Man_InitVars = {
+ActorInit En_Takara_Man_InitVars = {
     ACTOR_EN_TAKARA_MAN,
     ACTORCAT_NPC,
     FLAGS,
@@ -199,7 +199,7 @@ void EnTakaraMan_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnTakaraMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnTakaraMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                  void* thisx) {
     EnTakaraMan* thisv = (EnTakaraMan*)thisx;
 
@@ -214,7 +214,7 @@ s32 EnTakaraMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
 }
 
 void EnTakaraMan_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         object_ts_Tex_000970,
         object_ts_Tex_000D70,
     };

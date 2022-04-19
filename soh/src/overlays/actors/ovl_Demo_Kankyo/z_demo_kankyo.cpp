@@ -40,7 +40,7 @@ extern CutsceneData gChildWarpOutCS[];
 extern CutsceneData gChildWarpInToTCS[];
 extern CutsceneData gChildWarpOutToTCS[];
 
-const ActorInit Demo_Kankyo_InitVars = {
+ActorInit Demo_Kankyo_InitVars = {
     ACTOR_DEMO_KANKYO,
     ACTORCAT_BG,
     FLAGS,
@@ -374,7 +374,7 @@ void DemoKankyo_DoNothing2(DemoKankyo* thisv, GlobalContext* globalCtx) {
 void DemoKankyo_SetRockPos(DemoKankyo* thisv, GlobalContext* globalCtx, s32 params) {
     Vec3f startPos;
     Vec3f endPos;
-    CsCmdActorAction* csAction = globalCtx->csCtx.npcActions[params];
+    const CsCmdActorAction* csAction = globalCtx->csCtx.npcActions[params];
     f32 temp_f0;
 
     startPos.x = csAction->startPos.x;
@@ -763,7 +763,7 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
     s16 i;
     f32 temp_f22;
     DemoKankyo* thisv = (DemoKankyo*)thisx;
-    Gfx* disp;
+    const Gfx* disp;
     Player* player = GET_PLAYER(globalCtx);
     Vec3f camPos;
     f32 translateX;
@@ -856,7 +856,7 @@ void DemoKankyo_DrawWarpSparkles(Actor* thisx, GlobalContext* globalCtx) {
         translateZ = thisv->unk_150[i].unk_C.z + thisv->unk_150[i].unk_0.z;
 
         if (thisv->unk_150[i].unk_22 < 2) {
-            disp = (uintptr_t)gEffFlash1DL; //This is probably fake
+            disp = gEffFlash1DL; //This is probably fake
             if (linkAge != 0) {
                 Matrix_Translate(translateX, translateY, translateZ, MTXMODE_NEW);
             } else {

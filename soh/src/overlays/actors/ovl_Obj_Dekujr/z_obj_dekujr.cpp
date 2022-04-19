@@ -16,7 +16,7 @@ void ObjDekujr_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void ObjDekujr_ComeUp(ObjDekujr* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Dekujr_InitVars = {
+ActorInit Obj_Dekujr_InitVars = {
     ACTOR_OBJ_DEKUJR,
     ACTORCAT_NPC,
     FLAGS,

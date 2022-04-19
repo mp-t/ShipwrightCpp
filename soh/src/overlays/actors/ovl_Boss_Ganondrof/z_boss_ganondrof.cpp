@@ -69,7 +69,7 @@ void BossGanondrof_Charge(BossGanondrof* thisv, GlobalContext* globalCtx);
 void BossGanondrof_Stunned(BossGanondrof* thisv, GlobalContext* globalCtx);
 void BossGanondrof_Death(BossGanondrof* thisv, GlobalContext* globalCtx);
 
-const ActorInit Boss_Ganondrof_InitVars = {
+ActorInit Boss_Ganondrof_InitVars = {
     ACTOR_BOSS_GANONDROF,
     ACTORCAT_BOSS,
     FLAGS,

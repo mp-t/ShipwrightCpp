@@ -46,7 +46,7 @@ void BossFd2_Damaged(BossFd2* thisv, GlobalContext* globalCtx);
 void BossFd2_Death(BossFd2* thisv, GlobalContext* globalCtx);
 void BossFd2_Wait(BossFd2* thisv, GlobalContext* globalCtx);
 
-const ActorInit Boss_Fd2_InitVars = {
+ActorInit Boss_Fd2_InitVars = {
     ACTOR_BOSS_FD2,
     ACTORCAT_BOSS,
     FLAGS,

@@ -23,7 +23,7 @@ void func_8087E288(BgHakaMeganeBG* thisv, GlobalContext* globalCtx);
 void func_8087E2D8(BgHakaMeganeBG* thisv, GlobalContext* globalCtx);
 void func_8087E34C(BgHakaMeganeBG* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Haka_MeganeBG_InitVars = {
+ActorInit Bg_Haka_MeganeBG_InitVars = {
     ACTOR_BG_HAKA_MEGANEBG,
     ACTORCAT_BG,
     FLAGS,

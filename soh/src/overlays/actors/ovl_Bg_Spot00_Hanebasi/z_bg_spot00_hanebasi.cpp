@@ -25,7 +25,7 @@ void BgSpot00Hanebasi_DrawbridgeWait(BgSpot00Hanebasi* thisv, GlobalContext* glo
 void BgSpot00Hanebasi_DrawbridgeRiseAndFall(BgSpot00Hanebasi* thisv, GlobalContext* globalCtx);
 void BgSpot00Hanebasi_SetTorchLightInfo(BgSpot00Hanebasi* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot00_Hanebasi_InitVars = {
+ActorInit Bg_Spot00_Hanebasi_InitVars = {
     ACTOR_BG_SPOT00_HANEBASI,
     ACTORCAT_BG,
     FLAGS,

@@ -14,7 +14,7 @@ void EfcErupc_UpdateParticles(EfcErupc* thisv, GlobalContext* globalCtx);
 void EfcErupc_AddParticle(EfcErupcParticles* particles, Vec3f* pos, Vec3f* vel, Vec3f* accel, f32 scaleFactor);
 void EfcErupc_InitParticles(EfcErupcParticles* particles);
 
-const ActorInit Efc_Erupc_InitVars = {
+ActorInit Efc_Erupc_InitVars = {
     ACTOR_EFC_ERUPC,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -146,7 +146,7 @@ void EfcErupc_Draw(Actor* thisx, GlobalContext* globalCtx) {
     gSPMatrix(POLY_XLU_DISP++, Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_efc_erupc.c", 333),
               G_MTX_NOPUSH | G_MTX_LOAD | G_MTX_MODELVIEW);
     if (globalCtx->csCtx.state != 0) {
-        CsCmdActorAction* csActorAction = globalCtx->csCtx.npcActions[2];
+        const CsCmdActorAction* csActorAction = globalCtx->csCtx.npcActions[2];
         if (csActorAction != 0) {
             csAction = csActorAction->action;
             if ((csAction == 2) || (csAction == 3)) {

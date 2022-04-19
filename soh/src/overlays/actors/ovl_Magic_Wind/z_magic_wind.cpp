@@ -19,7 +19,7 @@ void MagicWind_FadeOut(MagicWind* thisv, GlobalContext* globalCtx);
 void MagicWind_WaitAtFullSize(MagicWind* thisv, GlobalContext* globalCtx);
 void MagicWind_Grow(MagicWind* thisv, GlobalContext* globalCtx);
 
-const ActorInit Magic_Wind_InitVars = {
+ActorInit Magic_Wind_InitVars = {
     ACTOR_MAGIC_WIND,
     ACTORCAT_ITEMACTION,
     FLAGS,

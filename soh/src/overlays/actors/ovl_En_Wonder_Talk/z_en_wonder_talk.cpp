@@ -17,7 +17,7 @@ void func_80B391CC(EnWonderTalk* thisv, GlobalContext* globalCtx);
 void func_80B395F0(EnWonderTalk* thisv, GlobalContext* globalCtx);
 void func_80B3943C(EnWonderTalk* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Wonder_Talk_InitVars = {
+ActorInit En_Wonder_Talk_InitVars = {
     ACTOR_EN_WONDER_TALK,
     ACTORCAT_PROP,
     FLAGS,

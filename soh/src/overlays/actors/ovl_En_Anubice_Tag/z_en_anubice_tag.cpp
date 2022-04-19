@@ -17,7 +17,7 @@ void EnAnubiceTag_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnAnubiceTag_SpawnAnubis(EnAnubiceTag* thisv, GlobalContext* globalCtx);
 void EnAnubiceTag_ManageAnubis(EnAnubiceTag* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Anubice_Tag_InitVars = {
+ActorInit En_Anubice_Tag_InitVars = {
     ACTOR_EN_ANUBICE_TAG,
     ACTORCAT_SWITCH,
     FLAGS,

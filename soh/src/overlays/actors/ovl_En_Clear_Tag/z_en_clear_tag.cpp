@@ -22,7 +22,7 @@ void EnClearTag_CreateFlashEffect(GlobalContext* globalCtx, Vec3f* position, f32
 
 void EnClearTag_CalculateFloorTangent(EnClearTag* thisv);
 
-const ActorInit En_Clear_Tag_InitVars = {
+ActorInit En_Clear_Tag_InitVars = {
     ACTOR_EN_CLEAR_TAG,
     ACTORCAT_BOSS,
     FLAGS,

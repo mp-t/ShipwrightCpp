@@ -40,7 +40,7 @@ void EnPeehat_Adult_StateDie(EnPeehat* thisv, GlobalContext* globalCtx);
 void EnPeehat_SetStateExplode(EnPeehat* thisv);
 void EnPeehat_StateExplode(EnPeehat* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Peehat_InitVars = {
+ActorInit En_Peehat_InitVars = {
     ACTOR_EN_PEEHAT,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1003,7 +1003,7 @@ void EnPeehat_Update(Actor* thisx, GlobalContext* globalCtx) {
     Math_SmoothStepToF(&thisv->scaleShift, 0.0f, 1.0f, 0.001f, 0.0f);
 }
 
-s32 EnPeehat_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnPeehat_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                               void* thisx) {
     EnPeehat* thisv = (EnPeehat*)thisx;
 
@@ -1032,7 +1032,7 @@ s32 EnPeehat_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
     return false;
 }
 
-void EnPeehat_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnPeehat_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f peahatBladeTip[] = { { 0.0f, 0.0f, 5500.0f }, { 0.0f, 0.0f, -5500.0f } };
 
     EnPeehat* thisv = (EnPeehat*)thisx;

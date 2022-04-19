@@ -792,7 +792,7 @@ Gfx* func_80A761B0(GraphicsContext* gfxCtx, u8 primR, u8 primG, u8 primB, u8 env
     Gfx* displayList;
     Gfx* displayListHead;
 
-    displayList = Graph_Alloc(gfxCtx, 4 * sizeof(Gfx));
+    displayList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 4 * sizeof(Gfx)));
     displayListHead = displayList;
 
     gDPPipeSync(displayListHead++);
@@ -803,7 +803,7 @@ Gfx* func_80A761B0(GraphicsContext* gfxCtx, u8 primR, u8 primG, u8 primB, u8 env
     return displayList;
 }
 
-s32 EnIk_OverrideLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnIk_OverrideLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnIk* thisv = (EnIk*)thisx;
 
     if (limbIndex == 12) {
@@ -848,7 +848,7 @@ static Vec3f D_80A784D0[] = {
     { -3000.0, -700.0, -5000.0 },
 };
 
-void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     Vec3f spF4;
     Vec3f spE8;
     EnIk* thisv = (EnIk*)thisx;
@@ -880,9 +880,9 @@ void EnIk_PostLimbDraw3(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         Matrix_MultVec3f(&D_80A7847C[0], &spF4);
         Matrix_MultVec3f(&D_80A7847C[1], &spE8);
         if (thisv->unk_2FE > 0) {
-            EffectBlure_AddVertex(Effect_GetByIndex(thisv->blureIdx), &spF4, &spE8);
+            EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)), &spF4, &spE8);
         } else if (thisv->unk_2FE == 0) {
-            EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIdx));
+            EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)));
             thisv->unk_2FE = -1;
         }
         if (thisv->unk_2F8 == 9) {
@@ -1036,7 +1036,7 @@ s32 func_80A7707C(EnIk* thisv) {
     return SkelAnime_Update(&thisv->skelAnime);
 }
 
-CsCmdActorAction* EnIk_GetNpcAction(GlobalContext* globalCtx, s32 actionIdx) {
+const CsCmdActorAction* EnIk_GetNpcAction(GlobalContext* globalCtx, s32 actionIdx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[actionIdx];
     } else {
@@ -1045,7 +1045,7 @@ CsCmdActorAction* EnIk_GetNpcAction(GlobalContext* globalCtx, s32 actionIdx) {
 }
 
 void func_80A770C0(EnIk* thisv, GlobalContext* globalCtx, s32 actionIdx) {
-    CsCmdActorAction* npcAction = EnIk_GetNpcAction(globalCtx, actionIdx);
+    const CsCmdActorAction* npcAction = EnIk_GetNpcAction(globalCtx, actionIdx);
 
     if (npcAction != NULL) {
         thisv->actor.world.pos.x = npcAction->startPos.x;
@@ -1149,7 +1149,7 @@ void func_80A774F8(EnIk* thisv, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnIk_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnIk_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnIk* thisv = (EnIk*)thisx;
 
     if ((limbIndex == 13) || (limbIndex == 26) || (limbIndex == 27)) {
@@ -1161,7 +1161,7 @@ s32 EnIk_OverrideLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return 0;
 }
 
-void EnIk_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnIk_PostLimbDraw2(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
 
     OPEN_DISPS(gfxCtx, "../z_en_ik_inAwake.c", 207);
@@ -1228,7 +1228,7 @@ void func_80A77844(EnIk* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80A779DC(EnIk* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnIk_GetNpcAction(globalCtx, 4);
+    const CsCmdActorAction* npcAction = EnIk_GetNpcAction(globalCtx, 4);
     u32 action;
     u32 currentNpcAction;
 
@@ -1301,7 +1301,7 @@ void EnIk_Update(Actor* thisx, GlobalContext* globalCtx) {
     sActionFuncs[thisv->action](thisv, globalCtx);
 }
 
-s32 EnIk_OverrideLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnIk_OverrideLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnIk* thisv = (EnIk*)thisx;
     f32 curFrame;
 
@@ -1323,7 +1323,7 @@ s32 EnIk_OverrideLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return 0;
 }
 
-void EnIk_PostLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnIk_PostLimbDraw1(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
 
     OPEN_DISPS(gfxCtx, "../z_en_ik_inConfrontion.c", 571);
@@ -1447,7 +1447,7 @@ void EnIk_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-const ActorInit En_Ik_InitVars = {
+ActorInit En_Ik_InitVars = {
     ACTOR_EN_IK,
     ACTORCAT_BOSS,
     FLAGS,

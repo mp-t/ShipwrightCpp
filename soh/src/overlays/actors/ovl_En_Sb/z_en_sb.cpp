@@ -25,7 +25,7 @@ void EnSb_Lunge(EnSb* thisv, GlobalContext* globalCtx);
 void EnSb_Bounce(EnSb* thisv, GlobalContext* globalCtx);
 void EnSb_Cooldown(EnSb* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Sb_InitVars = {
+ActorInit En_Sb_InitVars = {
     ACTOR_EN_SB,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -473,7 +473,7 @@ void EnSb_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void EnSb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnSb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnSb* thisv = (EnSb*)thisx;
 
     BodyBreak_SetInfo(&thisv->bodyBreak, limbIndex, 0, 6, 8, dList, BODYBREAK_OBJECT_DEFAULT);

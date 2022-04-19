@@ -21,7 +21,7 @@ void BgYdanHasi_MoveWater(BgYdanHasi* thisv, GlobalContext* globalCtx);
 void BgYdanHasi_DecWaterTimer(BgYdanHasi* thisv, GlobalContext* globalCtx);
 void BgYdanHasi_UpdateThreeBlocks(BgYdanHasi* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Ydan_Hasi_InitVars = {
+ActorInit Bg_Ydan_Hasi_InitVars = {
     ACTOR_BG_YDAN_HASI,
     ACTORCAT_BG,
     FLAGS,

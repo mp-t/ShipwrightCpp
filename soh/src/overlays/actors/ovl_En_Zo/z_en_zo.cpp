@@ -297,7 +297,7 @@ static ColliderCylinderInit sCylinderInit = {
 
 static CollisionCheckInfoInit2 sColChkInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
-const ActorInit En_Zo_InitVars = {
+ActorInit En_Zo_InitVars = {
     ACTOR_EN_ZO,
     ACTORCAT_NPC,
     FLAGS,
@@ -750,7 +750,7 @@ void EnZo_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnZo_UpdateSplashes(thisv);
 }
 
-s32 EnZo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnZo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnZo* thisv = (EnZo*)thisx;
     Vec3s vec;
@@ -777,7 +777,7 @@ s32 EnZo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return 0;
 }
 
-void EnZo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnZo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     EnZo* thisv = (EnZo*)thisx;
     Vec3f vec = { 0.0f, 600.0f, 0.0f };
 
@@ -788,7 +788,7 @@ void EnZo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 
 void EnZo_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnZo* thisv = (EnZo*)thisx;
-    void* eyeTextures[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
+    const void* eyeTextures[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
 
     Matrix_Push();
     EnZo_DrawRipples(thisv, globalCtx);

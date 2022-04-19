@@ -21,7 +21,7 @@ void func_80A4F700(EnGs* thisv, GlobalContext* globalCtx);
 
 void func_80A4F77C(EnGs* thisv);
 
-const ActorInit En_Gs_InitVars = {
+ActorInit En_Gs_InitVars = {
     ACTOR_EN_GS,
     ACTORCAT_PROP,
     FLAGS,

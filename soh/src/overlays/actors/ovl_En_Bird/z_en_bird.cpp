@@ -19,7 +19,7 @@ void func_809C1E40(EnBird* thisv, GlobalContext* globalCtx);
 void func_809C1D60(EnBird* thisv, GlobalContext* globalCtx);
 void func_809C1CAC(EnBird* thisv, s16 params);
 
-const ActorInit En_Bird_InitVars = {
+ActorInit En_Bird_InitVars = {
     ACTOR_EN_BIRD,
     ACTORCAT_PROP,
     FLAGS,
@@ -67,7 +67,7 @@ void EnBird_Destroy(Actor* thisx, GlobalContext* globalCtx) {
 void func_809C1CAC(EnBird* thisv, s16 params) {
     f32 frameCount = Animation_GetLastFrame(&gBirdFlyAnim);
     f32 playbackSpeed = thisv->unk_19C ? 0.0f : 1.0f;
-    AnimationHeader* anim = &gBirdFlyAnim;
+    const AnimationHeader* anim = &gBirdFlyAnim;
 
     thisv->unk_198 = Rand_S16Offset(5, 0x23);
     Animation_Change(&thisv->skelAnime, anim, playbackSpeed, 0.0f, frameCount, ANIMMODE_LOOP, 0.0f);

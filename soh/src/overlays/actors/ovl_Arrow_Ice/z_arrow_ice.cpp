@@ -21,7 +21,7 @@ void ArrowIce_Hit(ArrowIce* thisv, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Arrow_Ice/ovl_Arrow_Ice.h"
 
-const ActorInit Arrow_Ice_InitVars = {
+ActorInit Arrow_Ice_InitVars = {
     ACTOR_ARROW_ICE,
     ACTORCAT_ITEMACTION,
     FLAGS,

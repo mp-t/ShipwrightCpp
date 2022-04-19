@@ -31,7 +31,7 @@ void EnHeishi1_WaitNight(EnHeishi1* thisv, GlobalContext* globalCtx);
 
 static s32 sPlayerIsCaught = false;
 
-const ActorInit En_Heishi1_InitVars = {
+ActorInit En_Heishi1_InitVars = {
     0,
     ACTORCAT_NPC,
     FLAGS,
@@ -471,7 +471,7 @@ void EnHeishi1_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnHeishi1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnHeishi1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                void* thisx) {
     EnHeishi1* thisv = (EnHeishi1*)thisx;
 

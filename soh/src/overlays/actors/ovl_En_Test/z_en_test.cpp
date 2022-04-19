@@ -125,7 +125,7 @@ static u8 sJointCopyFlags[] = {
     false, // STALFOS_LIMB_WAIST
 };
 
-const ActorInit En_Test_InitVars = {
+ActorInit En_Test_InitVars = {
     ACTOR_EN_TEST,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1481,7 +1481,7 @@ void func_80862DBC(EnTest* thisv, GlobalContext* globalCtx) {
     thisv->actor.home.rot.x = 0;
 
     if (thisv->swordState >= 0) {
-        EffectBlure_AddSpace(Effect_GetByIndex(thisv->effectIndex));
+        EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->effectIndex)));
         thisv->swordState = -1;
     }
 
@@ -1814,7 +1814,7 @@ void EnTest_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnTest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnTest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnTest* thisv = (EnTest*)thisx;
     s32 pad;
 
@@ -1839,7 +1839,7 @@ s32 EnTest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     return false;
 }
 
-void EnTest_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnTest_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f unused1 = { 1100.0f, -700.0f, 0.0f };
     static Vec3f D_80864658 = { 300.0f, 0.0f, 0.0f };
     static Vec3f D_80864664 = { 3400.0f, 0.0f, 0.0f };
@@ -1878,9 +1878,9 @@ void EnTest_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, V
 
         if ((thisv->swordState >= 1) &&
             ((thisv->actor.params != STALFOS_TYPE_INVISIBLE) || (globalCtx->actorCtx.unk_03 != 0))) {
-            EffectBlure_AddVertex(Effect_GetByIndex(thisv->effectIndex), &sp70, &sp64);
+            EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->effectIndex)), &sp70, &sp64);
         } else if (thisv->swordState >= 0) {
-            EffectBlure_AddSpace(Effect_GetByIndex(thisv->effectIndex));
+            EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->effectIndex)));
             thisv->swordState = -1;
         }
 

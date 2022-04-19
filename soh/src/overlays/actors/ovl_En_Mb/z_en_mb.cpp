@@ -53,7 +53,7 @@ void EnMb_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnMb_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnMb_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Mb_InitVars = {
+ActorInit En_Mb_InitVars = {
     ACTOR_EN_MB,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1444,7 +1444,7 @@ void EnMb_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void EnMb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnMb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f unused = { 1100.0f, -700.0f, 0.0f };
     static Vec3f feetPos = { 0.0f, 0.0f, 0.0f };
     static Vec3f effSpawnPosModel = { 0.0f, -8000.0f, 0.0f };

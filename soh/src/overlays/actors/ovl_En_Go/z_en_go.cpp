@@ -33,7 +33,7 @@ void EnGo_AddDust(EnGo* thisv, Vec3f* pos, Vec3f* velocity, Vec3f* accel, u8 ini
 void EnGo_UpdateDust(EnGo* thisv);
 void EnGo_DrawDust(EnGo* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Go_InitVars = {
+ActorInit En_Go_InitVars = {
     ACTOR_EN_GO,
     ACTORCAT_NPC,
     FLAGS,
@@ -1078,7 +1078,7 @@ void EnGo_DrawRolling(EnGo* thisv, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_go.c", 2383);
 }
 
-s32 EnGo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnGo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnGo* thisv = (EnGo*)thisx;
     Vec3s vec1;
     f32 float1;
@@ -1111,7 +1111,7 @@ s32 EnGo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3f
     return 0;
 }
 
-void EnGo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnGo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnGo* thisv = (EnGo*)thisx;
     Vec3f D_80A41BCC = { 600.0f, 0.0f, 0.0f };
 
@@ -1199,7 +1199,7 @@ void EnGo_UpdateDust(EnGo* thisv) {
 }
 
 void EnGo_DrawDust(EnGo* thisv, GlobalContext* globalCtx) {
-    static void* dustTex[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
+    static const void* dustTex[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
     EnGoEffect* dustEffect = thisv->dustEffects;
     s16 alpha;
     s16 firstDone;

@@ -14,7 +14,7 @@ void EnHata_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnHata_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHata_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Hata_InitVars = {
+ActorInit En_Hata_InitVars = {
     ACTOR_EN_HATA,
     ACTORCAT_PROP,
     FLAGS,
@@ -53,7 +53,7 @@ static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 void EnHata_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnHata* thisv = (EnHata*)thisx;
     s32 pad;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
     f32 frameCount = Animation_GetLastFrame(&gFlagpoleFlapAnim);
 
     Actor_SetScale(&thisv->dyna.actor, 1.0f / 75.0f);
@@ -119,7 +119,7 @@ void EnHata_Update(Actor* thisx, GlobalContext* globalCtx2) {
     thisv->skelAnime.playSpeed = (Rand_ZeroFloat(1.25f) + 2.75f) * (globalCtx->envCtx.windSpeed / 255.0f);
 }
 
-s32 EnHata_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnHata_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnHata* thisv = (EnHata*)thisx;
     Vec3s* limbs;
 
@@ -133,7 +133,7 @@ s32 EnHata_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     return false;
 }
 
-void EnHata_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnHata_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
 }
 
 void EnHata_Draw(Actor* thisx, GlobalContext* globalCtx) {

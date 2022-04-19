@@ -64,7 +64,7 @@ static ColliderJntSphInit sJntSphInit = {
     sJntSphElementsInit,
 };
 
-const ActorInit En_Fish_InitVars = {
+ActorInit En_Fish_InitVars = {
     ACTOR_EN_FISH,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -620,7 +620,7 @@ void EnFish_Cutscene_WiggleFlyingThroughAir(EnFish* thisv, GlobalContext* global
 void EnFish_UpdateCutscene(EnFish* thisv, GlobalContext* globalCtx) {
     s32 pad;
     s32 pad2;
-    CsCmdActorAction* csAction = globalCtx->csCtx.npcActions[1];
+    const CsCmdActorAction* csAction = globalCtx->csCtx.npcActions[1];
     Vec3f startPos;
     Vec3f endPos;
     f32 progress;

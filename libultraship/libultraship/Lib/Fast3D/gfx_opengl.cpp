@@ -162,6 +162,7 @@ static const char *shader_item_to_str(uint32_t item, bool with_alpha, bool only_
                 return "texel.a";
         }
     }
+	return nullptr;
 }
 
 static void append_formula(char *buf, size_t *len, uint8_t c[2][4], bool do_single, bool do_multiply, bool do_mix, bool with_alpha, bool only_alpha, bool opt_alpha) {
@@ -506,6 +507,7 @@ static uint32_t gfx_cm_to_opengl(uint32_t val) {
             return GL_MIRRORED_REPEAT;
         case G_TX_MIRROR | G_TX_CLAMP:
             return GL_MIRROR_CLAMP_TO_EDGE;
+		default:
         case G_TX_NOMIRROR | G_TX_WRAP:
             return GL_REPEAT;
     }

@@ -187,7 +187,7 @@ static DamageTable sDamageTable = {
     /* Unknown 2     */ DMG_ENTRY(0, ENWF_DMGEFF_NONE),
 };
 
-const ActorInit En_Wf_InitVars = {
+ActorInit En_Wf_InitVars = {
     ACTOR_EN_WF,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1347,7 +1347,7 @@ void EnWf_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnWf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnWf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnWf* thisv = (EnWf*)thisx;
 
     if ((limbIndex == WOLFOS_LIMB_HEAD) || (limbIndex == WOLFOS_LIMB_EYES)) {
@@ -1357,7 +1357,7 @@ s32 EnWf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnWf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnWf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f colliderVec = { 1200.0f, 0.0f, 0.0f };
     static Vec3f bodyPartVec = { 0.0f, 0.0f, 0.0f };
     EnWf* thisv = (EnWf*)thisx;
@@ -1422,9 +1422,9 @@ void EnWf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
     }
 }
 
-static void* sWolfosNormalEyeTextures[] = { gWolfosNormalEyeOpenTex, gWolfosNormalEyeHalfTex, gWolfosNormalEyeNarrowTex,
+static const void* sWolfosNormalEyeTextures[] = { gWolfosNormalEyeOpenTex, gWolfosNormalEyeHalfTex, gWolfosNormalEyeNarrowTex,
                                             gWolfosNormalEyeHalfTex };
-static void* sWolfosWhiteEyeTextures[] = { gWolfosWhiteEyeOpenTex, gWolfosWhiteEyeHalfTex, gWolfosWhiteEyeNarrowTex,
+static const void* sWolfosWhiteEyeTextures[] = { gWolfosWhiteEyeOpenTex, gWolfosWhiteEyeHalfTex, gWolfosWhiteEyeNarrowTex,
                                            gWolfosWhiteEyeHalfTex };
 
 void EnWf_Draw(Actor* thisx, GlobalContext* globalCtx) {

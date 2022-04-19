@@ -50,7 +50,7 @@ void func_80A546DC(EnHeishi2* thisv, GlobalContext* globalCtx);
 void func_80A541FC(EnHeishi2* thisv, GlobalContext* globalCtx);
 void func_80A53DF8(EnHeishi2* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Heishi2_InitVars = {
+ActorInit En_Heishi2_InitVars = {
     ACTOR_EN_HEISHI2,
     ACTORCAT_NPC,
     FLAGS,
@@ -795,7 +795,7 @@ void EnHeishi2_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnHeishi2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnHeishi2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                void* thisx) {
     EnHeishi2* thisv = (EnHeishi2*)thisx;
 
@@ -817,7 +817,7 @@ s32 EnHeishi2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
     return false;
 }
 
-void EnHeishi2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnHeishi2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnHeishi2* thisv = (EnHeishi2*)thisx;
 
     if (limbIndex == 16) {
@@ -851,7 +851,7 @@ void EnHeishi2_Draw(Actor* thisx, GlobalContext* globalCtx) {
         if (linkObjBankIndex >= 0) {
             Matrix_Put(&thisv->mtxf_330);
             Matrix_Translate(-570.0f, 0.0f, 0.0f, MTXMODE_APPLY);
-            Matrix_RotateZ(DEGTORAD(70.0), MTXMODE_APPLY);
+            Matrix_RotateZ(DEGTORAD(70.f), MTXMODE_APPLY);
             mtx = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_heishi2.c", 1820) - 7;
 
             gSPSegment(POLY_OPA_DISP++, 0x06, globalCtx->objectCtx.status[linkObjBankIndex].segment);

@@ -26,7 +26,7 @@ void func_80A2FC0C(EnGb* thisv, GlobalContext* globalCtx);
 void EnGb_DrawCagedSouls(EnGb* thisv, GlobalContext* globalCtx);
 void EnGb_UpdateCagedSouls(EnGb* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Gb_InitVars = {
+ActorInit En_Gb_InitVars = {
     ACTOR_EN_GB,
     ACTORCAT_NPC,
     FLAGS,
@@ -152,7 +152,7 @@ void func_80A2F180(EnGb* thisv) {
 void EnGb_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnGb* thisv = (EnGb*)thisx;
     s32 pad;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
     s32 i;
     f32 rand;
     Vec3f focusOffset;

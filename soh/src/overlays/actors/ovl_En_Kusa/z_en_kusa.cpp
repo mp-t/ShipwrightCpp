@@ -40,7 +40,7 @@ static s16 rotSpeedX = 0;
 static s16 rotSpeedYtarget = 0;
 static s16 rotSpeedY = 0;
 
-const ActorInit En_Kusa_InitVars = {
+ActorInit En_Kusa_InitVars = {
     ACTOR_EN_KUSA,
     ACTORCAT_PROP,
     FLAGS,
@@ -493,7 +493,7 @@ void EnKusa_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnKusa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = { gFieldBushDL, object_kusa_DL_000140, object_kusa_DL_000140 };
+    static const Gfx* dLists[] = { gFieldBushDL, object_kusa_DL_000140, object_kusa_DL_000140 };
     EnKusa* thisv = (EnKusa*)thisx;
 
     if (thisv->actor.flags & ACTOR_FLAG_ENKUSA_CUT) {

@@ -18,7 +18,7 @@ void func_80AFC34C(EnSiofuki* thisv, GlobalContext* globalCtx);
 void func_80AFC544(EnSiofuki* thisv, GlobalContext* globalCtx);
 void func_80AFC478(EnSiofuki* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Siofuki_InitVars = {
+ActorInit En_Siofuki_InitVars = {
     ACTOR_EN_SIOFUKI,
     ACTORCAT_BG,
     FLAGS,
@@ -38,7 +38,7 @@ static InitChainEntry sInitChain[] = {
 void EnSiofuki_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnSiofuki* thisv = (EnSiofuki*)thisx;
     s32 type;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
     s32 pad;
 
     if ((thisx->room == 10) && Flags_GetSwitch(globalCtx, 0x1E)) {

@@ -34,7 +34,7 @@ void func_809D0268(EnBw* thisv, GlobalContext* globalCtx);
 void func_809D03CC(EnBw* thisv);
 void func_809D0424(EnBw* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Bw_InitVars = {
+ActorInit En_Bw_InitVars = {
     ACTOR_EN_BW,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -807,7 +807,7 @@ void EnBw_Update(Actor* thisx, GlobalContext* globalCtx2) {
     thisx->focus.pos.y += 5.0f;
 }
 
-s32 EnBw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnBw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnBw* thisv = (EnBw*)thisx;
 

@@ -20,7 +20,7 @@ void func_8087B938(BgHaka* thisv, GlobalContext* globalCtx);
 void func_8087BAAC(BgHaka* thisv, GlobalContext* globalCtx);
 void func_8087BAE4(BgHaka* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Haka_InitVars = {
+ActorInit Bg_Haka_InitVars = {
     ACTOR_BG_HAKA,
     ACTORCAT_BG,
     FLAGS,

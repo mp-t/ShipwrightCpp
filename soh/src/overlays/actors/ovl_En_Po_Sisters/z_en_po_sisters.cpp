@@ -62,7 +62,7 @@ static Color_RGBA8 D_80ADD700[4] = {
     { 0, 150, 0, 255 },
 };
 
-const ActorInit En_Po_Sisters_InitVars = {
+ActorInit En_Po_Sisters_InitVars = {
     ACTOR_EN_PO_SISTERS,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -152,14 +152,14 @@ static Vec3s D_80ADD7A4[4] = {
 
 static Vec3f D_80ADD7BC = { 120.0f, 250.0f, -1420.0f };
 
-static Gfx* D_80ADD7C8[4] = {
+static const Gfx* D_80ADD7C8[4] = {
     gPoeSistersMegBodyDL,
     gPoeSistersJoelleBodyDL,
     gPoeSistersBethBodyDL,
     gPoeSistersAmyBodyDL,
 };
 
-static Gfx* D_80ADD7D8[4] = {
+static const Gfx* D_80ADD7D8[4] = {
     gPoeSistersMegFaceDL,
     gPoeSistersJoelleFaceDL,
     gPoeSistersBethFaceDL,
@@ -1268,7 +1268,7 @@ void func_80ADC55C(EnPoSisters* thisv) {
     }
 }
 
-s32 EnPoSisters_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnPoSisters_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                  void* thisx, Gfx** gfxP) {
     EnPoSisters* thisv = (EnPoSisters*)thisx;
     Color_RGBA8* color;
@@ -1296,7 +1296,7 @@ s32 EnPoSisters_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** 
     return false;
 }
 
-void EnPoSisters_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx,
+void EnPoSisters_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx,
                               Gfx** gfxP) {
     EnPoSisters* thisv = (EnPoSisters*)thisx;
     s32 i;

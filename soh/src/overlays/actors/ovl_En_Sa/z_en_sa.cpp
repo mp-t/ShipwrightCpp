@@ -33,7 +33,7 @@ typedef enum {
     /* 4 */ SARIA_MOUTH_FROWNING
 } SariaMouthState;
 
-const ActorInit En_Sa_InitVars = {
+ActorInit En_Sa_InitVars = {
     ACTOR_EN_SA,
     ACTORCAT_NPC,
     FLAGS,
@@ -459,13 +459,13 @@ void func_80AF609C(EnSa* thisv) {
     }
 }
 
-void func_80AF6130(CsCmdActorAction* csAction, Vec3f* dst) {
+void func_80AF6130(const CsCmdActorAction* csAction, Vec3f* dst) {
     dst->x = csAction->startPos.x;
     dst->y = csAction->startPos.y;
     dst->z = csAction->startPos.z;
 }
 
-void func_80AF6170(CsCmdActorAction* csAction, Vec3f* dst) {
+void func_80AF6170(const CsCmdActorAction* csAction, Vec3f* dst) {
     dst->x = csAction->endPos.x;
     dst->y = csAction->endPos.y;
     dst->z = csAction->endPos.z;
@@ -629,7 +629,7 @@ void func_80AF68E4(EnSa* thisv, GlobalContext* globalCtx) {
     Vec3f startPos;
     Vec3f endPos;
     Vec3f D_80AF7448 = { 0.0f, 0.0f, 0.0f };
-    CsCmdActorAction* csAction;
+    const CsCmdActorAction* csAction;
     f32 temp_f0;
     f32 gravity;
 
@@ -752,7 +752,7 @@ void EnSa_Update(Actor* thisx, GlobalContext* globalCtx) {
     func_80AF5F34(thisv, globalCtx);
 }
 
-s32 EnSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnSa* thisv = (EnSa*)thisx;
     s32 pad;
@@ -779,7 +779,7 @@ s32 EnSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return 0;
 }
 
-void EnSa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnSa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     EnSa* thisv = (EnSa*)thisx;
     Vec3f D_80AF7454 = { 400.0, 0.0f, 0.0f };
 
@@ -789,11 +789,11 @@ void EnSa_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnSa_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* mouthTextures[] = {
+    static const void* mouthTextures[] = {
         gSariaMouthClosed2Tex,  gSariaMouthSmilingOpenTex, gSariaMouthFrowningTex,
         gSariaMouthSuprisedTex, gSariaMouthClosedTex,
     };
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gSariaEyeOpenTex, gSariaEyeHalfTex, gSariaEyeClosedTex, gSariaEyeSuprisedTex, gSariaEyeSadTex,
     };
     EnSa* thisv = (EnSa*)thisx;

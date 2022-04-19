@@ -16,7 +16,7 @@ void EnShopnuts_ThrowNut(EnShopnuts* thisv, GlobalContext* globalCtx);
 void EnShopnuts_Burrow(EnShopnuts* thisv, GlobalContext* globalCtx);
 void EnShopnuts_SpawnSalesman(EnShopnuts* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Shopnuts_InitVars = {
+ActorInit En_Shopnuts_InitVars = {
     ACTOR_EN_SHOPNUTS,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -256,7 +256,7 @@ void EnShopnuts_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnShopnuts_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnShopnuts_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx) {
     EnShopnuts* thisv = (EnShopnuts*)thisx;
 
@@ -266,7 +266,7 @@ s32 EnShopnuts_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
     return 0;
 }
 
-void EnShopnuts_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnShopnuts_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnShopnuts* thisv = (EnShopnuts*)thisx;
 
     f32 curFrame;

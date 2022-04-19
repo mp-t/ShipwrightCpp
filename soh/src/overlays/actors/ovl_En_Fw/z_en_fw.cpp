@@ -24,7 +24,7 @@ void EnFw_Run(EnFw* thisv, GlobalContext* globalCtx);
 void EnFw_JumpToParentInitPos(EnFw* thisv, GlobalContext* globalCtx);
 void EnFw_TurnToParentInitPos(EnFw* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Fw_InitVars = {
+ActorInit En_Fw_InitVars = {
     ACTOR_EN_FW,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -373,12 +373,12 @@ void EnFw_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnFw_OverrideLimbDraw(GlobalContext* globalContext, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnFw_OverrideLimbDraw(GlobalContext* globalContext, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                           void* thisx) {
     return false;
 }
 
-void EnFw_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnFw_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnFw* thisv = (EnFw*)thisx;
     Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
 
@@ -449,7 +449,7 @@ void EnFw_UpdateDust(EnFw* thisv) {
 }
 
 void EnFw_DrawDust(EnFw* thisv, GlobalContext* globalCtx) {
-    static void* dustTextures[] = {
+    static const void* dustTextures[] = {
         gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
     };
     EnFwEffect* eff = thisv->effects;

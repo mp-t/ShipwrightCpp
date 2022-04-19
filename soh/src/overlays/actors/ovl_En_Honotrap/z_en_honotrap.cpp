@@ -47,7 +47,7 @@ void EnHonotrap_FlameChase(EnHonotrap* thisv, GlobalContext* globalCtx);
 void EnHonotrap_SetupFlameVanish(EnHonotrap* thisv);
 void EnHonotrap_FlameVanish(EnHonotrap* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Honotrap_InitVars = {
+ActorInit En_Honotrap_InitVars = {
     ACTOR_EN_HONOTRAP,
     ACTORCAT_PROP,
     FLAGS,
@@ -375,9 +375,9 @@ void EnHonotrap_FlameMove(EnHonotrap* thisv, GlobalContext* globalCtx) {
         Vec3f tempVel;
         Vec3f shieldVec;
 
-        shieldVec.x = -player->shieldMf.xz;
-        shieldVec.y = -player->shieldMf.yz;
-        shieldVec.z = -player->shieldMf.zz;
+        shieldVec.x = -player->shieldMf.mf_raw.xz;
+        shieldVec.y = -player->shieldMf.mf_raw.yz;
+        shieldVec.z = -player->shieldMf.mf_raw.zz;
         EnHonotrap_GetNormal(&shieldNorm, &shieldVec);
 
         tempVel = thisv->actor.velocity;
@@ -487,7 +487,7 @@ void EnHonotrap_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnHonotrap_DrawEye(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gEyeSwitchSilverOpenTex,
         gEyeSwitchSilverHalfTex,
         gEyeSwitchSilverClosedTex,

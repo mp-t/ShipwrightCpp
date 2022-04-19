@@ -29,7 +29,7 @@ void func_80AE3B18(EnRd* thisv, GlobalContext* globalCtx);
 void func_80AE3C98(EnRd* thisv, GlobalContext* globalCtx);
 void func_80AE3ECC(EnRd* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Rd_InitVars = {
+ActorInit En_Rd_InitVars = {
     ACTOR_EN_RD,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -828,7 +828,7 @@ void EnRd_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnRd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnRd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnRd* thisv = (EnRd*)thisx;
 
@@ -840,7 +840,7 @@ s32 EnRd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnRd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnRd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     Vec3f sp2C = D_80AE4940;
     EnRd* thisv = (EnRd*)thisx;
     s32 idx = -1;

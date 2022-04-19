@@ -32,7 +32,7 @@ void EnDoor_AjarOpen(EnDoor* thisv, GlobalContext* globalCtx);
 void EnDoor_AjarClose(EnDoor* thisv, GlobalContext* globalCtx);
 void EnDoor_Open(EnDoor* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Door_InitVars = {
+ActorInit En_Door_InitVars = {
     ACTOR_EN_DOOR,
     ACTORCAT_DOOR,
     FLAGS,
@@ -64,13 +64,13 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(uncullZoneForward, 4000, ICHAIN_STOP),
 };
 
-static AnimationHeader* D_809FCECC[] = { &gDoor3Anim, &gDoor1Anim, &gDoor4Anim, &gDoor2Anim };
+static const AnimationHeader* D_809FCECC[] = { &gDoor3Anim, &gDoor1Anim, &gDoor4Anim, &gDoor2Anim };
 
 static u8 sDoorAnimOpenFrames[] = { 25, 25, 25, 25 };
 
 static u8 sDoorAnimCloseFrames[] = { 60, 70, 60, 70 };
 
-static Gfx* D_809FCEE4[5][2] = {
+static const Gfx* D_809FCEE4[5][2] = {
     { gDoorLeftDL, gDoorRightDL },
     { gFireTempleDoorWithHandleFrontDL, gFireTempleDoorWithHandleBackDL },
     { gWaterTempleDoorLeftDL, gWaterTempleDoorRightDL },
@@ -300,10 +300,10 @@ void EnDoor_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnDoor_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnDoor_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     s32 pad;
     TransitionActorEntry* transitionEntry;
-    Gfx** temp_a2;
+    const Gfx** temp_a2;
     s32 pad2;
     s16 phi_v0_2;
     s32 phi_v0;

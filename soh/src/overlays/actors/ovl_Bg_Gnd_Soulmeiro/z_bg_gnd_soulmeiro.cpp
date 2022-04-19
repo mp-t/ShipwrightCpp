@@ -19,7 +19,7 @@ void func_8087AF38(BgGndSoulmeiro* thisv, GlobalContext* globalCtx);
 void func_8087B284(BgGndSoulmeiro* thisv, GlobalContext* globalCtx);
 void func_8087B350(BgGndSoulmeiro* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Gnd_Soulmeiro_InitVars = {
+ActorInit Bg_Gnd_Soulmeiro_InitVars = {
     ACTOR_BG_GND_SOULMEIRO,
     ACTORCAT_PROP,
     FLAGS,

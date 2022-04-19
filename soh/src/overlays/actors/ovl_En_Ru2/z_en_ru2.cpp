@@ -55,7 +55,7 @@ static ColliderCylinderInitType1 sCylinderInit = {
     { 30, 100, 0, { 0 } },
 };
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     gAdultRutoEyeOpenTex,
     gAdultRutoEyeHalfTex,
     gAdultRutoEyeClosedTex,
@@ -63,7 +63,7 @@ static void* sEyeTextures[] = {
 
 static UNK_TYPE D_80AF4118 = 0;
 
-#include "z_en_ru2_cutscene_data.c" EARLY
+#include "z_en_ru2_cutscene_data.cpp" EARLY
 
 static EnRu2ActionFunc sActionFuncs[] = {
     func_80AF2CB4, func_80AF2CD4, func_80AF2CF4, func_80AF2D2C, func_80AF2D6C, func_80AF2DAC, func_80AF2DEC,
@@ -77,7 +77,7 @@ static EnRu2DrawFunc sDrawFuncs[] = {
     func_80AF321C,
 };
 
-const ActorInit En_Ru2_InitVars = {
+ActorInit En_Ru2_InitVars = {
     ACTOR_EN_RU2,
     ACTORCAT_NPC,
     FLAGS,
@@ -173,7 +173,7 @@ s32 EnRu2_UpdateSkelAnime(EnRu2* thisv) {
     return SkelAnime_Update(&thisv->skelAnime);
 }
 
-CsCmdActorAction* func_80AF27AC(GlobalContext* globalCtx, s32 npcActionIdx) {
+const CsCmdActorAction* func_80AF27AC(GlobalContext* globalCtx, s32 npcActionIdx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[npcActionIdx];
     }
@@ -181,7 +181,7 @@ CsCmdActorAction* func_80AF27AC(GlobalContext* globalCtx, s32 npcActionIdx) {
 }
 
 s32 func_80AF27D0(EnRu2* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdActorAction = func_80AF27AC(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdActorAction = func_80AF27AC(globalCtx, npcActionIdx);
 
     if ((csCmdActorAction != NULL) && (csCmdActorAction->action == arg2)) {
         return true;
@@ -190,7 +190,7 @@ s32 func_80AF27D0(EnRu2* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcActio
 }
 
 s32 func_80AF281C(EnRu2* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction = func_80AF27AC(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdNPCAction = func_80AF27AC(globalCtx, npcActionIdx);
 
     if ((csCmdNPCAction != NULL) && (csCmdNPCAction->action != arg2)) {
         return true;
@@ -199,7 +199,7 @@ s32 func_80AF281C(EnRu2* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcActio
 }
 
 void func_80AF2868(EnRu2* thisv, GlobalContext* globalCtx, u32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction = func_80AF27AC(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdNPCAction = func_80AF27AC(globalCtx, npcActionIdx);
     s16 newRotY;
     Actor* thisx = &thisv->actor;
 
@@ -213,7 +213,7 @@ void func_80AF2868(EnRu2* thisv, GlobalContext* globalCtx, u32 npcActionIdx) {
     }
 }
 
-void func_80AF28E8(EnRu2* thisv, AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {
+void func_80AF28E8(EnRu2* thisv, const AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {
     f32 frameCount = Animation_GetLastFrame(animation);
     f32 playbackSpeed;
     f32 unk0;
@@ -280,7 +280,7 @@ void func_80AF2AB4(EnRu2* thisv, GlobalContext* globalCtx) {
 
 void func_80AF2B44(EnRu2* thisv, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
-    CsCmdActorAction* csCmdNPCAction;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if (csCtx->state != CS_STATE_IDLE) {
         csCmdNPCAction = csCtx->npcActions[3];
@@ -300,8 +300,8 @@ void func_80AF2B94(EnRu2* thisv) {
 }
 
 void func_80AF2BC0(EnRu2* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* animation = &gAdultRutoRaisingArmsUpAnim;
-    CsCmdActorAction* csCmdNPCAction;
+    const AnimationHeader* animation = &gAdultRutoRaisingArmsUpAnim;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdNPCAction = globalCtx->csCtx.npcActions[3];
@@ -320,7 +320,7 @@ void func_80AF2C54(EnRu2* thisv, s32 arg1) {
 }
 
 void func_80AF2C68(EnRu2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdNPCAction = globalCtx->csCtx.npcActions[6];
@@ -469,7 +469,7 @@ void func_80AF31C8(EnRu2* thisv, GlobalContext* globalCtx) {
 void func_80AF321C(EnRu2* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 temp = thisv->unk_2A4;
-    void* tex = sEyeTextures[temp];
+    const void* tex = sEyeTextures[temp];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ru2_inKenjyanomaDemo02.c", 264);
@@ -537,7 +537,7 @@ void func_80AF3530(EnRu2* thisv, s32 arg1) {
 }
 
 void func_80AF3564(EnRu2* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction = func_80AF27AC(globalCtx, 3);
+    const CsCmdActorAction* csCmdNPCAction = func_80AF27AC(globalCtx, 3);
     s32 action;
     s32 unk_2BC;
 
@@ -797,7 +797,7 @@ void func_80AF3F14(EnRu2* thisv, GlobalContext* globalCtx) {
 void func_80AF3F20(EnRu2* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 temp = thisv->unk_2A4;
-    void* tex = sEyeTextures[temp];
+    const void* tex = sEyeTextures[temp];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ru2.c", 642);

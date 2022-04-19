@@ -23,7 +23,7 @@ void func_80B96560(ObjLift* thisv, GlobalContext* globalCtx);
 void func_80B96678(ObjLift* thisv, GlobalContext* globalCtx);
 void func_80B96840(ObjLift* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Lift_InitVars = {
+ActorInit Obj_Lift_InitVars = {
     ACTOR_OBJ_LIFT,
     ACTORCAT_BG,
     FLAGS,

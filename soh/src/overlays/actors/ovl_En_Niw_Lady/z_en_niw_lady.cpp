@@ -25,7 +25,7 @@ void func_80ABA244(EnNiwLady* thisv, GlobalContext* globalCtx);
 void func_80ABA654(EnNiwLady* thisv, GlobalContext* globalCtx);
 void func_80ABAD7C(EnNiwLady* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Niw_Lady_InitVars = {
+ActorInit En_Niw_Lady_InitVars = {
     ACTOR_EN_NIW_LADY,
     ACTORCAT_NPC,
     FLAGS,
@@ -541,12 +541,12 @@ void EnNiwLady_Update(Actor* thisx, GlobalContext* globalCtx) {
 Gfx* func_80ABB0A0(GraphicsContext* gfxCtx) {
     Gfx* dList;
 
-    dList = Graph_Alloc(gfxCtx, sizeof(Gfx));
+    dList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx)));
     gSPEndDisplayList(dList);
     return dList;
 }
 
-s32 EnNiwLady_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnNiwLady_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                void* thisx) {
     EnNiwLady* thisv = (EnNiwLady*)thisx;
     s32 pad;
@@ -568,7 +568,7 @@ s32 EnNiwLady_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 }
 
 void EnNiwLady_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyeTextures[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
+    static const void* sEyeTextures[] = { gCuccoLadyEyeOpenTex, gCuccoLadyEyeHalfTex, gCuccoLadyEyeClosedTex };
     EnNiwLady* thisv = (EnNiwLady*)thisx;
     s32 pad;
 

@@ -18,7 +18,7 @@ void func_808B4930(BgSpot15Saku* thisv, GlobalContext* globalCtx);
 void func_808B4978(BgSpot15Saku* thisv, GlobalContext* globalCtx);
 void func_808B4A04(BgSpot15Saku* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot15_Saku_InitVars = {
+ActorInit Bg_Spot15_Saku_InitVars = {
     ACTOR_BG_SPOT15_SAKU,
     ACTORCAT_ITEMACTION,
     FLAGS,

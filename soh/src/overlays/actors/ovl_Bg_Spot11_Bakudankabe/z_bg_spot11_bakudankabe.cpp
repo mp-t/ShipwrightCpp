@@ -16,7 +16,7 @@ void BgSpot11Bakudankabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot11Bakudankabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot11Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot11_Bakudankabe_InitVars = {
+ActorInit Bg_Spot11_Bakudankabe_InitVars = {
     ACTOR_BG_SPOT11_BAKUDANKABE,
     ACTORCAT_BG,
     FLAGS,

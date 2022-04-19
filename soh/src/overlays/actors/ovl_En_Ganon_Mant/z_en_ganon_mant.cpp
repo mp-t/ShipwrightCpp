@@ -14,7 +14,7 @@ void EnGanonMant_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonMant_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnGanonMant_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Ganon_Mant_InitVars = {
+ActorInit En_Ganon_Mant_InitVars = {
     ACTOR_EN_GANON_MANT,
     ACTORCAT_BOSS,
     FLAGS,
@@ -127,7 +127,7 @@ void EnGanonMant_Tear(EnGanonMant* thisv) {
     s16 count = shape->count;
     s16* tearAreaSizes = shape->tearAreaSizes;
 
-    u8* gMantTexProper = ResourceMgr_LoadTexByName(gMantTex);
+    u8* gMantTexProper = reinterpret_cast<u8*>(ResourceMgr_LoadTexByName(gMantTex));
 
     for (i = 0; i < count; i++) {
         if ((0 <= tx && tx < MANT_TEX_WIDTH) && (0 <= ty && ty < MANT_TEX_HEIGHT)) {
@@ -306,13 +306,14 @@ void EnGanonMant_UpdateVertices(EnGanonMant* thisv) {
     Vec3f up;
     Vec3f normal;
 
+	const char* verticesName;
     if (thisv->frameTimer % 2 != 0) {
-        vertices = SEGMENTED_TO_VIRTUAL(gMant1Vtx);
+        verticesName = SEGMENTED_TO_VIRTUAL(gMant1Vtx);
     } else {
-        vertices = SEGMENTED_TO_VIRTUAL(gMant2Vtx);
+        verticesName = SEGMENTED_TO_VIRTUAL(gMant2Vtx);
     }
 
-    vertices = ResourceMgr_LoadVtxByName(vertices);
+    vertices = ResourceMgr_LoadVtxByName(verticesName);
 
     up.x = 0.0f;
     up.y = 30.0f;

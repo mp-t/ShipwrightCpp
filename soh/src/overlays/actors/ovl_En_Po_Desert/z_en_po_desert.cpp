@@ -19,7 +19,7 @@ void EnPoDesert_WaitForPlayer(EnPoDesert* thisv, GlobalContext* globalCtx);
 void EnPoDesert_MoveToNextPoint(EnPoDesert* thisv, GlobalContext* globalCtx);
 void EnPoDesert_Disappear(EnPoDesert* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Po_Desert_InitVars = {
+ActorInit En_Po_Desert_InitVars = {
     ACTOR_EN_PO_DESERT,
     ACTORCAT_BG,
     FLAGS,
@@ -207,7 +207,7 @@ void EnPoDesert_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnPoDesert_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnPoDesert_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx, Gfx** gfxP) {
     EnPoDesert* thisv = (EnPoDesert*)thisx;
     f32 mtxScale;
@@ -222,7 +222,7 @@ s32 EnPoDesert_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
     return false;
 }
 
-void EnPoDesert_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx,
+void EnPoDesert_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx,
                              Gfx** gfxP) {
     static Vec3f baseLightPos = { 0.0f, 1400.0f, 0.0f };
 

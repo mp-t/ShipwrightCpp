@@ -15,7 +15,7 @@ void EnTana_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTana_DrawWoodenShelves(Actor* thisx, GlobalContext* globalCtx);
 void EnTana_DrawStoneShelves(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Tana_InitVars = {
+ActorInit En_Tana_InitVars = {
     ACTOR_EN_TANA,
     ACTORCAT_PROP,
     FLAGS,
@@ -43,13 +43,13 @@ static const ActorFunc sDrawFuncs[] = {
     EnTana_DrawStoneShelves,
 };
 
-static Gfx* sShelfDLists[] = {
+static const Gfx* sShelfDLists[] = {
     gShopDungenWoodenShelvesDL,
     gShopDungenStoneShelvesDL,
     gShopDungenStoneShelvesDL,
 };
 
-static void* sStoneTextures[] = {
+static const void* sStoneTextures[] = {
     NULL,
     gShopDungenStone1Tex,
     gShopDungenStone2Tex,

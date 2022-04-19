@@ -234,6 +234,9 @@ void GameState_ReqPadData(GameState* gameState) {
     PadMgr_RequestPadData(&gPadMgr, &gameState->input[0], 1);
 }
 
+// OTRTODO
+int fbTest = -1;
+
 void GameState_Update(GameState* gameState) {
     GraphicsContext* gfxCtx = gameState->gfxCtx;
 

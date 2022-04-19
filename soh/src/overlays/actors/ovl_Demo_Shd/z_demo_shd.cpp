@@ -15,7 +15,7 @@ void DemoShd_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80991298(DemoShd* thisv, GlobalContext* globalCtx);
 
-const ActorInit Demo_Shd_InitVars = {
+ActorInit Demo_Shd_InitVars = {
     ACTOR_DEMO_SHD,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -59,7 +59,7 @@ void func_80991298(DemoShd* thisv, GlobalContext* globalCtx) {
     }
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
-        CsCmdActorAction* npcAction0 = globalCtx->csCtx.npcActions[0];
+        const CsCmdActorAction* npcAction0 = globalCtx->csCtx.npcActions[0];
 
         if (npcAction0 != NULL) {
             if (npcAction0->action == 2) {
@@ -74,7 +74,7 @@ void func_80991298(DemoShd* thisv, GlobalContext* globalCtx) {
     }
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
-        CsCmdActorAction* npcAction1 = globalCtx->csCtx.npcActions[1];
+        const CsCmdActorAction* npcAction1 = globalCtx->csCtx.npcActions[1];
 
         if (npcAction1 != NULL) {
             if (npcAction1->action == 2) {

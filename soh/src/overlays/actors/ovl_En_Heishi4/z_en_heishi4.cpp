@@ -21,7 +21,7 @@ void func_80A56994(EnHeishi4* thisv, GlobalContext* globalCtx);
 void func_80A56A50(EnHeishi4* thisv, GlobalContext* globalCtx);
 void func_80A56ACC(EnHeishi4* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Heishi4_InitVars = {
+ActorInit En_Heishi4_InitVars = {
     ACTOR_EN_HEISHI4,
     ACTORCAT_NPC,
     FLAGS,
@@ -364,7 +364,7 @@ void EnHeishi4_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &thisv->collider.base);
 }
 
-s32 EnHeishi_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnHeishi_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                               void* thisx) {
     EnHeishi4* thisv = (EnHeishi4*)thisx;
 

@@ -14,7 +14,7 @@ void EnLightbox_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnLightbox_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnLightbox_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Lightbox_InitVars = {
+ActorInit En_Lightbox_InitVars = {
     ACTOR_EN_LIGHTBOX,
     ACTORCAT_PROP,
     FLAGS,
@@ -28,7 +28,7 @@ const ActorInit En_Lightbox_InitVars = {
 };
 
 void EnLightbox_Init(Actor* thisx, GlobalContext* globalCtx) {
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
     EnLightbox* thisv = (EnLightbox*)thisx;
     s32 pad[4];
 

@@ -191,7 +191,7 @@ void BossVa_SpawnBloodDroplets(GlobalContext* globalCtx, BossVaEffect* effect, V
 void BossVa_Tumor(GlobalContext* globalCtx, BossVa* thisv, s32 count, s16 scale, f32 xzSpread, f32 ySpread, u8 mode,
                   f32 range, u8 fixed);
 
-const ActorInit Boss_Va_InitVars = {
+ActorInit Boss_Va_InitVars = {
     ACTOR_BOSS_VA,
     ACTORCAT_BOSS,
     FLAGS,

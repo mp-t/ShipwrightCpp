@@ -74,7 +74,7 @@ void EnTite_FallApart(EnTite* thisv, GlobalContext* globalCtx);
 void EnTite_FlipOnBack(EnTite* thisv, GlobalContext* globalCtx);
 void EnTite_FlipUpright(EnTite* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Tite_InitVars = {
+ActorInit En_Tite_InitVars = {
     ACTOR_EN_TITE,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -156,7 +156,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32_DIV1000(gravity, -1000, ICHAIN_STOP),
 };
 
-static AnimationHeader* D_80B1B634[] = {
+static const AnimationHeader* D_80B1B634[] = {
     &object_tite_Anim_00083C, &object_tite_Anim_0004F8, &object_tite_Anim_00069C, NULL, NULL, NULL,
 };
 
@@ -956,7 +956,7 @@ void EnTite_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &thisv->collider.base);
 }
 
-void EnTite_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** limbDList, Vec3s* rot, void* thisx) {
+void EnTite_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** limbDList, Vec3s* rot, void* thisx) {
     EnTite* thisv = (EnTite*)thisx;
 
     switch (limbIndex) {

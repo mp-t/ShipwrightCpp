@@ -15,7 +15,7 @@ void EnPart_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPart_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPart_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Part_InitVars = {
+ActorInit En_Part_InitVars = {
     ACTOR_EN_PART,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -262,7 +262,7 @@ Gfx* func_80ACEAC0(GraphicsContext* gfxCtx, u8 primR, u8 primG, u8 primB, u8 env
     Gfx* dList;
     Gfx* dListHead;
 
-    dList = Graph_Alloc(gfxCtx, 4 * sizeof(Gfx));
+    dList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 4 * sizeof(Gfx)));
     dListHead = dList;
 
     gDPPipeSync(dListHead++);
@@ -297,11 +297,11 @@ void EnPart_Draw(Actor* thisx, GlobalContext* globalCtx) {
         gSPSegment(POLY_OPA_DISP++, 0x08, func_80ACEAC0(globalCtx->state.gfxCtx, 255, 255, 255, 180, 180, 180));
         gSPSegment(POLY_OPA_DISP++, 0x09, func_80ACEAC0(globalCtx->state.gfxCtx, 225, 205, 115, 25, 20, 0));
         gSPSegment(POLY_OPA_DISP++, 0x0A, func_80ACEAC0(globalCtx->state.gfxCtx, 225, 205, 115, 25, 20, 0));
-    } else if ((thisx->params == 9) && (thisv->displayList == ResourceMgr_LoadGfxByName(object_tite_DL_002FF0))) {
+    } else if ((thisx->params == 9) && (thisv->displayList == ResourceMgr_LoadGfxByName(reinterpret_cast<const char*>(object_tite_DL_002FF0)))) {
         gSPSegment(POLY_OPA_DISP++, 0x08, ResourceMgr_LoadTexByName(SEGMENTED_TO_VIRTUAL(object_tite_Tex_001300)));
         gSPSegment(POLY_OPA_DISP++, 0x09, ResourceMgr_LoadTexByName(SEGMENTED_TO_VIRTUAL(object_tite_Tex_001700)));
         gSPSegment(POLY_OPA_DISP++, 0x0A, ResourceMgr_LoadTexByName(SEGMENTED_TO_VIRTUAL(object_tite_Tex_001900)));
-    } else if ((thisx->params == 10) && (thisv->displayList == ResourceMgr_LoadGfxByName(object_tite_DL_002FF0))) {
+    } else if ((thisx->params == 10) && (thisv->displayList == ResourceMgr_LoadGfxByName(reinterpret_cast<const char*>(object_tite_DL_002FF0)))) {
         gSPSegment(POLY_OPA_DISP++, 0x08, ResourceMgr_LoadTexByName(SEGMENTED_TO_VIRTUAL(object_tite_Tex_001B00)));
         gSPSegment(POLY_OPA_DISP++, 0x09, ResourceMgr_LoadTexByName(SEGMENTED_TO_VIRTUAL(object_tite_Tex_001F00)));
         gSPSegment(POLY_OPA_DISP++, 0x0A, ResourceMgr_LoadTexByName(SEGMENTED_TO_VIRTUAL(object_tite_Tex_002100)));

@@ -51,7 +51,7 @@ typedef struct EnGe1 {
     /* 0x02AC */ u16 stateFlags;
     /* 0x02AE */ u8 hairstyle;
     /* 0x02AF */ u8 cutsceneTimer;
-    /* 0x02B0 */ AnimationHeader* animation;
+    /* 0x02B0 */ const AnimationHeader* animation;
     /* 0x02B4 */ EnGe1ActionFunc actionFunc;
     /* 0x02B8 */ EnGe1AnimFunc animFunc;
 } EnGe1; // size = 0x02BC

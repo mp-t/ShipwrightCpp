@@ -211,14 +211,14 @@ void DemoEc_SetEyeTexIndex(DemoEc* thisv, s16 texIndex) {
     thisv->eyeTexIndex = texIndex;
 }
 
-void DemoEc_InitSkelAnime(DemoEc* thisv, GlobalContext* globalCtx, FlexSkeletonHeader* skeletonHeader) {
+void DemoEc_InitSkelAnime(DemoEc* thisv, GlobalContext* globalCtx, const FlexSkeletonHeader* skeletonHeader) {
     SkelAnime_InitFlex(globalCtx, &thisv->skelAnime, SEGMENTED_TO_VIRTUAL(skeletonHeader), NULL, NULL, NULL, 0);
 }
 
-void DemoEc_ChangeAnimation(DemoEc* thisv, AnimationHeader* animation, u8 mode, f32 transitionRate, s32 reverse) {
+void DemoEc_ChangeAnimation(DemoEc* thisv, const AnimationHeader* animation, u8 mode, f32 transitionRate, s32 reverse) {
     f32 frameCount;
     f32 startFrame;
-    AnimationHeader* anim;
+    const AnimationHeader* anim;
     f32 playbackSpeed;
     s16 frameCountS;
 
@@ -248,7 +248,7 @@ Gfx* DemoEc_AllocColorDList(GraphicsContext* gfxCtx, u8* color) {
     return dList;
 }
 
-void DemoEc_DrawSkeleton(DemoEc* thisv, GlobalContext* globalCtx, void* eyeTexture, void* arg3,
+void DemoEc_DrawSkeleton(DemoEc* thisv, GlobalContext* globalCtx, const void* eyeTexture, const void* arg3,
                          OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw) {
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     SkelAnime* skelAnime = &thisv->skelAnime;
@@ -274,7 +274,7 @@ void DemoEc_DrawSkeleton(DemoEc* thisv, GlobalContext* globalCtx, void* eyeTextu
     CLOSE_DISPS(gfxCtx, "../z_demo_ec.c", 595);
 }
 
-void DemoEc_DrawSkeletonCustomColor(DemoEc* thisv, GlobalContext* globalCtx, Gfx* arg2, Gfx* arg3, u8* color1,
+void DemoEc_DrawSkeletonCustomColor(DemoEc* thisv, GlobalContext* globalCtx, const Gfx* arg2, Gfx* arg3, u8* color1,
                                     u8* color2, OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw) {
     s32 pad;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
@@ -331,7 +331,7 @@ void DemoEc_UseAnimationObject(DemoEc* thisv, GlobalContext* globalCtx) {
     gSegments[6] = reinterpret_cast<std::uintptr_t>( PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[animObjBankIndex].segment) );
 }
 
-CsCmdActorAction* DemoEc_GetNpcAction(GlobalContext* globalCtx, s32 actionIndex) {
+const CsCmdActorAction* DemoEc_GetNpcAction(GlobalContext* globalCtx, s32 actionIndex) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[actionIndex];
     } else {
@@ -340,7 +340,7 @@ CsCmdActorAction* DemoEc_GetNpcAction(GlobalContext* globalCtx, s32 actionIndex)
 }
 
 void DemoEc_SetNpcActionPosRot(DemoEc* thisv, GlobalContext* globalCtx, s32 actionIndex) {
-    CsCmdActorAction* npcAction = DemoEc_GetNpcAction(globalCtx, actionIndex);
+    const CsCmdActorAction* npcAction = DemoEc_GetNpcAction(globalCtx, actionIndex);
 
     if (npcAction != NULL) {
         thisv->actor.world.pos.x = npcAction->startPos.x;
@@ -487,13 +487,13 @@ void DemoEc_UpdateDancingKokiriGirl(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawKokiriGirl(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex };
+    static const void* eyeTextures[] = { gKw1EyeOpenTex, gKw1EyeHalfTex, gKw1EyeClosedTex };
     static u8 color1[] = { 70, 190, 60, 255 };
     static u8 color2[] = { 100, 30, 0, 255 };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
-    DemoEc_DrawSkeletonCustomColor(thisv, globalCtx, eyeTexture, NULL, color1, color2, NULL, NULL);
+    DemoEc_DrawSkeletonCustomColor(thisv, globalCtx, static_cast<const Gfx*>(eyeTexture), NULL, color1, color2, NULL, NULL);
 }
 void DemoEc_InitOldMan(DemoEc* thisv, GlobalContext* globalCtx) {
     DemoEc_UseDrawObject(thisv, globalCtx);
@@ -514,7 +514,7 @@ void DemoEc_UpdateOldMan(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawOldMan(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         object_bji_Tex_0005FC,
         object_bji_Tex_0009FC,
         object_bji_Tex_000DFC,
@@ -522,9 +522,9 @@ void DemoEc_DrawOldMan(DemoEc* thisv, GlobalContext* globalCtx) {
     static u8 color1[] = { 0, 50, 100, 255 };
     static u8 color2[] = { 0, 50, 160, 255 };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
-    DemoEc_DrawSkeletonCustomColor(thisv, globalCtx, eyeTexture, NULL, color1, color2, NULL, NULL);
+    DemoEc_DrawSkeletonCustomColor(thisv, globalCtx, static_cast<const Gfx*>(eyeTexture), NULL, color1, color2, NULL, NULL);
 }
 
 void DemoEc_InitBeardedMan(DemoEc* thisv, GlobalContext* globalCtx) {
@@ -546,7 +546,7 @@ void DemoEc_UpdateBeardedMan(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawBeardedMan(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         object_ahg_Tex_0005FC,
         object_ahg_Tex_0006FC,
         object_ahg_Tex_0007FC,
@@ -554,9 +554,9 @@ void DemoEc_DrawBeardedMan(DemoEc* thisv, GlobalContext* globalCtx) {
     static u8 color1[] = { 255, 255, 255, 255 };
     static u8 color2[] = { 255, 255, 255, 255 };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
-    DemoEc_DrawSkeletonCustomColor(thisv, globalCtx, eyeTexture, NULL, color1, color2, NULL, NULL);
+    DemoEc_DrawSkeletonCustomColor(thisv, globalCtx, static_cast<const Gfx*>(eyeTexture), NULL, color1, color2, NULL, NULL);
 }
 
 void DemoEc_InitWoman(DemoEc* thisv, GlobalContext* globalCtx) {
@@ -578,13 +578,13 @@ void DemoEc_UpdateWoman(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawWoman(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         object_bob_Tex_0007C8,
         object_bob_Tex_000FC8,
         object_bob_Tex_0017C8,
     };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -648,7 +648,7 @@ void DemoEc_UpdateCarpenter(DemoEc* thisv, GlobalContext* globalCtx) {
     DemoEc_UpdateBgFlags(thisv, globalCtx);
 }
 
-s32 DemoEc_CarpenterOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 DemoEc_CarpenterOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                      void* thisx, Gfx** gfx) {
     DemoEc* thisv = (DemoEc*)thisx;
 
@@ -673,7 +673,7 @@ s32 DemoEc_CarpenterOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
     return false;
 }
 
-Gfx* DemoEc_GetCarpenterPostLimbDList(DemoEc* thisv) {
+const Gfx* DemoEc_GetCarpenterPostLimbDList(DemoEc* thisv) {
     switch (thisv->actor.params) {
         case 10:
             return object_daiku_DL_005BD0;
@@ -689,10 +689,10 @@ Gfx* DemoEc_GetCarpenterPostLimbDList(DemoEc* thisv) {
     }
 }
 
-void DemoEc_CarpenterPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx,
+void DemoEc_CarpenterPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx,
                                   Gfx** gfx) {
     DemoEc* thisv = (DemoEc*)thisx;
-    Gfx* postLimbDList;
+    const Gfx* postLimbDList;
 
     if (limbIndex == 15) {
         postLimbDList = DemoEc_GetCarpenterPostLimbDList(thisv);
@@ -722,7 +722,7 @@ void DemoEc_UpdateGerudo(DemoEc* thisv, GlobalContext* globalCtx) {
     DemoEc_UpdateBgFlags(thisv, globalCtx);
 }
 
-Gfx* DemoEc_GetGerudoPostLimbDList(DemoEc* thisv) {
+const Gfx* DemoEc_GetGerudoPostLimbDList(DemoEc* thisv) {
     switch (thisv->actor.params) {
         case 16:
             return gGerudoWhiteHairstyleBobDL;
@@ -736,10 +736,10 @@ Gfx* DemoEc_GetGerudoPostLimbDList(DemoEc* thisv) {
     }
 }
 
-void DemoEc_GerudoPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx,
+void DemoEc_GerudoPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx,
                                Gfx** gfx) {
     DemoEc* thisv = (DemoEc*)thisx;
-    Gfx* postLimbDList;
+    const Gfx* postLimbDList;
 
     if (limbIndex == 15) {
         postLimbDList = DemoEc_GetGerudoPostLimbDList(thisv);
@@ -748,13 +748,13 @@ void DemoEc_GerudoPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
 }
 
 void DemoEc_DrawGerudo(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gGerudoWhiteEyeOpenTex,
         gGerudoWhiteEyeHalfTex,
         gGerudoWhiteEyeClosedTex,
     };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, DemoEc_GerudoPostLimbDraw);
 }
@@ -778,9 +778,9 @@ void DemoEc_UpdateDancingZora(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawDancingZora(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
+    static const void* eyeTextures[] = { gZoraEyeOpenTex, gZoraEyeHalfTex, gZoraEyeClosedTex };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -821,7 +821,7 @@ void func_8096F26C(DemoEc* thisv, s32 arg1) {
 }
 
 void func_8096F2B0(DemoEc* thisv, GlobalContext* globalCtx, s32 arg2) {
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
     s32 sp18;
 
     npcAction = DemoEc_GetNpcAction(globalCtx, arg2);
@@ -863,9 +863,9 @@ void func_8096F3D4(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawKingZora(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gKzEyeOpenTex, gKzEyeHalfTex, gKzEyeClosedTex, gKzEyeOpen2Tex };
+    static const void* eyeTextures[] = { gKzEyeOpenTex, gKzEyeHalfTex, gKzEyeClosedTex, gKzEyeOpen2Tex };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -895,7 +895,7 @@ void func_8096F544(DemoEc* thisv, s32 changeAnim) {
 }
 
 void func_8096F578(DemoEc* thisv, GlobalContext* globalCtx, s32 arg2) {
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
     s32 sp18;
 
     npcAction = DemoEc_GetNpcAction(globalCtx, arg2);
@@ -929,20 +929,20 @@ void func_8096F640(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawMido(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gMidoEyeOpenTex,
         gMidoEyeHalfTex,
         gMidoEyeClosedTex,
         gMidoEyeAngryTex,
     };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
 
 void DemoEc_InitCucco(DemoEc* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* animation;
+    const AnimationHeader* animation;
 
     DemoEc_UseDrawObject(thisv, globalCtx);
     DemoEc_InitSkelAnime(thisv, globalCtx, &gCuccoSkel);
@@ -992,13 +992,13 @@ void DemoEc_UpdateCuccoLady(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawCuccoLady(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gCuccoLadyEyeOpenTex,
         gCuccoLadyEyeHalfTex,
         gCuccoLadyEyeClosedTex,
     };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -1022,13 +1022,13 @@ void DemoEc_UpdatePotionShopOwner(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawPotionShopOwner(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gPotionShopkeeperEyeOpenTex,
         gPotionShopkeeperEyeHalfTex,
         gPotionShopkeeperEyeClosedTex,
     };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
@@ -1072,7 +1072,7 @@ void DemoEc_UpdateFishingOwner(DemoEc* thisv, GlobalContext* globalCtx) {
     DemoEc_UpdateBgFlags(thisv, globalCtx);
 }
 
-void DemoEc_FishingOwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx,
+void DemoEc_FishingOwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx,
                                      Gfx** gfx) {
     DemoEc* thisv = (DemoEc*)thisx;
 
@@ -1082,13 +1082,13 @@ void DemoEc_FishingOwnerPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
 }
 
 void DemoEc_DrawFishingOwner(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gFishingOwnerEyeOpenTex,
         gFishingOwnerEyeHalfTex,
         gFishingOwnerEyeClosedTex,
     };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, DemoEc_FishingOwnerPostLimbDraw);
 }
@@ -1112,17 +1112,17 @@ void DempEc_UpdateBombchuShopOwner(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawBombchuShopOwner(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gBombchuShopkeeperEyeOpenTex, gBombchuShopkeeperEyeHalfTex,
+    static const void* eyeTextures[] = { gBombchuShopkeeperEyeOpenTex, gBombchuShopkeeperEyeHalfTex,
                                    gBombchuShopkeeperEyeClosedTex };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, NULL, NULL, NULL);
 }
 
 void DemoEc_InitGorons(DemoEc* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
-    AnimationHeader* animation;
+    const AnimationHeader* animation;
     f32 goronScale;
     Vec3f* scale = &thisv->actor.scale;
 
@@ -1164,9 +1164,9 @@ void DemoEc_UpdateGorons(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawGorons(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+    static const void* eyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, gGoronCsMouthNeutralTex, NULL, NULL);
 }
@@ -1190,9 +1190,9 @@ void DemoEc_UpdateMalon(DemoEc* thisv, GlobalContext* globalCtx) {
 }
 
 void DemoEc_DrawMalon(DemoEc* thisv, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
+    static const void* eyeTextures[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
     s32 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTexture = eyeTextures[eyeTexIndex];
+    const void* eyeTexture = eyeTextures[eyeTexIndex];
 
     DemoEc_DrawSkeleton(thisv, globalCtx, eyeTexture, gMalonAdultMouthHappyTex, NULL, NULL);
 }
@@ -1360,7 +1360,7 @@ void DemoEc_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-const ActorInit Demo_Ec_InitVars = {
+ActorInit Demo_Ec_InitVars = {
     ACTOR_DEMO_EC,
     ACTORCAT_NPC,
     FLAGS,

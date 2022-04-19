@@ -158,8 +158,8 @@ void Skin_DrawAnimatedLimb(GraphicsContext* gfxCtx, Skin* skin, s32 limbIndex, s
 /**
  * Draw a limb of type SKIN_LIMB_TYPE_NORMAL, of the skeleton `skin` at index `limbIndex`
  */
-void Skin_DrawLimb(GraphicsContext* gfxCtx, Skin* skin, s32 limbIndex, Gfx* dlistOverride, s32 drawFlags) {
-    Gfx* gfx = dlistOverride;
+void Skin_DrawLimb(GraphicsContext* gfxCtx, Skin* skin, s32 limbIndex, const Gfx* dlistOverride, s32 drawFlags) {
+    const Gfx* gfx = dlistOverride;
     SkinLimb** skeleton;
     s32 pad;
 

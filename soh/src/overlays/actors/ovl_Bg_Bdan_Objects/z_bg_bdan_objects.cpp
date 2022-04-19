@@ -31,7 +31,7 @@ void func_8086CABC(BgBdanObjects* thisv, GlobalContext* globalCtx);
 void func_8086CB10(BgBdanObjects* thisv, GlobalContext* globalCtx);
 void func_8086CB8C(BgBdanObjects* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Bdan_Objects_InitVars = {
+ActorInit Bg_Bdan_Objects_InitVars = {
     ACTOR_BG_BDAN_OBJECTS,
     ACTORCAT_BG,
     FLAGS,

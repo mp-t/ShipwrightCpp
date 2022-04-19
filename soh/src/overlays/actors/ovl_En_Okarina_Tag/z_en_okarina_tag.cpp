@@ -22,7 +22,7 @@ void func_80ABF0CC(EnOkarinaTag* thisv, GlobalContext* globalCtx);
 void func_80ABF4C8(EnOkarinaTag* thisv, GlobalContext* globalCtx);
 void func_80ABF7CC(EnOkarinaTag* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Okarina_Tag_InitVars = {
+ActorInit En_Okarina_Tag_InitVars = {
     ACTOR_EN_OKARINA_TAG,
     ACTORCAT_PROP,
     FLAGS,

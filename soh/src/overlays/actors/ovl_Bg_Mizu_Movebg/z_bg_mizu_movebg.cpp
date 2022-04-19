@@ -25,7 +25,7 @@ void func_8089E318(BgMizuMovebg* thisv, GlobalContext* globalCtx);
 void func_8089E650(BgMizuMovebg* thisv, GlobalContext* globalCtx);
 s32 func_8089E108(Path* pathList, Vec3f* pos, s32 pathId, s32 pointId);
 
-const ActorInit Bg_Mizu_Movebg_InitVars = {
+ActorInit Bg_Mizu_Movebg_InitVars = {
     ACTOR_BG_MIZU_MOVEBG,
     ACTORCAT_BG,
     FLAGS,

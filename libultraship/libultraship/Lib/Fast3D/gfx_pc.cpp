@@ -1540,7 +1540,7 @@ static void gfx_dp_load_block(uint8_t tile, [[maybe_unused]] uint32_t uls, [[may
     SUPPORT_CHECK(ult == 0);
 
     // The lrs field rather seems to be number of pixels to load
-    uint32_t word_size_shift;
+	std::uint32_t word_size_shift{};
     switch (rdp.texture_to_load.siz) {
         case G_IM_SIZ_4b:
             word_size_shift = 0; // Or -1? It's unused in SM64 anyway.
@@ -1568,7 +1568,7 @@ static void gfx_dp_load_block(uint8_t tile, [[maybe_unused]] uint32_t uls, [[may
 static void gfx_dp_load_tile(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t lrs, uint32_t lrt) {
     SUPPORT_CHECK(tile == G_TX_LOADTILE);
 
-    uint32_t word_size_shift;
+	std::uint32_t word_size_shift{};
     switch (rdp.texture_to_load.siz) {
         case G_IM_SIZ_4b:
             word_size_shift = 0;
@@ -1924,8 +1924,6 @@ static inline void* seg_addr(uintptr_t w1)
 int dListBP;
 int matrixBP;
 uintptr_t clearMtx;
-
-uintptr_t jsjutanShadowTex = 0;
 
 static void gfx_run_dl(Gfx* cmd) {
     char fileName[128];

@@ -31,7 +31,7 @@ void func_809F7B3C(EnDodojr* thisv, GlobalContext* globalCtx);
 void func_809F7C48(EnDodojr* thisv, GlobalContext* globalCtx);
 void func_809F768C(EnDodojr* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dodojr_InitVars = {
+ActorInit En_Dodojr_InitVars = {
     ACTOR_EN_DODOJR,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -620,7 +620,7 @@ void EnDodojr_Update(Actor* thisx, GlobalContext* globalCtx) {
     func_809F72A4(thisv, globalCtx);
 }
 
-s32 func_809F7D50(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 func_809F7D50(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnDodojr* thisv = (EnDodojr*)thisx;
     Vec3f D_809F7F64 = { 480.0f, 620.0f, 0.0f };
 
@@ -636,7 +636,7 @@ s32 func_809F7D50(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
     return false;
 }
 
-void func_809F7DFC(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void func_809F7DFC(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
 }
 
 void EnDodojr_Draw(Actor* thisx, GlobalContext* globalCtx) {

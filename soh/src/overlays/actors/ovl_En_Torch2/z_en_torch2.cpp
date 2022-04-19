@@ -52,7 +52,7 @@ void EnTorch2_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Torch2_InitVars = {
+ActorInit En_Torch2_InitVars = {
     ACTOR_EN_TORCH2,
     ACTORCAT_BOSS,
     FLAGS,
@@ -752,14 +752,14 @@ void EnTorch2_Update(Actor* thisx, GlobalContext* globalCtx2) {
     thisv->actor.shape.yOffset = sSwordJumpHeight;
 }
 
-s32 EnTorch2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnTorch2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                               Gfx** gfx) {
     Player* thisv = (Player*)thisx;
 
     return func_8008FCC8(globalCtx, limbIndex, dList, pos, rot, &thisv->actor);
 }
 
-void EnTorch2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnTorch2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     Player* thisv = (Player*)thisx;
 
     func_80090D20(globalCtx, limbIndex, dList, rot, &thisv->actor);

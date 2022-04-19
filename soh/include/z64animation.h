@@ -111,10 +111,10 @@ typedef s32 (*OverrideLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbInde
 
 typedef void (*PostLimbDrawOpa)(struct GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void*);
 
-typedef s32 (*OverrideLimbDraw)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+typedef s32 (*OverrideLimbDraw)(struct GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void*, Gfx** gfx);
 
-typedef void (*PostLimbDraw)(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*, Gfx** gfx);
+typedef void (*PostLimbDraw)(struct GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void*, Gfx** gfx);
 
 typedef enum {
     ANIMENTRY_LOADFRAME,

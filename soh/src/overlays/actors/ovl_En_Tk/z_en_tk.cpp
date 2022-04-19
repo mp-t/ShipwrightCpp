@@ -20,7 +20,7 @@ void EnTk_Rest(EnTk* thisv, GlobalContext* globalCtx);
 void EnTk_Walk(EnTk* thisv, GlobalContext* globalCtx);
 void EnTk_Dig(EnTk* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Tk_InitVars = {
+ActorInit En_Tk_InitVars = {
     ACTOR_EN_TK,
     ACTORCAT_NPC,
     FLAGS,
@@ -78,7 +78,7 @@ void EnTkEff_Update(EnTk* thisv) {
 }
 
 void EnTkEff_Draw(EnTk* thisv, GlobalContext* globalCtx) {
-    static void* dustTextures[] = {
+    static const void* dustTextures[] = {
         gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
     };
 
@@ -162,7 +162,7 @@ static ColliderCylinderInit sCylinderInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 void EnTk_RestAnim(EnTk* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* anim = &gDampeRestAnim;
+    const AnimationHeader* anim = &gDampeRestAnim;
 
     Animation_Change(&thisv->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(&gDampeRestAnim), ANIMMODE_LOOP,
                      -10.0f);
@@ -172,7 +172,7 @@ void EnTk_RestAnim(EnTk* thisv, GlobalContext* globalCtx) {
 }
 
 void EnTk_WalkAnim(EnTk* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* anim = &gDampeWalkAnim;
+    const AnimationHeader* anim = &gDampeWalkAnim;
 
     Animation_Change(&thisv->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(&gDampeRestAnim), ANIMMODE_LOOP,
                      -10.0f);
@@ -181,7 +181,7 @@ void EnTk_WalkAnim(EnTk* thisv, GlobalContext* globalCtx) {
 }
 
 void EnTk_DigAnim(EnTk* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* anim = &gDampeDigAnim;
+    const AnimationHeader* anim = &gDampeDigAnim;
 
     Animation_Change(&thisv->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(&gDampeDigAnim), ANIMMODE_LOOP, -10.0f);
 
@@ -680,7 +680,7 @@ void func_80B1D200(GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_tk.c", 1190);
 }
 
-s32 EnTk_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnTk_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnTk* thisv = (EnTk*)thisx;
 
     switch (limbIndex) {
@@ -698,7 +698,7 @@ s32 EnTk_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnTk_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnTk_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnTk* thisv = (EnTk*)thisx;
     Vec3f sp28 = { 0.0f, 0.0f, 4600.0f };
     Vec3f sp1C = { 0.0f, 0.0f, 0.0f };
@@ -716,7 +716,7 @@ void EnTk_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnTk_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyesSegments[] = {
+    static const void* sEyesSegments[] = {
         gDampeEyeOpenTex,
         gDampeEyeHalfTex,
         gDampeEyeClosedTex,

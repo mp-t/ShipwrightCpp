@@ -62,7 +62,7 @@ static ColliderTrisInit sTrisInit = {
     sTrisElementsInit,
 };
 
-const ActorInit Bg_Hidan_Hamstep_InitVars = {
+ActorInit Bg_Hidan_Hamstep_InitVars = {
     ACTOR_BG_HIDAN_HAMSTEP,
     ACTORCAT_BG,
     FLAGS,

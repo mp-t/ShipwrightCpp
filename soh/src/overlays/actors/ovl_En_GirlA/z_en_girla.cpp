@@ -67,7 +67,7 @@ void EnGirlA_BuyEvent_ObtainBombchuPack(GlobalContext* globalCtx, EnGirlA* thisv
 void EnGirlA_BuyEvent_GoronTunic(GlobalContext* globalCtx, EnGirlA* thisv);
 void EnGirlA_BuyEvent_ZoraTunic(GlobalContext* globalCtx, EnGirlA* thisv);
 
-const ActorInit En_GirlA_InitVars = {
+ActorInit En_GirlA_InitVars = {
     ACTOR_EN_GIRLA,
     ACTORCAT_PROP,
     FLAGS,
@@ -80,7 +80,7 @@ const ActorInit En_GirlA_InitVars = {
     NULL,
 };
 
-static char* sShopItemDescriptions[] = {
+static const char* sShopItemDescriptions[] = {
     "デクの実×5   ",  // "Deku nut x5"
     "矢×30        ",  // "Arrow x30"
     "矢×50        ",  // "Arrow x50"

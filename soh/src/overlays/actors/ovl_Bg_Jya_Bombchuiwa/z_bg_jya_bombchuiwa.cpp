@@ -14,7 +14,7 @@ void func_808949B8(BgJyaBombchuiwa* thisv, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_CleanUpAfterExplosion(BgJyaBombchuiwa* thisv, GlobalContext* globalCtx);
 void BgJyaBombchuiwa_SpawnLightRay(BgJyaBombchuiwa* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Jya_Bombchuiwa_InitVars = {
+ActorInit Bg_Jya_Bombchuiwa_InitVars = {
     ACTOR_BG_JYA_BOMBCHUIWA,
     ACTORCAT_BG,
     FLAGS,

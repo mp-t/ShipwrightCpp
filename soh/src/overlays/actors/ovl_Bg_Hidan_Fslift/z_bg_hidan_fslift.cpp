@@ -18,7 +18,7 @@ void func_80886FCC(BgHidanFslift* thisv, GlobalContext* globalCtx);
 void func_8088706C(BgHidanFslift* thisv, GlobalContext* globalCtx);
 void func_808870D8(BgHidanFslift* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Hidan_Fslift_InitVars = {
+ActorInit Bg_Hidan_Fslift_InitVars = {
     ACTOR_BG_HIDAN_FSLIFT,
     ACTORCAT_BG,
     FLAGS,

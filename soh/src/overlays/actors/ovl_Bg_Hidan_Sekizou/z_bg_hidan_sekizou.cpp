@@ -17,7 +17,7 @@ void BgHidanSekizou_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_8088D434(BgHidanSekizou* thisv, GlobalContext* globalCtx);
 void func_8088D720(BgHidanSekizou* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Hidan_Sekizou_InitVars = {
+ActorInit Bg_Hidan_Sekizou_InitVars = {
     ACTOR_BG_HIDAN_SEKIZOU,
     ACTORCAT_BG,
     FLAGS,

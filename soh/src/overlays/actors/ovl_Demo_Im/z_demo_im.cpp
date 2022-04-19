@@ -52,7 +52,7 @@ void func_80987330(DemoIm* thisv, GlobalContext* globalCtx);
 void DemoIm_DrawNothing(DemoIm* thisv, GlobalContext* globalCtx);
 void DemoIm_DrawSolid(DemoIm* thisv, GlobalContext* globalCtx);
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     gImpaEyeOpenTex,
     gImpaEyeHalfTex,
     gImpaEyeClosedTex,
@@ -72,7 +72,7 @@ static ColliderCylinderInitType1 sCylinderInit = {
     { 25, 80, 0, { 0, 0, 0 } },
 };
 
-#include "z_demo_im_cutscene_data.c" EARLY
+#include "z_demo_im_cutscene_data.cpp" EARLY
 
 static DemoImActionFunc sActionFuncs[] = {
     func_809856F8, func_80985718, func_80985738, func_80985770, func_809857B0, func_809857F0, func_80985830,
@@ -90,7 +90,7 @@ static DemoImDrawFunc sDrawFuncs[] = {
     DemoIm_DrawTranslucent,
 };
 
-const ActorInit Demo_Im_InitVars = {
+ActorInit Demo_Im_InitVars = {
     ACTOR_DEMO_IM,
     ACTORCAT_NPC,
     FLAGS,
@@ -222,9 +222,9 @@ s32 DemoIm_IsCsStateIdle(GlobalContext* globalCtx) {
     }
 }
 
-CsCmdActorAction* DemoIm_GetNpcAction(GlobalContext* globalCtx, s32 actionIdx) {
+const CsCmdActorAction* DemoIm_GetNpcAction(GlobalContext* globalCtx, s32 actionIdx) {
     s32 pad[2];
-    CsCmdActorAction* ret = NULL;
+    const CsCmdActorAction* ret = NULL;
 
     if (!DemoIm_IsCsStateIdle(globalCtx)) {
         ret = globalCtx->csCtx.npcActions[actionIdx];
@@ -233,7 +233,7 @@ CsCmdActorAction* DemoIm_GetNpcAction(GlobalContext* globalCtx, s32 actionIdx) {
 }
 
 s32 func_809850E8(DemoIm* thisv, GlobalContext* globalCtx, u16 action, s32 actionIdx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
 
     if (npcAction != NULL) {
         if (npcAction->action == action) {
@@ -244,7 +244,7 @@ s32 func_809850E8(DemoIm* thisv, GlobalContext* globalCtx, u16 action, s32 actio
 }
 
 s32 func_80985134(DemoIm* thisv, GlobalContext* globalCtx, u16 action, s32 actionIdx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
 
     if (npcAction != NULL) {
         if (npcAction->action != action) {
@@ -255,7 +255,7 @@ s32 func_80985134(DemoIm* thisv, GlobalContext* globalCtx, u16 action, s32 actio
 }
 
 void func_80985180(DemoIm* thisv, GlobalContext* globalCtx, s32 actionIdx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
 
     if (npcAction != NULL) {
         thisv->actor.world.pos.x = npcAction->startPos.x;
@@ -266,7 +266,7 @@ void func_80985180(DemoIm* thisv, GlobalContext* globalCtx, s32 actionIdx) {
 }
 
 void func_80985200(DemoIm* thisv, GlobalContext* globalCtx, s32 actionIdx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, actionIdx);
 
     if (npcAction != NULL) {
         thisv->actor.world.pos.x = npcAction->startPos.x;
@@ -276,7 +276,7 @@ void func_80985200(DemoIm* thisv, GlobalContext* globalCtx, s32 actionIdx) {
     }
 }
 
-void DemoIm_ChangeAnim(DemoIm* thisv, AnimationHeader* animHeaderSeg, u8 animMode, f32 transitionRate,
+void DemoIm_ChangeAnim(DemoIm* thisv, const AnimationHeader* animHeaderSeg, u8 animMode, f32 transitionRate,
                        s32 playBackwards) {
     f32 frameCount = Animation_GetLastFrame(animHeaderSeg);
     f32 playbackSpeed;
@@ -521,7 +521,7 @@ void func_80985C94(DemoIm* thisv, GlobalContext* globalCtx) {
 void DemoIm_DrawTranslucent(DemoIm* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeIndex = thisv->eyeIndex;
-    void* eyeTex = sEyeTextures[eyeIndex];
+    const void* eyeTex = sEyeTextures[eyeIndex];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_im_inKenjyanomaDemo02.c", 281);
@@ -609,7 +609,7 @@ void func_80986148(DemoIm* thisv) {
 }
 
 void func_809861C4(DemoIm* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
 
     if (npcAction != NULL) {
         u32 action = npcAction->action;
@@ -642,7 +642,7 @@ void func_8098629C(DemoIm* thisv, GlobalContext* globalCtx) {
 }
 
 void func_809862E0(DemoIm* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
 
     if (npcAction != NULL) {
         u32 action = npcAction->action;
@@ -772,7 +772,7 @@ void func_80986794(DemoIm* thisv) {
 }
 
 void func_8098680C(DemoIm* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
 
     if (npcAction != NULL) {
         u32 action = npcAction->action;
@@ -1041,7 +1041,7 @@ void func_809871B4(DemoIm* thisv, s32 arg1) {
 }
 
 void func_809871E8(DemoIm* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
+    const CsCmdActorAction* npcAction = DemoIm_GetNpcAction(globalCtx, 5);
 
     if (npcAction != NULL) {
         u32 action = npcAction->action;
@@ -1134,7 +1134,7 @@ void DemoIm_Destroy(Actor* thisx, GlobalContext* globalCtx) {
     DemoIm_DestroyCollider(thisx, globalCtx);
 }
 
-s32 DemoIm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 DemoIm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     DemoIm* thisv = (DemoIm*)thisx;
     s32* unk_2D0 = &thisv->unk_2D0;
 
@@ -1161,7 +1161,7 @@ s32 DemoIm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     return false;
 }
 
-void DemoIm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void DemoIm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     DemoIm* thisv = (DemoIm*)thisx;
 
     if (limbIndex == IMPA_LIMB_HEAD) {
@@ -1184,7 +1184,7 @@ void DemoIm_DrawNothing(DemoIm* thisv, GlobalContext* globalCtx) {
 void DemoIm_DrawSolid(DemoIm* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeIndex = thisv->eyeIndex;
-    void* eyeTexture = sEyeTextures[eyeIndex];
+    const void* eyeTexture = sEyeTextures[eyeIndex];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_im.c", 904);

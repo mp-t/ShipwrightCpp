@@ -22,7 +22,7 @@ void EnNutsball_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80ABBB34(EnNutsball* thisv, GlobalContext* globalCtx);
 void func_80ABBBA8(EnNutsball* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Nutsball_InitVars = {
+ActorInit En_Nutsball_InitVars = {
     ACTOR_EN_NUTSBALL,
     ACTORCAT_PROP,
     FLAGS,
@@ -59,7 +59,7 @@ static s16 sObjectIDs[] = {
     OBJECT_DEKUNUTS, OBJECT_HINTNUTS, OBJECT_SHOPNUTS, OBJECT_DNS, OBJECT_DNK,
 };
 
-static Gfx* sDLists[] = {
+static const Gfx* sDLists[] = {
     gDekuNutsDekuNutDL, gHintNutsNutDL, gBusinessScrubDekuNutDL, gDntJijiNutDL, gDntStageNutDL,
 };
 

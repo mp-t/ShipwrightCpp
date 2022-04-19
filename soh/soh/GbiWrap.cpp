@@ -1,6 +1,6 @@
 #include "z64.h"
 
-//OTRTODO - thisv is awful
+//OTRTODO - this is awful
 
 void InitOTR();
 void Graph_ProcessFrame(void (*run_one_game_iter)(void));
@@ -20,7 +20,7 @@ char* ResourceMgr_GetNameByCRC(uint64_t crc, char* alloc);
 Gfx* ResourceMgr_LoadGfxByCRC(uint64_t crc);
 Gfx* ResourceMgr_LoadGfxByName(const char* path);
 Vtx* ResourceMgr_LoadVtxByCRC(uint64_t crc);
-Vtx* ResourceMgr_LoadVtxByName(char* path);
+Vtx* ResourceMgr_LoadVtxByName(const char* path);
 CollisionHeader* ResourceMgr_LoadColByName(char* path);
 uint64_t GetPerfCounter();
 int ResourceMgr_OTRSigCheck(const void* imgData);
@@ -71,12 +71,12 @@ void gSPVertex(Gfx* pkt, uintptr_t v, int n, int v0) {
     __gSPVertex(pkt, v, n, v0);
 }
 
-void gSPVertex(Gfx* const pkt, const char* const v, const int n, const int v0)
+void gSPVertex(Gfx* pkt, const char* v, const int n, const int v0)
 {
     gSPVertex(pkt, reinterpret_cast<std::uintptr_t>(v), n, v0);
 }
 
-void gSPVertex(Gfx* const pkt, Vtx* const v, const int n, const int v0)
+void gSPVertex(Gfx* pkt, Vtx* v, const int n, const int v0)
 {
     gSPVertex(pkt, reinterpret_cast<std::uintptr_t>(v), n, v0);
 }
@@ -89,4 +89,4 @@ void gSPInvalidateTexCache(Gfx* pkt, uintptr_t texAddr)
         texAddr = (uintptr_t)ResourceMgr_LoadTexByName(imgData);
 
     __gSPInvalidateTexCache(pkt, texAddr);
- }
+}

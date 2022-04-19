@@ -15,7 +15,7 @@ void FireRock_WaitOnFloor(EnFireRock* thisv, GlobalContext* globalCtx);
 void EnFireRock_Fall(EnFireRock* thisv, GlobalContext* globalCtx);
 void EnFireRock_SpawnMoreBrokenPieces(EnFireRock* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Fire_Rock_InitVars = {
+ActorInit En_Fire_Rock_InitVars = {
     ACTOR_EN_FIRE_ROCK,
     ACTORCAT_ENEMY,
     FLAGS,

@@ -49,7 +49,7 @@ void BossGanon_UpdateEffects(GlobalContext* globalCtx);
 
 s32 BossGanon_CheckFallingPlatforms(BossGanon* thisv, GlobalContext* globalCtx, Vec3f* checkPos);
 
-const ActorInit Boss_Ganon_InitVars = {
+ActorInit Boss_Ganon_InitVars = {
     ACTOR_BOSS_GANON,
     ACTORCAT_BOSS,
     FLAGS,

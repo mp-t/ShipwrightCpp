@@ -26,7 +26,7 @@ void EnGm_ProcessChoiceIndex(EnGm* thisv, GlobalContext* globalCtx);
 void func_80A3DF00(EnGm* thisv, GlobalContext* globalCtx);
 void func_80A3DF60(EnGm* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Gm_InitVars = {
+ActorInit En_Gm_InitVars = {
     ACTOR_EN_GM,
     ACTORCAT_NPC,
     FLAGS,
@@ -316,7 +316,7 @@ void func_80A3E090(EnGm* thisv) {
 }
 
 void EnGm_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+    static const void* eyeTextures[] = { gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
     EnGm* thisv = (EnGm*)thisx;
     s32 pad;
 

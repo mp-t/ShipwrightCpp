@@ -22,7 +22,7 @@ void EnKz_Wait(EnKz* thisv, GlobalContext* globalCtx);
 void EnKz_SetupGetItem(EnKz* thisv, GlobalContext* globalCtx);
 void EnKz_StartTimer(EnKz* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Kz_InitVars = {
+ActorInit En_Kz_InitVars = {
     ACTOR_EN_KZ,
     ACTORCAT_NPC,
     FLAGS,
@@ -468,7 +468,7 @@ void EnKz_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnKz_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnKz_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnKz* thisv = (EnKz*)thisx;
 
     if (limbIndex == 8 || limbIndex == 9 || limbIndex == 10) {
@@ -479,7 +479,7 @@ s32 EnKz_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnKz_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnKz_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnKz* thisv = (EnKz*)thisx;
     Vec3f mult = { 2600.0f, 0.0f, 0.0f };
 
@@ -489,7 +489,7 @@ void EnKz_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnKz_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sEyeSegments[] = {
+    static const void* sEyeSegments[] = {
         gKzEyeOpenTex,
         gKzEyeHalfTex,
         gKzEyeClosedTex,

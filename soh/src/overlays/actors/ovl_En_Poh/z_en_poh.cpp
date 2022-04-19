@@ -42,7 +42,7 @@ void EnPoh_TalkComposer(EnPoh* thisv, GlobalContext* globalCtx);
 
 static s16 D_80AE1A50 = 0;
 
-const ActorInit En_Poh_InitVars = {
+ActorInit En_Poh_InitVars = {
     ACTOR_EN_POH,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1026,7 +1026,7 @@ void EnPoh_UpdateLiving(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actor.shape.shadowAlpha = thisv->lightColor.a;
 }
 
-s32 EnPoh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnPoh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                            Gfx** gfxP) {
     EnPoh* thisv = (EnPoh*)thisx;
 
@@ -1044,7 +1044,7 @@ s32 EnPoh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnPoh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfxP) {
+void EnPoh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfxP) {
     EnPoh* thisv = (EnPoh*)thisx;
 
     Collider_UpdateSpheres(limbIndex, &thisv->colliderSph);
@@ -1060,9 +1060,9 @@ void EnPoh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
         }
         Matrix_Get(&thisv->unk_368);
         if (thisv->actionFunc == func_80ADF15C && thisv->unk_198 == 27) {
-            thisv->actor.world.pos.x = thisv->unk_368.xw;
-            thisv->actor.world.pos.y = thisv->unk_368.yw;
-            thisv->actor.world.pos.z = thisv->unk_368.zw;
+            thisv->actor.world.pos.x = thisv->unk_368.mf_raw.xw;
+            thisv->actor.world.pos.y = thisv->unk_368.mf_raw.yw;
+            thisv->actor.world.pos.z = thisv->unk_368.mf_raw.zw;
         }
         Lights_PointGlowSetInfo(&thisv->lightInfo, thisv->colliderSph.elements[0].dim.worldSphere.center.x,
                                 thisv->colliderSph.elements[0].dim.worldSphere.center.y,

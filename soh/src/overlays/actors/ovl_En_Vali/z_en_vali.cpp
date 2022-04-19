@@ -29,7 +29,7 @@ void EnVali_Stunned(EnVali* thisv, GlobalContext* globalCtx);
 void EnVali_Frozen(EnVali* thisv, GlobalContext* globalCtx);
 void EnVali_ReturnToLurk(EnVali* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Vali_InitVars = {
+ActorInit En_Vali_InitVars = {
     ACTOR_EN_VALI,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -671,7 +671,7 @@ s32 EnVali_SetArmLength(EnVali* thisv, f32 curFrame) {
     }
 }
 
-s32 EnVali_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnVali_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                             Gfx** gfx) {
     EnVali* thisv = (EnVali*)thisx;
     f32 curFrame;
@@ -693,7 +693,7 @@ s32 EnVali_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     }
 }
 
-void EnVali_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnVali_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     static Vec3f D_80B28970 = { 3000.0f, 0.0f, 0.0f };
     static Vec3f D_80B2897C = { -1000.0f, 0.0f, 0.0f };
     Vec3f sp3C;

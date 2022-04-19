@@ -42,7 +42,7 @@ void func_8086DCE8(BgBdanSwitch* thisv, GlobalContext* globalCtx);
 void func_8086DDA8(BgBdanSwitch* thisv);
 void func_8086DDC0(BgBdanSwitch* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Bdan_Switch_InitVars = {
+ActorInit Bg_Bdan_Switch_InitVars = {
     ACTOR_BG_BDAN_SWITCH,
     ACTORCAT_SWITCH,
     FLAGS,

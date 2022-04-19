@@ -34,7 +34,7 @@ void func_809060E8(GlobalContext* globalCtx);
 void BossGanon2_GenShadowTexture(void* shadowTexture, BossGanon2* thisv, GlobalContext* globalCtx);
 void BossGanon2_DrawShadowTexture(void* shadowTexture, BossGanon2* thisv, GlobalContext* globalCtx);
 
-const ActorInit Boss_Ganon2_InitVars = {
+ActorInit Boss_Ganon2_InitVars = {
     ACTOR_BOSS_GANON2,
     ACTORCAT_BOSS,
     FLAGS,

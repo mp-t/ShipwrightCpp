@@ -23,7 +23,7 @@ void func_80A68AC4(EnHorseGanon* thisv);
 void func_80A68AF0(EnHorseGanon* thisv, GlobalContext* globalCtx);
 void func_80A68DB0(EnHorseGanon* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Horse_Ganon_InitVars = {
+ActorInit En_Horse_Ganon_InitVars = {
     ACTOR_EN_HORSE_GANON,
     ACTORCAT_BG,
     FLAGS,
@@ -36,7 +36,7 @@ const ActorInit En_Horse_Ganon_InitVars = {
     NULL,
 };
 
-static AnimationHeader* sAnimations[] = {
+static const AnimationHeader* sAnimations[] = {
     &gHorseGanonIdleAnim,     &gHorseGanonWhinnyAnim,    &gHorseGanonWalkingAnim,
     &gHorseGanonTrottingAnim, &gHorseGanonGallopingAnim, &gHorseGanonRearingAnim,
 };

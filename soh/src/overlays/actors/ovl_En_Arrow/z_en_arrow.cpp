@@ -19,7 +19,7 @@ void EnArrow_Fly(EnArrow* thisv, GlobalContext* globalCtx);
 void func_809B45E0(EnArrow* thisv, GlobalContext* globalCtx);
 void func_809B4640(EnArrow* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Arrow_InitVars = {
+ActorInit En_Arrow_InitVars = {
     ACTOR_EN_ARROW,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -443,7 +443,7 @@ void func_809B4800(EnArrow* thisv, GlobalContext* globalCtx) {
             }
 
             if (addBlureVertex) {
-                EffectBlure_AddVertex(Effect_GetByIndex(thisv->effectIndex), &sp44, &sp38);
+                EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->effectIndex)), &sp44, &sp38);
             }
         }
     }

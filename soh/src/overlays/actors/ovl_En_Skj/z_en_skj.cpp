@@ -160,7 +160,7 @@ typedef struct {
 static EnSkjUnkStruct sSmallStumpSkullKid = { 0, NULL };
 static EnSkjUnkStruct sOcarinaMinigameSkullKids[] = { { 0, NULL }, { 0, NULL } };
 
-const ActorInit En_Skj_InitVars = {
+ActorInit En_Skj_InitVars = {
     ACTOR_EN_SKJ,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1597,11 +1597,11 @@ void EnSkj_OcarinaMinigameShortStumpUpdate(Actor* thisx, GlobalContext* globalCt
     thisv->actor.xzDistToPlayer = 50.0;
 }
 
-s32 EnSkj_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnSkj_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     return 0;
 }
 
-void EnSkj_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnSkj_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_skj.c", 2417);
 
     if ((limbIndex == 11) && (gSaveContext.itemGetInf[3] & 0x200)) {
@@ -1622,7 +1622,7 @@ Gfx* EnSkj_TranslucentDL(GraphicsContext* gfxCtx, u32 alpha) {
     Gfx* dListHead;
 
     //! @bug This only allocates space for 1 command but uses 3
-    dList = dListHead = Graph_Alloc(gfxCtx, sizeof(Gfx));
+    dList = dListHead = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx)));
     gDPSetRenderMode(dListHead++, G_RM_FOG_SHADE_A, G_RM_AA_ZB_XLU_SURF2);
     gDPSetEnvColor(dListHead++, 0, 0, 0, alpha);
     gSPEndDisplayList(dListHead++);
@@ -1635,7 +1635,7 @@ Gfx* EnSkj_OpaqueDL(GraphicsContext* gfxCtx, u32 alpha) {
     Gfx* dListHead;
 
     //! @bug This only allocates space for 1 command but uses 2
-    dList = dListHead = Graph_Alloc(gfxCtx, sizeof(Gfx));
+    dList = dListHead = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx)));
     gDPSetEnvColor(dListHead++, 0, 0, 0, alpha);
     gSPEndDisplayList(dListHead++);
 

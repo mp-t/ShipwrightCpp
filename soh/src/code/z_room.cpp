@@ -226,7 +226,7 @@ s32 func_80096238(void* data) {
 
     if (*(u32*)data == JPEG_MARKER) 
     {
-        char* decodedJpeg = ResourceMgr_LoadJPEG(static_cast<char*>(data), 320 * 240 * 2);
+        char* decodedJpeg = ResourceMgr_LoadJPEG(static_cast<const char*>(data), 320 * 240 * 2);
         //char* decodedJpeg = ResourceMgr_LoadJPEG(data, 480 * 240 * 2);
 
         osSyncPrintf("JPEGデータを展開します\n");        // "Expanding jpeg data"
@@ -259,7 +259,7 @@ s32 func_80096238(void* data) {
     return 0;
 }
 
-void func_8009638C(Gfx** displayList, void* source, void* tlut, u16 width, u16 height, u8 fmt, u8 siz, u16 mode0,
+void func_8009638C(Gfx** displayList, void* source, const void* tlut, u16 width, u16 height, u8 fmt, u8 siz, u16 mode0,
                    u16 tlutCount, f32 frameX, f32 frameY) {
     Gfx* displayListHead;
     uObjBg* bg;

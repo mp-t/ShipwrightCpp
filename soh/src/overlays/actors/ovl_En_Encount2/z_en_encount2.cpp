@@ -22,7 +22,7 @@ void EnEncount2_ParticleInit(EnEncount2* thisv, Vec3f* particlePos, f32 scale);
 void EnEncount2_ParticleDraw(Actor* thisx, GlobalContext* globalCtx);
 void EnEncount2_ParticleUpdate(EnEncount2* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Encount2_InitVars = {
+ActorInit En_Encount2_InitVars = {
     ACTOR_EN_ENCOUNT2,
     ACTORCAT_ENEMY,
     FLAGS,

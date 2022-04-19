@@ -61,7 +61,7 @@ u8* AudioLoad_SyncLoadSeq(s32 seqId);
 s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus);
 void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, ptrdiff_t size);
 void AudioLoad_ProcessSlowLoads(s32 resetStatus);
-void AudioLoad_DmaSlowCopyUnkMedium(s32 devAddr, u8* ramAddr, ptrdiff_t size, s32 arg3);
+void AudioLoad_DmaSlowCopyUnkMedium(u32 devAddr, u8* ramAddr, ptrdiff_t size, s32 arg3);
 
 OSMesgQueue sScriptLoadQueue;
 OSMesg sScriptLoadMesgBuf[0x10];
@@ -1259,9 +1259,9 @@ void AudioLoad_Init(void* heap, u32 heapSize) {
         gAudioContext.aiBuffers[i] = static_cast<s16*>(AudioHeap_AllocZeroed(&gAudioContext.audioInitPool, AIBUF_LEN * sizeof(s16)));
     }
 
-    gAudioContext.sequenceTable = (AudioTable*)gSequenceTable;
-    gAudioContext.soundFontTable = (AudioTable*)gSoundFontTable;
-    gAudioContext.sampleBankTable = (AudioTable*)gSampleBankTable;
+    gAudioContext.sequenceTable = &gSequenceTable;
+    gAudioContext.soundFontTable = &gSoundFontTable;
+    gAudioContext.sampleBankTable = &gSampleBankTable;
     gAudioContext.sequenceFontTable = gSequenceFontTable;
     gAudioContext.numSequences = gAudioContext.sequenceTable->numEntries;
 
@@ -1287,8 +1287,7 @@ void AudioLoad_Init(void* heap, u32 heapSize) {
     AudioLoad_InitSwapFont();
 
     if (temp_v0_3 = AudioHeap_Alloc(&gAudioContext.audioInitPool, D_8014A6C4.permanentPoolSize), temp_v0_3 == NULL) {
-        // cast away const from D_8014A6C4
-        *((u32*)&D_8014A6C4.permanentPoolSize) = 0;
+        D_8014A6C4.permanentPoolSize = 0;
     }
 
     AudioHeap_AllocPoolInit(&gAudioContext.permanentPool, temp_v0_3, D_8014A6C4.permanentPoolSize);

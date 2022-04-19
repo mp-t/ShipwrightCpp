@@ -18,7 +18,7 @@ void EnBom_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnBom_Move(EnBom* thisv, GlobalContext* globalCtx);
 void EnBom_WaitForRelease(EnBom* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Bom_InitVars = {
+ActorInit En_Bom_InitVars = {
     ACTOR_EN_BOM,
     ACTORCAT_EXPLOSIVE,
     FLAGS,

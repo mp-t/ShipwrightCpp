@@ -8,17 +8,17 @@
 #include "textures/icon_item_nes_static/icon_item_nes_static.h"
 
 void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
-    static void* dungeonItemTexs[] = {
+    static const void* dungeonItemTexs[] = {
         gBossKeyIconTex,
         gCompassIconTex,
         gDungeonMapIconTex,
     };
-    static void* dungeonTitleTexs[] = {
+    static const void* dungeonTitleTexs[] = {
         gPauseDekuTitleENGTex, gPauseDodongoTitleENGTex,   gPauseJabuTitleENGTex,   gPauseForestTitleENGTex,
         gPauseFireTitleENGTex, gPauseWaterTitleENGTex,     gPauseSpiritTitleENGTex, gPauseShadowTitleENGTex,
         gPauseBotWTitleENGTex, gPauseIceCavernTitleENGTex,
     };
-    static void* floorIconTexs[] = {
+    static const void* floorIconTexs[] = {
         gDungeonMapBlankFloorButtonTex, gDungeonMap8FButtonTex, gDungeonMap7FButtonTex, gDungeonMap6FButtonTex,
         gDungeonMap5FButtonTex,         gDungeonMap4FButtonTex, gDungeonMap3FButtonTex, gDungeonMap2FButtonTex,
         gDungeonMap1FButtonTex,         gDungeonMapB1ButtonTex, gDungeonMapB2ButtonTex, gDungeonMapB3ButtonTex,
@@ -348,7 +348,7 @@ void KaleidoScope_DrawDungeonMap(GlobalContext* globalCtx, GraphicsContext* gfxC
 }
 
 void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx) {
-    static void* cloudTexs[] = {
+    static const void* cloudTexs[] = {
         gWorldMapCloud16Tex, gWorldMapCloud15Tex, gWorldMapCloud14Tex, gWorldMapCloud13Tex,
         gWorldMapCloud12Tex, gWorldMapCloud11Tex, gWorldMapCloud10Tex, gWorldMapCloud9Tex,
         gWorldMapCloud8Tex,  gWorldMapCloud7Tex,  gWorldMapCloud6Tex,  gWorldMapCloud5Tex,
@@ -382,14 +382,14 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
     static s16 areaBoxHeights[] = {
         59, 19, 13, 19, 38, 17, 38, 17, 13, 26, 16, 26, 26, 16, 19, 17, 26, 13, 17, 17, 16, 17,
     };
-    static void* areaBoxTexs[] = {
+    static const void* areaBoxTexs[] = {
         gWorldMapAreaBox7Tex, gWorldMapAreaBox1Tex, gWorldMapAreaBox4Tex, gWorldMapAreaBox6Tex, gWorldMapAreaBox2Tex,
         gWorldMapAreaBox3Tex, gWorldMapAreaBox2Tex, gWorldMapAreaBox3Tex, gWorldMapAreaBox4Tex, gWorldMapAreaBox5Tex,
         gWorldMapAreaBox8Tex, gWorldMapAreaBox5Tex, gWorldMapAreaBox5Tex, gWorldMapAreaBox8Tex, gWorldMapAreaBox1Tex,
         gWorldMapAreaBox3Tex, gWorldMapAreaBox5Tex, gWorldMapAreaBox4Tex, gWorldMapAreaBox3Tex, gWorldMapAreaBox3Tex,
         gWorldMapAreaBox8Tex, gWorldMapAreaBox3Tex,
     };
-    static void* currentPosTitleTexs[] = {
+    static const void* currentPosTitleTexs[] = {
         gPauseCurrentPositionENGTex,
         gPauseCurrentPositionGERTex,
         gPauseCurrentPositionFRATex,
@@ -522,7 +522,7 @@ void KaleidoScope_DrawWorldMap(GlobalContext* globalCtx, GraphicsContext* gfxCtx
         gSP1Quadrangle(POLY_KAL_DISP++, j, j + 2, j + 3, j + 1, 0);
     } else if (HREG(15) == 1) {
         Gfx* sp1CC = POLY_KAL_DISP;
-        void* mapImage = gWorldMapImageTex;
+        void* mapImage = ResourceMgr_LoadTexByName(gWorldMapImageTex); // void* mapImage = gWorldMapImageTex; //WAT
 
         // gSPLoadUcodeL(sp1CC++, rspS2DEX)?
         //gSPLoadUcodeEx(sp1CC++, OS_K0_TO_PHYSICAL(D_80113070), OS_K0_TO_PHYSICAL(D_801579A0), 0x800);

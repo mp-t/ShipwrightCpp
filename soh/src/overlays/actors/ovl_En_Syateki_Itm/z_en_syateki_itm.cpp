@@ -27,7 +27,7 @@ void EnSyatekiItm_CheckTargets(EnSyatekiItm* thisv, GlobalContext* globalCtx);
 void EnSyatekiItm_CleanupGame(EnSyatekiItm* thisv, GlobalContext* globalCtx);
 void EnSyatekiItm_EndGame(EnSyatekiItm* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Syateki_Itm_InitVars = {
+ActorInit En_Syateki_Itm_InitVars = {
     ACTOR_EN_SYATEKI_ITM,
     ACTORCAT_PROP,
     FLAGS,

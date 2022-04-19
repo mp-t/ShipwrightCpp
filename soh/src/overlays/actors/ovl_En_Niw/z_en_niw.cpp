@@ -37,7 +37,7 @@ void EnNiw_FeatherDraw(EnNiw* thisv, GlobalContext* globalCtx);
 
 static s16 D_80AB85E0 = 0;
 
-const ActorInit En_Niw_InitVars = {
+ActorInit En_Niw_InitVars = {
     ACTOR_EN_NIW,
     ACTORCAT_PROP,
     FLAGS,
@@ -1107,7 +1107,7 @@ void EnNiw_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnNiw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnNiw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnNiw* thisv = (EnNiw*)thisx;
     Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
 

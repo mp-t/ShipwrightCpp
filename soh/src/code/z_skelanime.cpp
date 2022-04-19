@@ -514,7 +514,7 @@ s16 Animation_GetLastFrame(const void* animation) {
 Gfx* SkelAnime_DrawLimb(GlobalContext* globalCtx, s32 limbIndex, void** skeleton, Vec3s* jointTable,
                         OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* arg, Gfx* gfx) {
     StandardLimb* limb;
-    Gfx* dList;
+    const Gfx* dList;
     Vec3f pos;
     Vec3s rot;
 
@@ -565,7 +565,7 @@ Gfx* SkelAnime_Draw(GlobalContext* globalCtx, void** skeleton, Vec3s* jointTable
                     PostLimbDraw postLimbDraw, void* arg, Gfx* gfx) {
     StandardLimb* rootLimb;
     s32 pad;
-    Gfx* dList;
+    const Gfx* dList;
     Vec3f pos;
     Vec3s rot;
 
@@ -618,8 +618,8 @@ Gfx* SkelAnime_DrawFlexLimb(GlobalContext* globalCtx, s32 limbIndex, void** skel
                             OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* arg, Mtx** mtx,
                             Gfx* gfx) {
     StandardLimb* limb;
-    Gfx* newDList;
-    Gfx* limbDList;
+    const Gfx* newDList;
+    const Gfx* limbDList;
     Vec3f pos;
     Vec3s rot;
 
@@ -673,8 +673,8 @@ Gfx* SkelAnime_DrawFlex(GlobalContext* globalCtx, void** skeleton, Vec3s* jointT
                         OverrideLimbDraw overrideLimbDraw, PostLimbDraw postLimbDraw, void* arg, Gfx* gfx) {
     StandardLimb* rootLimb;
     s32 pad;
-    Gfx* newDList;
-    Gfx* limbDList;
+    const Gfx* newDList;
+    const Gfx* limbDList;
     Vec3f pos;
     Vec3s rot;
     Mtx* mtx = static_cast<Mtx*>( Graph_Alloc(globalCtx->state.gfxCtx, dListCount * sizeof(*mtx)) );
@@ -1275,7 +1275,7 @@ void LinkAnimation_Change(GlobalContext* globalCtx, SkelAnime* skelAnime, const 
 /**
  * Immediately changes to a Link animation that plays once at the default speed.
  */
-void LinkAnimation_PlayOnce(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation) {
+void LinkAnimation_PlayOnce(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation) {
     LinkAnimation_Change(globalCtx, skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_ONCE,
                          0.0f);
 }
@@ -1283,7 +1283,7 @@ void LinkAnimation_PlayOnce(GlobalContext* globalCtx, SkelAnime* skelAnime, Link
 /**
  * Immediately changes to a Link animation that plays once at the specified speed.
  */
-void LinkAnimation_PlayOnceSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_PlayOnceSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                     f32 playSpeed) {
     LinkAnimation_Change(globalCtx, skelAnime, animation, playSpeed, 0.0f, Animation_GetLastFrame(animation),
                          ANIMMODE_ONCE, 0.0f);
@@ -1292,7 +1292,7 @@ void LinkAnimation_PlayOnceSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAni
 /**
  * Immediately changes to a Link animation that loops at the default speed.
  */
-void LinkAnimation_PlayLoop(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation) {
+void LinkAnimation_PlayLoop(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation) {
     LinkAnimation_Change(globalCtx, skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
                          0.0f);
 }
@@ -1300,7 +1300,7 @@ void LinkAnimation_PlayLoop(GlobalContext* globalCtx, SkelAnime* skelAnime, Link
 /**
  * Immediately changes to a Link animation that loops at the specified speed.
  */
-void LinkAnimation_PlayLoopSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_PlayLoopSetSpeed(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                     f32 playSpeed) {
     LinkAnimation_Change(globalCtx, skelAnime, animation, playSpeed, 0.0f, Animation_GetLastFrame(animation),
                          ANIMMODE_LOOP, 0.0f);
@@ -1324,7 +1324,7 @@ void LinkAnimation_CopyMorphToJoint(GlobalContext* globalCtx, SkelAnime* skelAni
 /**
  * Requests loading frame data from the Link animation into morphTable
  */
-void LinkAnimation_LoadToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_LoadToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                f32 frame) {
     AnimationContext_SetLoadFrame(globalCtx, animation, (s32)frame, skelAnime->limbCount, skelAnime->morphTable);
 }
@@ -1332,7 +1332,7 @@ void LinkAnimation_LoadToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, L
 /**
  * Requests loading frame data from the Link animation into jointTable
  */
-void LinkAnimation_LoadToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation,
+void LinkAnimation_LoadToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation,
                                f32 frame) {
     AnimationContext_SetLoadFrame(globalCtx, animation, (s32)frame, skelAnime->limbCount, skelAnime->jointTable);
 }
@@ -1347,8 +1347,8 @@ void LinkAnimation_InterpJointMorph(GlobalContext* globalCtx, SkelAnime* skelAni
 /**
  * Requests loading frame data from the Link animations and blending them, placing the result in jointTable
  */
-void LinkAnimation_BlendToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation1,
-                                f32 frame1, LinkAnimationHeader* animation2, f32 frame2, f32 blendWeight,
+void LinkAnimation_BlendToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation1,
+                                f32 frame1, const LinkAnimationHeader* animation2, f32 frame2, f32 blendWeight,
                                 Vec3s* blendTable) {
     Vec3s* alignedBlendTable;
 
@@ -1363,8 +1363,8 @@ void LinkAnimation_BlendToJoint(GlobalContext* globalCtx, SkelAnime* skelAnime, 
 /**
  * Requests loading frame data from the Link animations and blending them, placing the result in morphTable
  */
-void LinkAnimation_BlendToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, LinkAnimationHeader* animation1,
-                                f32 frame1, LinkAnimationHeader* animation2, f32 frame2, f32 blendWeight,
+void LinkAnimation_BlendToMorph(GlobalContext* globalCtx, SkelAnime* skelAnime, const LinkAnimationHeader* animation1,
+                                f32 frame1, const LinkAnimationHeader* animation2, f32 frame2, f32 blendWeight,
                                 Vec3s* blendTable) {
     Vec3s* alignedBlendTable;
 
@@ -1423,7 +1423,7 @@ s32 LinkAnimation_OnFrame(SkelAnime* skelAnime, f32 frame) {
 /**
  * Initializes a normal skeleton to a looping animation, dynamically allocating the frame tables if not provided.
  */
-s32 SkelAnime_Init(GlobalContext* globalCtx, SkelAnime* skelAnime, const SkeletonHeader* skeletonHeaderSeg,
+void SkelAnime_Init(GlobalContext* globalCtx, SkelAnime* skelAnime, const SkeletonHeader* skeletonHeaderSeg,
                    const AnimationHeader* animation, Vec3s* jointTable, Vec3s* morphTable, s32 limbCount) {
     if (ResourceMgr_OTRSigCheck(skeletonHeaderSeg))
         skeletonHeaderSeg = ResourceMgr_LoadSkeletonByName(reinterpret_cast<const char*>(skeletonHeaderSeg));
@@ -1456,7 +1456,7 @@ s32 SkelAnime_Init(GlobalContext* globalCtx, SkelAnime* skelAnime, const Skeleto
 /**
  * Initializes a flex skeleton to a looping animation, dynamically allocating the frame tables if not given.
  */
-s32 SkelAnime_InitFlex(GlobalContext* globalCtx, SkelAnime* skelAnime, const FlexSkeletonHeader* skeletonHeaderSeg,
+void SkelAnime_InitFlex(GlobalContext* globalCtx, SkelAnime* skelAnime, const FlexSkeletonHeader* skeletonHeaderSeg,
                        const AnimationHeader* animation, Vec3s* jointTable, Vec3s* morphTable, s32 limbCount) {
     if (ResourceMgr_OTRSigCheck(skeletonHeaderSeg) != 0)
         skeletonHeaderSeg = reinterpret_cast<decltype(skeletonHeaderSeg)>(
@@ -1494,13 +1494,13 @@ s32 SkelAnime_InitFlex(GlobalContext* globalCtx, SkelAnime* skelAnime, const Fle
 /**
  * Initializes a skeleton with SkinLimbs to a looping animation, dynamically allocating the frame tables.
  */
-s32 SkelAnime_InitSkin(GlobalContext* globalCtx, SkelAnime* skelAnime, SkeletonHeader* skeletonHeaderSeg,
-                       AnimationHeader* animation) {
+void SkelAnime_InitSkin(GlobalContext* globalCtx, SkelAnime* skelAnime, const SkeletonHeader* skeletonHeaderSeg,
+                       const AnimationHeader* animation) {
     if (ResourceMgr_OTRSigCheck(skeletonHeaderSeg) != 0)
         animation =
             reinterpret_cast<decltype(animation)>( ResourceMgr_LoadAnimByName(reinterpret_cast<const char*>(skeletonHeaderSeg)) );
 
-    SkeletonHeader* skeletonHeader = SEGMENTED_TO_VIRTUAL(skeletonHeaderSeg);
+    const SkeletonHeader* skeletonHeader = SEGMENTED_TO_VIRTUAL(skeletonHeaderSeg);
 
     skelAnime->limbCount = skeletonHeader->limbCount + 1;
     skelAnime->skeleton = SEGMENTED_TO_VIRTUAL(skeletonHeader->segment);
@@ -1766,7 +1766,7 @@ void Animation_MorphToPlayOnce(SkelAnime* skelAnime, const AnimationHeader* anim
 /**
  * Immediately changes to an animation that plays once at the specified speed.
  */
-void Animation_PlayOnceSetSpeed(SkelAnime* skelAnime, AnimationHeader* animation, f32 playSpeed) {
+void Animation_PlayOnceSetSpeed(SkelAnime* skelAnime, const AnimationHeader* animation, f32 playSpeed) {
     Animation_Change(skelAnime, animation, playSpeed, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_ONCE, 0.0f);
 }
 
@@ -1790,7 +1790,7 @@ void Animation_MorphToLoop(SkelAnime* skelAnime, const AnimationHeader* animatio
 /**
  * Immediately changes to an animation that loops at the specified speed.
  */
-void Animation_PlayLoopSetSpeed(SkelAnime* skelAnime, AnimationHeader* animation, f32 playSpeed) {
+void Animation_PlayLoopSetSpeed(SkelAnime* skelAnime, const AnimationHeader* animation, f32 playSpeed) {
     Animation_Change(skelAnime, animation, playSpeed, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP, 0.0f);
 }
 

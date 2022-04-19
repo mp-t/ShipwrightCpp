@@ -25,7 +25,7 @@ void EnAnubice_SetupShootFireball(EnAnubice* thisv, GlobalContext* globalCtx);
 void EnAnubice_ShootFireball(EnAnubice* thisv, GlobalContext* globalCtx);
 void EnAnubice_Die(EnAnubice* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Anubice_InitVars = {
+ActorInit En_Anubice_InitVars = {
     ACTOR_EN_ANUBICE,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -462,7 +462,7 @@ void EnAnubice_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnAnubice_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnAnubice_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                void* thisx) {
     EnAnubice* thisv = (EnAnubice*)thisx;
 
@@ -473,7 +473,7 @@ s32 EnAnubice_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
     return false;
 }
 
-void EnAnubice_PostLimbDraw(struct GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnAnubice_PostLimbDraw(struct GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnAnubice* thisv = (EnAnubice*)thisx;
     Vec3f pos = { 0.0f, 0.0f, 0.0f };
 

@@ -12,12 +12,9 @@ OSViMode osViModeNtscLan1;
 OSViMode osViModeMpalLan1;
 OSViMode osViModeFpalLan1;
 OSViMode osViModePalLan1;
-AudioContext gAudioContext;
-unk_D_8016E750 D_8016E750[4];
 u8 gLetterTLUT[4][32];
 u8 gFontFF[999];
 DmaEntry gDmaDataTable[0x60C];
-u8 D_80133418;
 u16 gAudioSEFlagSwapSource[64];
 u16 gAudioSEFlagSwapTarget[64];
 u8 gAudioSEFlagSwapMode[64];
@@ -75,6 +72,7 @@ void osViSetEvent(OSMesgQueue* mq, OSMesg msg, u32 retraceCount)
 
 OSId osGetThreadId(OSThread* thread)
 {
+    return 0;
 }
 
 OSPri osGetThreadPri(OSThread* thread)
@@ -87,7 +85,7 @@ void osSetThreadPri(OSThread* thread, OSPri pri)
 
 s32 osSetTimer(OSTimer* timer, OSTime countdown, OSTime interval, OSMesgQueue* mq, OSMesg msg)
 {
-
+	return 0;
 }
 
 void osCreatePiManager(OSPri pri, OSMesgQueue* cmdQ, OSMesg* cmdBuf, s32 cmdMsgCnt)
@@ -102,72 +100,72 @@ void osCreateViManager(OSPri pri)
 
 s32 osMotorInit(OSMesgQueue* ctrlrqueue, OSPfs* pfs, s32 channel)
 {
-
+	return 0;
 }
 
 u32 osAiGetLength(void)
 {
-
+	return 0;
 }
 
 s32 osPfsFreeBlocks(OSPfs* pfs, s32* leftoverBytes)
 {
-
+	return 0;
 }
 
 s32 osEPiWriteIo(OSPiHandle* handle, u32 devAddr, u32 data)
 {
-
+	return 0;
 }
 
 s32 osPfsReadWriteFile(OSPfs* pfs, s32 fileNo, u8 flag, s32 offset, ptrdiff_t size, u8* data)
 {
-
+	return 0;
 }
 
 s32 osPfsDeleteFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName)
 {
-
+	return 0;
 }
 
 s32 osPfsFileState(OSPfs* pfs, s32 fileNo, OSPfsState* state)
 {
-
+	return 0;
 }
 
 s32 osPfsInitPak(OSMesgQueue* mq, OSPfs* pfs, s32 channel)
 {
-
+	return 0;
 }
 
 s32 __osPfsCheckRamArea(OSPfs* pfs)
 {
-
+	return 0;
 }
 
 s32 osPfsChecker(OSPfs* pfs)
 {
-
+	return 0;
 }
 
 s32 osPfsFindFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName, s32* fileNo)
 {
-
+    return 0;
 }
 
 s32 osPfsAllocateFile(OSPfs* pfs, u16 companyCode, u32 gameCode, u8* gameName, u8* extName, s32 length, s32* fileNo)
 {
-
+    return 0;
 }
 
 s32 osAiSetNextBuffer(void* buf, size_t size)
 {
-
+	return 0;
 }
 
 s32 __osMotorAccess(OSPfs* pfs, u32 vibrate)
 {
-
+    return 0;
 }
 
 OSIntMask osSetIntMask(OSIntMask a)
@@ -222,7 +220,7 @@ void osInvalICache(void* vaddr, s32 nbytes)
 
 s32 osContStartQuery(OSMesgQueue* mq)
 {
-
+    return 0;
 }
 
 void osContGetQuery(OSContStatus* data)
@@ -237,7 +235,7 @@ void osViSwapBuffer(void* vaddr)
 
 void* osViGetNextFramebuffer()
 {
-
+    return nullptr;
 }
 
 u32 __osGetFpcCsr()
@@ -270,9 +268,9 @@ OSThread* __osGetCurrFaultedThread(void)
 
 }
 
-void osCartRomInit()
+OSPiHandle* osCartRomInit()
 {
-
+    return nullptr;
 }
 
 u32 osMemSize = 1024 * 1024 * 1024;
@@ -290,12 +288,12 @@ void Audio_osWritebackDCache(void* mem, s32 size)
 
 s32 osAiSetFrequency(u32 freq)
 {
-
+    return 0;
 }
 
 s32 osEPiStartDma(OSPiHandle* handle, OSIoMesg* mb, s32 direction)
 {
-
+    return 0;
 }
 
 void osInvalDCache(void* vaddr, s32 nbytes)
@@ -313,14 +311,14 @@ void Audio_SetBGM(u32 bgmId)
 
 }
 
-s32 osContSetCh(u8 ch)
+void osContSetCh(u8 ch)
 {
 
 }
 
 u32 osDpGetStatus(void)
 {
-
+    return 0;
 }
 
 void osDpSetStatus(u32 status)
@@ -330,7 +328,7 @@ void osDpSetStatus(u32 status)
 
 u32 __osSpGetStatus()
 {
-
+    return 0;
 }
 
 void __osSpSetStatus(u32 status)
@@ -340,7 +338,7 @@ void __osSpSetStatus(u32 status)
 
 OSPiHandle* osDriveRomInit()
 {
-	
+    return nullptr;
 }
 
 void osViSetMode(OSViMode* mode)
@@ -391,8 +389,9 @@ void __osCleanupThread(void)
 s32 _Printf(PrintCallback a, void* arg, const char* fmt, va_list ap) {
     char buffer[4096];
 
-    vsnprintf(buffer, sizeof(buffer), fmt, ap);
+    const auto ret = vsnprintf(buffer, sizeof(buffer), fmt, ap);
     a(arg, buffer, strlen(buffer));
+    return ret;
 }
 
 void osSpTaskLoad(OSTask* task)
@@ -422,7 +421,7 @@ s32 osEPiReadIo(OSPiHandle* handle, u32 devAddr, u32* data)
 
 u32* osViGetCurrentFramebuffer(void)
 {
-
+    return nullptr;
 }
 
 void osSpTaskYield(void)
@@ -431,12 +430,12 @@ void osSpTaskYield(void)
 
 s32 osStopTimer(OSTimer* timer)
 {
-
+    return 0;
 }
 
 OSYieldResult osSpTaskYielded(OSTask* task)
 {
-
+    return 0;
 }
 
 

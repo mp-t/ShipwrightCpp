@@ -26,7 +26,7 @@ static DemoTreLgtInfo sDemoTreLgtInfo[] = {
     { 1.0f, 136.0f, 220.0f, 50.0f },
 };
 
-const ActorInit Demo_Tre_Lgt_InitVars = {
+ActorInit Demo_Tre_Lgt_InitVars = {
     ACTOR_DEMO_TRE_LGT,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -39,7 +39,7 @@ const ActorInit Demo_Tre_Lgt_InitVars = {
     NULL,
 };
 
-static TransformUpdateIndex* sTransformUpdIdx[] = { &gTreasureChestCurveAnim_4B60, &gTreasureChestCurveAnim_4F70 };
+static const TransformUpdateIndex* sTransformUpdIdx[] = { &gTreasureChestCurveAnim_4B60, &gTreasureChestCurveAnim_4F70 };
 
 static DemoTreLgtActionFunc sActionFuncs[] = {
     func_8099375C,
@@ -148,6 +148,8 @@ s32 DemoTreLgt_PostLimbDraw(GlobalContext* globalCtx, SkelAnimeCurve* skelCurve,
     }
 
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_demo_tre_lgt.c", 448);
+
+	return 1;
 }
 
 void DemoTreLgt_Draw(Actor* thisx, GlobalContext* globalCtx) {

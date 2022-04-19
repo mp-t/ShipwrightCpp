@@ -100,7 +100,7 @@ static Vec3f sPlatformPositions[] = {
 static s16 D_80B4A1B0 = 0;
 static s16 D_80B4A1B4 = 1;
 
-const ActorInit En_Zf_InitVars = {
+ActorInit En_Zf_InitVars = {
     ACTOR_EN_ZF,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -202,7 +202,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32_DIV1000(gravity, -3500, ICHAIN_STOP),
 };
 
-static AnimationHeader* sHoppingAnims[] = { &gZfHopCrouchingAnim, &gZfHopLeapingAnim, &gZfHopLandingAnim };
+static const AnimationHeader* sHoppingAnims[] = { &gZfHopCrouchingAnim, &gZfHopLeapingAnim, &gZfHopLandingAnim };
 
 static s32 D_80B4AB30; // Set to 0 and incremented in EnZf_HopAway, but not actually used
 
@@ -1180,7 +1180,7 @@ void EnZf_Slash(EnZf* thisv, GlobalContext* globalCtx) {
     }
 
     if (SkelAnime_Update(&thisv->skelAnime)) {
-        EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIndex));
+        EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIndex)));
 
         if ((thisv->actor.params == ENZF_TYPE_DINOLFOS) && !Actor_IsFacingPlayer(&thisv->actor, 5460)) {
             func_80B45384(thisv);
@@ -2116,7 +2116,7 @@ void EnZf_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnZf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnZf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnZf* thisv = (EnZf*)thisx;
 
@@ -2141,7 +2141,7 @@ s32 EnZf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnZf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnZf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     static Vec3f sUnused = { 1100.0f, -700.0f, 0.0f };
     static Vec3f footOffset = { 300.0f, 0.0f, 0.0f };
     static Vec3f D_80B4A2A4 = { 300.0f, -1700.0f, 0.0f }; // Sword tip?
@@ -2169,9 +2169,9 @@ void EnZf_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 
         if (thisv->action == ENZF_ACTION_SLASH) {
             if (thisv->skelAnime.curFrame < 14.0f) {
-                EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIndex));
+                EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIndex)));
             } else if (thisv->skelAnime.curFrame < 20.0f) {
-                EffectBlure_AddVertex(Effect_GetByIndex(thisv->blureIndex), &sp54, &sp48);
+                EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIndex)), &sp54, &sp48);
             }
         }
     } else {

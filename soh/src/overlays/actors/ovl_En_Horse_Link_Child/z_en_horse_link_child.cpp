@@ -19,7 +19,7 @@ void func_80A69EC0(EnHorseLinkChild* thisv);
 void func_80A6A4DC(EnHorseLinkChild* thisv);
 void func_80A6A724(EnHorseLinkChild* thisv);
 
-const ActorInit En_Horse_Link_Child_InitVars = {
+ActorInit En_Horse_Link_Child_InitVars = {
     ACTOR_EN_HORSE_LINK_CHILD,
     ACTORCAT_BG,
     FLAGS,
@@ -32,7 +32,7 @@ const ActorInit En_Horse_Link_Child_InitVars = {
     NULL,
 };
 
-static AnimationHeader* sAnimations[] = {
+static const AnimationHeader* sAnimations[] = {
     &gChildEponaIdleAnim,     &gChildEponaWhinnyAnim,    &gChildEponaWalkingAnim,
     &gChildEponaTrottingAnim, &gChildEponaGallopingAnim,
 };
@@ -547,7 +547,7 @@ static EnHorseLinkChildActionFunc sActionFuncs[] = {
     func_80A698F4, func_80A69C18, func_80A699FC, func_80A6A068, func_80A6A7D0, func_80A6A5A4,
 };
 
-static void* sEyeTextures[] = { gChildEponaEyeOpenTex, gChildEponaEyeHalfTex, gChildEponaEyeCloseTex };
+static const void* sEyeTextures[] = { gChildEponaEyeOpenTex, gChildEponaEyeHalfTex, gChildEponaEyeCloseTex };
 static u8 sEyeIndexOrder[] = { 0, 1, 2, 1 };
 
 void EnHorseLinkChild_Update(Actor* thisx, GlobalContext* globalCtx) {

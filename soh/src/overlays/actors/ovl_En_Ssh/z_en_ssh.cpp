@@ -30,7 +30,7 @@ void EnSsh_Start(EnSsh* thisv, GlobalContext* globalCtx);
 
 #include "overlays/ovl_En_Ssh/ovl_En_Ssh.h"
 
-const ActorInit En_Ssh_InitVars = {
+ActorInit En_Ssh_InitVars = {
     ACTOR_EN_SSH,
     ACTORCAT_NPC,
     FLAGS,
@@ -182,11 +182,11 @@ void EnSsh_AddBlureVertex(EnSsh* thisv) {
     Matrix_MultVec3f(&p1base, &p1);
     Matrix_MultVec3f(&p2base, &p2);
     Matrix_Pop();
-    EffectBlure_AddVertex(Effect_GetByIndex(thisv->blureIdx), &p1, &p2);
+    EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)), &p1, &p2);
 }
 
 void EnSsh_AddBlureSpace(EnSsh* thisv) {
-    EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIdx));
+    EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)));
 }
 
 void EnSsh_InitColliders(EnSsh* thisv, GlobalContext* globalCtx) {
@@ -215,7 +215,7 @@ void EnSsh_InitColliders(EnSsh* thisv, GlobalContext* globalCtx) {
 }
 
 f32 EnSsh_SetAnimation(EnSsh* thisv, s32 animIndex) {
-    AnimationHeader* animation[] = {
+    const AnimationHeader* animation[] = {
         &object_ssh_Anim_005BE8, &object_ssh_Anim_000304, &object_ssh_Anim_000304, &object_ssh_Anim_0055F8,
         &object_ssh_Anim_000304, &object_ssh_Anim_000304, &object_ssh_Anim_005BE8,
     };
@@ -829,7 +829,7 @@ void EnSsh_Update(Actor* thisx, GlobalContext* globalCtx) {
     Actor_SetFocus(&thisv->actor, 0.0f);
 }
 
-s32 EnSsh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnSsh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnSsh* thisv = (EnSsh*)thisx;
 
     switch (limbIndex) {
@@ -861,14 +861,14 @@ s32 EnSsh_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnSsh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnSsh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnSsh* thisv = (EnSsh*)thisx;
 
     Collider_UpdateSpheres(limbIndex, &thisv->colSph);
 }
 
 void EnSsh_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* blinkTex[] = {
+    static const void* blinkTex[] = {
         object_ssh_Tex_0007E0,
         object_ssh_Tex_000C60,
         object_ssh_Tex_001060,

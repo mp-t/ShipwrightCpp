@@ -26,7 +26,7 @@ void func_809B0994(EnAni* thisv, GlobalContext* globalCtx);
 void func_809B0A28(EnAni* thisv, GlobalContext* globalCtx);
 void func_809B0A6C(EnAni* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Ani_InitVars = {
+ActorInit En_Ani_InitVars = {
     ACTOR_EN_ANI,
     ACTORCAT_NPC,
     FLAGS,
@@ -291,7 +291,7 @@ void EnAni_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnAni_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnAni_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnAni* thisv = (EnAni*)thisx;
 
     if (limbIndex == 15) {
@@ -301,7 +301,7 @@ s32 EnAni_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnAni_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnAni_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f sMultVec = { 800.0f, 500.0f, 0.0f };
     EnAni* thisv = (EnAni*)thisx;
 
@@ -311,7 +311,7 @@ void EnAni_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 }
 
 void EnAni_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gRoofManEyeOpenTex,
         gRoofManEyeHalfTex,
         gRoofManEyeClosedTex,

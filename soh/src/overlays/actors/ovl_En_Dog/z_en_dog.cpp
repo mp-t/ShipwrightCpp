@@ -21,7 +21,7 @@ void EnDog_RunAway(EnDog* thisv, GlobalContext* globalCtx);
 void EnDog_FaceLink(EnDog* thisv, GlobalContext* globalCtx);
 void EnDog_Wait(EnDog* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dog_InitVars = {
+ActorInit En_Dog_InitVars = {
     ACTOR_EN_DOG,
     ACTORCAT_NPC,
     FLAGS,
@@ -89,7 +89,7 @@ typedef enum {
 } DogBehavior;
 
 void EnDog_PlayWalkSFX(EnDog* thisv) {
-    AnimationHeader* walk = &gDogWalkAnim;
+    const AnimationHeader* walk = &gDogWalkAnim;
 
     if (thisv->skelAnime.animation == walk) {
         if ((thisv->skelAnime.curFrame == 1.0f) || (thisv->skelAnime.curFrame == 7.0f)) {
@@ -99,7 +99,7 @@ void EnDog_PlayWalkSFX(EnDog* thisv) {
 }
 
 void EnDog_PlayRunSFX(EnDog* thisv) {
-    AnimationHeader* run = &gDogRunAnim;
+    const AnimationHeader* run = &gDogRunAnim;
 
     if (thisv->skelAnime.animation == run) {
         if ((thisv->skelAnime.curFrame == 2.0f) || (thisv->skelAnime.curFrame == 4.0f)) {
@@ -109,7 +109,7 @@ void EnDog_PlayRunSFX(EnDog* thisv) {
 }
 
 void EnDog_PlayBarkSFX(EnDog* thisv) {
-    AnimationHeader* bark = &gDogBarkAnim;
+    const AnimationHeader* bark = &gDogBarkAnim;
 
     if (thisv->skelAnime.animation == bark) {
         if ((thisv->skelAnime.curFrame == 13.0f) || (thisv->skelAnime.curFrame == 19.0f)) {
@@ -462,11 +462,11 @@ void EnDog_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &thisv->collider.base);
 }
 
-s32 EnDog_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnDog_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     return false;
 }
 
-void EnDog_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnDog_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
 }
 
 void EnDog_Draw(Actor* thisx, GlobalContext* globalCtx) {

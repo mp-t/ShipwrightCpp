@@ -30,7 +30,7 @@ void EnViewer_UpdateImpl(EnViewer* thisv, GlobalContext* globalCtx);
 
 static u8 sHorseSfxPlayed = false;
 
-const ActorInit En_Viewer_InitVars = {
+ActorInit En_Viewer_InitVars = {
     ACTOR_EN_VIEWER,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -112,15 +112,15 @@ void EnViewer_Destroy(Actor* thisx, GlobalContext* globalCtx) {
     Skin_Free(globalCtx, &thisv->skin);
 }
 
-void EnViewer_InitAnimGanondorfOrZelda(EnViewer* thisv, GlobalContext* globalCtx, void* skeletonHeaderSeg,
-                                       AnimationHeader* anim) {
+void EnViewer_InitAnimGanondorfOrZelda(EnViewer* thisv, GlobalContext* globalCtx, const void* skeletonHeaderSeg,
+                                       const AnimationHeader* anim) {
     s16 type = thisv->actor.params >> 8;
 
     if (type == ENVIEWER_TYPE_2_ZELDA || type == ENVIEWER_TYPE_3_GANONDORF || type == ENVIEWER_TYPE_5_GANONDORF ||
         type == ENVIEWER_TYPE_7_GANONDORF || type == ENVIEWER_TYPE_8_GANONDORF || type == ENVIEWER_TYPE_9_GANONDORF) {
-        SkelAnime_InitFlex(globalCtx, &thisv->skin.skelAnime, skeletonHeaderSeg, NULL, NULL, NULL, 0);
+        SkelAnime_InitFlex(globalCtx, &thisv->skin.skelAnime, static_cast<const FlexSkeletonHeader*>(skeletonHeaderSeg), NULL, NULL, NULL, 0);
     } else {
-        SkelAnime_Init(globalCtx, &thisv->skin.skelAnime, skeletonHeaderSeg, NULL, NULL, NULL, 0);
+        SkelAnime_Init(globalCtx, &thisv->skin.skelAnime, static_cast<const SkeletonHeader*>(skeletonHeaderSeg), NULL, NULL, NULL, 0);
     }
 
     gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[thisv->animObjBankIndex].segment);
@@ -132,16 +132,16 @@ void EnViewer_InitAnimGanondorfOrZelda(EnViewer* thisv, GlobalContext* globalCtx
     }
 }
 
-void EnViewer_InitAnimImpa(EnViewer* thisv, GlobalContext* globalCtx, void* skeletonHeaderSeg, AnimationHeader* anim) {
-    SkelAnime_InitFlex(globalCtx, &thisv->skin.skelAnime, skeletonHeaderSeg, NULL, NULL, NULL, 0);
+void EnViewer_InitAnimImpa(EnViewer* thisv, GlobalContext* globalCtx, const void* skeletonHeaderSeg, const AnimationHeader* anim) {
+    SkelAnime_InitFlex(globalCtx, &thisv->skin.skelAnime, static_cast<const FlexSkeletonHeader*>(skeletonHeaderSeg), NULL, NULL, NULL, 0);
     gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[thisv->animObjBankIndex].segment);
     Animation_PlayLoopSetSpeed(&thisv->skin.skelAnime, anim, 3.0f);
 }
 
-void EnViewer_InitAnimHorse(EnViewer* thisv, GlobalContext* globalCtx, void* skeletonHeaderSeg, AnimationHeader* anim) {
+void EnViewer_InitAnimHorse(EnViewer* thisv, GlobalContext* globalCtx, const void* skeletonHeaderSeg, const AnimationHeader* anim) {
     u8 type;
 
-    Skin_Init(globalCtx, &thisv->skin, skeletonHeaderSeg, anim);
+    Skin_Init(globalCtx, &thisv->skin, static_cast<const SkeletonHeader*>(skeletonHeaderSeg), anim);
     type = thisv->actor.params >> 8;
     if (!(type == ENVIEWER_TYPE_3_GANONDORF || type == ENVIEWER_TYPE_4_HORSE_GANONDORF ||
           type == ENVIEWER_TYPE_7_GANONDORF || type == ENVIEWER_TYPE_8_GANONDORF ||
@@ -484,7 +484,7 @@ void EnViewer_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnViewer_Ganondorf3OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnViewer_Ganondorf3OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                         void* thisx) {
     if (gSaveContext.sceneSetupIndex == 4) {
         if (globalCtx->csCtx.frames >= 400) {
@@ -502,7 +502,7 @@ s32 EnViewer_Ganondorf3OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex,
     return false;
 }
 
-void EnViewer_Ganondorf9PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnViewer_Ganondorf9PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     if (limbIndex == 11) {
         OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1365);
         func_80093D84(globalCtx->state.gfxCtx);
@@ -513,7 +513,7 @@ void EnViewer_Ganondorf9PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
     }
 }
 
-void EnViewer_GanondorfPostLimbDrawUpdateCapeVec(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot,
+void EnViewer_GanondorfPostLimbDrawUpdateCapeVec(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot,
                                                  void* thisx) {
     static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
 
@@ -580,7 +580,7 @@ void EnViewer_DrawHorse(EnViewer* thisv, GlobalContext* globalCtx) {
     func_800A6330(&thisv->actor, globalCtx, &thisv->skin, NULL, true);
 }
 
-s32 EnViewer_ZeldaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnViewer_ZeldaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                    void* thisx) {
     if (globalCtx->sceneNum == SCENE_SPOT00) { // Hyrule Field
         if (limbIndex == 2) {
@@ -605,7 +605,7 @@ s32 EnViewer_ZeldaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx*
     return false;
 }
 
-void EnViewer_ZeldaPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnViewer_ZeldaPostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     s32 pad;
 
     if (globalCtx->sceneNum == SCENE_TOKINOMA) {
@@ -665,7 +665,7 @@ void EnViewer_DrawZelda(EnViewer* thisv, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_viewer.c", 1690);
 }
 
-s32 EnViewer_ImpaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnViewer_ImpaOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                   void* thisx) {
     if (limbIndex == 16) {
         *dList = gImpaHeadMaskedDL;

@@ -39,7 +39,7 @@ void func_80A6BCEC(EnHorseNormal* thisv);
 void func_80A6C4CC(EnHorseNormal* thisv);
 void func_80A6C6B0(EnHorseNormal* thisv);
 
-const ActorInit En_Horse_Normal_InitVars = {
+ActorInit En_Horse_Normal_InitVars = {
     ACTOR_EN_HORSE_NORMAL,
     ACTORCAT_BG,
     FLAGS,
@@ -52,7 +52,7 @@ const ActorInit En_Horse_Normal_InitVars = {
     NULL,
 };
 
-static AnimationHeader* sAnimations[] = {
+static const AnimationHeader* sAnimations[] = {
     &gHorseNormalIdleAnim,      &gHorseNormalWhinnyAnim,  &gHorseNormalRefuseAnim,
     &gHorseNormalRearingAnim,   &gHorseNormalWalkingAnim, &gHorseNormalTrottingAnim,
     &gHorseNormalGallopingAnim, &gHorseNormalJumpingAnim, &gHorseNormalJumpingHighAnim,

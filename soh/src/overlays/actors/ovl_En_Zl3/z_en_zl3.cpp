@@ -40,10 +40,10 @@ static ColliderCylinderInitType1 sCylinderInit = {
     { 25, 80, 0, { 0, 0, 0 } },
 };
 
-static void* sEyeTextures[] = { gZelda2EyeOpenTex, gZelda2EyeHalfTex, gZelda2EyeShutTex, gZelda2Eye03Tex,
+static const void* sEyeTextures[] = { gZelda2EyeOpenTex, gZelda2EyeHalfTex, gZelda2EyeShutTex, gZelda2Eye03Tex,
                                 gZelda2Eye04Tex,   gZelda2Eye05Tex,   gZelda2Eye06Tex,   NULL };
 
-static void* sMouthTextures[] = { gZelda2MouthSeriousTex, gZelda2MouthHappyTex, gZelda2MouthOpenTex };
+static const void* sMouthTextures[] = { gZelda2MouthSeriousTex, gZelda2MouthHappyTex, gZelda2MouthOpenTex };
 
 static s32 D_80B5A468 = 0;
 
@@ -596,7 +596,7 @@ void func_80B54360(EnZl3* thisv, s16 arg1, s32 arg2) {
     thisv->unk_2BC[arg2] = arg1;
 }
 
-s32 func_80B5458C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 func_80B5458C(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                   Gfx** gfx) {
     s32 pad[3];
     EnZl3* thisv = (EnZl3*)thisx;
@@ -608,7 +608,7 @@ s32 func_80B5458C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
     Vec3s* unk_3F8_unk_0E = &thisv->unk_3F8.unk_0E;
 
     if (limbIndex == 14) {
-        sp78 = Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 7);
+        sp78 = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 7));
         rot->x += unk_3F8_unk_08->y;
         rot->z += unk_3F8_unk_08->x;
         gSPSegment((*gfx)++, 0x0C, sp78);
@@ -700,7 +700,7 @@ s32 func_80B5458C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* p
     return false;
 }
 
-void EnZl3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnZl3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     EnZl3* thisv = (EnZl3*)thisx;
     s32 pad;
     Vec3f sp34;
@@ -747,7 +747,7 @@ void func_80B54DE0(EnZl3* thisv, GlobalContext* globalCtx) {
     gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[idx].segment);
 }
 
-void func_80B54E14(EnZl3* thisv, AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {
+void func_80B54E14(EnZl3* thisv, const AnimationHeader* animation, u8 arg2, f32 transitionRate, s32 arg4) {
     f32 frameCount = Animation_GetLastFrame(animation);
     f32 playbackSpeed;
     f32 unk0;
@@ -1897,7 +1897,7 @@ void func_80B57A74(GlobalContext* globalCtx) {
     }
 }
 
-void func_80B57AAC(EnZl3* thisv, s32 arg1, AnimationHeader* arg2) {
+void func_80B57AAC(EnZl3* thisv, s32 arg1, const AnimationHeader* arg2) {
     if (arg1 != 0) {
         func_80B54E14(thisv, arg2, 0, -8.0f, 0);
     }
@@ -2444,10 +2444,10 @@ void func_80B593D0(EnZl3* thisv, GlobalContext* globalCtx) {
     func_80B58C08(thisv, globalCtx);
 }
 
-s32 func_80B5944C(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 func_80B5944C(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                   Gfx** gfx) {
     if (limbIndex == 14) {
-        Mtx* mtx = Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 7);
+        Mtx* mtx = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 7));
         EnZl3* thisv = (EnZl3*)thisx;
         Vec3s* vec = &thisv->unk_3F8.unk_08;
 
@@ -2681,7 +2681,7 @@ static OverrideLimbDraw sOverrideLimbDrawFuncs[] = {
     func_80B5944C,
 };
 
-s32 EnZl3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnZl3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                            Gfx** gfx) {
     EnZl3* thisv = (EnZl3*)thisx;
 
@@ -2699,10 +2699,10 @@ void func_80B59FE8(EnZl3* thisv, GlobalContext* globalCtx) {
 void func_80B59FF4(EnZl3* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTex = sEyeTextures[eyeTexIndex];
+    const void* eyeTex = sEyeTextures[eyeTexIndex];
     s16 mouthTexIndex = thisv->mouthTexIndex;
     SkelAnime* skelAnime = &thisv->skelAnime;
-    void* mouthTex = sMouthTextures[mouthTexIndex];
+    const void* mouthTex = sMouthTextures[mouthTexIndex];
     s32 pad2;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl3.c", 2165);
@@ -2724,10 +2724,10 @@ void func_80B59FF4(EnZl3* thisv, GlobalContext* globalCtx) {
 void func_80B5A1D0(EnZl3* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeTexIndex = thisv->eyeTexIndex;
-    void* eyeTex = sEyeTextures[eyeTexIndex];
+    const void* eyeTex = sEyeTextures[eyeTexIndex];
     s16 mouthTexIndex = thisv->mouthTexIndex;
     SkelAnime* skelAnime = &thisv->skelAnime;
-    void* mouthTex = sMouthTextures[mouthTexIndex];
+    const void* mouthTex = sMouthTextures[mouthTexIndex];
     s32 pad2;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_zl3.c", 2205);
@@ -2762,7 +2762,7 @@ void EnZl3_Draw(Actor* thisx, GlobalContext* globalCtx) {
     sDrawFuncs[thisv->drawConfig](thisv, globalCtx);
 }
 
-const ActorInit En_Zl3_InitVars = {
+ActorInit En_Zl3_InitVars = {
     ACTOR_EN_ZL3,
     ACTORCAT_NPC,
     FLAGS,

@@ -27,7 +27,7 @@ void func_80AE7FD0(EnRl* thisv, GlobalContext* globalCtx);
 void func_80AE7FDC(EnRl* thisv, GlobalContext* globalCtx);
 void func_80AE7D94(EnRl* thisv, GlobalContext* globalCtx);
 
-static void* D_80AE81A0[] = { object_rl_Tex_003620, object_rl_Tex_003960, object_rl_Tex_003B60 };
+static const void* D_80AE81A0[] = { object_rl_Tex_003620, object_rl_Tex_003960, object_rl_Tex_003B60 };
 static s32 D_80AE81AC = 0;
 
 void EnRl_Destroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -85,7 +85,7 @@ s32 func_80AE7494(EnRl* thisv) {
 }
 
 s32 func_80AE74B4(EnRl* thisv, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
-    CsCmdActorAction* csCmdActorAction;
+    const CsCmdActorAction* csCmdActorAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdActorAction = globalCtx->csCtx.npcActions[arg3];
@@ -97,7 +97,7 @@ s32 func_80AE74B4(EnRl* thisv, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
 }
 
 s32 func_80AE74FC(EnRl* thisv, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
-    CsCmdActorAction* csCmdActorAction;
+    const CsCmdActorAction* csCmdActorAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdActorAction = globalCtx->csCtx.npcActions[arg3];
@@ -140,7 +140,7 @@ void func_80AE7668(EnRl* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80AE7698(EnRl* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdActorAction;
+    const CsCmdActorAction* csCmdActorAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdActorAction = globalCtx->csCtx.npcActions[0];
@@ -298,7 +298,7 @@ void func_80AE7D40(EnRl* thisv, GlobalContext* globalCtx) {
 void func_80AE7D94(EnRl* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 temp = thisv->eyeTextureIndex;
-    void* tex = D_80AE81A0[temp];
+    const void* tex = D_80AE81A0[temp];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rl_inKenjyanomaDemo02.c", 304);
@@ -347,7 +347,7 @@ void func_80AE7FD0(EnRl* thisv, GlobalContext* globalCtx) {
 void func_80AE7FDC(EnRl* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 temp = thisv->eyeTextureIndex;
-    void* tex = D_80AE81A0[temp];
+    const void* tex = D_80AE81A0[temp];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_rl.c", 416);
@@ -380,7 +380,7 @@ void EnRl_Draw(Actor* thisx, GlobalContext* globalCtx) {
     sDrawFuncs[thisv->drawConfig](thisv, globalCtx);
 }
 
-const ActorInit En_Rl_InitVars = {
+ActorInit En_Rl_InitVars = {
     ACTOR_EN_RL,
     ACTORCAT_NPC,
     FLAGS,

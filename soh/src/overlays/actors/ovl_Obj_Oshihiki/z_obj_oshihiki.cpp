@@ -24,7 +24,7 @@ void ObjOshihiki_Push(ObjOshihiki* thisv, GlobalContext* globalCtx);
 void ObjOshihiki_SetupFall(ObjOshihiki* thisv, GlobalContext* globalCtx);
 void ObjOshihiki_Fall(ObjOshihiki* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Oshihiki_InitVars = {
+ActorInit Obj_Oshihiki_InitVars = {
     ACTOR_OBJ_OSHIHIKI,
     ACTORCAT_PROP,
     FLAGS,

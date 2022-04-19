@@ -15,7 +15,7 @@ void ItemInbox_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void ItemInbox_Wait(ItemInbox* thisv, GlobalContext* globalCtx);
 
-const ActorInit Item_Inbox_InitVars = {
+ActorInit Item_Inbox_InitVars = {
     ACTOR_ITEM_INBOX,
     ACTORCAT_NPC,
     FLAGS,

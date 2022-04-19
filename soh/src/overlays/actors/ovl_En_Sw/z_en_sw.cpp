@@ -20,7 +20,7 @@ void func_80B0D3AC(EnSw* thisv, GlobalContext* globalCtx);
 void func_80B0DB00(EnSw* thisv, GlobalContext* globalCtx);
 void func_80B0D878(EnSw* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Sw_InitVars = {
+ActorInit En_Sw_InitVars = {
     ACTOR_EN_SW,
     ACTORCAT_NPC,
     FLAGS,
@@ -95,22 +95,22 @@ s32 func_80B0BE20(EnSw* thisv, CollisionPoly* poly) {
     thisv->unk_37C.y = thisv->unk_37C.y * (1.0f / temp_f0);
     thisv->unk_37C.z = thisv->unk_37C.z * (1.0f / temp_f0);
     thisv->unk_364 = sp44;
-    thisv->unk_3D8.xx = thisv->unk_370.x;
-    thisv->unk_3D8.yx = thisv->unk_370.y;
-    thisv->unk_3D8.zx = thisv->unk_370.z;
-    thisv->unk_3D8.wx = 0.0f;
-    thisv->unk_3D8.xy = thisv->unk_364.x;
-    thisv->unk_3D8.yy = thisv->unk_364.y;
-    thisv->unk_3D8.zy = thisv->unk_364.z;
-    thisv->unk_3D8.wy = 0.0f;
-    thisv->unk_3D8.xz = thisv->unk_37C.x;
-    thisv->unk_3D8.yz = thisv->unk_37C.y;
-    thisv->unk_3D8.zz = thisv->unk_37C.z;
-    thisv->unk_3D8.wz = 0.0f;
-    thisv->unk_3D8.xw = 0.0f;
-    thisv->unk_3D8.yw = 0.0f;
-    thisv->unk_3D8.zw = 0.0f;
-    thisv->unk_3D8.ww = 1.0f;
+    thisv->unk_3D8.mf_raw.xx = thisv->unk_370.x;
+    thisv->unk_3D8.mf_raw.yx = thisv->unk_370.y;
+    thisv->unk_3D8.mf_raw.zx = thisv->unk_370.z;
+    thisv->unk_3D8.mf_raw.wx = 0.0f;
+    thisv->unk_3D8.mf_raw.xy = thisv->unk_364.x;
+    thisv->unk_3D8.mf_raw.yy = thisv->unk_364.y;
+    thisv->unk_3D8.mf_raw.zy = thisv->unk_364.z;
+    thisv->unk_3D8.mf_raw.wy = 0.0f;
+    thisv->unk_3D8.mf_raw.xz = thisv->unk_37C.x;
+    thisv->unk_3D8.mf_raw.yz = thisv->unk_37C.y;
+    thisv->unk_3D8.mf_raw.zz = thisv->unk_37C.z;
+    thisv->unk_3D8.mf_raw.wz = 0.0f;
+    thisv->unk_3D8.mf_raw.xw = 0.0f;
+    thisv->unk_3D8.mf_raw.yw = 0.0f;
+    thisv->unk_3D8.mf_raw.zw = 0.0f;
+    thisv->unk_3D8.mf_raw.ww = 1.0f;
     Matrix_MtxFToYXZRotS(&thisv->unk_3D8, &thisv->actor.world.rot, 0);
     //! @bug: Does not return.
 }
@@ -410,22 +410,22 @@ s32 func_80B0CCF4(EnSw* thisv, f32* arg1) {
     thisv->unk_37C.x *= temp_f0;
     thisv->unk_37C.y *= temp_f0;
     thisv->unk_37C.z *= temp_f0;
-    sp2C.xx = thisv->unk_370.x;
-    sp2C.yx = thisv->unk_370.y;
-    sp2C.zx = thisv->unk_370.z;
-    sp2C.wx = 0.0f;
-    sp2C.xy = thisv->unk_364.x;
-    sp2C.yy = thisv->unk_364.y;
-    sp2C.zy = thisv->unk_364.z;
-    sp2C.wy = 0.0f;
-    sp2C.xz = thisv->unk_37C.x;
-    sp2C.yz = thisv->unk_37C.y;
-    sp2C.zz = thisv->unk_37C.z;
-    sp2C.wz = 0.0f;
-    sp2C.xw = 0.0f;
-    sp2C.yw = 0.0f;
-    sp2C.zw = 0.0f;
-    sp2C.ww = 1.0f;
+    sp2C.mf_raw.xx = thisv->unk_370.x;
+    sp2C.mf_raw.yx = thisv->unk_370.y;
+    sp2C.mf_raw.zx = thisv->unk_370.z;
+    sp2C.mf_raw.wx = 0.0f;
+    sp2C.mf_raw.xy = thisv->unk_364.x;
+    sp2C.mf_raw.yy = thisv->unk_364.y;
+    sp2C.mf_raw.zy = thisv->unk_364.z;
+    sp2C.mf_raw.wy = 0.0f;
+    sp2C.mf_raw.xz = thisv->unk_37C.x;
+    sp2C.mf_raw.yz = thisv->unk_37C.y;
+    sp2C.mf_raw.zz = thisv->unk_37C.z;
+    sp2C.mf_raw.wz = 0.0f;
+    sp2C.mf_raw.xw = 0.0f;
+    sp2C.mf_raw.yw = 0.0f;
+    sp2C.mf_raw.zw = 0.0f;
+    sp2C.mf_raw.ww = 1.0f;
     Matrix_MtxFToYXZRotS(&sp2C, &thisv->actor.world.rot, 0);
     return true;
 }
@@ -897,7 +897,7 @@ void EnSw_Update(Actor* thisx, GlobalContext* globalCtx) {
     func_80B0CBE8(thisv, globalCtx);
 }
 
-s32 EnSw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnSw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     Vec3f sp7C = { 1400.0f, -2600.0f, -800.0f };
     Vec3f sp70 = { 1400.0f, -1600.0f, 0.0f };
     Vec3f sp64 = { -1400.0f, -2600.0f, -800.0f };
@@ -966,7 +966,7 @@ s32 EnSw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnSw_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnSw_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
 }
 
 void func_80B0EDB8(GlobalContext* globalCtx, Color_RGBA8* arg1, s16 arg2, s16 arg3) {

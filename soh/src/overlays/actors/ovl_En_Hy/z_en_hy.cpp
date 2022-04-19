@@ -32,7 +32,7 @@ void func_80A7127C(EnHy* thisv, GlobalContext* globalCtx);
 void EnHy_DoNothing(EnHy* thisv, GlobalContext* globalCtx);
 void func_80A714C4(EnHy* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Hy_InitVars = {
+ActorInit En_Hy_InitVars = {
     ACTOR_EN_HY,
     ACTORCAT_NPC,
     FLAGS,
@@ -68,17 +68,17 @@ static ColliderCylinderInit sColCylInit = {
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
 // NULL-terminated arrays of eye textures
-static void* sEyeTexturesAOB[] = { gDogLadyEyeOpenTex, gDogLadyEyeHalfTex, gDogLadyEyeClosedTex, NULL };
-static void* sEyeTexturesAHG7[] = { object_ahg_Tex_0005FC, object_ahg_Tex_0006FC, object_ahg_Tex_0007FC, NULL };
-static void* sEyeTexturesBBA[] = { object_bba_Tex_0004C8, NULL };
-static void* sEyeTexturesBJI13[] = { object_bji_Tex_0005FC, object_bji_Tex_0009FC, object_bji_Tex_000DFC, NULL };
-static void* sEyeTexturesBOJ2[] = { object_boj_Tex_0005FC, object_boj_Tex_0006FC, object_boj_Tex_0007FC, NULL };
-static void* sEyeTexturesBOB[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8, NULL };
+static const void* sEyeTexturesAOB[] = { gDogLadyEyeOpenTex, gDogLadyEyeHalfTex, gDogLadyEyeClosedTex, NULL };
+static const void* sEyeTexturesAHG7[] = { object_ahg_Tex_0005FC, object_ahg_Tex_0006FC, object_ahg_Tex_0007FC, NULL };
+static const void* sEyeTexturesBBA[] = { object_bba_Tex_0004C8, NULL };
+static const void* sEyeTexturesBJI13[] = { object_bji_Tex_0005FC, object_bji_Tex_0009FC, object_bji_Tex_000DFC, NULL };
+static const void* sEyeTexturesBOJ2[] = { object_boj_Tex_0005FC, object_boj_Tex_0006FC, object_boj_Tex_0007FC, NULL };
+static const void* sEyeTexturesBOB[] = { object_bob_Tex_0007C8, object_bob_Tex_000FC8, object_bob_Tex_0017C8, NULL };
 
 typedef struct {
     /* 0x00 */ s16 objectId;
-    /* 0x04 */ Gfx* headDList;
-    /* 0x08 */ void** eyeTextures;
+    /* 0x04 */ const Gfx* headDList;
+    /* 0x08 */ const void** eyeTextures;
 } EnHyHeadInfo; // size = 0xC
 
 typedef enum {
@@ -121,7 +121,7 @@ static EnHyHeadInfo sHeadInfo[] = {
 
 typedef struct {
     /* 0x00 */ s16 objectId;
-    /* 0x04 */ FlexSkeletonHeader* skeleton;
+    /* 0x04 */ const FlexSkeletonHeader* skeleton;
 } EnHySkeletonInfo; // size = 0x8
 
 typedef enum {
@@ -1094,12 +1094,11 @@ void EnHy_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnHy_UpdateCollider(thisv, globalCtx);
 }
 
-s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnHy* thisv = (EnHy*)thisx;
     s32 pad;
     Vec3s sp48;
     u8 i;
-    UNK_PTR ptr;
 
     if (1) {}
 
@@ -1112,8 +1111,7 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
         *dList = sHeadInfo[i].headDList;
 
         if (sHeadInfo[i].eyeTextures != NULL) {
-            ptr = sHeadInfo[i].eyeTextures[thisv->curEyeIndex];
-            gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(ptr));
+            gSPSegment(POLY_OPA_DISP++, 0x0A, SEGMENTED_TO_VIRTUAL(sHeadInfo[i].eyeTextures[thisv->curEyeIndex]));
         }
 
         gSegments[6] = VIRTUAL_TO_PHYSICAL(globalCtx->objectCtx.status[thisv->objBankIndexSkel1].segment);
@@ -1143,7 +1141,7 @@ s32 EnHy_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnHy_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnHy_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnHy* thisv = (EnHy*)thisx;
     s32 pad;
     Vec3f sp3C = { 400.0f, 0.0f, 0.0f };
@@ -1169,7 +1167,7 @@ void EnHy_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 Gfx* EnHy_SetEnvColor(GraphicsContext* globalCtx, u8 envR, u8 envG, u8 envB, u8 envA) {
     Gfx* dList;
 
-    dList = Graph_Alloc(globalCtx, 2 * sizeof(Gfx));
+    dList = static_cast<Gfx*>(Graph_Alloc(globalCtx, 2 * sizeof(Gfx)));
     gDPSetEnvColor(dList, envR, envG, envB, envA);
     gSPEndDisplayList(dList + 1);
 

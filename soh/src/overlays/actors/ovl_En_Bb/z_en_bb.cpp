@@ -195,7 +195,7 @@ static DamageTable sDamageTableWhite = {
     /* Unknown 2     */ DMG_ENTRY(0, 0x0),
 };
 
-const ActorInit En_Bb_InitVars = {
+ActorInit En_Bb_InitVars = {
     ACTOR_EN_BB,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1260,7 +1260,7 @@ void EnBb_Update(Actor* thisx, GlobalContext* globalCtx2) {
     }
 }
 
-void EnBb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnBb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnBb* thisv = (EnBb*)thisx;
 
     BodyBreak_SetInfo(&thisv->bodyBreak, limbIndex, 4, 15, 15, dList, BODYBREAK_OBJECT_DEFAULT);
@@ -1342,9 +1342,9 @@ void EnBb_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Matrix_MultVec3f(&blureBase2, &blureVtx2);
             if ((thisv->maxSpeed != 0.0f) && (thisv->action == BB_WHITE) && !(globalCtx->gameplayFrames & 1) &&
                 (thisv->actor.colChkInfo.health != 0)) {
-                EffectBlure_AddVertex(Effect_GetByIndex(thisv->blureIdx), &blureVtx1, &blureVtx2);
+                EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)), &blureVtx1, &blureVtx2);
             } else if (thisv->action != BB_WHITE) {
-                EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIdx));
+                EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)));
             }
         }
     }

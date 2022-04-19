@@ -21,7 +21,7 @@ void BgHakaShip_SetupCrash(BgHakaShip* thisv, GlobalContext* globalCtx);
 void BgHakaShip_CrashShake(BgHakaShip* thisv, GlobalContext* globalCtx);
 void BgHakaShip_CrashFall(BgHakaShip* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Haka_Ship_InitVars = {
+ActorInit Bg_Haka_Ship_InitVars = {
     ACTOR_BG_HAKA_SHIP,
     ACTORCAT_BG,
     FLAGS,

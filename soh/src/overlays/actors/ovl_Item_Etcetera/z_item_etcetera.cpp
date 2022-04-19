@@ -22,7 +22,7 @@ void ItemEtcetera_MoveFireArrowDown(ItemEtcetera* thisv, GlobalContext* globalCt
 void func_80B85B28(ItemEtcetera* thisv, GlobalContext* globalCtx);
 void ItemEtcetera_UpdateFireArrow(ItemEtcetera* thisv, GlobalContext* globalCtx);
 
-const ActorInit Item_Etcetera_InitVars = {
+ActorInit Item_Etcetera_InitVars = {
     ACTOR_ITEM_ETCETERA,
     ACTORCAT_PROP,
     FLAGS,

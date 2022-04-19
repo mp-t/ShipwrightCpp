@@ -90,8 +90,8 @@ typedef struct {
 } struct_808540F4; // size = 0x08
 
 typedef struct {
-    /* 0x00 */ LinkAnimationHeader* unk_00;
-    /* 0x04 */ LinkAnimationHeader* unk_04;
+    /* 0x00 */ const LinkAnimationHeader* unk_00;
+    /* 0x04 */ const LinkAnimationHeader* unk_04;
     /* 0x08 */ u8 unk_08;
     /* 0x09 */ u8 unk_09;
 } struct_80854554; // size = 0x0C
@@ -105,7 +105,7 @@ typedef struct {
 } struct_80854190; // size = 0x10
 
 typedef struct {
-    /* 0x00 */ LinkAnimationHeader* anim;
+    /* 0x00 */ const LinkAnimationHeader* anim;
     /* 0x04 */ f32 unk_04;
     /* 0x04 */ f32 unk_08;
 } struct_80854578; // size = 0x0C
@@ -113,8 +113,8 @@ typedef struct {
 typedef struct {
     /* 0x00 */ s8 type;
     /* 0x04 */ union {
-        void* ptr;
-        void (*func)(GlobalContext*, Player*, CsCmdActorAction*);
+        const void* ptr;
+        void (*func)(GlobalContext*, Player*, const CsCmdActorAction*);
     };
 } struct_80854B18; // size = 0x08
 
@@ -269,24 +269,24 @@ void func_808507F4(Player* thisv, GlobalContext* globalCtx);
 void func_80850AEC(Player* thisv, GlobalContext* globalCtx);
 void func_80850C68(Player* thisv, GlobalContext* globalCtx);
 void func_80850E84(Player* thisv, GlobalContext* globalCtx);
-void func_80851008(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851030(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851050(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851094(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_808510B4(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_808510D4(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_808510F4(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851114(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851134(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851154(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851174(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851194(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_808511B4(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_808511D4(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_808511FC(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851248(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_80851294(GlobalContext* globalCtx, Player* thisv, void* anim);
-void func_808512E0(GlobalContext* globalCtx, Player* thisv, void* arg2);
+void func_80851008(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851030(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851050(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851094(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_808510B4(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_808510D4(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_808510F4(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851114(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851134(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851154(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851174(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851194(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_808511B4(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_808511D4(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_808511FC(GlobalContext* globalCtx, Player* thisv, const const void* anim);
+void func_80851248(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_80851294(GlobalContext* globalCtx, Player* thisv, const void* anim);
+void func_808512E0(GlobalContext* globalCtx, Player* thisv, const void* arg2);
 void func_80851368(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
 void func_808513BC(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
 void func_808514C0(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
@@ -341,7 +341,7 @@ void func_808526EC(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* ar
 void func_8085283C(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
 void func_808528C8(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
 void func_80852944(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
-void func_808529D0(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
+void func_808529D0(GlobalContext* globalCtx, Player* thisv, const CsCmdActorAction* arg2);
 void func_80852C50(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2);
 void func_80852E14(Player* thisv, GlobalContext* globalCtx);
 s32 Player_IsDroppingFish(GlobalContext* globalCtx);
@@ -1087,14 +1087,12 @@ static const LinkAnimationHeader* D_808543D4[] = {
     &gPlayerAnim_002CC0,
 };
 
-// return type can't be void due to regalloc in func_8084FCAC
-s32 func_80832210(Player* thisv) {
+void func_80832210(Player* thisv) {
     thisv->actor.speedXZ = 0.0f;
     thisv->linearVelocity = 0.0f;
 }
 
-// return type can't be void due to regalloc in func_8083F72C
-s32 func_80832224(Player* thisv) {
+void func_80832224(Player* thisv) {
     func_80832210(thisv);
     thisv->unk_6AD = 0;
 }
@@ -1105,19 +1103,19 @@ s32 func_8083224C(GlobalContext* globalCtx) {
     return CHECK_FLAG_ALL(thisv->actor.flags, ACTOR_FLAG_8);
 }
 
-void func_80832264(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80832264(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_PlayOnce(globalCtx, &thisv->skelAnime, anim);
 }
 
-void func_80832284(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80832284(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_PlayLoop(globalCtx, &thisv->skelAnime, anim);
 }
 
-void func_808322A4(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_808322A4(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_PlayLoopSetSpeed(globalCtx, &thisv->skelAnime, anim, 2.0f / 3.0f);
 }
 
-void func_808322D0(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_808322D0(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_PlayOnceSetSpeed(globalCtx, &thisv->skelAnime, anim, 2.0f / 3.0f);
 }
 
@@ -1309,7 +1307,7 @@ void func_808328EC(Player* thisv, u16 sfxId) {
     thisv->stateFlags2 |= PLAYER_STATE2_3;
 }
 
-void func_80832924(Player* thisv, struct_80832924* entry) {
+void func_80832924(Player* thisv, const struct_80832924* entry) {
     s32 data;
     s32 flags;
     u32 cont;
@@ -1352,29 +1350,29 @@ void func_80832924(Player* thisv, struct_80832924* entry) {
     } while (cont);
 }
 
-void func_80832B0C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80832B0C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_Change(globalCtx, &thisv->skelAnime, anim, 1.0f, 0.0f, Animation_GetLastFrame(anim), ANIMMODE_ONCE,
         -6.0f);
 }
 
-void func_80832B78(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80832B78(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_Change(globalCtx, &thisv->skelAnime, anim, 2.0f / 3.0f, 0.0f, Animation_GetLastFrame(anim),
         ANIMMODE_ONCE, -6.0f);
 }
 
-void func_80832BE8(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80832BE8(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_Change(globalCtx, &thisv->skelAnime, anim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -6.0f);
 }
 
-void func_80832C2C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80832C2C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_Change(globalCtx, &thisv->skelAnime, anim, 1.0f, 0.0f, 0.0f, ANIMMODE_ONCE, 0.0f);
 }
 
-void func_80832C6C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80832C6C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     LinkAnimation_Change(globalCtx, &thisv->skelAnime, anim, 1.0f, 0.0f, 0.0f, ANIMMODE_LOOP, -16.0f);
 }
 
-s32 func_80832CB0(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+s32 func_80832CB0(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     if (LinkAnimation_Update(globalCtx, &thisv->skelAnime)) {
         func_80832284(globalCtx, thisv, anim);
         return 1;
@@ -1461,37 +1459,37 @@ void func_80832F54(GlobalContext* globalCtx, Player* thisv, s32 flags) {
     AnimationContext_DisableQueue(globalCtx);
 }
 
-void func_80832FFC(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, s32 flags, f32 playbackSpeed) {
+void func_80832FFC(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, s32 flags, f32 playbackSpeed) {
     LinkAnimation_PlayOnceSetSpeed(globalCtx, &thisv->skelAnime, anim, playbackSpeed);
     func_80832F54(globalCtx, thisv, flags);
 }
 
-void func_8083303C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, s32 flags) {
+void func_8083303C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, s32 flags) {
     func_80832FFC(globalCtx, thisv, anim, flags, 1.0f);
 }
 
-void func_80833064(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, s32 flags) {
+void func_80833064(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, s32 flags) {
     func_80832FFC(globalCtx, thisv, anim, flags, 2.0f / 3.0f);
 }
 
-void func_8083308C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_8083308C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     func_80833064(globalCtx, thisv, anim, 0x1C);
 }
 
-void func_808330AC(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, s32 flags, f32 playbackSpeed) {
+void func_808330AC(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, s32 flags, f32 playbackSpeed) {
     LinkAnimation_PlayLoopSetSpeed(globalCtx, &thisv->skelAnime, anim, playbackSpeed);
     func_80832F54(globalCtx, thisv, flags);
 }
 
-void func_808330EC(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, s32 flags) {
+void func_808330EC(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, s32 flags) {
     func_808330AC(globalCtx, thisv, anim, flags, 1.0f);
 }
 
-void func_80833114(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, s32 flags) {
+void func_80833114(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, s32 flags) {
     func_808330AC(globalCtx, thisv, anim, flags, 2.0f / 3.0f);
 }
 
-void func_8083313C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_8083313C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     func_80833114(globalCtx, thisv, anim, 0x1C);
 }
 
@@ -1521,7 +1519,7 @@ void func_8083315C(GlobalContext* globalCtx, Player* thisv) {
     thisv->unk_84B[thisv->unk_846] = phi_v0;
 }
 
-void func_8083328C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* linkAnim) {
+void func_8083328C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* linkAnim) {
     LinkAnimation_PlayOnceSetSpeed(globalCtx, &thisv->skelAnime, linkAnim, D_808535E8);
 }
 
@@ -1635,7 +1633,7 @@ void func_80833638(Player* thisv, PlayerFunc82C arg1) {
 }
 
 void func_80833664(GlobalContext* globalCtx, Player* thisv, s8 actionParam) {
-    const LinkAnimationHeader* current = thisv->skelAnime.animation;
+    const LinkAnimationHeader* current = static_cast<const LinkAnimationHeader*>(thisv->skelAnime.animation);
     const LinkAnimationHeader** iter = &D_80853914[0][thisv->modelAnimType];
     u32 i;
 
@@ -1918,7 +1916,7 @@ void func_80833DF8(Player* thisv, GlobalContext* globalCtx) {
 }
 
 void func_808340DC(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 frameCount;
     f32 startFrame;
     f32 endFrame;
@@ -2079,7 +2077,7 @@ void func_80834644(GlobalContext* globalCtx, Player* thisv) {
     thisv->stateFlags1 &= ~PLAYER_STATE1_8;
 }
 
-LinkAnimationHeader* func_808346C4(GlobalContext* globalCtx, Player* thisv) {
+const LinkAnimationHeader* func_808346C4(GlobalContext* globalCtx, Player* thisv) {
     func_80833638(thisv, func_80834B5C);
     func_808323B4(globalCtx, thisv);
 
@@ -2092,7 +2090,7 @@ LinkAnimationHeader* func_808346C4(GlobalContext* globalCtx, Player* thisv) {
 }
 
 s32 func_80834758(GlobalContext* globalCtx, Player* thisv) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 frame;
 
     if (!(thisv->stateFlags1 & (PLAYER_STATE1_22 | PLAYER_STATE1_23 | PLAYER_STATE1_29)) &&
@@ -2205,7 +2203,7 @@ s32 func_80834B5C(Player* thisv, GlobalContext* globalCtx) {
 }
 
 s32 func_80834BD4(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 frame;
 
     if (LinkAnimation_Update(globalCtx, &thisv->skelAnime2)) {
@@ -2235,7 +2233,7 @@ s32 func_80834C74(Player* thisv, GlobalContext* globalCtx) {
 }
 
 s32 func_80834D2C(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
 
     if (thisv->heldItemActionParam != PLAYER_AP_BOOMERANG) {
         if (!func_8083442C(thisv, globalCtx)) {
@@ -2533,7 +2531,7 @@ s32 func_808356E8(Player* thisv, GlobalContext* globalCtx) {
     return func_8083485C(thisv, globalCtx);
 }
 
-void func_808357E8(Player* thisv, Gfx** dLists) {
+void func_808357E8(Player* thisv, const Gfx** dLists) {
     thisv->leftHandDLists = &dLists[gSaveContext.linkAge];
 }
 
@@ -2564,7 +2562,7 @@ s32 func_80835884(Player* thisv, GlobalContext* globalCtx) {
 }
 
 s32 func_808358F0(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* animSeg = thisv->skelAnime.animation;
+    const LinkAnimationHeader* animSeg = static_cast<const LinkAnimationHeader*>(thisv->skelAnime.animation);
 
     if ((func_808334E4(thisv) == animSeg) || (func_80833528(thisv) == animSeg) || (func_808335B0(thisv) == animSeg) ||
         (func_808335F4(thisv) == animSeg)) {
@@ -2841,7 +2839,7 @@ void func_80835F44(GlobalContext* globalCtx, Player* thisv, s32 item) {
     }
 }
 
-void func_80836448(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80836448(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     s32 cond = func_808332B8(thisv);
 
     func_80832564(globalCtx, thisv);
@@ -3321,7 +3319,7 @@ s32 func_808375D8(Player* thisv) {
 }
 
 void func_80837704(GlobalContext* globalCtx, Player* thisv) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
 
     if ((thisv->swordAnimation >= 4) && (thisv->swordAnimation < 8)) {
         anim = D_80854358[Player_HoldsTwoHandedWeapon(thisv)];
@@ -3494,8 +3492,8 @@ static const LinkAnimationHeader* D_808544B0[] = {
 };
 
 void func_80837C0C(GlobalContext* globalCtx, Player* thisv, s32 arg2, f32 arg3, f32 arg4, s16 arg5, s32 arg6) {
-    LinkAnimationHeader* sp2C = NULL;
-    LinkAnimationHeader** sp28;
+    const LinkAnimationHeader* sp2C = NULL;
+    const LinkAnimationHeader** sp28;
 
     if (thisv->stateFlags1 & PLAYER_STATE1_13) {
         func_80837B60(thisv);
@@ -3765,7 +3763,7 @@ s32 func_808382DC(Player* thisv, GlobalContext* globalCtx) {
 
                 if (!Player_IsChildWithHylianShield(thisv)) {
                     if (thisv->invincibilityTimer >= 0) {
-                        LinkAnimationHeader* anim;
+                        const LinkAnimationHeader* anim;
                         s32 sp54 = func_80843188 == thisv->func_674;
 
                         if (!func_808332B8(thisv)) {
@@ -3862,7 +3860,7 @@ s32 func_808382DC(Player* thisv, GlobalContext* globalCtx) {
     return 1;
 }
 
-void func_80838940(Player* thisv, LinkAnimationHeader* anim, f32 arg2, GlobalContext* globalCtx, u16 sfxId) {
+void func_80838940(Player* thisv, const LinkAnimationHeader* anim, f32 arg2, GlobalContext* globalCtx, u16 sfxId) {
     func_80835C58(globalCtx, thisv, func_8084411C, 1);
 
     if (anim != NULL) {
@@ -3879,13 +3877,13 @@ void func_80838940(Player* thisv, LinkAnimationHeader* anim, f32 arg2, GlobalCon
     thisv->stateFlags1 |= PLAYER_STATE1_18;
 }
 
-void func_808389E8(Player* thisv, LinkAnimationHeader* anim, f32 arg2, GlobalContext* globalCtx) {
+void func_808389E8(Player* thisv, const LinkAnimationHeader* anim, f32 arg2, GlobalContext* globalCtx) {
     func_80838940(thisv, anim, arg2, globalCtx, NA_SE_VO_LI_SWORD_N);
 }
 
 s32 func_80838A14(Player* thisv, GlobalContext* globalCtx) {
     s32 sp3C;
-    LinkAnimationHeader* sp38;
+    const LinkAnimationHeader* sp38;
     f32 sp34;
     f32 temp;
     f32 sp2C;
@@ -4233,7 +4231,7 @@ s32 func_80839800(Player* thisv, GlobalContext* globalCtx) {
     s32 pad3;
     s32 frontRoom;
     Actor* attachedActor;
-    LinkAnimationHeader* sp5C;
+    const LinkAnimationHeader* sp5C;
     CollisionPoly* sp58;
     Vec3f sp4C;
 
@@ -4400,7 +4398,7 @@ s32 func_80839800(Player* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80839E88(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
 
     func_80835C58(globalCtx, thisv, func_80840450, 1);
 
@@ -4459,7 +4457,7 @@ void func_8083A060(Player* thisv, GlobalContext* globalCtx) {
     }
 }
 
-void func_8083A098(Player* thisv, LinkAnimationHeader* anim, GlobalContext* globalCtx) {
+void func_8083A098(Player* thisv, const LinkAnimationHeader* anim, GlobalContext* globalCtx) {
     func_8083A060(thisv, globalCtx);
     func_8083328C(globalCtx, thisv, anim);
 }
@@ -4479,7 +4477,7 @@ void func_8083A0F4(GlobalContext* globalCtx, Player* thisv) {
             thisv->stateFlags1 |= PLAYER_STATE1_29;
         }
         else {
-            LinkAnimationHeader* anim;
+            const LinkAnimationHeader* anim;
 
             if (interactActorId == ACTOR_BG_HEAVY_BLOCK) {
                 func_80835C58(globalCtx, thisv, func_80846120, 0);
@@ -4566,7 +4564,7 @@ void func_8083A434(GlobalContext* globalCtx, Player* thisv) {
 
 s32 func_8083A4A8(Player* thisv, GlobalContext* globalCtx) {
     s16 yawDiff;
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 temp;
 
     yawDiff = thisv->currentYaw - thisv->actor.shape.rot.y;
@@ -4591,7 +4589,7 @@ s32 func_8083A4A8(Player* thisv, GlobalContext* globalCtx) {
     return 1;
 }
 
-void func_8083A5C4(GlobalContext* globalCtx, Player* thisv, CollisionPoly* arg2, f32 arg3, LinkAnimationHeader* arg4) {
+void func_8083A5C4(GlobalContext* globalCtx, Player* thisv, CollisionPoly* arg2, f32 arg3, const LinkAnimationHeader* arg4) {
     f32 sp24 = COLPOLY_GET_NORMAL(arg2->normal.x);
     f32 sp20 = COLPOLY_GET_NORMAL(arg2->normal.z);
 
@@ -4674,7 +4672,7 @@ s32 func_8083A6AC(Player* thisv, GlobalContext* globalCtx) {
     return 0;
 }
 
-void func_8083A9B8(Player* thisv, LinkAnimationHeader* anim, GlobalContext* globalCtx) {
+void func_8083A9B8(Player* thisv, const LinkAnimationHeader* anim, GlobalContext* globalCtx) {
     func_80835C58(globalCtx, thisv, func_8084BDFC, 0);
     LinkAnimation_PlayOnceSetSpeed(globalCtx, &thisv->skelAnime, anim, 1.3f);
 }
@@ -5219,7 +5217,7 @@ s32 func_8083BDBC(Player* thisv, GlobalContext* globalCtx) {
 }
 
 void func_8083BF50(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 sp30;
 
     sp30 = thisv->unk_868 - 3.0f;
@@ -5295,7 +5293,7 @@ s32 func_8083C1DC(Player* thisv, GlobalContext* globalCtx) {
 }
 
 s32 func_8083C2B0(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 frame;
 
     if ((globalCtx->shootingGalleryStatus == 0) && (thisv->currentShield != PLAYER_SHIELD_NONE) &&
@@ -5556,7 +5554,7 @@ void func_8083CD54(GlobalContext* globalCtx, Player* thisv, s16 yaw) {
 }
 
 void func_8083CE0C(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
 
     func_80835C58(globalCtx, thisv, func_80840BC8, 1);
 
@@ -6300,7 +6298,7 @@ s32 func_8083EC18(Player* thisv, GlobalContext* globalCtx, u32 arg2) {
                     f32 sp3C = COLPOLY_GET_NORMAL(sp84->normal.x);
                     f32 sp38 = COLPOLY_GET_NORMAL(sp84->normal.z);
                     f32 sp34 = thisv->wallDistance;
-                    LinkAnimationHeader* sp30;
+                    const LinkAnimationHeader* sp30;
 
                     func_80836898(globalCtx, thisv, func_8083A3B0);
                     thisv->stateFlags1 |= PLAYER_STATE1_21;
@@ -6346,7 +6344,7 @@ s32 func_8083EC18(Player* thisv, GlobalContext* globalCtx, u32 arg2) {
     return 0;
 }
 
-void func_8083F070(Player* thisv, LinkAnimationHeader* anim, GlobalContext* globalCtx) {
+void func_8083F070(Player* thisv, const LinkAnimationHeader* anim, GlobalContext* globalCtx) {
     func_80835DAC(globalCtx, thisv, func_8084C5F8, 0);
     LinkAnimation_PlayOnceSetSpeed(globalCtx, &thisv->skelAnime, anim, (4.0f / 3.0f));
 }
@@ -6504,7 +6502,7 @@ s32 func_8083F570(Player* thisv, GlobalContext* globalCtx) {
     return 0;
 }
 
-void func_8083F72C(Player* thisv, LinkAnimationHeader* anim, GlobalContext* globalCtx) {
+void func_8083F72C(Player* thisv, const LinkAnimationHeader* anim, GlobalContext* globalCtx) {
     if (!func_80836898(globalCtx, thisv, func_8083A388)) {
         func_80835C58(globalCtx, thisv, func_8084B78C, 0);
     }
@@ -6936,8 +6934,8 @@ void func_808407CC(Player* thisv, GlobalContext* globalCtx) {
 }
 
 void func_808409CC(GlobalContext* globalCtx, Player* thisv) {
-    LinkAnimationHeader* anim;
-    LinkAnimationHeader** animPtr;
+    const LinkAnimationHeader* anim;
+    const LinkAnimationHeader** animPtr;
     s32 heathIsCritical;
     s32 sp38;
     s32 sp34;
@@ -7297,8 +7295,8 @@ void func_808417FC(Player* thisv, GlobalContext* globalCtx) {
 void func_80841860(GlobalContext* globalCtx, Player* thisv) {
     f32 frame;
     // fake match? see func_80833664
-    LinkAnimationHeader* sp38 = D_80853914[0][thisv->modelAnimType + PLAYER_ANIMGROUP_24 * ARRAY_COUNT(D_80853914[0])];
-    LinkAnimationHeader* sp34 = D_80853914[0][thisv->modelAnimType + PLAYER_ANIMGROUP_25 * ARRAY_COUNT(D_80853914[0])];
+    const LinkAnimationHeader* sp38 = D_80853914[0][thisv->modelAnimType + PLAYER_ANIMGROUP_24 * ARRAY_COUNT(D_80853914[0])];
+    const LinkAnimationHeader* sp34 = D_80853914[0][thisv->modelAnimType + PLAYER_ANIMGROUP_25 * ARRAY_COUNT(D_80853914[0])];
 
     thisv->skelAnime.animation = sp38;
 
@@ -7404,7 +7402,7 @@ void func_80841BA8(Player* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80841CC4(Player* thisv, s32 arg1, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     s16 target;
     f32 rate;
 
@@ -7972,7 +7970,7 @@ void func_80843188(Player* thisv, GlobalContext* globalCtx) {
 
 void func_808435C4(Player* thisv, GlobalContext* globalCtx) {
     s32 temp;
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 frames;
 
     func_8083721C(thisv);
@@ -8342,7 +8340,7 @@ void func_8084411C(Player* thisv, GlobalContext* globalCtx) {
         }
     }
     else {
-        LinkAnimationHeader* anim = D_80853914[PLAYER_ANIMGROUP_14][thisv->modelAnimType];
+        const LinkAnimationHeader* anim = D_80853914[PLAYER_ANIMGROUP_14][thisv->modelAnimType];
         s32 sp3C;
 
         if (thisv->stateFlags2 & PLAYER_STATE2_19) {
@@ -9338,7 +9336,7 @@ static EffectBlureInit2 D_8085470C = {
 
 static Vec3s D_80854730 = { -57, 3377, 0 };
 
-void Player_InitCommon(Player* thisv, GlobalContext* globalCtx, FlexSkeletonHeader* skelHeader) {
+void Player_InitCommon(Player* thisv, GlobalContext* globalCtx, const FlexSkeletonHeader* skelHeader) {
     thisv->ageProperties = &sAgeProperties[gSaveContext.linkAge];
     Actor_ProcessInitChain(&thisv->actor, D_80854708);
     thisv->swordEffectIndex = TOTAL_EFFECT_COUNT;
@@ -9442,7 +9440,7 @@ void Player_Init(Actor* thisx, GlobalContext* globalCtx2) {
                     0x4000) &&
                 ((globalCtx->sceneNum != SCENE_DDAN) || (gSaveContext.eventChkInf[11] & 1)) &&
                 ((globalCtx->sceneNum != SCENE_NIGHT_SHOP) || (gSaveContext.eventChkInf[2] & 0x20))) {
-                TitleCard_InitPlaceName(globalCtx, &globalCtx->actorCtx.titleCtx, thisv->giObjectSegment, 160, 120, 144,
+                TitleCard_InitPlaceName(globalCtx, &globalCtx->actorCtx.titleCtx, static_cast<const char*>(thisv->giObjectSegment), 160, 120, 144,
                     24, 20);
             }
         }
@@ -10539,7 +10537,7 @@ void Player_UpdateCommon(Player* thisv, GlobalContext* globalCtx, Input* input) 
         if ((globalCtx->csCtx.state != CS_STATE_IDLE) && (thisv->csMode != 6) &&
             !(thisv->stateFlags1 & PLAYER_STATE1_23) && !(thisv->stateFlags2 & PLAYER_STATE2_7) &&
             (thisv->actor.category == ACTORCAT_PLAYER)) {
-            CsCmdActorAction* linkActionCsCmd = globalCtx->csCtx.linkAction;
+            const CsCmdActorAction* linkActionCsCmd = globalCtx->csCtx.linkAction;
 
             if ((linkActionCsCmd != NULL) && (D_808547C4[linkActionCsCmd->action] != 0)) {
                 func_8002DF54(globalCtx, NULL, 6);
@@ -10754,7 +10752,7 @@ void Player_Update(Actor* thisx, GlobalContext* globalCtx) {
 static struct_80858AC8 D_80858AC8;
 static Vec3s D_80858AD8[25];
 
-static Gfx* sMaskDlists[PLAYER_MASK_MAX - 1] = {
+static const Gfx* sMaskDlists[PLAYER_MASK_MAX - 1] = {
     gLinkChildKeatonMaskDL, gLinkChildSkullMaskDL, gLinkChildSpookyMaskDL, gLinkChildBunnyHoodDL,
     gLinkChildGoronMaskDL,  gLinkChildZoraMaskDL,  gLinkChildGerudoMaskDL, gLinkChildMaskOfTruthDL,
 };
@@ -10775,7 +10773,7 @@ void Player_DrawGameplay(GlobalContext* globalCtx, Player* thisv, s32 lod, Gfx* 
         func_80090D20, thisv);
 
     if ((overrideLimbDraw == func_80090014) && (thisv->currentMask != PLAYER_MASK_NONE)) {
-        Mtx* sp70 = Graph_Alloc(globalCtx->state.gfxCtx, 2 * sizeof(Mtx));
+        Mtx* sp70 = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, 2 * sizeof(Mtx)));
 
         if (thisv->currentMask == PLAYER_MASK_BUNNY) {
             Vec3s sp68;
@@ -11335,7 +11333,7 @@ static struct_80832924 D_80854878[] = {
 static Vec3f D_80854880 = { 0.0f, 26.0f, -40.0f };
 
 void func_8084B9E4(Player* thisv, GlobalContext* globalCtx) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 sp70;
     s16 sp6E;
     s32 temp1;
@@ -11398,7 +11396,7 @@ void func_8084B9E4(Player* thisv, GlobalContext* globalCtx) {
 void func_8084BBE4(Player* thisv, GlobalContext* globalCtx) {
     f32 sp3C;
     s16 sp3A;
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     f32 temp;
 
     thisv->stateFlags2 |= PLAYER_STATE2_6;
@@ -11489,8 +11487,8 @@ void func_8084BF1C(Player* thisv, GlobalContext* globalCtx) {
     s32 sp68;
     Vec3f sp5C;
     f32 temp_f0;
-    LinkAnimationHeader* anim1;
-    LinkAnimationHeader* anim2;
+    const LinkAnimationHeader* anim1;
+    const LinkAnimationHeader* anim2;
 
     sp84 = sControlInput->rel.stick_y;
     sp80 = sControlInput->rel.stick_x;
@@ -11988,7 +11986,7 @@ void func_8084CC98(Player* thisv, GlobalContext* globalCtx) {
                 }
             }
             else {
-                LinkAnimationHeader* anim = NULL;
+                const LinkAnimationHeader* anim = NULL;
 
                 if (EN_HORSE_CHECK_3(rideActor)) {
                     anim = &gPlayerAnim_0033B0;
@@ -12186,7 +12184,7 @@ void func_8084D84C(Player* thisv, GlobalContext* globalCtx) {
 }
 
 s32 func_8084D980(GlobalContext* globalCtx, Player* thisv, f32* arg2, s16* arg3) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
     s16 temp1;
     s32 temp2;
 
@@ -12953,7 +12951,7 @@ void func_8084F390(Player* thisv, GlobalContext* globalCtx) {
         }
 
         if (Math_AsymStepToF(&thisv->linearVelocity, sp50, sp4C, sp48) && (sp50 == 0)) {
-            LinkAnimationHeader* anim;
+            const LinkAnimationHeader* anim;
             if (thisv->unk_84F == 0) {
                 anim = D_80853914[PLAYER_ANIMGROUP_42][thisv->modelAnimType];
             }
@@ -13304,7 +13302,7 @@ void func_808502D0(Player* thisv, GlobalContext* globalCtx) {
         if (LinkAnimation_Update(globalCtx, &thisv->skelAnime)) {
             if (!func_80850224(thisv, globalCtx)) {
                 u8 sp43 = thisv->skelAnime.moveFlags;
-                LinkAnimationHeader* sp3C;
+                const LinkAnimationHeader* sp3C;
 
                 if (func_8008E9C4(thisv)) {
                     sp3C = sp44->unk_08;
@@ -13602,7 +13600,7 @@ void func_80850E84(Player* thisv, GlobalContext* globalCtx) {
     }
 }
 
-static void (*D_80854AA4[])(GlobalContext*, Player*, void*) = {
+static void (*D_80854AA4[])(GlobalContext*, Player*, const void*) = {
     NULL,          func_80851008, func_80851030, func_80851094, func_808510B4, func_808510D4, func_808510F4,
     func_80851114, func_80851134, func_80851154, func_80851174, func_808511D4, func_808511FC, func_80851294,
     func_80851050, func_80851194, func_808511B4, func_80851248, func_808512E0,
@@ -13835,107 +13833,107 @@ static struct_80854B18 D_80854E50[] = {
     { 12, &gPlayerAnim_002450 },
 };
 
-void func_80850ED8(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80850ED8(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     func_80832DB0(thisv);
     func_80832B0C(globalCtx, thisv, anim);
     func_80832210(thisv);
 }
 
-void func_80850F1C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80850F1C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     func_80832DB0(thisv);
     LinkAnimation_Change(globalCtx, &thisv->skelAnime, anim, (2.0f / 3.0f), 0.0f, Animation_GetLastFrame(anim),
         ANIMMODE_ONCE, -8.0f);
     func_80832210(thisv);
 }
 
-void func_80850F9C(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim) {
+void func_80850F9C(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim) {
     func_80832DB0(thisv);
     LinkAnimation_Change(globalCtx, &thisv->skelAnime, anim, (2.0f / 3.0f), 0.0f, 0.0f, ANIMMODE_LOOP, -8.0f);
     func_80832210(thisv);
 }
 
-void func_80851008(GlobalContext* globalCtx, Player* thisv, void* anim) {
+void func_80851008(GlobalContext* globalCtx, Player* thisv, const void* anim) {
     func_80832210(thisv);
 }
 
-void func_80851030(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_80850ED8(globalCtx, thisv, anim);
+void func_80851030(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_80850ED8(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_80851050(GlobalContext* globalCtx, Player* thisv, void* anim) {
+void func_80851050(GlobalContext* globalCtx, Player* thisv, const void* anim) {
     func_80832DB0(thisv);
-    func_80832C2C(globalCtx, thisv, anim);
+    func_80832C2C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
     func_80832210(thisv);
 }
 
-void func_80851094(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_80850F1C(globalCtx, thisv, anim);
+void func_80851094(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_80850F1C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_808510B4(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_80850F9C(globalCtx, thisv, anim);
+void func_808510B4(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_80850F9C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_808510D4(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_8083308C(globalCtx, thisv, anim);
+void func_808510D4(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_8083308C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_808510F4(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_8083303C(globalCtx, thisv, anim, 0x9C);
+void func_808510F4(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_8083303C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim), 0x9C);
 }
 
-void func_80851114(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_8083313C(globalCtx, thisv, anim);
+void func_80851114(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_8083313C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_80851134(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_808330EC(globalCtx, thisv, anim, 0x9C);
+void func_80851134(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_808330EC(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim), 0x9C);
 }
 
-void func_80851154(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_80832264(globalCtx, thisv, anim);
+void func_80851154(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_80832264(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_80851174(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_80832284(globalCtx, thisv, anim);
+void func_80851174(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_80832284(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_80851194(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_808322D0(globalCtx, thisv, anim);
+void func_80851194(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_808322D0(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_808511B4(GlobalContext* globalCtx, Player* thisv, void* anim) {
-    func_808322A4(globalCtx, thisv, anim);
+void func_808511B4(GlobalContext* globalCtx, Player* thisv, const void* anim) {
+    func_808322A4(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
 }
 
-void func_808511D4(GlobalContext* globalCtx, Player* thisv, void* anim) {
+void func_808511D4(GlobalContext* globalCtx, Player* thisv, const void* anim) {
     LinkAnimation_Update(globalCtx, &thisv->skelAnime);
 }
 
-void func_808511FC(GlobalContext* globalCtx, Player* thisv, void* anim) {
+void func_808511FC(GlobalContext* globalCtx, Player* thisv, const void* anim) {
     if (LinkAnimation_Update(globalCtx, &thisv->skelAnime)) {
-        func_80850F9C(globalCtx, thisv, anim);
+        func_80850F9C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
         thisv->unk_850 = 1;
     }
 }
 
-void func_80851248(GlobalContext* globalCtx, Player* thisv, void* anim) {
+void func_80851248(GlobalContext* globalCtx, Player* thisv, const void* anim) {
     if (LinkAnimation_Update(globalCtx, &thisv->skelAnime)) {
         func_80832DBC(thisv);
-        func_808322A4(globalCtx, thisv, anim);
+        func_808322A4(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
     }
 }
 
-void func_80851294(GlobalContext* globalCtx, Player* thisv, void* anim) {
+void func_80851294(GlobalContext* globalCtx, Player* thisv, const void* anim) {
     if (LinkAnimation_Update(globalCtx, &thisv->skelAnime)) {
-        func_8083313C(globalCtx, thisv, anim);
+        func_8083313C(globalCtx, thisv, static_cast<const LinkAnimationHeader*>(anim));
         thisv->unk_850 = 1;
     }
 }
 
-void func_808512E0(GlobalContext* globalCtx, Player* thisv, void* arg2) {
+void func_808512E0(GlobalContext* globalCtx, Player* thisv, const void* arg2) {
     LinkAnimation_Update(globalCtx, &thisv->skelAnime);
-    func_80832924(thisv, arg2);
+    func_80832924(thisv, static_cast<const struct_80832924*>(arg2));
 }
 
 void func_80851314(Player* thisv) {
@@ -14011,7 +14009,7 @@ void func_8085157C(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* ar
 }
 
 void func_808515A4(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2) {
-    LinkAnimationHeader* anim;
+    const LinkAnimationHeader* anim;
 
     if (func_808332B8(thisv)) {
         func_80851368(globalCtx, thisv, 0);
@@ -14155,7 +14153,7 @@ static struct_80832924 D_808551AC[] = {
 
 void func_80851A50(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2) {
     struct_808551A4* sp2C;
-    Gfx** dLists;
+    const Gfx** dLists;
 
     LinkAnimation_Update(globalCtx, &thisv->skelAnime);
 
@@ -14267,7 +14265,7 @@ void func_80851ECC(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* ar
     }
 }
 
-void func_80851F14(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, struct_80832924* arg3) {
+void func_80851F14(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, struct_80832924* arg3) {
     if (LinkAnimation_Update(globalCtx, &thisv->skelAnime)) {
         func_808322A4(globalCtx, thisv, anim);
         thisv->unk_850 = 1;
@@ -14411,7 +14409,7 @@ void func_80852388(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* ar
     }
 }
 
-void func_80852414(GlobalContext* globalCtx, Player* thisv, LinkAnimationHeader* anim, struct_80832924* arg3) {
+void func_80852414(GlobalContext* globalCtx, Player* thisv, const LinkAnimationHeader* anim, struct_80832924* arg3) {
     func_80851294(globalCtx, thisv, anim);
     if (thisv->unk_850 == 0) {
         func_80832924(thisv, arg3);
@@ -14569,7 +14567,7 @@ void func_80852944(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* ar
     thisv->unk_6AD = 0;
 }
 
-void func_808529D0(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2) {
+void func_808529D0(GlobalContext* globalCtx, Player* thisv, const CsCmdActorAction* arg2) {
     thisv->actor.world.pos.x = arg2->startPos.x;
     thisv->actor.world.pos.y = arg2->startPos.y;
     if ((globalCtx->sceneNum == SCENE_SPOT04) && !LINK_IS_ADULT) {
@@ -14579,7 +14577,7 @@ void func_808529D0(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* ar
     thisv->currentYaw = thisv->actor.shape.rot.y = arg2->rot.y;
 }
 
-void func_80852A54(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2) {
+void func_80852A54(GlobalContext* globalCtx, Player* thisv, const CsCmdActorAction* arg2) {
     f32 dx = arg2->startPos.x - (s32)thisv->actor.world.pos.x;
     f32 dy = arg2->startPos.y - (s32)thisv->actor.world.pos.y;
     f32 dz = arg2->startPos.z - (s32)thisv->actor.world.pos.z;
@@ -14594,7 +14592,7 @@ void func_80852A54(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* ar
     func_80832DB0(thisv);
 }
 
-void func_80852B4C(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2, struct_80854B18* arg3) {
+void func_80852B4C(GlobalContext* globalCtx, Player* thisv, const CsCmdActorAction* arg2, struct_80854B18* arg3) {
     if (arg3->type > 0) {
         D_80854AA4[arg3->type](globalCtx, thisv, arg3->ptr);
     }
@@ -14615,7 +14613,7 @@ void func_80852C0C(GlobalContext* globalCtx, Player* thisv, s32 csMode) {
 }
 
 void func_80852C50(GlobalContext* globalCtx, Player* thisv, CsCmdActorAction* arg2) {
-    CsCmdActorAction* linkCsAction = globalCtx->csCtx.linkAction;
+    const CsCmdActorAction* linkCsAction = globalCtx->csCtx.linkAction;
     s32 pad;
     s32 sp24;
 

@@ -22,7 +22,7 @@ void EnSth_ParentRewardObtainedWait(EnSth* thisv, GlobalContext* globalCtx);
 void EnSth_RewardUnobtainedWait(EnSth* thisv, GlobalContext* globalCtx);
 void EnSth_ChildRewardObtainedWait(EnSth* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Sth_InitVars = {
+ActorInit En_Sth_InitVars = {
     ACTOR_EN_STH,
     ACTORCAT_NPC,
     FLAGS,
@@ -61,7 +61,7 @@ static s16 sObjectIds[6] = {
     OBJECT_AHG, OBJECT_BOJ, OBJECT_BOJ, OBJECT_BOJ, OBJECT_BOJ, OBJECT_BOJ,
 };
 
-static FlexSkeletonHeader* sSkeletons[6] = {
+static const FlexSkeletonHeader* sSkeletons[6] = {
     &object_ahg_Skel_0000F0,
     &object_boj_Skel_0000F0,
     &object_boj_Skel_0000F0,
@@ -70,7 +70,7 @@ static FlexSkeletonHeader* sSkeletons[6] = {
     &object_boj_Skel_0000F0,
 };
 
-static AnimationHeader* sAnimations[6] = {
+static const AnimationHeader* sAnimations[6] = {
     &sParentDanceAnim, &sChildDanceAnim, &sChildDanceAnim, &sChildDanceAnim, &sChildDanceAnim, &sChildDanceAnim,
 };
 
@@ -155,7 +155,7 @@ void EnSth_SetupAfterObjectLoaded(EnSth* thisv, GlobalContext* globalCtx) {
     s16* params;
 
     EnSth_SetupShapeColliderUpdate2AndDraw(thisv, globalCtx);
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[thisv->objectBankIdx].segment);
+    gSegments[6] = reinterpret_cast<std::uintptr_t>(PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[thisv->objectBankIdx].segment));
     SkelAnime_InitFlex(globalCtx, &thisv->skelAnime, sSkeletons[thisv->actor.params], NULL, thisv->jointTable,
                        thisv->morphTable, 16);
     Animation_PlayLoop(&thisv->skelAnime, sAnimations[thisv->actor.params]);
@@ -339,7 +339,7 @@ void EnSth_Update2(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnSth_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnSth_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnSth* thisv = (EnSth*)thisx;
 
     s32 temp_v1;
@@ -363,7 +363,7 @@ s32 EnSth_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return 0;
 }
 
-void EnSth_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnSth_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnSth* thisv = (EnSth*)thisx;
 
     if (limbIndex == 15) {
@@ -381,7 +381,7 @@ void EnSth_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 Gfx* EnSth_AllocColorDList(GraphicsContext* globalCtx, u8 envR, u8 envG, u8 envB, u8 envA) {
     Gfx* dList;
 
-    dList = Graph_Alloc(globalCtx, 2 * sizeof(Gfx));
+    dList = static_cast<Gfx*>(Graph_Alloc(globalCtx, 2 * sizeof(Gfx)));
     gDPSetEnvColor(dList, envR, envG, envB, envA);
     gSPEndDisplayList(dList + 1);
 
@@ -394,7 +394,7 @@ void EnSth_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_sth.c", 2133);
 
-    gSegments[6] = PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[thisv->objectBankIdx].segment);
+    gSegments[6] = reinterpret_cast<std::uintptr_t>(PHYSICAL_TO_VIRTUAL(globalCtx->objectCtx.status[thisv->objectBankIdx].segment));
     func_800943C8(globalCtx->state.gfxCtx);
 
     gSPSegment(POLY_OPA_DISP++, 0x08,

@@ -16,7 +16,7 @@ void EnDs_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnDs_Wait(EnDs* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Ds_InitVars = {
+ActorInit En_Ds_InitVars = {
     ACTOR_EN_DS,
     ACTORCAT_NPC,
     FLAGS,
@@ -252,7 +252,7 @@ void EnDs_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnDs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnDs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnDs* thisv = (EnDs*)thisx;
 
     if (limbIndex == 5) {
@@ -262,7 +262,7 @@ s32 EnDs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnDs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnDs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f sMultVec = { 1100.0f, 500.0f, 0.0f };
     EnDs* thisv = (EnDs*)thisx;
 

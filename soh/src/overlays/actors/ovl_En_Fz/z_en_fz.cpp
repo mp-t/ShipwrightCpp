@@ -45,7 +45,7 @@ void EnFz_SpawnIceSmokeFreeze(EnFz* thisv, Vec3f* pos, Vec3f* velocity, Vec3f* a
 void EnFz_UpdateIceSmoke(EnFz* thisv, GlobalContext* globalCtx);
 void EnFz_DrawIceSmoke(EnFz* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Fz_InitVars = {
+ActorInit En_Fz_InitVars = {
     ACTOR_EN_FZ,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -706,7 +706,7 @@ void EnFz_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnFz_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* displayLists[] = {
+    static const Gfx* displayLists[] = {
         gFreezardIntactDL,              // Body fully intact           (5 or 6 health)
         gFreezardTopRightHornChippedDL, // Top right horn chipped off  (from Freezards perspective)   (3 or 4 health)
         gFreezardHeadChippedDL,         // Entire head chipped off     (1 or 2 health)

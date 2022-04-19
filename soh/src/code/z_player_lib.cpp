@@ -1260,7 +1260,7 @@ Vec3f D_801261E0[] = {
     { 200.0f, 200.0f, 0.0f },
 };
 
-void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisvx) {
+void func_80090D20(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisvx) {
     Player* thisv = (Player*)thisvx;
 
     if (*dList != NULL) {

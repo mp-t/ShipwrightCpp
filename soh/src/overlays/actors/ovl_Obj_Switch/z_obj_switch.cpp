@@ -49,7 +49,7 @@ void ObjSwitch_CrystalOn(ObjSwitch* thisv, GlobalContext* globalCtx);
 void ObjSwitch_CrystalTurnOffInit(ObjSwitch* thisv);
 void ObjSwitch_CrystalTurnOff(ObjSwitch* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Switch_InitVars = {
+ActorInit Obj_Switch_InitVars = {
     ACTOR_OBJ_SWITCH,
     ACTORCAT_SWITCH,
     FLAGS,

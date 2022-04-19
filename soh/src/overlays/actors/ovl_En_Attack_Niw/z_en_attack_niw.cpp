@@ -19,7 +19,7 @@ void func_809B5670(EnAttackNiw* thisv, GlobalContext* globalCtx);
 void func_809B5C18(EnAttackNiw* thisv, GlobalContext* globalCtx);
 void func_809B59B0(EnAttackNiw* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Attack_Niw_InitVars = {
+ActorInit En_Attack_Niw_InitVars = {
     ACTOR_EN_ATTACK_NIW,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -372,7 +372,7 @@ void EnAttackNiw_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 func_809B5F98(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 func_809B5F98(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnAttackNiw* thisv = (EnAttackNiw*)thisx;
     Vec3f sp0 = { 0.0f, 0.0f, 0.0f };
 

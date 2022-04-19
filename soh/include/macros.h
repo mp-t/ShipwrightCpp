@@ -1,6 +1,8 @@
 #ifndef MACROS_H
 #define MACROS_H
 
+#include <numbers>
+
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 #define ARRAY_COUNTU(arr) (u32)(sizeof(arr) / sizeof(arr[0]))
 
@@ -208,5 +210,7 @@ extern GraphicsContext* __gfxCtx;
 
 constexpr float SHT_MAX = 32767.0f;
 constexpr float SHT_MINV = (1.0f / SHT_MAX);
+
+[[nodiscard]] constexpr f32 DEGTORAD(const f32 f) { return f * std::numbers::pi_v<float> / 180.f; }
 
 #endif

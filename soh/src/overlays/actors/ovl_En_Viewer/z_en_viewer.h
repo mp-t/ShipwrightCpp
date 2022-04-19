@@ -8,7 +8,7 @@ struct EnViewer;
 
 typedef void (*EnViewerActionFunc)(struct EnViewer*, GlobalContext*);
 typedef void (*EnViewerDrawFunc)(struct EnViewer*, GlobalContext*);
-typedef void (*EnViewerInitAnimFunc)(struct EnViewer*, GlobalContext*, void*, AnimationHeader*);
+typedef void (*EnViewerInitAnimFunc)(struct EnViewer*, GlobalContext*, const void*, const AnimationHeader*);
 
 typedef enum {
     /* 0 */ ENVIEWER_TYPE_0_HORSE_ZELDA,
@@ -44,8 +44,8 @@ typedef struct {
     /* 0x06 */ u8 shadowType;
     /* 0x07 */ u8 shadowScale;
     /* 0x08 */ u8 drawType;
-    /* 0x0C */ void* skeletonHeaderSeg;
-    /* 0x10 */ AnimationHeader* anim;
+    /* 0x0C */ const void* skeletonHeaderSeg;
+    /* 0x10 */ const AnimationHeader* anim;
 } EnViewerInitData; // size = 0x14
 
 typedef struct {

@@ -39,7 +39,7 @@ typedef enum {
     /* 10 */ AM_BEHAVIOR_AGGRO = 10
 } ArmosBehavior;
 
-const ActorInit En_Am_InitVars = {
+ActorInit En_Am_InitVars = {
     ACTOR_EN_AM,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -205,7 +205,7 @@ s32 EnAm_CanMove(EnAm* thisv, GlobalContext* globalCtx, f32 distance, s16 yaw) {
 }
 
 void EnAm_Init(Actor* thisx, GlobalContext* globalCtx) {
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
     s32 pad;
     EnAm* thisv = (EnAm*)thisx;
 
@@ -927,7 +927,7 @@ void EnAm_Update(Actor* thisx, GlobalContext* globalCtx) {
 static Vec3f sUnused1 = { 1100.0f, -700.0f, 0.0f };
 static Vec3f sUnused2 = { 0.0f, 0.0f, 0.0f };
 
-void EnAm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnAm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnAm* thisv = (EnAm*)thisx;
 
     if ((limbIndex == 1) && (thisv->unk_264 != 0)) {

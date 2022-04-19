@@ -29,7 +29,7 @@ void BgPoEvent_PaintingAppear(BgPoEvent* thisv, GlobalContext* globalCtx);
 void BgPoEvent_PaintingPresent(BgPoEvent* thisv, GlobalContext* globalCtx);
 void BgPoEvent_PaintingBurn(BgPoEvent* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Po_Event_InitVars = {
+ActorInit Bg_Po_Event_InitVars = {
     ACTOR_BG_PO_EVENT,
     ACTORCAT_BG,
     FLAGS,

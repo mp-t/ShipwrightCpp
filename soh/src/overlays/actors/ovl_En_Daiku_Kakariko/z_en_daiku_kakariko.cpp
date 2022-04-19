@@ -24,7 +24,7 @@ void EnDaikuKakariko_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnDaikuKakariko_Wait(EnDaikuKakariko* thisv, GlobalContext* globalCtx);
 void EnDaikuKakariko_Run(EnDaikuKakariko* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Daiku_Kakariko_InitVars = {
+ActorInit En_Daiku_Kakariko_InitVars = {
     ACTOR_EN_DAIKU_KAKARIKO,
     ACTORCAT_NPC,
     FLAGS,
@@ -493,7 +493,7 @@ void EnDaikuKakariko_Update(Actor* thisx, GlobalContext* globalCtx) {
     Math_SmoothStepToS(&thisv->neckAngle.x, thisv->neckAngleTarget.x, 1, 1820, 0);
 }
 
-s32 EnDaikuKakariko_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnDaikuKakariko_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                      void* thisx) {
     EnDaikuKakariko* thisv = (EnDaikuKakariko*)thisx;
     Vec3s angle;
@@ -524,8 +524,8 @@ s32 EnDaikuKakariko_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gf
     return 0;
 }
 
-void EnDaikuKakariko_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
-    static Gfx* carpenterHeadDLists[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
+void EnDaikuKakariko_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
+    static const Gfx* carpenterHeadDLists[] = { object_daiku_DL_005BD0, object_daiku_DL_005AC0, object_daiku_DL_005990,
                                           object_daiku_DL_005880 };
     static Vec3f unkVec = { 700.0f, 1100.0f, 0.0f };
     EnDaikuKakariko* thisv = (EnDaikuKakariko*)thisx;

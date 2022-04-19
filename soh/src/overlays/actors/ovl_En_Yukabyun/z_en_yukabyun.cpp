@@ -18,7 +18,7 @@ void func_80B43A94(EnYukabyun* thisv, GlobalContext* globalCtx);
 void func_80B43AD4(EnYukabyun* thisv, GlobalContext* globalCtx);
 void func_80B43B6C(EnYukabyun* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Yukabyun_InitVars = {
+ActorInit En_Yukabyun_InitVars = {
     ACTOR_EN_YUKABYUN,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -56,7 +56,7 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(targetArrowOffset, 16, ICHAIN_STOP),
 };
 
-static void* D_80B43F64[] = { gFloorTileEnemyTopTex, gFloorTileEnemyBottomTex };
+static const void* D_80B43F64[] = { gFloorTileEnemyTopTex, gFloorTileEnemyBottomTex };
 
 void EnYukabyun_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnYukabyun* thisv = (EnYukabyun*)thisx;

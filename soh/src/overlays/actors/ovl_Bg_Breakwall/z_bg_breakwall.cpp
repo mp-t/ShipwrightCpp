@@ -26,7 +26,7 @@ void BgBreakwall_WaitForObject(BgBreakwall* thisv, GlobalContext* globalCtx);
 void BgBreakwall_Wait(BgBreakwall* thisv, GlobalContext* globalCtx);
 void BgBreakwall_LavaCoverMove(BgBreakwall* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Breakwall_InitVars = {
+ActorInit Bg_Breakwall_InitVars = {
     ACTOR_BG_BREAKWALL,
     ACTORCAT_BG,
     FLAGS,

@@ -1194,7 +1194,7 @@ struct GlobalContext {
     /* 0x117A4 */ ObjectContext objectCtx;
     /* 0x11CBC */ RoomContext roomCtx;
     /* 0x11D34 */ TransitionActorContext transiActorCtx;
-    /* 0x11D3C */ void (*playerInit)(Player* player, struct GlobalContext* globalCtx, FlexSkeletonHeader* skelHeader);
+    /* 0x11D3C */ void (*playerInit)(Player* player, struct GlobalContext* globalCtx, const FlexSkeletonHeader* skelHeader);
     /* 0x11D40 */ void (*playerUpdate)(Player* player, struct GlobalContext* globalCtx, Input* input);
     /* 0x11D44 */ s32 (*isPlayerDroppingFish)(struct GlobalContext* globalCtx);
     /* 0x11D48 */ s32 (*startPlayerFishing)(struct GlobalContext* globalCtx);
@@ -1337,7 +1337,7 @@ typedef enum {
 } DynaPolyMoveFlag;
 
 typedef struct {
-    /* 0x00 */ AnimationHeader* animation;
+    /* 0x00 */ const AnimationHeader* animation;
     /* 0x04 */ f32              playSpeed;
     /* 0x08 */ f32              startFrame;
     /* 0x0C */ f32              frameCount;
@@ -1346,21 +1346,21 @@ typedef struct {
 } AnimationInfo; // size = 0x18
 
 typedef struct {
-    /* 0x00 */ AnimationHeader* animation;
+    /* 0x00 */ const AnimationHeader* animation;
     /* 0x04 */ f32              frameCount;
     /* 0x08 */ u8               mode;
     /* 0x0C */ f32              morphFrames;
 } AnimationFrameCountInfo; // size = 0x10
 
 typedef struct {
-    /* 0x00 */ AnimationHeader* animation;
+    /* 0x00 */ const AnimationHeader* animation;
     /* 0x04 */ f32 playSpeed;
     /* 0x08 */ u8 mode;
     /* 0x0C */ f32 morphFrames;
 } AnimationSpeedInfo; // size = 0x10
 
 typedef struct {
-    /* 0x00 */ AnimationHeader* animation;
+    /* 0x00 */ const AnimationHeader* animation;
     /* 0x04 */ u8 mode;
     /* 0x08 */ f32 morphFrames;
 } AnimationMinimalInfo; // size = 0xC

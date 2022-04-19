@@ -19,7 +19,7 @@ typedef struct EnTr {
     /* 0x02DC */ EnTrActionFunc actionFunc;
     /* 0x02E0 */ s16 eyeIndex;
     /* 0x02E2 */ s16 blinkTimer;
-    /* 0x02E4 */ AnimationHeader* animation;
+    /* 0x02E4 */ const AnimationHeader* animation;
 } EnTr; // size = 0x02E8
 
 typedef enum {

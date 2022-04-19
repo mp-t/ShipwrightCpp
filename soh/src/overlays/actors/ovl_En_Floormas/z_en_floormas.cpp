@@ -44,7 +44,7 @@ void EnFloormas_Stand(EnFloormas* thisv, GlobalContext* globalCtx);
 void EnFloormas_BigDecideAction(EnFloormas* thisv, GlobalContext* globalCtx);
 void EnFloormas_Charge(EnFloormas* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Floormas_InitVars = {
+ActorInit En_Floormas_InitVars = {
     ACTOR_EN_FLOORMAS,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1080,7 +1080,7 @@ void EnFloormas_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnFloormas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnFloormas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx, Gfx** gfx) {
     EnFloormas* thisv = (EnFloormas*)thisx;
 
@@ -1090,7 +1090,7 @@ s32 EnFloormas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** d
     return false;
 }
 
-void EnFloormas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnFloormas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     if (limbIndex == 2) {
         Matrix_Push();
         Matrix_Translate(1600.0f, -700.0f, -1700.0f, MTXMODE_APPLY);

@@ -16,7 +16,7 @@ void EnOwl_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnOwl_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnOwl_Draw(Actor* thisx, GlobalContext* globalCtx);
-void EnOwl_ChangeMode(EnOwl* thisv, EnOwlActionFunc, OwlFunc, SkelAnime*, AnimationHeader*, f32);
+void EnOwl_ChangeMode(EnOwl* thisv, EnOwlActionFunc, OwlFunc, SkelAnime*, const AnimationHeader*, f32);
 void EnOwl_WaitDefault(EnOwl* thisv, GlobalContext* globalCtx);
 void func_80ACC540(EnOwl* thisv);
 void EnOwl_WaitOutsideKokiri(EnOwl* thisv, GlobalContext* globalCtx);
@@ -65,7 +65,7 @@ typedef enum {
     /* 0x01 */ OWL_OK
 } EnOwlMessageChoice;
 
-const ActorInit En_Owl_InitVars = {
+ActorInit En_Owl_InitVars = {
     ACTOR_EN_OWL,
     ACTORCAT_NPC,
     FLAGS,
@@ -1023,7 +1023,7 @@ void func_80ACC460(EnOwl* thisv) {
     if (SkelAnime_Update(thisv->curSkelAnime)) {
         if (thisv->unk_3FE > 0) {
             thisv->unk_3FE--;
-            Animation_Change(thisv->curSkelAnime, thisv->curSkelAnime->animation, 1.0f, 0.0f,
+            Animation_Change(thisv->curSkelAnime, static_cast<const AnimationHeader*>(thisv->curSkelAnime->animation), 1.0f, 0.0f,
                              Animation_GetLastFrame(thisv->curSkelAnime->animation), ANIMMODE_ONCE, 0.0f);
         } else {
             thisv->unk_3FE = 0xA0;
@@ -1036,7 +1036,7 @@ void func_80ACC460(EnOwl* thisv) {
 
 void func_80ACC540(EnOwl* thisv) {
     if (SkelAnime_Update(thisv->curSkelAnime)) {
-        Animation_Change(thisv->curSkelAnime, thisv->curSkelAnime->animation, 1.0f, 0.0f,
+        Animation_Change(thisv->curSkelAnime, static_cast<const AnimationHeader*>(thisv->curSkelAnime->animation), 1.0f, 0.0f,
                          Animation_GetLastFrame(thisv->curSkelAnime->animation), ANIMMODE_ONCE, 0.0f);
         thisv->actionFlags |= 1;
     } else {
@@ -1267,7 +1267,7 @@ void EnOwl_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnOwl_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** gfx, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnOwl_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** gfx, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnOwl* thisv = (EnOwl*)thisx;
 
     switch (limbIndex) {
@@ -1295,7 +1295,7 @@ s32 EnOwl_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** gfx, V
     return false;
 }
 
-void EnOwl_PostLimbUpdate(GlobalContext* globalCtx, s32 limbIndex, Gfx** gfx, Vec3s* rot, void* thisx) {
+void EnOwl_PostLimbUpdate(GlobalContext* globalCtx, s32 limbIndex, const Gfx** gfx, Vec3s* rot, void* thisx) {
     EnOwl* thisv = (EnOwl*)thisx;
     Vec3f vec;
 
@@ -1313,7 +1313,7 @@ void EnOwl_PostLimbUpdate(GlobalContext* globalCtx, s32 limbIndex, Gfx** gfx, Ve
 }
 
 void EnOwl_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gObjOwlEyeOpenTex, gObjOwlEyeHalfTex, gObjOwlEyeClosedTex };
+    static const void* eyeTextures[] = { gObjOwlEyeOpenTex, gObjOwlEyeHalfTex, gObjOwlEyeClosedTex };
     EnOwl* thisv = (EnOwl*)thisx;
     s32 pad;
 
@@ -1328,7 +1328,7 @@ void EnOwl_Draw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnOwl_ChangeMode(EnOwl* thisv, EnOwlActionFunc actionFunc, OwlFunc arg2, SkelAnime* skelAnime,
-                      AnimationHeader* animation, f32 morphFrames) {
+                      const AnimationHeader* animation, f32 morphFrames) {
     thisv->curSkelAnime = skelAnime;
     Animation_Change(thisv->curSkelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_ONCE,
                      morphFrames);

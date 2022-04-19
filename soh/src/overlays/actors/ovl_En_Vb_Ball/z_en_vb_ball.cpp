@@ -16,7 +16,7 @@ void EnVbBall_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnVbBall_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnVbBall_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Vb_Ball_InitVars = {
+ActorInit En_Vb_Ball_InitVars = {
     0,
     ACTORCAT_BOSS,
     FLAGS,

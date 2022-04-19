@@ -30,7 +30,7 @@ void EnFd_DrawDots(EnFd* thisv, GlobalContext* globalCtx);
 void EnFd_DrawFlames(EnFd* thisv, GlobalContext* globalCtx);
 void EnFd_Land(EnFd* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Fd_InitVars = {
+ActorInit En_Fd_InitVars = {
     ACTOR_EN_FD,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -694,7 +694,7 @@ void EnFd_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnFd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnFd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfxP) {
     EnFd* thisv = (EnFd*)thisx;
 
@@ -710,7 +710,7 @@ s32 EnFd_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnFd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfxP) {
+void EnFd_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfxP) {
     EnFd* thisv = (EnFd*)thisx;
     Vec3f unused0 = { 6800.0f, 0.0f, 0.0f };
     Vec3f unused1 = { 6800.0f, 0.0f, 0.0f };
@@ -874,7 +874,7 @@ void EnFd_UpdateDots(EnFd* thisv) {
 }
 
 void EnFd_DrawFlames(EnFd* thisv, GlobalContext* globalCtx) {
-    static void* dustTextures[] = {
+    static const void* dustTextures[] = {
         gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex,
     };
     s32 firstDone;

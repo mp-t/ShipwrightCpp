@@ -19,7 +19,7 @@ void EnNiwGirl_Talk(EnNiwGirl* thisv, GlobalContext* globalCtx);
 void func_80AB94D0(EnNiwGirl* thisv, GlobalContext* globalCtx);
 void func_80AB9210(EnNiwGirl* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Niw_Girl_InitVars = {
+ActorInit En_Niw_Girl_InitVars = {
     ACTOR_EN_NIW_GIRL,
     ACTORCAT_NPC,
     FLAGS,
@@ -229,7 +229,7 @@ void EnNiwGirl_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &thisv->collider.base);
 }
 
-s32 EnNiwGirlOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnNiwGirlOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                               void* thisx) {
     EnNiwGirl* thisv = (EnNiwGirl*)thisx;
 
@@ -246,7 +246,7 @@ s32 EnNiwGirlOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLi
 static Vec3f sConstVec3f = { 0.2f, 0.2f, 0.2f };
 
 void EnNiwGirl_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gNiwGirlEyeOpenTex, gNiwGirlEyeHalfTex, gNiwGirlEyeClosedTex };
+    static const void* eyeTextures[] = { gNiwGirlEyeOpenTex, gNiwGirlEyeHalfTex, gNiwGirlEyeClosedTex };
     EnNiwGirl* thisv = (EnNiwGirl*)thisx;
     s32 pad;
     Vec3f sp4C = sConstVec3f;

@@ -40,7 +40,7 @@ void EnWallmas_WaitForSwitchFlag(EnWallmas* thisv, GlobalContext* globalCtx);
 void EnWallmas_Stun(EnWallmas* thisv, GlobalContext* globalCtx);
 void EnWallmas_Walk(EnWallmas* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Wallmas_InitVars = {
+ActorInit En_Wallmas_InitVars = {
     ACTOR_EN_WALLMAS,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -165,7 +165,7 @@ void EnWallmas_TimerInit(EnWallmas* thisv, GlobalContext* globalCtx) {
 
 void EnWallmas_SetupDrop(EnWallmas* thisv, GlobalContext* globalCtx) {
     Player* player = GET_PLAYER(globalCtx);
-    AnimationHeader* objSegChangee = &gWallmasterLungeAnim;
+    const AnimationHeader* objSegChangee = &gWallmasterLungeAnim;
 
     Animation_Change(&thisv->skelAnime, objSegChangee, 0.0f, 20.0f, Animation_GetLastFrame(&gWallmasterLungeAnim),
                      ANIMMODE_ONCE, 0.0f);
@@ -180,8 +180,8 @@ void EnWallmas_SetupDrop(EnWallmas* thisv, GlobalContext* globalCtx) {
 }
 
 void EnWallmas_SetupLand(EnWallmas* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* objSegFrameCount = &gWallmasterJumpAnim;
-    AnimationHeader* objSegChangee = &gWallmasterJumpAnim;
+    const AnimationHeader* objSegFrameCount = &gWallmasterJumpAnim;
+    const AnimationHeader* objSegChangee = &gWallmasterJumpAnim;
 
     Animation_Change(&thisv->skelAnime, objSegChangee, 1.0f, 41.0f, Animation_GetLastFrame(objSegFrameCount),
                      ANIMMODE_ONCE, -3.0f);
@@ -208,8 +208,8 @@ void EnWallmas_SetupJumpToCeiling(EnWallmas* thisv) {
     thisv->actor.speedXZ = 0.0f;
 }
 void EnWallmas_SetupReturnToCeiling(EnWallmas* thisv) {
-    AnimationHeader* objSegFrameCount = &gWallmasterJumpAnim;
-    AnimationHeader* objSegChangee = &gWallmasterJumpAnim;
+    const AnimationHeader* objSegFrameCount = &gWallmasterJumpAnim;
+    const AnimationHeader* objSegChangee = &gWallmasterJumpAnim;
 
     thisv->timer = 0;
     thisv->actor.speedXZ = 0.0f;
@@ -608,7 +608,7 @@ void EnWallmas_DrawXlu(EnWallmas* thisv, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1426);
 }
 
-s32 EnWallMas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnWallMas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                void* thisx) {
     EnWallmas* thisv = (EnWallmas*)thisx;
 
@@ -622,7 +622,7 @@ s32 EnWallMas_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
     return false;
 }
 
-void EnWallMas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnWallMas_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     if (limbIndex == 2) {
         OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_wallmas.c", 1478);
 

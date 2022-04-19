@@ -47,7 +47,7 @@ void func_809975C0(DoorShutter* thisv, GlobalContext* globalCtx);
 void func_809976B8(DoorShutter* thisv, GlobalContext* globalCtx);
 void func_80997744(DoorShutter* thisv, GlobalContext* globalCtx);
 
-const ActorInit Door_Shutter_InitVars = {
+ActorInit Door_Shutter_InitVars = {
     ACTOR_DOOR_SHUTTER,
     ACTORCAT_DOOR,
     FLAGS,
@@ -87,8 +87,8 @@ static ShutterObjectInfo sObjectInfo[] = {
 };
 
 typedef struct {
-    /* 0x0000 */ Gfx* a;
-    /* 0x0004 */ Gfx* b;
+    /* 0x0000 */ const Gfx* a;
+    /* 0x0004 */ const Gfx* b;
     /* 0x0008 */ u8 c;
     /* 0x0009 */ u8 translateZ;
     /* 0x000A */ u8 e;
@@ -159,12 +159,12 @@ static BossDoorInfo D_80998288[] = {
     { -1, -1, 0x00 },
 };
 
-static Gfx* sJabuDoorDLists[] = {
+static const Gfx* sJabuDoorDLists[] = {
     gJabuDoorSection1DL, gJabuDoorSection2DL, gJabuDoorSection7DL, gJabuDoorSection4DL,
     gJabuDoorSection5DL, gJabuDoorSection4DL, gJabuDoorSection3DL, gJabuDoorSection2DL,
 };
 
-static void* D_809982D4[] = {
+static const void* D_809982D4[] = {
     object_bdoor_Tex_0065C0, object_bdoor_Tex_0035C0, object_bdoor_Tex_0055C0, object_bdoor_Tex_0045C0,
     object_bdoor_Tex_000000, object_bdoor_Tex_0025C0, object_bdoor_Tex_0015C0,
 };
@@ -290,7 +290,7 @@ void DoorShutter_SetupType(DoorShutter* thisv, GlobalContext* globalCtx) {
         thisv->dyna.actor.objBankIndex = thisv->requiredObjBankIndex;
         if (thisv->doorType == SHUTTER_PG_BARS || thisv->doorType == SHUTTER_GOHMA_BLOCK) {
             // Init dynapoly for shutters of the type that uses it
-            CollisionHeader* colHeader = NULL;
+            const CollisionHeader* colHeader = NULL;
 
             Actor_SetObjectDependency(globalCtx, &thisv->dyna.actor);
             thisv->unk_16C = sObjectInfo[thisv->unk_16B].index1;

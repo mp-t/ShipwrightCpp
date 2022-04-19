@@ -34,7 +34,7 @@ typedef enum {
     /* 2 */ KEESE_AURA_ICE
 } KeeseAuraType;
 
-const ActorInit En_Firefly_InitVars = {
+ActorInit En_Firefly_InitVars = {
     ACTOR_EN_FIREFLY,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -719,7 +719,7 @@ void EnFirefly_Update(Actor* thisx, GlobalContext* globalCtx2) {
         (10.0f * Math_SinS(thisv->actor.shape.rot.x) * Math_CosS(thisv->actor.shape.rot.y)) + thisv->actor.world.pos.z;
 }
 
-s32 EnFirefly_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnFirefly_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                void* thisx, Gfx** gfx) {
     EnFirefly* thisv = (EnFirefly*)thisx;
 
@@ -731,7 +731,7 @@ s32 EnFirefly_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
     return false;
 }
 
-void EnFirefly_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnFirefly_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     static Color_RGBA8 fireAuraPrimColor = { 255, 255, 100, 255 };
     static Color_RGBA8 fireAuraEnvColor = { 255, 50, 0, 0 };
     static Color_RGBA8 iceAuraPrimColor = { 100, 200, 255, 255 };
@@ -755,9 +755,9 @@ void EnFirefly_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
             if ((limbIndex == 15) || (limbIndex == 21)) {
                 if (thisv->actionFunc != EnFirefly_Die) {
                     Matrix_Get(&mtx);
-                    effPos.x = (Rand_ZeroOne() * 5.0f) + mtx.xw;
-                    effPos.y = (Rand_ZeroOne() * 5.0f) + mtx.yw;
-                    effPos.z = (Rand_ZeroOne() * 5.0f) + mtx.zw;
+                    effPos.x = (Rand_ZeroOne() * 5.0f) + mtx.mf_raw.xw;
+                    effPos.y = (Rand_ZeroOne() * 5.0f) + mtx.mf_raw.yw;
+                    effPos.z = (Rand_ZeroOne() * 5.0f) + mtx.mf_raw.zw;
                     effScaleStep = -40;
                     effLife = 3;
                 } else {

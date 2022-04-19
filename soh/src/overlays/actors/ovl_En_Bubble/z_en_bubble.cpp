@@ -12,7 +12,7 @@ void EnBubble_Wait(EnBubble* thisv, GlobalContext* globalCtx);
 void EnBubble_Pop(EnBubble* thisv, GlobalContext* globalCtx);
 void EnBubble_Regrow(EnBubble* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Bubble_InitVars = {
+ActorInit En_Bubble_InitVars = {
     ACTOR_EN_BUBBLE,
     ACTORCAT_ENEMY,
     FLAGS,

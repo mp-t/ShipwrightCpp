@@ -30,7 +30,7 @@ void func_80A99560(EnKo* thisv, GlobalContext* globalCtx);
 
 s32 func_80A98ECC(EnKo* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Ko_InitVars = {
+ActorInit En_Ko_InitVars = {
     ACTOR_EN_KO,
     ACTORCAT_NPC,
     FLAGS,
@@ -65,14 +65,14 @@ static ColliderCylinderInit sCylinderInit = {
 
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
-static void* sFaEyes[] = { gFaEyeOpenTex, gFaEyeHalfTex, gFaEyeClosedTex, NULL };
-static void* sKw1Eyes[] = { gKw1EyeOpenTex , gKw1EyeHalfTex,
+static const void* sFaEyes[] = { gFaEyeOpenTex, gFaEyeHalfTex, gFaEyeClosedTex, NULL };
+static const void* sKw1Eyes[] = { gKw1EyeOpenTex , gKw1EyeHalfTex,
                             gKw1EyeClosedTex, NULL };
 
 typedef struct {
     /* 0x0 */ s16 objectId;
-    /* 0x4 */ Gfx* dList;
-    /* 0x8 */ void** eyeTextures;
+    /* 0x4 */ const Gfx* dList;
+    /* 0x8 */ const void** eyeTextures;
 } EnKoHead; // size = 0xC
 
 static EnKoHead sHead[] = {
@@ -83,12 +83,12 @@ static EnKoHead sHead[] = {
 
 typedef struct {
     /* 0x0 */ s16 objectId;
-    /* 0x4 */ FlexSkeletonHeader* flexSkeletonHeader;
+    /* 0x4 */ const FlexSkeletonHeader* flexSkeletonHeader;
 } EnKoSkeleton; // size = 0x8
 
-static EnKoSkeleton sSkeleton[2] = {
-    { OBJECT_KM1, gKm1Skel, /* 0x060000F0 */ },
-    { OBJECT_KW1, gKw1Skel, /* 0x060000F0 */ },
+static EnKoSkeleton sSkeleton[2] = { //WAT
+    { OBJECT_KM1, &gKm1Skel, /* 0x060000F0 */ },
+    { OBJECT_KW1, &gKw1Skel, /* 0x060000F0 */ },
 };
 
 typedef enum {
@@ -1032,7 +1032,7 @@ s32 EnKo_CanSpawn(EnKo* thisv, GlobalContext* globalCtx) {
 }
 
 void EnKo_Blink(EnKo* thisv) {
-    void** eyeTextures;
+    const void** eyeTextures;
     s32 headId;
 
     if (DECR(thisv->blinkTimer) == 0) {
@@ -1272,10 +1272,10 @@ void EnKo_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &collider->base);
 }
 
-s32 EnKo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnKo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnKo* thisv = (EnKo*)thisx;
-    void* eyeTexture;
+    const void* eyeTexture;
     Vec3s sp40;
     u8 headId;
     s32 pad;
@@ -1311,7 +1311,7 @@ s32 EnKo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnKo_PostLimbDraw(GlobalContext* globalCtx2, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnKo_PostLimbDraw(GlobalContext* globalCtx2, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     GlobalContext* globalCtx = globalCtx2;
     EnKo* thisv = (EnKo*)thisx;
     Vec3f D_80A9A774 = { 0.0f, 0.0f, 0.0f };
@@ -1326,7 +1326,7 @@ void EnKo_PostLimbDraw(GlobalContext* globalCtx2, s32 limbIndex, Gfx** dList, Ve
 }
 
 Gfx* EnKo_SetEnvColor(GraphicsContext* gfxCtx, u8 r, u8 g, u8 b, u8 a) {
-    Gfx* dList = Graph_Alloc(gfxCtx, sizeof(Gfx) * 2);
+    Gfx* dList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx) * 2));
 
     gDPSetEnvColor(dList, r, g, b, a);
     gSPEndDisplayList(dList + 1);

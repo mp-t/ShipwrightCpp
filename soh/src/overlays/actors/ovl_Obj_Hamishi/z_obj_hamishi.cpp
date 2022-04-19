@@ -14,7 +14,7 @@ void ObjHamishi_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjHamishi_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjHamishi_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Obj_Hamishi_InitVars = {
+ActorInit Obj_Hamishi_InitVars = {
     ACTOR_OBJ_HAMISHI,
     ACTORCAT_PROP,
     FLAGS,

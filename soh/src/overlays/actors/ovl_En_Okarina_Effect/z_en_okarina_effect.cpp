@@ -16,7 +16,7 @@ void EnOkarinaEffect_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnOkarinaEffect_TriggerStorm(EnOkarinaEffect* thisv, GlobalContext* globalCtx);
 void EnOkarinaEffect_ManageStorm(EnOkarinaEffect* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Okarina_Effect_InitVars = {
+ActorInit En_Okarina_Effect_InitVars = {
     ACTOR_EN_OKARINA_EFFECT,
     ACTORCAT_ITEMACTION,
     FLAGS,

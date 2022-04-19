@@ -22,7 +22,7 @@ void func_809FEC70(EnDu* thisv, GlobalContext* globalCtx);
 void func_809FECE4(EnDu* thisv, GlobalContext* globalCtx);
 void func_809FEB08(EnDu* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Du_InitVars = {
+ActorInit En_Du_InitVars = {
     ACTOR_EN_DU,
     ACTORCAT_NPC,
     FLAGS,
@@ -233,13 +233,13 @@ void func_809FDE9C(EnDu* thisv) {
     }
 }
 
-void func_809FDFC0(CsCmdActorAction* csAction, Vec3f* dst) {
+void func_809FDFC0(const CsCmdActorAction* csAction, Vec3f* dst) {
     dst->x = csAction->startPos.x;
     dst->y = csAction->startPos.y;
     dst->z = csAction->startPos.z;
 }
 
-void func_809FE000(CsCmdActorAction* csAction, Vec3f* dst) {
+void func_809FE000(const CsCmdActorAction* csAction, Vec3f* dst) {
     dst->x = csAction->endPos.x;
     dst->y = csAction->endPos.y;
     dst->z = csAction->endPos.z;
@@ -436,7 +436,7 @@ void func_809FE890(EnDu* thisv, GlobalContext* globalCtx) {
     Vec3f startPos;
     Vec3f endPos;
     Vec3f velocity = { 0.0f, 0.0f, 0.0f };
-    CsCmdActorAction* csAction;
+    const CsCmdActorAction* csAction;
 
     if (globalCtx->csCtx.state == CS_STATE_IDLE) {
         func_8002DF54(globalCtx, &thisv->actor, 1);
@@ -581,7 +581,7 @@ void EnDu_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnDu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnDu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                           Gfx** gfx) {
     EnDu* thisv = (EnDu*)thisx;
     Vec3s sp1C;
@@ -601,7 +601,7 @@ s32 EnDu_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return 0;
 }
 
-void EnDu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnDu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     EnDu* thisv = (EnDu*)thisx;
     Vec3f D_809FF40C = { 0.0f, -1000.0f, 0.0f };
 
@@ -611,19 +611,19 @@ void EnDu_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 void EnDu_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gDaruniaEyeOpenTex,
         gDaruniaEyeOpeningTex,
         gDaruniaEyeShutTex,
         gDaruniaEyeClosingTex,
     };
-    static void* mouthTextures[] = {
+    static const void* mouthTextures[] = {
         gDaruniaMouthSeriousTex,
         gDaruniaMouthGrinningTex,
         gDaruniaMouthOpenTex,
         gDaruniaMouthHappyTex,
     };
-    static void* noseTextures[] = {
+    static const void* noseTextures[] = {
         gDaruniaNoseSeriousTex,
         gDaruniaNoseHappyTex,
     };

@@ -33,7 +33,7 @@ typedef enum {
     /* 5 */ WOOD_DRAW_LEAF_YELLOW
 } WoodDrawType;
 
-const ActorInit En_Wood02_InitVars = {
+ActorInit En_Wood02_InitVars = {
     ACTOR_EN_WOOD02,
     ACTORCAT_PROP,
     FLAGS,
@@ -74,12 +74,12 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_F32(targetArrowOffset, 5600, ICHAIN_STOP),
 };
 
-static Gfx* D_80B3BF54[] = {
+static const Gfx* D_80B3BF54[] = {
     object_wood02_DL_0078D0, object_wood02_DL_007CA0, object_wood02_DL_0080D0, object_wood02_DL_000090,
     object_wood02_DL_000340, object_wood02_DL_000340, object_wood02_DL_000700,
 };
 
-static Gfx* D_80B3BF70[] = {
+static const Gfx* D_80B3BF70[] = {
     object_wood02_DL_007968,
     object_wood02_DL_007D38,
     object_wood02_DL_0081A8,

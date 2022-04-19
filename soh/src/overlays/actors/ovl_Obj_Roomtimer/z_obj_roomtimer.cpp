@@ -15,7 +15,7 @@ void ObjRoomtimer_Update(Actor* thisx, GlobalContext* globalCtx);
 void func_80B9D054(ObjRoomtimer* thisv, GlobalContext* globalCtx);
 void func_80B9D0B0(ObjRoomtimer* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Roomtimer_InitVars = {
+ActorInit Obj_Roomtimer_InitVars = {
     ACTOR_OBJ_ROOMTIMER,
     ACTORCAT_ENEMY,
     FLAGS,

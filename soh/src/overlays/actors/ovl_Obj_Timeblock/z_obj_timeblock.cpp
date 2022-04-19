@@ -25,7 +25,7 @@ void ObjTimeblock_Normal(ObjTimeblock* thisv, GlobalContext* globalCtx);
 void ObjTimeblock_AltBehaviorVisible(ObjTimeblock* thisv, GlobalContext* globalCtx);
 void ObjTimeblock_AltBehaviourNotVisible(ObjTimeblock* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Timeblock_InitVars = {
+ActorInit Obj_Timeblock_InitVars = {
     ACTOR_OBJ_TIMEBLOCK,
     ACTORCAT_ITEMACTION,
     FLAGS,

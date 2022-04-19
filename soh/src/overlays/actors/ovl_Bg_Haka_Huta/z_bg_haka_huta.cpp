@@ -22,7 +22,7 @@ void BgHakaHuta_SlideOpen(BgHakaHuta* thisv, GlobalContext* globalCtx);
 void func_8087D720(BgHakaHuta* thisv, GlobalContext* globalCtx);
 void BgHakaHuta_DoNothing(BgHakaHuta* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Haka_Huta_InitVars = {
+ActorInit Bg_Haka_Huta_InitVars = {
     ACTOR_BG_HAKA_HUTA,
     ACTORCAT_BG,
     FLAGS,

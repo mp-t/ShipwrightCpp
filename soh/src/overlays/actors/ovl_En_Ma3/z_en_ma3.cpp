@@ -23,7 +23,7 @@ s32 func_80AA2F28(EnMa3* thisv);
 void EnMa3_UpdateEyes(EnMa3* thisv);
 void func_80AA3200(EnMa3* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Ma3_InitVars = {
+ActorInit En_Ma3_InitVars = {
     ACTOR_EN_MA3,
     ACTORCAT_NPC,
     FLAGS,
@@ -305,7 +305,7 @@ void EnMa3_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnMa3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnMa3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnMa3* thisv = (EnMa3*)thisx;
     Vec3s vec;
 
@@ -332,7 +332,7 @@ s32 EnMa3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnMa3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnMa3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnMa3* thisv = (EnMa3*)thisx;
     Vec3f vec = { 900.0f, 0.0f, 0.0f };
 
@@ -350,8 +350,8 @@ void EnMa3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 }
 
 void EnMa3_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* sMouthTextures[] = { gMalonAdultMouthNeutralTex, gMalonAdultMouthSadTex, gMalonAdultMouthHappyTex };
-    static void* sEyeTextures[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
+    static const void* sMouthTextures[] = { gMalonAdultMouthNeutralTex, gMalonAdultMouthSadTex, gMalonAdultMouthHappyTex };
+    static const void* sEyeTextures[] = { gMalonAdultEyeOpenTex, gMalonAdultEyeHalfTex, gMalonAdultEyeClosedTex };
     EnMa3* thisv = (EnMa3*)thisx;
     Camera* camera;
     f32 someFloat;

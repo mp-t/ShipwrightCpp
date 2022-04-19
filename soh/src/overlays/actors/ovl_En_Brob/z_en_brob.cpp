@@ -22,7 +22,7 @@ void func_809CB2B8(EnBrob* thisv, GlobalContext* globalCtx);
 void func_809CB354(EnBrob* thisv, GlobalContext* globalCtx);
 void func_809CB458(EnBrob* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Brob_InitVars = {
+ActorInit En_Brob_InitVars = {
     ACTOR_EN_BROB,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -60,7 +60,7 @@ static CollisionCheckInfoInit sColChkInfoInit = { 0, 60, 120, MASS_IMMOVABLE };
 void EnBrob_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     EnBrob* thisv = (EnBrob*)thisx;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
 
     SkelAnime_InitFlex(globalCtx, &thisv->skelAnime, &object_brob_Skel_0015D8, &object_brob_Anim_001750,
                        thisv->jointTable, thisv->morphTable, 10);
@@ -303,19 +303,19 @@ void EnBrob_Update(Actor* thisx, GlobalContext* globalCtx2) {
     }
 }
 
-void EnBrob_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnBrob_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnBrob* thisv = (EnBrob*)thisx;
     MtxF mtx;
 
     Matrix_Get(&mtx);
     if (limbIndex == 3) {
-        thisv->colliders[0].dim.pos.x = mtx.xw;
-        thisv->colliders[0].dim.pos.y = mtx.yw;
-        thisv->colliders[0].dim.pos.z = mtx.zw;
+        thisv->colliders[0].dim.pos.x = mtx.mf_raw.xw;
+        thisv->colliders[0].dim.pos.y = mtx.mf_raw.yw;
+        thisv->colliders[0].dim.pos.z = mtx.mf_raw.zw;
     } else if (limbIndex == 8) {
-        thisv->colliders[1].dim.pos.x = mtx.xw;
-        thisv->colliders[1].dim.pos.y = (mtx.yw + 7.0f);
-        thisv->colliders[1].dim.pos.z = mtx.zw;
+        thisv->colliders[1].dim.pos.x = mtx.mf_raw.xw;
+        thisv->colliders[1].dim.pos.y = (mtx.mf_raw.yw + 7.0f);
+        thisv->colliders[1].dim.pos.z = mtx.mf_raw.zw;
     }
 }
 

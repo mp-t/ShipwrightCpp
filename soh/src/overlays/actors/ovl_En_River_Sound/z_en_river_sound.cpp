@@ -13,7 +13,7 @@ void EnRiverSound_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnRiverSound_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnRiverSound_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_River_Sound_InitVars = {
+ActorInit En_River_Sound_InitVars = {
     ACTOR_EN_RIVER_SOUND,
     ACTORCAT_BG,
     FLAGS,

@@ -32,10 +32,10 @@ void EnMm2_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80AAF3C0(EnMm2* thisv, GlobalContext* globalCtx);
 void func_80AAF57C(EnMm2* thisv, GlobalContext* globalCtx);
 void func_80AAF668(EnMm2* thisv, GlobalContext* globalCtx);
-s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
-void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx);
+s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
+void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx);
 
-const ActorInit En_Mm2_InitVars = {
+ActorInit En_Mm2_InitVars = {
     ACTOR_EN_MM2,
     ACTORCAT_NPC,
     FLAGS,
@@ -308,7 +308,7 @@ void EnMm2_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMm2_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* mouthTextures[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
+    static const void* mouthTextures[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
     EnMm2* thisv = (EnMm2*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_mm2.c", 634);
@@ -319,7 +319,7 @@ void EnMm2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mm2.c", 654);
 }
 
-s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnMm2* thisv = (EnMm2*)thisx;
 
     switch (limbIndex) {
@@ -336,7 +336,7 @@ s32 EnMm2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return 0;
 }
 
-void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnMm2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f headOffset = { 200.0f, 800.0f, 0.0f };
     EnMm2* thisv = (EnMm2*)thisx;
 

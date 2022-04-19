@@ -39,7 +39,7 @@ void EnDntJiji_GivePrize(EnDntJiji* thisv, GlobalContext* globalCtx);
 void EnDntJiji_Hide(EnDntJiji* thisv, GlobalContext* globalCtx);
 void EnDntJiji_Return(EnDntJiji* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dnt_Jiji_InitVars = {
+ActorInit En_Dnt_Jiji_InitVars = {
     ACTOR_EN_DNT_JIJI,
     ACTORCAT_NPC,
     FLAGS,
@@ -428,7 +428,7 @@ void EnDntJiji_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnDntJiji_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* blinkTex[] = { gDntJijiEyeOpenTex, gDntJijiEyeHalfTex, gDntJijiEyeShutTex };
+    static const void* blinkTex[] = { gDntJijiEyeOpenTex, gDntJijiEyeHalfTex, gDntJijiEyeShutTex };
     EnDntJiji* thisv = (EnDntJiji*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_dnt_jiji.c", 1019);

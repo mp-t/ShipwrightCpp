@@ -18,7 +18,7 @@ void EnCrow_Damaged(EnCrow* thisv, GlobalContext* globalCtx);
 
 static Vec3f sZeroVecAccel = { 0.0f, 0.0f, 0.0f };
 
-const ActorInit En_Crow_InitVars = {
+ActorInit En_Crow_InitVars = {
     ACTOR_EN_CROW,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -474,7 +474,7 @@ void EnCrow_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnCrow_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnCrow_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnCrow* thisv = (EnCrow*)thisx;
 
     if (thisv->actor.colChkInfo.health != 0) {
@@ -487,7 +487,7 @@ s32 EnCrow_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
     return false;
 }
 
-void EnCrow_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnCrow_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnCrow* thisv = (EnCrow*)thisx;
     Vec3f* vec;
 

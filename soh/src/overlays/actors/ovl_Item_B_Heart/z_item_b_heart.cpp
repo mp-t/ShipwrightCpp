@@ -16,7 +16,7 @@ void ItemBHeart_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80B85264(ItemBHeart* thisv, GlobalContext* globalCtx);
 
-const ActorInit Item_B_Heart_InitVars = {
+ActorInit Item_B_Heart_InitVars = {
     ACTOR_ITEM_B_HEART,
     ACTORCAT_MISC,
     FLAGS,

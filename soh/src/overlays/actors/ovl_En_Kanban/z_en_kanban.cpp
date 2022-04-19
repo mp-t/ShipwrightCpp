@@ -75,7 +75,7 @@ void EnKanban_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Kanban_InitVars = {
+ActorInit En_Kanban_InitVars = {
     ACTOR_EN_KANBAN,
     ACTORCAT_PROP,
     FLAGS,
@@ -762,13 +762,13 @@ void EnKanban_Update(Actor* thisx, GlobalContext* globalCtx2) {
     }
 }
 
-static Gfx* sDisplayLists[] = {
+static const Gfx* sDisplayLists[] = {
     object_kanban_DL_000CB0, object_kanban_DL_000DB8, object_kanban_DL_000E78, object_kanban_DL_000F38,
     object_kanban_DL_000FF8, object_kanban_DL_0010B8, object_kanban_DL_0011C0, object_kanban_DL_0012C8,
     object_kanban_DL_0013D0, object_kanban_DL_001488, object_kanban_DL_001540,
 };
 
-#include "z_en_kanban_gfx.c"
+#include "z_en_kanban_gfx.cpp"
 
 static f32 sCutAngles[] = {
     /* CUT_POST   */ 0.50f * std::numbers::pi_v<float>,
@@ -788,7 +788,7 @@ void EnKanban_Draw(Actor* thisx, GlobalContext* globalCtx) {
     f32 zShift;
     f32 zShift2;
     s16 i;
-    u8* shadowTex = Graph_Alloc(globalCtx->state.gfxCtx, 0x400);
+    u8* shadowTex = static_cast<u8*>(Graph_Alloc(globalCtx->state.gfxCtx, 0x400));
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_kanban.c", 1659);
     func_80093D18(globalCtx->state.gfxCtx);

@@ -15,7 +15,7 @@ void EnSceneChange_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnSceneChange_DoNothing(EnSceneChange* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Scene_Change_InitVars = {
+ActorInit En_Scene_Change_InitVars = {
     ACTOR_EN_SCENE_CHANGE,
     ACTORCAT_PROP,
     FLAGS,
@@ -56,7 +56,7 @@ void EnSceneChange_Draw(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad2[2];
     Gfx* displayListHead;
 
-    displayList = Graph_Alloc(globalCtx->state.gfxCtx, 0x3C0);
+    displayList = static_cast<Gfx*>(Graph_Alloc(globalCtx->state.gfxCtx, 0x3C0));
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_scene_change.c", 290);
 

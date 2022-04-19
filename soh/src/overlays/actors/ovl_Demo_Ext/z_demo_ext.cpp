@@ -50,7 +50,7 @@ void DemoExt_PlayVortexSFX(DemoExt* thisv) {
     }
 }
 
-CsCmdActorAction* DemoExt_GetNpcAction(GlobalContext* globalCtx, s32 npcActionIndex) {
+const CsCmdActorAction* DemoExt_GetNpcAction(GlobalContext* globalCtx, s32 npcActionIndex) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[npcActionIndex];
     }
@@ -63,7 +63,7 @@ void DemoExt_SetupWait(DemoExt* thisv) {
 }
 
 void DemoExt_SetupMaintainVortex(DemoExt* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = DemoExt_GetNpcAction(globalCtx, 5);
+    const CsCmdActorAction* npcAction = DemoExt_GetNpcAction(globalCtx, 5);
 
     if (npcAction != NULL) {
         thisv->actor.world.pos.x = npcAction->startPos.x;
@@ -88,7 +88,7 @@ void DemoExt_FinishClosing(DemoExt* thisv) {
 }
 
 void DemoExt_CheckCsMode(DemoExt* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction = DemoExt_GetNpcAction(globalCtx, 5);
+    const CsCmdActorAction* csCmdNPCAction = DemoExt_GetNpcAction(globalCtx, 5);
     s32 csAction;
     s32 previousCsAction;
 
@@ -190,7 +190,7 @@ void DemoExt_DrawVortex(Actor* thisx, GlobalContext* globalCtx) {
 
     scale = &thisv->scale;
     gfxCtx = globalCtx->state.gfxCtx;
-    mtx = Graph_Alloc(gfxCtx, sizeof(Mtx));
+    mtx = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
 
     OPEN_DISPS(gfxCtx, "../z_demo_ext.c", 460);
     Matrix_Push();
@@ -233,7 +233,7 @@ void DemoExt_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-const ActorInit Demo_Ext_InitVars = {
+ActorInit Demo_Ext_InitVars = {
     ACTOR_DEMO_EXT,
     ACTORCAT_NPC,
     FLAGS,

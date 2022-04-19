@@ -44,7 +44,7 @@ void EnFhgFire_SpearLight(EnFhgFire* thisv, GlobalContext* globalCtx);
 void EnFhgFire_EnergyBall(EnFhgFire* thisv, GlobalContext* globalCtx);
 void EnFhgFire_PhantomWarp(EnFhgFire* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Fhg_Fire_InitVars = {
+ActorInit En_Fhg_Fire_InitVars = {
     0,
     ACTORCAT_BOSS,
     FLAGS,
@@ -692,7 +692,7 @@ void EnFhgFire_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->updateFunc(thisv, globalCtx);
 }
 
-static void* sDustTextures[] = {
+static const void* sDustTextures[] = {
     gDust1Tex, gDust2Tex, gDust3Tex, gDust4Tex, gDust5Tex, gDust6Tex, gDust7Tex, gDust8Tex,
 };
 

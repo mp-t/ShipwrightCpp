@@ -13,7 +13,7 @@ void DoorToki_Init(Actor* thisx, GlobalContext* globalCtx);
 void DoorToki_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void DoorToki_Update(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Door_Toki_InitVars = {
+ActorInit Door_Toki_InitVars = {
     ACTOR_DOOR_TOKI,
     ACTORCAT_BG,
     FLAGS,
@@ -33,7 +33,7 @@ static InitChainEntry sInitChain[] = {
 void DoorToki_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     DoorToki* thisv = (DoorToki*)thisx;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
 
     Actor_ProcessInitChain(&thisv->dyna.actor, sInitChain);
     DynaPolyActor_Init(&thisv->dyna, DPM_UNK);

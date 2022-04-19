@@ -12,7 +12,7 @@ void func_80A9F314(GlobalContext* globalCtx, f32 arg1);
 void func_80A9F408(EnMThunder* thisv, GlobalContext* globalCtx);
 void func_80A9F9B4(EnMThunder* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_M_Thunder_InitVars = {
+ActorInit En_M_Thunder_InitVars = {
     ACTOR_EN_M_THUNDER,
     ACTORCAT_ITEMACTION,
     FLAGS,

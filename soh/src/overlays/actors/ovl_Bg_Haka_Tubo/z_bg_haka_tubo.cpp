@@ -18,7 +18,7 @@ void BgHakaTubo_Draw(Actor* thisx, GlobalContext* globalCtx);
 void BgHakaTubo_Idle(BgHakaTubo* thisv, GlobalContext* globalCtx);
 void BgHakaTubo_DropCollectible(BgHakaTubo* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Haka_Tubo_InitVars = {
+ActorInit Bg_Haka_Tubo_InitVars = {
     ACTOR_BG_HAKA_TUBO,
     ACTORCAT_BG,
     FLAGS,

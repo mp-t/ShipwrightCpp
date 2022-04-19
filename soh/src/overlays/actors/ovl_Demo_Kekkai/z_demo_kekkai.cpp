@@ -22,7 +22,7 @@ void DemoKekkai_DrawTrialBarrier(Actor* thisx, GlobalContext* globalCtx);
 
 void DemoKekkai_TowerBarrier(DemoKekkai* thisv, GlobalContext* globalCtx);
 
-const ActorInit Demo_Kekkai_InitVars = {
+ActorInit Demo_Kekkai_InitVars = {
     ACTOR_DEMO_KEKKAI,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -231,7 +231,7 @@ void DemoKekkai_TrialBarrierDispel(Actor* thisx, GlobalContext* globalCtx) {
     thisv->timer++;
 }
 
-static CutsceneData* sSageCutscenes[] = {
+static const CutsceneData* sSageCutscenes[] = {
     NULL,
     gWaterTrialSageCs,
     gLightTrialSageCs,

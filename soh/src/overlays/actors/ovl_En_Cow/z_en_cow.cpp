@@ -25,7 +25,7 @@ void func_809DF8FC(EnCow* thisv, GlobalContext* globalCtx);
 void func_809DF96C(EnCow* thisv, GlobalContext* globalCtx);
 void func_809DFA84(EnCow* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Cow_InitVars = {
+ActorInit En_Cow_InitVars = {
     ACTOR_EN_COW,
     ACTORCAT_NPC,
     FLAGS,
@@ -356,7 +356,7 @@ void func_809DFE98(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnCow_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnCow_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnCow* thisv = (EnCow*)thisx;
 
     if (limbIndex == 2) {
@@ -369,7 +369,7 @@ s32 EnCow_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnCow_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnCow_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnCow* thisv = (EnCow*)thisx;
 
     if (limbIndex == 2) {

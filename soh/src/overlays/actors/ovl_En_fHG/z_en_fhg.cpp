@@ -45,7 +45,7 @@ void EnfHG_Damage(EnfHG* thisv, GlobalContext* globalCtx);
 void EnfHG_Retreat(EnfHG* thisv, GlobalContext* globalCtx);
 void EnfHG_Done(EnfHG* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_fHG_InitVars = {
+ActorInit En_fHG_InitVars = {
     ACTOR_EN_FHG,
     ACTORCAT_BG,
     FLAGS,

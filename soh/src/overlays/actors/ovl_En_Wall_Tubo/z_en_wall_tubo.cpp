@@ -20,7 +20,7 @@ void EnWallTubo_FindGirl(EnWallTubo* thisv, GlobalContext* globalCtx);
 void EnWallTubo_DetectChu(EnWallTubo* thisv, GlobalContext* globalCtx);
 void EnWallTubo_SetWallFall(EnWallTubo* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Wall_Tubo_InitVars = {
+ActorInit En_Wall_Tubo_InitVars = {
     ACTOR_EN_WALL_TUBO,
     ACTORCAT_PROP,
     FLAGS,

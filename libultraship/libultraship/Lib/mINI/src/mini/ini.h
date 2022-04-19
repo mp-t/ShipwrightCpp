@@ -678,7 +678,7 @@ namespace mINI
 			bool readSuccess = false;
 			{
 				INIReader reader(filename, true);
-				if ((readSuccess = reader >> originalData))
+				if (readSuccess = reader >> originalData; readSuccess)
 				{
 					lineData = reader.getLines();
 				}

@@ -14,7 +14,7 @@ void BgGndNisekabe_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgGndNisekabe_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgGndNisekabe_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Bg_Gnd_Nisekabe_InitVars = {
+ActorInit Bg_Gnd_Nisekabe_InitVars = {
     ACTOR_BG_GND_NISEKABE,
     ACTORCAT_PROP,
     FLAGS,

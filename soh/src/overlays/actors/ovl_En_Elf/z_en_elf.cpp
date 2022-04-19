@@ -54,7 +54,7 @@ void func_80A0461C(EnElf* thisv, GlobalContext* globalCtx);
 void EnElf_SpawnSparkles(EnElf* thisv, GlobalContext* globalCtx, s32 sparkleLife);
 void EnElf_GetCutsceneNextPos(Vec3f* vec, GlobalContext* globalCtx, s32 action);
 
-const ActorInit En_Elf_InitVars = {
+ActorInit En_Elf_InitVars = {
     ACTOR_EN_ELF,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -1458,7 +1458,7 @@ void EnElf_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnElf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnElf_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                            Gfx** gfx) {
     static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     s32 pad;
@@ -1500,7 +1500,7 @@ void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx) {
 
     if ((thisv->unk_2A8 != 8) && !(thisv->fairyFlags & 8)) {
         if (!(player->stateFlags1 & 0x100000) || (kREG(90) < thisv->actor.projectedPos.z)) {
-            dListHead = Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Gfx) * 4);
+            dListHead = static_cast<Gfx*>(Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Gfx) * 4));
 
             OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_elf.c", 2730);
 
@@ -1536,7 +1536,7 @@ void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx) {
 void EnElf_GetCutsceneNextPos(Vec3f* vec, GlobalContext* globalCtx, s32 action) {
     Vec3f startPos;
     Vec3f endPos;
-    CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[action];
+    const CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[action];
     f32 lerp;
 
     startPos.x = npcAction->startPos.x;

@@ -40,10 +40,10 @@ extern OSViContext* __osViCurr;
 extern OSViContext* __osViNext;
 extern OSViMode osViModeFpalLan1;
 extern u32 __additional_scanline;
-extern u8 gBuildVersion[];
-extern u8 gBuildTeam[];
-extern u8 gBuildDate[];
-extern u8 gBuildMakeOption[];
+extern const char* gBuildVersion;
+extern const char* gBuildTeam;
+extern const char* gBuildDate;
+extern const char* gBuildMakeOption;
 extern OSMesgQueue gPiMgrCmdQ;
 extern OSViMode gViConfigMode;
 extern u8 D_80013960;
@@ -163,12 +163,12 @@ extern s32 __osPfsLastChannel;
 
 extern const s16 D_8014A6C0[];
 #define gTatumsPerBeat (D_8014A6C0[1])
-extern const AudioContextInitSizes D_8014A6C4;
+extern AudioContextInitSizes D_8014A6C4;
 extern s16 gOcarinaSongItemMap[];
-extern u8 gSoundFontTable[];
+extern AudioTable gSoundFontTable;
 extern u8 gSequenceFontTable[];
-extern u8 gSequenceTable[];
-extern u8 gSampleBankTable[];
+extern AudioTable gSequenceTable;
+extern AudioTable gSampleBankTable;
 extern u8 D_80155F50[];
 extern u8 D_80157580[];
 extern u8 D_801579A0[];
@@ -234,5 +234,7 @@ extern u8 gGfxSPTaskStack[0x400];                    // 0x400 bytes
 extern GfxPool gGfxPools[2];                         // 0x24820 bytes
 extern u8 gAudioHeap[0x38000];                       // 0x38000 bytes
 extern u8 gSystemHeap[];
+
+extern ActorInit Bg_Hidan_Hrock_InitVars;
 
 #endif

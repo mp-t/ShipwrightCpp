@@ -23,7 +23,7 @@ void EnBa_RecoilFromDamage(EnBa* thisv, GlobalContext* globalCtx);
 void EnBa_Die(EnBa* thisv, GlobalContext* globalCtx);
 void EnBa_SetupSwingAtPlayer(EnBa* thisv);
 
-const ActorInit En_Ba_InitVars = {
+ActorInit En_Ba_InitVars = {
     ACTOR_EN_BA,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -466,7 +466,7 @@ void EnBa_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-static void* D_809B8118[] = {
+static const void* D_809B8118[] = {
     object_bxa_Tex_0024F0,
     object_bxa_Tex_0027F0,
     object_bxa_Tex_0029F0,
@@ -476,7 +476,7 @@ void EnBa_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnBa* thisv = (EnBa*)thisx;
     s32 pad;
     s16 i;
-    Mtx* mtx = Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 14);
+    Mtx* mtx = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 14));
     Vec3f unused = { 0.0f, 0.0f, 448.0f };
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ba.c", 933);

@@ -26,7 +26,7 @@ void func_80B332B4(EnWeiyer* thisv, GlobalContext* globalCtx);
 void func_80B33338(EnWeiyer* thisv, GlobalContext* globalCtx);
 void func_80B3349C(EnWeiyer* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Weiyer_InitVars = {
+ActorInit En_Weiyer_InitVars = {
     ACTOR_EN_WEIYER,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -618,7 +618,7 @@ void EnWeiyer_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &thisv->collider.base);
 }
 
-s32 EnWeiyer_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnWeiyer_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                               Gfx** gfx) {
     if (limbIndex == 1) {
         pos->z += 2000.0f;

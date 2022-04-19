@@ -33,7 +33,7 @@ void func_809EEA00(EnDivingGame* thisv, GlobalContext* globalCtx);
 void func_809EEA90(EnDivingGame* thisv, GlobalContext* globalCtx);
 void func_809EEAF8(EnDivingGame* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Diving_Game_InitVars = {
+ActorInit En_Diving_Game_InitVars = {
     ACTOR_EN_DIVING_GAME,
     ACTORCAT_NPC,
     FLAGS,
@@ -69,7 +69,7 @@ static ColliderCylinderInit sCylinderInit = {
     { 10, 10, 0, { 0, 0, 0 } },
 };
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     gZoraEyeOpenTex,
     gZoraEyeHalfTex,
     gZoraEyeClosedTex,
@@ -530,13 +530,13 @@ void EnDivingGame_Update(Actor* thisx, GlobalContext* globalCtx2) {
 }
 
 Gfx* EnDivingGame_EmptyDList(GraphicsContext* gfxCtx) {
-    Gfx* displayList = Graph_Alloc(gfxCtx, sizeof(Gfx));
+    Gfx* displayList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx)));
 
     gSPEndDisplayList(displayList);
     return displayList;
 }
 
-s32 EnDivingGame_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnDivingGame_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                   void* thisx) {
     EnDivingGame* thisv = (EnDivingGame*)thisx;
     s32 pad;

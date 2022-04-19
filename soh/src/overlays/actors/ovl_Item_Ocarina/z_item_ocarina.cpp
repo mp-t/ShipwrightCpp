@@ -22,7 +22,7 @@ void func_80B864EC(ItemOcarina* thisv, GlobalContext* globalCtx);
 void func_80B865E0(ItemOcarina* thisv, GlobalContext* globalCtx);
 void ItemOcarina_DoNothing(ItemOcarina* thisv, GlobalContext* globalCtx);
 
-const ActorInit Item_Ocarina_InitVars = {
+ActorInit Item_Ocarina_InitVars = {
     ACTOR_ITEM_OCARINA,
     ACTORCAT_ITEMACTION,
     FLAGS,

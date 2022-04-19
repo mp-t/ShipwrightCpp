@@ -18,7 +18,7 @@ void func_8088960C(BgHidanHrock* thisv, GlobalContext* globalCtx);
 void func_808896B8(BgHidanHrock* thisv, GlobalContext* globalCtx);
 void func_808894A4(BgHidanHrock* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Hidan_Hrock_InitVars = {
+ActorInit Bg_Hidan_Hrock_InitVars = {
     ACTOR_BG_HIDAN_HROCK,
     ACTORCAT_BG,
     FLAGS,

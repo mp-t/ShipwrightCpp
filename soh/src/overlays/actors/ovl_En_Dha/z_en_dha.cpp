@@ -23,7 +23,7 @@ void EnDha_SetupDeath(EnDha* thisv);
 void EnDha_Die(EnDha* thisv, GlobalContext* globalCtx);
 void EnDha_UpdateHealth(EnDha* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dha_InitVars = {
+ActorInit En_Dha_InitVars = {
     ACTOR_EN_DHA,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -416,7 +416,7 @@ void EnDha_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &thisv->collider.base);
 }
 
-s32 EnDha_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnDha_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnDha* thisv = (EnDha*)thisx;
 
     if (limbIndex == 1) {
@@ -433,7 +433,7 @@ s32 EnDha_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnDha_OverridePostDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnDha_OverridePostDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     Vec3f handVec = { 1100.0f, 0.0f, 0.0f };
     Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     EnDha* thisv = (EnDha*)thisx;

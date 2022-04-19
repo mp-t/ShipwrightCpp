@@ -18,7 +18,7 @@ void EnDyExtra_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnDyExtra_WaitForTrigger(EnDyExtra* thisv, GlobalContext* globalCtx);
 void EnDyExtra_FallAndKill(EnDyExtra* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dy_Extra_InitVars = {
+ActorInit En_Dy_Extra_InitVars = {
     ACTOR_EN_DY_EXTRA,
     ACTORCAT_PROP,
     FLAGS,

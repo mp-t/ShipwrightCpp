@@ -14,7 +14,7 @@ void BgSpot18Futa_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Futa_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot18Futa_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot18_Futa_InitVars = {
+ActorInit Bg_Spot18_Futa_InitVars = {
     ACTOR_BG_SPOT18_FUTA,
     ACTORCAT_PROP,
     FLAGS,

@@ -25,9 +25,9 @@ void func_80B4BF2C(EnZl1* thisv, GlobalContext* globalCtx);
 
 extern CutsceneData D_80B4C5D0[];
 
-#include "z_en_zl1_camera_data.c"
+#include "z_en_zl1_camera_data.cpp"
 
-const ActorInit En_Zl1_InitVars = {
+ActorInit En_Zl1_InitVars = {
     ACTOR_EN_ZL1,
     ACTORCAT_NPC,
     FLAGS,
@@ -60,13 +60,13 @@ static ColliderCylinderInit sCylinderInit = {
     { 20, 46, 0, { 0, 0, 0 } },
 };
 
-static void* D_80B4E61C[] = {
+static const void* D_80B4E61C[] = {
     gChildZelda1EyeOpenLookingUpRightTex,
     gChildZelda1EyeHalf2Tex,
     gChildZelda1EyeClosedTex,
     gChildZelda1EyeHalf2Tex,
 };
-static void* D_80B4E62C[] = { gChildZelda1MouthNeutralTex };
+static const void* D_80B4E62C[] = { gChildZelda1MouthNeutralTex };
 
 void func_80B4AB40(void) {
 }
@@ -204,7 +204,7 @@ void func_80B4B240(EnZl1* thisv, GlobalContext* globalCtx) {
     u8 sp54[] = { 0x00, 0x00, 0x02 };
     s32 pad2;
     Player* player = GET_PLAYER(globalCtx);
-    AnimationHeader* animHeaderSeg;
+    const AnimationHeader* animHeaderSeg;
     MessageContext* msgCtx = &globalCtx->msgCtx;
     f32 frameCount;
     s32 sp3C = 0;
@@ -332,13 +332,13 @@ void func_80B4B240(EnZl1* thisv, GlobalContext* globalCtx) {
     func_80038290(globalCtx, &thisv->actor, &thisv->unk_200, &thisv->unk_206, thisv->actor.focus.pos);
 }
 
-void func_80B4B7F4(CsCmdActorAction* npcAction, Vec3f* pos) {
+void func_80B4B7F4(const CsCmdActorAction* npcAction, Vec3f* pos) {
     pos->x = npcAction->startPos.x;
     pos->y = npcAction->startPos.y;
     pos->z = npcAction->startPos.z;
 }
 
-void func_80B4B834(CsCmdActorAction* npcAction, Vec3f* pos) {
+void func_80B4B834(const CsCmdActorAction* npcAction, Vec3f* pos) {
     pos->x = npcAction->endPos.x;
     pos->y = npcAction->endPos.y;
     pos->z = npcAction->endPos.z;
@@ -350,7 +350,7 @@ void func_80B4B874(EnZl1* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B4B8B4(EnZl1* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* spB0[] = {
+    const AnimationHeader* spB0[] = {
         NULL,
         NULL,
         NULL,
@@ -369,7 +369,7 @@ void func_80B4B8B4(EnZl1* thisv, GlobalContext* globalCtx) {
     Vec3f sp8C = { -512.0f, 105.0f, -4.0f };
     s32 pad2;
     f32 actionLength;
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
     Vec3f sp74;
     Vec3f sp68;
     Vec3f velocity = { 0.0f, 0.0f, 0.0f };
@@ -431,7 +431,7 @@ void func_80B4BBC4(EnZl1* thisv, GlobalContext* globalCtx) {
 }
 
 void func_80B4BC78(EnZl1* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* sp90[] = {
+    const AnimationHeader* sp90[] = {
         NULL,
         NULL,
         NULL,
@@ -451,7 +451,7 @@ void func_80B4BC78(EnZl1* thisv, GlobalContext* globalCtx) {
     Vec3f sp70;
     Vec3f sp64;
     Vec3f velocity = { 0.0f, 0.0f, 0.0f };
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
     s32 pad;
     f32 frameCount;
 
@@ -584,7 +584,7 @@ void EnZl1_Update(Actor* thisx, GlobalContext* globalCtx) {
     func_80B4AE18(thisv);
 }
 
-s32 EnZl1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnZl1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnZl1* thisv = (EnZl1*)thisx;
 
     if ((limbIndex == 4) || (limbIndex == 3) || (limbIndex == 6) || (limbIndex == 5)) {
@@ -605,7 +605,7 @@ s32 EnZl1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return 0;
 }
 
-void EnZl1_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnZl1_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
     EnZl1* thisv = (EnZl1*)thisx;
 

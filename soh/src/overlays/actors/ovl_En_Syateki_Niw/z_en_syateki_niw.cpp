@@ -26,7 +26,7 @@ void func_80B128D8(EnSyatekiNiw* thisv, GlobalContext* globalCtx);
 
 void func_80B131B8(EnSyatekiNiw* thisv, Vec3f* arg1, Vec3f* arg2, Vec3f* arg3, f32 arg4);
 
-const ActorInit En_Syateki_Niw_InitVars = {
+ActorInit En_Syateki_Niw_InitVars = {
     ACTOR_EN_SYATEKI_NIW,
     ACTORCAT_PROP,
     FLAGS,
@@ -670,7 +670,7 @@ void EnSyatekiNiw_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 SyatekiNiw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 SyatekiNiw_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                 void* thisx) {
     EnSyatekiNiw* thisv = (EnSyatekiNiw*)thisx;
     Vec3f sp0 = { 0.0f, 0.0f, 0.0f };

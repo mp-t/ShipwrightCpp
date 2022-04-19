@@ -35,7 +35,7 @@ void EnEiyer_Die(EnEiyer* thisv, GlobalContext* globalCtx);
 void EnEiyer_Dead(EnEiyer* thisv, GlobalContext* globalCtx);
 void EnEiyer_Stunned(EnEiyer* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Eiyer_InitVars = {
+ActorInit En_Eiyer_InitVars = {
     ACTOR_EN_EIYER,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -680,7 +680,7 @@ void EnEiyer_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnEiyer_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 EnEiyer_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                              Gfx** gfx) {
     EnEiyer* thisv = (EnEiyer*)thisx;
 

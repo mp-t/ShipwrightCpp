@@ -21,7 +21,7 @@ void BgHidanFirewall_Erupt(BgHidanFirewall* thisv, GlobalContext* globalCtx);
 void BgHidanFirewall_Collide(BgHidanFirewall* thisv, GlobalContext* globalCtx);
 void BgHidanFirewall_ColliderFollowPlayer(BgHidanFirewall* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Hidan_Firewall_InitVars = {
+ActorInit Bg_Hidan_Firewall_InitVars = {
     ACTOR_BG_HIDAN_FIREWALL,
     ACTORCAT_BG,
     FLAGS,

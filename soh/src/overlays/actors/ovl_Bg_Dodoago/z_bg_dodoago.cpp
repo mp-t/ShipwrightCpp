@@ -21,7 +21,7 @@ void BgDodoago_OpenJaw(BgDodoago* thisv, GlobalContext* globalCtx);
 void BgDodoago_DoNothing(BgDodoago* thisv, GlobalContext* globalCtx);
 void BgDodoago_LightOneEye(BgDodoago* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Dodoago_InitVars = {
+ActorInit Bg_Dodoago_InitVars = {
     ACTOR_BG_DODOAGO,
     ACTORCAT_BG,
     FLAGS,

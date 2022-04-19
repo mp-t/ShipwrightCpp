@@ -14,7 +14,7 @@ void func_808911BC(BgIceShelter* thisv);
 void func_8089107C(BgIceShelter* thisv, GlobalContext* globalCtx);
 void func_808911D4(BgIceShelter* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Ice_Shelter_InitVars = {
+ActorInit Bg_Ice_Shelter_InitVars = {
     ACTOR_BG_ICE_SHELTER,
     ACTORCAT_BG,
     FLAGS,

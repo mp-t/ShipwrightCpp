@@ -27,7 +27,7 @@ void BgMoriRakkatenjo_Rise(BgMoriRakkatenjo* thisv, GlobalContext* globalCtx);
 
 static s16 sCamSetting = 0;
 
-const ActorInit Bg_Mori_Rakkatenjo_InitVars = {
+ActorInit Bg_Mori_Rakkatenjo_InitVars = {
     ACTOR_BG_MORI_RAKKATENJO,
     ACTORCAT_BG,
     FLAGS,

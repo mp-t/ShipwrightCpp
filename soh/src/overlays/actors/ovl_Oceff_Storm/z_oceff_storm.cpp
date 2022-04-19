@@ -18,7 +18,7 @@ void OceffStorm_Draw2(Actor* thisx, GlobalContext* globalCtx);
 void OceffStorm_DefaultAction(OceffStorm* thisv, GlobalContext* globalCtx);
 void OceffStorm_UnkAction(OceffStorm* thisv, GlobalContext* globalCtx);
 
-const ActorInit Oceff_Storm_InitVars = {
+ActorInit Oceff_Storm_InitVars = {
     ACTOR_OCEFF_STORM,
     ACTORCAT_ITEMACTION,
     FLAGS,

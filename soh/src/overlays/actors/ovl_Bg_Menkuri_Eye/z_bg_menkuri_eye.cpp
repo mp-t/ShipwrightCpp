@@ -15,7 +15,7 @@ void BgMenkuriEye_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriEye_Draw(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriEye_Reset(void);
 
-const ActorInit Bg_Menkuri_Eye_InitVars = {
+ActorInit Bg_Menkuri_Eye_InitVars = {
     ACTOR_BG_MENKURI_EYE,
     ACTORCAT_BG,
     FLAGS,

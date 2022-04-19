@@ -24,7 +24,7 @@ void BgMjin_Draw(Actor* thisvx, GlobalContext* globalCtx);
 void func_808A0850(BgMjin* thisv, GlobalContext* globalCtx);
 void BgMjin_DoNothing(BgMjin* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Mjin_InitVars = {
+ActorInit Bg_Mjin_InitVars = {
     ACTOR_BG_MJIN,
     ACTORCAT_BG,
     FLAGS,

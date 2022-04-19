@@ -20,7 +20,7 @@ void ObjComb_ChooseItemDrop(ObjComb* thisv, GlobalContext* globalCtx);
 void ObjComb_SetupWait(ObjComb* thisv);
 void ObjComb_Wait(ObjComb* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Comb_InitVars = {
+ActorInit Obj_Comb_InitVars = {
     ACTOR_OBJ_COMB,
     ACTORCAT_PROP,
     FLAGS,

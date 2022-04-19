@@ -22,7 +22,7 @@ void BgJyaHaheniron_PillarCrumble(BgJyaHaheniron* thisv, GlobalContext* globalCt
 void BgJyaHaheniron_SetupRubbleCollide(BgJyaHaheniron* thisv);
 void BgJyaHaheniron_RubbleCollide(BgJyaHaheniron* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Jya_Haheniron_InitVars = {
+ActorInit Bg_Jya_Haheniron_InitVars = {
     ACTOR_BG_JYA_HAHENIRON,
     ACTORCAT_PROP,
     FLAGS,

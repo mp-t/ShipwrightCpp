@@ -19,7 +19,7 @@ void func_80B9AF64(ObjMure3* thisv, GlobalContext* globalCtx);
 void func_80B9AFEC(ObjMure3* thisv);
 void func_80B9AFFC(ObjMure3* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Mure3_InitVars = {
+ActorInit Obj_Mure3_InitVars = {
     ACTOR_OBJ_MURE3,
     ACTORCAT_BG,
     FLAGS,

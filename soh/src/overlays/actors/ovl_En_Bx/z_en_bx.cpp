@@ -14,7 +14,7 @@ void EnBx_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnBx_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnBx_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Bx_InitVars = {
+ActorInit En_Bx_InitVars = {
     ACTOR_EN_BX,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -196,14 +196,14 @@ void EnBx_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnBx_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* D_809D2560[] = {
+    static const void* D_809D2560[] = {
         object_bxa_Tex_0024F0,
         object_bxa_Tex_0027F0,
         object_bxa_Tex_0029F0,
     };
     EnBx* thisv = (EnBx*)thisx;
     s32 pad;
-    Mtx* mtx = Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Mtx));
+    Mtx* mtx = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, 4 * sizeof(Mtx)));
     s16 i;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bx.c", 464);

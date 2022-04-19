@@ -21,7 +21,7 @@ void EnBombf_WaitForRelease(EnBombf* thisv, GlobalContext* globalCtx);
 void EnBombf_Explode(EnBombf* thisv, GlobalContext* globalCtx);
 void EnBombf_SetupGrowBomb(EnBombf* thisv, s16 params);
 
-const ActorInit En_Bombf_InitVars = {
+ActorInit En_Bombf_InitVars = {
     ACTOR_EN_BOMBF,
     ACTORCAT_PROP,
     FLAGS,
@@ -469,7 +469,7 @@ Gfx* EnBombf_NewMtxDList(GraphicsContext* gfxCtx, GlobalContext* globalCtx) {
     Gfx* displayList;
     Gfx* displayListHead;
 
-    displayList = Graph_Alloc(gfxCtx, 5 * sizeof(Gfx));
+    displayList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 5 * sizeof(Gfx)));
     displayListHead = displayList;
     Matrix_ReplaceRotation(&globalCtx->billboardMtxF);
     gSPMatrix(displayListHead++, Matrix_NewMtx(gfxCtx, "../z_en_bombf.c", 1021),

@@ -15,7 +15,7 @@ void ObjMakekinsuta_Update(Actor* thisx, GlobalContext* globalCtx);
 void func_80B98320(ObjMakekinsuta* thisv, GlobalContext* globalCtx);
 void ObjMakekinsuta_DoNothing(ObjMakekinsuta* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Makekinsuta_InitVars = {
+ActorInit Obj_Makekinsuta_InitVars = {
     ACTOR_OBJ_MAKEKINSUTA,
     ACTORCAT_ITEMACTION,
     FLAGS,

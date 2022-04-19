@@ -19,7 +19,7 @@ void EnBlkobj_SpawnDarkLink(EnBlkobj* thisv, GlobalContext* globalCtx);
 void EnBlkobj_DarkLinkFight(EnBlkobj* thisv, GlobalContext* globalCtx);
 void EnBlkobj_DoNothing(EnBlkobj* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Blkobj_InitVars = {
+ActorInit En_Blkobj_InitVars = {
     ACTOR_EN_BLKOBJ,
     ACTORCAT_PROP,
     FLAGS,
@@ -57,7 +57,7 @@ void EnBlkobj_SetupAction(EnBlkobj* thisv, EnBlkobjActionFunc actionFunc) {
 void EnBlkobj_Init(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     EnBlkobj* thisv = (EnBlkobj*)thisx;
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
 
     Actor_ProcessInitChain(&thisv->dyna.actor, sInitChain);
     DynaPolyActor_Init(&thisv->dyna, DPM_UNK);
@@ -128,7 +128,7 @@ void EnBlkobj_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-void EnBlkobj_DrawAlpha(GlobalContext* globalCtx, Gfx* dList, s32 alpha) {
+void EnBlkobj_DrawAlpha(GlobalContext* globalCtx, const Gfx* dList, s32 alpha) {
     Gfx* segment;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_blkobj.c", 322);

@@ -18,7 +18,7 @@ void DoorAna_WaitClosed(DoorAna* thisv, GlobalContext* globalCtx);
 void DoorAna_WaitOpen(DoorAna* thisv, GlobalContext* globalCtx);
 void DoorAna_GrabPlayer(DoorAna* thisv, GlobalContext* globalCtx);
 
-const ActorInit Door_Ana_InitVars = {
+ActorInit Door_Ana_InitVars = {
     ACTOR_DOOR_ANA,
     ACTORCAT_ITEMACTION,
     FLAGS,

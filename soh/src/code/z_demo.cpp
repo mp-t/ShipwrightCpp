@@ -309,7 +309,7 @@ void func_80064824(GlobalContext* globalCtx, CutsceneContext* csCtx, const CsCmd
             break;
         case 15:
             if (sp3F != 0) {
-                TitleCard_InitPlaceName(globalCtx, &globalCtx->actorCtx.titleCtx, static_cast<char*>(player->giObjectSegment), 160, 120,
+                TitleCard_InitPlaceName(globalCtx, &globalCtx->actorCtx.titleCtx, static_cast<const char*>(player->giObjectSegment), 160, 120,
                                         144, 24, 20);
             }
             break;

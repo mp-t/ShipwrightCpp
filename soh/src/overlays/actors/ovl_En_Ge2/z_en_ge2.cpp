@@ -55,7 +55,7 @@ void EnGe2_UpdateFriendly(Actor* thisx, GlobalContext* globalCtx);
 void EnGe2_UpdateAfterTalk(Actor* thisx, GlobalContext* globalCtx);
 void EnGe2_UpdateStunned(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Ge2_InitVars = {
+ActorInit En_Ge2_InitVars = {
     ACTOR_EN_GE2,
     ACTORCAT_NPC,
     FLAGS,
@@ -94,7 +94,7 @@ static EnGe2ActionFunc sActionFuncs[] = {
     EnGe2_CaptureClose, EnGe2_Stand,       EnGe2_WaitLookAtPlayer,
 };
 
-static AnimationHeader* sAnimations[] = {
+static const AnimationHeader* sAnimations[] = {
     &gGerudoPurpleWalkingAnim,         &gGerudoPurpleLookingAboutAnim, &gGerudoPurpleLookingAboutAnim,
     &gGerudoPurpleFallingToGroundAnim, &gGerudoPurpleLookingAboutAnim, &gGerudoPurpleChargingAnim,
     &gGerudoPurpleLookingAboutAnim,    &gGerudoPurpleLookingAboutAnim, &gGerudoPurpleLookingAboutAnim,
@@ -622,7 +622,7 @@ void EnGe2_UpdateStunned(Actor* thisx, GlobalContext* globalCtx2) {
     }
 }
 
-s32 EnGe2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnGe2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnGe2* thisv = (EnGe2*)thisx;
 
     if (limbIndex == 3) {
@@ -632,7 +632,7 @@ s32 EnGe2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return 0;
 }
 
-void EnGe2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnGe2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f D_80A343B0 = { 600.0f, 700.0f, 0.0f };
     EnGe2* thisv = (EnGe2*)thisx;
 
@@ -642,7 +642,7 @@ void EnGe2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 }
 
 void EnGe2_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gGerudoPurpleEyeOpenTex, gGerudoPurpleEyeHalfTex, gGerudoPurpleEyeClosedTex };
+    static const void* eyeTextures[] = { gGerudoPurpleEyeOpenTex, gGerudoPurpleEyeHalfTex, gGerudoPurpleEyeClosedTex };
     s32 pad;
     EnGe2* thisv = (EnGe2*)thisx;
 

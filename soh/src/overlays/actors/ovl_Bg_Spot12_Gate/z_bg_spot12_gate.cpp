@@ -23,7 +23,7 @@ void func_808B318C(BgSpot12Gate* thisv, GlobalContext* globalCtx);
 void func_808B3274(BgSpot12Gate* thisv);
 void func_808B3298(BgSpot12Gate* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot12_Gate_InitVars = {
+ActorInit Bg_Spot12_Gate_InitVars = {
     ACTOR_BG_SPOT12_GATE,
     ACTORCAT_BG,
     FLAGS,

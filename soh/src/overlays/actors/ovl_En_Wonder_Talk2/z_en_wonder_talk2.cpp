@@ -19,7 +19,7 @@ void func_80B3A15C(EnWonderTalk2* thisv, GlobalContext* globalCtx);
 void func_80B3A3D4(EnWonderTalk2* thisv, GlobalContext* globalCtx);
 void EnWonderTalk2_DoNothing(EnWonderTalk2* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Wonder_Talk2_InitVars = {
+ActorInit En_Wonder_Talk2_InitVars = {
     ACTOR_EN_WONDER_TALK2,
     ACTORCAT_ITEMACTION,
     FLAGS,

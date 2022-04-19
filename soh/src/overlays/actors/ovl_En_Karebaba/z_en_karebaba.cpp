@@ -29,7 +29,7 @@ void EnKarebaba_Dead(EnKarebaba* thisv, GlobalContext* globalCtx);
 void EnKarebaba_Regrow(EnKarebaba* thisv, GlobalContext* globalCtx);
 void EnKarebaba_Upright(EnKarebaba* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Karebaba_InitVars = {
+ActorInit En_Karebaba_InitVars = {
     ACTOR_EN_KAREBABA,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -460,7 +460,7 @@ void EnKarebaba_DrawBaseShadow(EnKarebaba* thisv, GlobalContext* globalCtx) {
 
 void EnKarebaba_Draw(Actor* thisx, GlobalContext* globalCtx) {
     static Color_RGBA8 black = { 0, 0, 0, 0 };
-    static Gfx* stemDLists[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
+    static const Gfx* stemDLists[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
     static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     EnKarebaba* thisv = (EnKarebaba*)thisx;
     s32 i;

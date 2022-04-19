@@ -15,10 +15,10 @@ void EnToryo_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnToryo_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80B20914(EnToryo* thisv, GlobalContext* globalCtx);
-s32 EnToryo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
-void EnToryo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx);
+s32 EnToryo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
+void EnToryo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx);
 
-const ActorInit En_Toryo_InitVars = {
+ActorInit En_Toryo_InitVars = {
     ACTOR_EN_TORYO,
     ACTORCAT_NPC,
     FLAGS,
@@ -385,7 +385,7 @@ void EnToryo_Draw(Actor* thisx, GlobalContext* globalCtx) {
                           EnToryo_OverrideLimbDraw, EnToryo_PostLimbDraw, thisv);
 }
 
-s32 EnToryo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnToryo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                              void* thisx) {
     EnToryo* thisv = (EnToryo*)thisx;
 
@@ -404,7 +404,7 @@ s32 EnToryo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
     return 0;
 }
 
-void EnToryo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnToryo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnToryo* thisv = (EnToryo*)thisx;
 
     switch (limbIndex) {

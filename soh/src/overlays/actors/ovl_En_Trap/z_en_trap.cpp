@@ -34,7 +34,7 @@ void EnTrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTrap_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnTrap_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Trap_InitVars = {
+ActorInit En_Trap_InitVars = {
     ACTOR_EN_TRAP,
     ACTORCAT_BG,
     FLAGS,

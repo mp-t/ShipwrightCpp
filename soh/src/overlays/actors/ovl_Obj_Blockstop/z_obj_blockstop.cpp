@@ -13,7 +13,7 @@ void ObjBlockstop_Init(Actor* thisx, GlobalContext* globalCtx);
 void ObjBlockstop_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjBlockstop_Update(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Obj_Blockstop_InitVars = {
+ActorInit Obj_Blockstop_InitVars = {
     ACTOR_OBJ_BLOCKSTOP,
     ACTORCAT_PROP,
     FLAGS,

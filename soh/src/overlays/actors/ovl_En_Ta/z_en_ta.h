@@ -33,7 +33,7 @@ typedef struct EnTa {
     /* 0x02DA */ Vec3s unk_2DA;
     /* 0x02E0 */ u16 unk_2E0;
     /* 0x02E2 */ s16 unk_2E2;
-    /* 0x02E4 */ AnimationHeader* currentAnimation;
+    /* 0x02E4 */ const AnimationHeader* currentAnimation;
 } EnTa; // size = 0x02E8
 
 #endif

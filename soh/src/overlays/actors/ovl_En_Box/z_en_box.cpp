@@ -49,7 +49,7 @@ void EnBox_AppearAnimation(EnBox*, GlobalContext*);
 void EnBox_WaitOpen(EnBox*, GlobalContext*);
 void EnBox_Open(EnBox*, GlobalContext*);
 
-const ActorInit En_Box_InitVars = {
+ActorInit En_Box_InitVars = {
     ACTOR_EN_BOX,
     ACTORCAT_CHEST,
     FLAGS,
@@ -62,7 +62,7 @@ const ActorInit En_Box_InitVars = {
     NULL,
 };
 
-static AnimationHeader* sAnimations[4] = { &gTreasureChestAnim_00024C, &gTreasureChestAnim_000128,
+static const AnimationHeader* sAnimations[4] = { &gTreasureChestAnim_00024C, &gTreasureChestAnim_000128,
                                            &gTreasureChestAnim_00043C, &gTreasureChestAnim_00043C };
 
 static InitChainEntry sInitChain[] = {
@@ -92,8 +92,8 @@ void EnBox_ClipToGround(EnBox* thisv, GlobalContext* globalCtx) {
 void EnBox_Init(Actor* thisx, GlobalContext* globalCtx2) {
     GlobalContext* globalCtx = globalCtx2;
     EnBox* thisv = (EnBox*)thisx;
-    AnimationHeader* anim;
-    CollisionHeader* colHeader;
+    const AnimationHeader* anim;
+    const CollisionHeader* colHeader;
     f32 animFrameStart;
     f32 endFrame;
 
@@ -388,7 +388,7 @@ void EnBox_AppearAnimation(EnBox* thisv, GlobalContext* globalCtx) {
  */
 void EnBox_WaitOpen(EnBox* thisv, GlobalContext* globalCtx) {
     f32 frameCount;
-    AnimationHeader* anim;
+    const AnimationHeader* anim;
     s32 linkAge;
     s32 pad;
     Vec3f sp4C;
@@ -541,7 +541,7 @@ void EnBox_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void EnBox_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnBox_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     EnBox* thisv = (EnBox*)thisx;
     s32 pad;
 
@@ -568,7 +568,7 @@ Gfx* EnBox_EmptyDList(GraphicsContext* gfxCtx) {
     Gfx* dListHead;
     Gfx* dList;
 
-    dList = Graph_Alloc(gfxCtx, sizeof(Gfx));
+    dList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx)));
     ASSERT(dList != NULL, "gfxp != NULL", "../z_en_box.c", 1528);
 
     dListHead = dList;
@@ -582,7 +582,7 @@ Gfx* func_809CA4A0(GraphicsContext* gfxCtx) {
     Gfx* dList;
     Gfx* dListHead;
 
-    dListHead = Graph_Alloc(gfxCtx, 2 * sizeof(Gfx));
+    dListHead = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 2 * sizeof(Gfx)));
     ASSERT(dListHead != NULL, "gfxp != NULL", "../z_en_box.c", 1546);
 
     dList = dListHead;
@@ -600,7 +600,7 @@ Gfx* func_809CA518(GraphicsContext* gfxCtx) {
     Gfx* dList;
     Gfx* dListHead;
 
-    dListHead = Graph_Alloc(gfxCtx, 2 * sizeof(Gfx));
+    dListHead = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 2 * sizeof(Gfx)));
     ASSERT(dListHead != NULL, "gfxp != NULL", "../z_en_box.c", 1564);
 
     dList = dListHead;

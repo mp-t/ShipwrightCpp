@@ -16,7 +16,7 @@ void BgMizuUzu_Draw(Actor* thisvx, GlobalContext* globalCtx);
 
 void func_8089F788(BgMizuUzu* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Mizu_Uzu_InitVars = {
+ActorInit Bg_Mizu_Uzu_InitVars = {
     ACTOR_BG_MIZU_UZU,
     ACTORCAT_PROP,
     FLAGS,

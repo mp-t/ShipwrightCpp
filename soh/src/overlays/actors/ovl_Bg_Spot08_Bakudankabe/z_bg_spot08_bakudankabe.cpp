@@ -19,7 +19,7 @@ void BgSpot08Bakudankabe_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_808B02D0(BgSpot08Bakudankabe* thisv, GlobalContext* globalCtx);
 void func_808B0324(BgSpot08Bakudankabe* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot08_Bakudankabe_InitVars = {
+ActorInit Bg_Spot08_Bakudankabe_InitVars = {
     ACTOR_BG_SPOT08_BAKUDANKABE,
     ACTORCAT_BG,
     FLAGS,

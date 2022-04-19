@@ -12,10 +12,10 @@ void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnCs_Walk(EnCs* thisv, GlobalContext* globalCtx);
 void EnCs_Talk(EnCs* thisv, GlobalContext* globalCtx);
 void EnCs_Wait(EnCs* thisv, GlobalContext* globalCtx);
-s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
-void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx);
+s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
+void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx);
 
-const ActorInit En_Cs_InitVars = {
+ActorInit En_Cs_InitVars = {
     ACTOR_EN_CS,
     ACTORCAT_NPC,
     FLAGS,
@@ -454,7 +454,7 @@ void EnCs_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gGraveyardKidEyesOpenTex,
         gGraveyardKidEyesHalfTex,
         gGraveyardKidEyesClosedTex,
@@ -489,7 +489,7 @@ void EnCs_Draw(Actor* thisx, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_cs.c", 1015);
 }
 
-s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnCs* thisv = (EnCs*)thisx;
 
     if (thisv->flag & 1) {
@@ -508,7 +508,7 @@ s32 EnCs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return 0;
 }
 
-void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnCs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f D_809E2970 = { 500.0f, 800.0f, 0.0f };
     EnCs* thisv = (EnCs*)thisx;
 

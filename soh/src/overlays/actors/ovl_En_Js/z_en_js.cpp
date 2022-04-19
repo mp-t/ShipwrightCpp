@@ -16,7 +16,7 @@ void EnJs_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_80A89304(EnJs* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Js_InitVars = {
+ActorInit En_Js_InitVars = {
     ACTOR_EN_JS,
     ACTORCAT_NPC,
     FLAGS,
@@ -206,7 +206,7 @@ void EnJs_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnJs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnJs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnJs* thisv = (EnJs*)thisx;
 
     if (limbIndex == 12) {
@@ -215,7 +215,7 @@ s32 EnJs_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return false;
 }
 
-void EnJs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnJs_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f D_80A896DC = { 0.0f, 0.0f, 0.0f };
     EnJs* thisv = (EnJs*)thisx;
 

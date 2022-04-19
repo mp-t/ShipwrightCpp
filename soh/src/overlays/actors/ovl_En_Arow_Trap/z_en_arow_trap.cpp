@@ -12,7 +12,7 @@ void EnArowTrap_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnArowTrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnArowTrap_Update(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Arow_Trap_InitVars = {
+ActorInit En_Arow_Trap_InitVars = {
     ACTOR_EN_AROW_TRAP,
     ACTORCAT_PROP,
     FLAGS,

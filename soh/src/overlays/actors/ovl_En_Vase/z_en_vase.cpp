@@ -13,7 +13,7 @@ void EnVase_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnVase_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnVase_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Vase_InitVars = {
+ActorInit En_Vase_InitVars = {
     ACTOR_EN_VASE,
     ACTORCAT_PROP,
     FLAGS,

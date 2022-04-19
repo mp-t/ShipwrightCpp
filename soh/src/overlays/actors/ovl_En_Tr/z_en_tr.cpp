@@ -23,7 +23,7 @@ void EnTr_UpdateRotation(EnTr* thisv, GlobalContext* globalCtx, s32 actionIndex)
 void func_80B24038(EnTr* thisv, GlobalContext* globalCtx, s32 actionIndex);
 void EnTr_SetStartPosRot(EnTr* thisv, GlobalContext* globalCtx, s32 actionIndex);
 
-const ActorInit En_Tr_InitVars = {
+ActorInit En_Tr_InitVars = {
     ACTOR_EN_TR,
     ACTORCAT_NPC,
     FLAGS,
@@ -38,27 +38,27 @@ const ActorInit En_Tr_InitVars = {
 
 // The first elements of these animation arrays are for Koume, the second for Kotake
 
-static AnimationHeader* unused[] = {
+static const AnimationHeader* unused[] = {
     &object_tr_Anim_003FC8,
     &object_tr_Anim_001CDC,
 };
 
-static AnimationHeader* D_80B24368[] = {
+static const AnimationHeader* D_80B24368[] = {
     &object_tr_Anim_002BC4,
     &object_tr_Anim_000BFC,
 };
 
-static AnimationHeader* D_80B24370[] = {
+static const AnimationHeader* D_80B24370[] = {
     &object_tr_Anim_0035CC,
     &object_tr_Anim_0013CC,
 };
 
-static AnimationHeader* D_80B24378[] = {
+static const AnimationHeader* D_80B24378[] = {
     &object_tr_Anim_0049C8,
     &object_tr_Anim_0049C8,
 };
 
-static AnimationHeader* D_80B24380[] = {
+static const AnimationHeader* D_80B24380[] = {
     &object_tr_Anim_012E1C,
     &object_tr_Anim_012E1C,
 };
@@ -75,7 +75,7 @@ static Color_RGBA8 D_80B243C0[4] = {
     { 0, 0, 255, 255 },
 };
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     object_tr_Tex_0086D8,
     object_tr_Tex_0094D8,
     object_tr_Tex_0098D8,
@@ -411,7 +411,7 @@ void EnTr_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnTr_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnTr_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     Vec3f src = { 2300.0f, 0.0f, -600.0f };
     Vec3f dest = { 0.0f, 0.0f, 0.0f };
     EnTr* thisv = (EnTr*)thisx;

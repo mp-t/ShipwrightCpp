@@ -27,7 +27,7 @@ void BgRelayObjects_DoNothing(BgRelayObjects* thisv, GlobalContext* globalCtx);
 void func_808A932C(BgRelayObjects* thisv, GlobalContext* globalCtx);
 void func_808A939C(BgRelayObjects* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Relay_Objects_InitVars = {
+ActorInit Bg_Relay_Objects_InitVars = {
     ACTOR_BG_RELAY_OBJECTS,
     ACTORCAT_BG,
     FLAGS,

@@ -20,7 +20,7 @@ void ArrowFire_Hit(ArrowFire* thisv, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Arrow_Fire/ovl_Arrow_Fire.h"
 
-const ActorInit Arrow_Fire_InitVars = {
+ActorInit Arrow_Fire_InitVars = {
     ACTOR_ARROW_FIRE,
     ACTORCAT_ITEMACTION,
     FLAGS,

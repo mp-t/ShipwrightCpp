@@ -18,7 +18,7 @@ void func_8088F4B8(BgHidanSyoku* thisv, GlobalContext* globalCtx);
 void func_8088F514(BgHidanSyoku* thisv, GlobalContext* globalCtx);
 void func_8088F62C(BgHidanSyoku* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Hidan_Syoku_InitVars = {
+ActorInit Bg_Hidan_Syoku_InitVars = {
     ACTOR_BG_HIDAN_SYOKU,
     ACTORCAT_BG,
     FLAGS,

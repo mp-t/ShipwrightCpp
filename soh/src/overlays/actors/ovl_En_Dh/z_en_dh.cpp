@@ -31,7 +31,7 @@ void EnDh_Burrow(EnDh* thisv, GlobalContext* globalCtx);
 void EnDh_Damage(EnDh* thisv, GlobalContext* globalCtx);
 void EnDh_Death(EnDh* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dh_InitVars = {
+ActorInit En_Dh_InitVars = {
     ACTOR_EN_DH,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -530,7 +530,7 @@ void EnDh_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void EnDh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void EnDh_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     Vec3f headOffset = { 2000.0f, 1000.0f, 0.0f };
     EnDh* thisv = (EnDh*)thisx;
 

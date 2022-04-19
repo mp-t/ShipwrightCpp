@@ -16,7 +16,7 @@ void EnHs2_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnHs2_Draw(Actor* thisx, GlobalContext* globalCtx);
 void func_80A6F1A4(EnHs2* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Hs2_InitVars = {
+ActorInit En_Hs2_InitVars = {
     ACTOR_EN_HS2,
     ACTORCAT_NPC,
     FLAGS,
@@ -129,7 +129,7 @@ void EnHs2_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnHs2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnHs2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnHs2* thisv = (EnHs2*)thisx;
 
     switch (limbIndex) {
@@ -151,7 +151,7 @@ s32 EnHs2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnHs2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnHs2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f D_80A6F4CC = { 300.0f, 1000.0f, 0.0f };
     EnHs2* thisv = (EnHs2*)thisx;
 

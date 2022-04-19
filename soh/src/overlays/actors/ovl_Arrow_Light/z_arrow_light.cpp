@@ -21,7 +21,7 @@ void ArrowLight_Hit(ArrowLight* thisv, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Arrow_Light/ovl_Arrow_Light.h"
 
-const ActorInit Arrow_Light_InitVars = {
+ActorInit Arrow_Light_InitVars = {
     ACTOR_ARROW_LIGHT,
     ACTORCAT_ITEMACTION,
     FLAGS,

@@ -19,7 +19,7 @@ void func_808787A4(BgGjyoBridge* thisv, GlobalContext* globalCtx);
 void BgGjyoBridge_TriggerCutscene(BgGjyoBridge* thisv, GlobalContext* globalCtx);
 void BgGjyoBridge_SpawnBridge(BgGjyoBridge* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Gjyo_Bridge_InitVars = {
+ActorInit Bg_Gjyo_Bridge_InitVars = {
     ACTOR_BG_GJYO_BRIDGE,
     ACTORCAT_PROP,
     FLAGS,

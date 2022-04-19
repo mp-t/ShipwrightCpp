@@ -23,7 +23,7 @@ void func_80889D28(BgHidanKousi* thisv, GlobalContext* globalCtx);
 
 static f32 D_80889E40[] = { 120.0f, 150.0f, 150.0f };
 
-const ActorInit Bg_Hidan_Kousi_InitVars = {
+ActorInit Bg_Hidan_Kousi_InitVars = {
     ACTOR_BG_HIDAN_KOUSI,
     ACTORCAT_PROP,
     FLAGS,

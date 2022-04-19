@@ -14,7 +14,7 @@ void ObjHana_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void ObjHana_Update(Actor* thisx, GlobalContext* globalCtx);
 void ObjHana_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Obj_Hana_InitVars = {
+ActorInit Obj_Hana_InitVars = {
     ACTOR_OBJ_HANA,
     ACTORCAT_PROP,
     FLAGS,

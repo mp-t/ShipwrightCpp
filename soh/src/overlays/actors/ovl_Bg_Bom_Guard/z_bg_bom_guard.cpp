@@ -17,7 +17,7 @@ void BgBomGuard_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void func_8086E638(BgBomGuard* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Bom_Guard_InitVars = {
+ActorInit Bg_Bom_Guard_InitVars = {
     ACTOR_BG_BOM_GUARD,
     ACTORCAT_PROP,
     FLAGS,

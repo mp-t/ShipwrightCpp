@@ -14,7 +14,7 @@ void BgUmaJump_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgUmaJump_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgUmaJump_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Bg_Umajump_InitVars = {
+ActorInit Bg_Umajump_InitVars = {
     ACTOR_BG_UMAJUMP,
     ACTORCAT_PROP,
     FLAGS,

@@ -29,7 +29,7 @@ void DoorKiller_SetProperties(DoorKiller* thisv, GlobalContext* globalCtx);
 void DoorKiller_DrawDoor(Actor* thisx, GlobalContext* globalCtx);
 void DoorKiller_DrawRubble(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Door_Killer_InitVars = {
+ActorInit Door_Killer_InitVars = {
     ACTOR_DOOR_KILLER,
     ACTORCAT_BG,
     FLAGS,
@@ -496,7 +496,7 @@ void DoorKiller_Update(Actor* thisx, GlobalContext* globalCtx) {
 
 void DoorKiller_SetTexture(Actor* thisx, GlobalContext* globalCtx) {
     DoorKiller* thisv = (DoorKiller*)thisx;
-    void* doorTexture = thisv->texture;
+    const void* doorTexture = thisv->texture;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_door_killer.c", 883);
     gSPSegment(POLY_OPA_DISP++, 0x08, doorTexture);
@@ -513,7 +513,7 @@ void DoorKiller_DrawDoor(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void DoorKiller_DrawRubble(Actor* thisx, GlobalContext* globalCtx) {
-    static Gfx* dLists[] = { object_door_killer_DL_001250, object_door_killer_DL_001550, object_door_killer_DL_0017B8,
+    static const Gfx* dLists[] = { object_door_killer_DL_001250, object_door_killer_DL_001550, object_door_killer_DL_0017B8,
                              object_door_killer_DL_001A58 };
     s32 rubblePieceIndex = (thisx->params & 0xFF) - 1;
     DoorKiller* thisv = (DoorKiller*)thisx;

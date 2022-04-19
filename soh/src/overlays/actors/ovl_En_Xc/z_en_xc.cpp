@@ -48,7 +48,7 @@ static ColliderCylinderInitType1 sCylinderInit = {
     { 25, 80, 0, { 0, 0, 0 } },
 };
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     gSheikEyeOpenTex,
     gSheikEyeHalfClosedTex,
     gSheikEyeShutTex,
@@ -119,8 +119,8 @@ s32 EnXc_AnimIsFinished(EnXc* thisv) {
     return SkelAnime_Update(&thisv->skelAnime);
 }
 
-CsCmdActorAction* EnXc_GetCsCmd(GlobalContext* globalCtx, s32 npcActionIdx) {
-    CsCmdActorAction* action = NULL;
+const CsCmdActorAction* EnXc_GetCsCmd(GlobalContext* globalCtx, s32 npcActionIdx) {
+    const CsCmdActorAction* action = NULL;
 
     if (globalCtx->csCtx.state != 0) {
         action = globalCtx->csCtx.npcActions[npcActionIdx];
@@ -129,7 +129,7 @@ CsCmdActorAction* EnXc_GetCsCmd(GlobalContext* globalCtx, s32 npcActionIdx) {
 }
 
 s32 EnXc_CompareCsAction(EnXc* thisv, GlobalContext* globalCtx, u16 action, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdActorAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdActorAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
 
     if (csCmdActorAction != NULL && csCmdActorAction->action == action) {
         return true;
@@ -138,7 +138,7 @@ s32 EnXc_CompareCsAction(EnXc* thisv, GlobalContext* globalCtx, u16 action, s32 
 }
 
 s32 EnXc_CsActionsAreNotEqual(EnXc* thisv, GlobalContext* globalCtx, u16 action, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdNPCAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
 
     if (csCmdNPCAction && csCmdNPCAction->action != action) {
         return true;
@@ -147,7 +147,7 @@ s32 EnXc_CsActionsAreNotEqual(EnXc* thisv, GlobalContext* globalCtx, u16 action,
 }
 
 void func_80B3C588(EnXc* thisv, GlobalContext* globalCtx, u32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdNPCAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
     Actor* thisx = &thisv->actor;
 
     if (csCmdNPCAction != NULL) {
@@ -161,7 +161,7 @@ void func_80B3C588(EnXc* thisv, GlobalContext* globalCtx, u32 npcActionIdx) {
 }
 
 void func_80B3C620(EnXc* thisv, GlobalContext* globalCtx, s32 npcActionIdx) {
-    CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
+    const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, npcActionIdx);
     Vec3f* xcPos = &thisv->actor.world.pos;
     f32 startX;
     f32 startY;
@@ -186,9 +186,9 @@ void func_80B3C620(EnXc* thisv, GlobalContext* globalCtx, s32 npcActionIdx) {
     }
 }
 
-void EnXc_ChangeAnimation(EnXc* thisv, AnimationHeader* animation, u8 mode, f32 morphFrames, s32 reverseFlag) {
+void EnXc_ChangeAnimation(EnXc* thisv, const AnimationHeader* animation, u8 mode, f32 morphFrames, s32 reverseFlag) {
     s32 pad[2];
-    AnimationHeader* animationSeg = SEGMENTED_TO_VIRTUAL(animation);
+    const AnimationHeader* animationSeg = SEGMENTED_TO_VIRTUAL(animation);
     f32 frameCount = Animation_GetLastFrame(&animationSeg->common);
     f32 playbackSpeed;
     f32 startFrame;
@@ -488,7 +488,7 @@ static s32 sFlameSpawned = false;
 void EnXc_SpawnFlame(EnXc* thisv, GlobalContext* globalCtx) {
 
     if (!sFlameSpawned) {
-        CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
+        const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
         f32 xPos = npcAction->startPos.x;
         f32 yPos = npcAction->startPos.y;
         f32 zPos = npcAction->startPos.z;
@@ -500,7 +500,7 @@ void EnXc_SpawnFlame(EnXc* thisv, GlobalContext* globalCtx) {
 
 void EnXc_SetupFlamePos(EnXc* thisv, GlobalContext* globalCtx) {
     Vec3f* attachedPos;
-    CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
 
     if (thisv->flameActor != NULL) {
         attachedPos = &thisv->flameActor->world.pos;
@@ -525,7 +525,7 @@ void EnXc_InitFlame(EnXc* thisv, GlobalContext* globalCtx) {
     s16 sceneNum = globalCtx->sceneNum;
 
     if (sceneNum == SCENE_SPOT17) {
-        CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
+        const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
         if (npcAction != NULL) {
             s32 action = npcAction->action;
 
@@ -548,7 +548,7 @@ void EnXc_InitFlame(EnXc* thisv, GlobalContext* globalCtx) {
 
 void func_80B3D48C(EnXc* thisv, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
-    CsCmdActorAction* linkAction = csCtx->linkAction;
+    const CsCmdActorAction* linkAction = csCtx->linkAction;
     s16 yaw;
 
     if (linkAction != NULL) {
@@ -561,9 +561,9 @@ void func_80B3D48C(EnXc* thisv, GlobalContext* globalCtx) {
     thisv->actor.shape.rot.y = thisv->actor.world.rot.y = yaw;
 }
 
-AnimationHeader* EnXc_GetCurrentHarpAnim(GlobalContext* globalCtx, s32 index) {
-    AnimationHeader* animation = &gSheikPlayingHarp5Anim;
-    CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, index);
+const AnimationHeader* EnXc_GetCurrentHarpAnim(GlobalContext* globalCtx, s32 index) {
+    const AnimationHeader* animation = &gSheikPlayingHarp5Anim;
+    const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, index);
 
     if (npcAction != NULL) {
         u16 action = npcAction->action;
@@ -637,7 +637,7 @@ void EnXc_SetupFallFromSkyAction(EnXc* thisv, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
 
     if (csCtx->state != 0) {
-        CsCmdActorAction* npcAction = csCtx->npcActions[4];
+        const CsCmdActorAction* npcAction = csCtx->npcActions[4];
 
         if (npcAction && npcAction->action == 2) {
             s32 pad;
@@ -712,7 +712,7 @@ void EnXc_SetupStoppedAction(EnXc* thisv) {
 }
 
 void func_80B3DAF0(EnXc* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 4);
+    const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 4);
     u16 action;
 
     if (npcAction &&
@@ -742,7 +742,7 @@ void EnXc_SetupInitialHarpAction(EnXc* thisv, s32 animFinished) {
 void EnXc_SetupPlayingHarpAction(EnXc* thisv, GlobalContext* globalCtx, s32 animFinished) {
     s32 pad;
     SkelAnime* skelAnime;
-    AnimationHeader* animation;
+    const AnimationHeader* animation;
     f32 frameCount;
 
     if (animFinished) {
@@ -759,7 +759,7 @@ void func_80B3DCA8(EnXc* thisv, GlobalContext* globalCtx) {
     f32 frameCount;
 
     if (globalCtx->csCtx.state != 0) {
-        CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
+        const CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
 
         if (npcAction != NULL && npcAction->action == 8) {
             frameCount = Animation_GetLastFrame(&gSheikInitialHarpAnim);
@@ -808,7 +808,7 @@ void func_80B3DE78(EnXc* thisv, s32 animFinished) {
 
 void EnXc_SetupReverseAccel(EnXc* thisv, GlobalContext* globalCtx) {
     if (globalCtx->csCtx.state != 0) {
-        CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
+        const CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
 
         if (npcAction != NULL && npcAction->action == 4) {
             Animation_Change(&thisv->skelAnime, &gSheikWalkingAnim, -1.0f, Animation_GetLastFrame(&gSheikWalkingAnim),
@@ -860,7 +860,7 @@ void func_80B3E164(EnXc* thisv, GlobalContext* globalCtx) {
 
 void EnXc_SetupDisappear(EnXc* thisv, GlobalContext* globalCtx) {
     if (globalCtx->csCtx.state != 0) {
-        CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
+        const CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
 
         if (npcAction != NULL && npcAction->action == 9) {
             s16 sceneNum = globalCtx->sceneNum;
@@ -1039,7 +1039,7 @@ void EnXc_Fade(EnXc* thisv, GlobalContext* globalCtx) {
     EnXc_InitFlame(thisv, globalCtx);
 }
 
-void func_80B3E87C(Gfx** dList, EnXc* thisv) {
+void func_80B3E87C(const Gfx** dList, EnXc* thisv) {
     f32 currentFrame = thisv->skelAnime.curFrame;
 
     if (currentFrame >= 34.0f) {
@@ -1047,7 +1047,7 @@ void func_80B3E87C(Gfx** dList, EnXc* thisv) {
     }
 }
 
-s32 EnXc_PullingOutHarpOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnXc_PullingOutHarpOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                         void* thisx) {
     EnXc* thisv = (EnXc*)thisx;
 
@@ -1058,7 +1058,7 @@ s32 EnXc_PullingOutHarpOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex,
     return 0;
 }
 
-s32 EnXc_HarpOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnXc_HarpOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                               void* thisx) {
     EnXc* thisv = (EnXc*)thisx;
 
@@ -1073,7 +1073,7 @@ void EnXc_DrawPullingOutHarp(Actor* thisx, GlobalContext* globalCtx) {
     EnXc* thisv = (EnXc*)thisx;
     s32 pad;
     s16 eyePattern = thisv->eyeIdx;
-    void* eyeTexture = sEyeTextures[eyePattern];
+    const void* eyeTexture = sEyeTextures[eyePattern];
     SkelAnime* skelAnime = &thisv->skelAnime;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     s32 pad2;
@@ -1095,7 +1095,7 @@ void EnXc_DrawHarp(Actor* thisx, GlobalContext* globalCtx) {
     EnXc* thisv = (EnXc*)thisx;
     s32 pad;
     s16 eyePattern = thisv->eyeIdx;
-    void* eyeTexture = sEyeTextures[eyePattern];
+    const void* eyeTexture = sEyeTextures[eyePattern];
     SkelAnime* skelAnime = &thisv->skelAnime;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     s32 pad2;
@@ -1126,11 +1126,11 @@ void func_80B3EC0C(EnXc* thisv, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
 
     if (csCtx->state != 0) {
-        CsCmdActorAction* npcAction = csCtx->npcActions[4];
+        const CsCmdActorAction* npcAction = csCtx->npcActions[4];
 
         if ((npcAction != NULL) && (npcAction->action != 1)) {
             PosRot* posRot = &thisv->actor.world;
-            Vec3i* startPos = &npcAction->startPos;
+            const Vec3i* startPos = &npcAction->startPos;
             ActorShape* shape = &thisv->actor.shape;
 
             posRot->pos.x = startPos->x;
@@ -1149,7 +1149,7 @@ void func_80B3EC90(EnXc* thisv, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
 
     if (csCtx->state != 0) {
-        CsCmdActorAction* npcAction = csCtx->npcActions[4];
+        const CsCmdActorAction* npcAction = csCtx->npcActions[4];
 
         if (npcAction != NULL && npcAction->action != 6) {
             func_80B3C9EC(thisv);
@@ -1375,7 +1375,7 @@ void EnXc_PlayDiveSFX(Vec3f* src, GlobalContext* globalCtx) {
 }
 
 void EnXc_LakeHyliaDive(GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = npcAction = EnXc_GetCsCmd(globalCtx, 0);
+    const CsCmdActorAction* npcAction = npcAction = EnXc_GetCsCmd(globalCtx, 0);
 
     if (npcAction != NULL) {
         Vec3f startPos;
@@ -1404,7 +1404,7 @@ void func_80B3F534(GlobalContext* globalCtx) {
 
 static s32 D_80B41DAC = 1;
 void func_80B3F59C(EnXc* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
+    const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 0);
 
     if (npcAction != NULL) {
         s32 action = npcAction->action;
@@ -1611,12 +1611,12 @@ void func_80B3FF0C(EnXc* thisv, GlobalContext* globalCtx) {
         CutsceneContext* csCtx = &globalCtx->csCtx;
 
         if (csCtx->state != 0) {
-            CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
+            const CsCmdActorAction* npcAction = globalCtx->csCtx.npcActions[4];
 
             if (npcAction != NULL) {
                 PosRot* posRot = &thisv->actor.world;
                 ActorShape* shape = &thisv->actor.shape;
-                Vec3i* startPos = &npcAction->startPos;
+                const Vec3i* startPos = &npcAction->startPos;
 
                 posRot->pos.x = startPos->x;
                 posRot->pos.y = startPos->y;
@@ -1684,7 +1684,7 @@ void EnXc_ShowTriforceIdle(EnXc* thisv, GlobalContext* globalCtx) {
     func_80B400AC(thisv, globalCtx);
 }
 
-s32 EnXc_TriforceOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnXc_TriforceOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                   void* thisx) {
     if (limbIndex == 15) {
         *dList = gSheikDL_011620;
@@ -1692,7 +1692,7 @@ s32 EnXc_TriforceOverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx**
     return 0;
 }
 
-void EnXc_TriforcePostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnXc_TriforcePostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     s32 pad[2];
     EnXc* thisv = (EnXc*)thisx;
 
@@ -1708,14 +1708,14 @@ void EnXc_DrawTriforce(Actor* thisx, GlobalContext* globalCtx) {
     EnXc* thisv = (EnXc*)thisx;
     s32 pad;
     s16 eyeIdx = thisv->eyeIdx;
-    void* eyeTexture = sEyeTextures[eyeIdx];
+    const void* eyeTexture = sEyeTextures[eyeIdx];
     SkelAnime* skelAnime = &thisv->skelAnime;
     GraphicsContext* gfxCtx = globalCtx->state.gfxCtx;
     s32 pad2;
 
     OPEN_DISPS(gfxCtx, "../z_en_oA2_inMetamol.c", 565);
     if (thisv->unk_2BC != 0) {
-        Mtx* mtx = Graph_Alloc(gfxCtx, sizeof(Mtx));
+        Mtx* mtx = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
         s32* primColor = thisv->triforcePrimColor;
         s32* envColor = thisv->triforceEnvColor;
         f32* scale = thisv->triforceScale;
@@ -1947,7 +1947,7 @@ void func_80B40E88(EnXc* thisv) {
 }
 
 s32 EnXc_SetupNocturneState(Actor* thisx, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 4);
+    const CsCmdActorAction* npcAction = EnXc_GetCsCmd(globalCtx, 4);
 
     if (npcAction != NULL) {
         s32 action = npcAction->action;
@@ -2346,7 +2346,7 @@ void EnXc_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnXc_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnXc_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnXc* thisv = (EnXc*)thisx;
 
     if (thisv->unk_30C != 0) {
@@ -2361,7 +2361,7 @@ s32 EnXc_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return 0;
 }
 
-void EnXc_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnXc_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     if (limbIndex == 16) {
         EnXc* thisv = (EnXc*)thisx;
         Vec3f src = { 0.0f, 10.0f, 0.0f };
@@ -2384,7 +2384,7 @@ void EnXc_DrawDefault(Actor* thisx, GlobalContext* globalCtx) {
     s32 pad;
     EnXc* thisv = (EnXc*)thisx;
     s16 eyeIdx = thisv->eyeIdx;
-    void* eyeSegment = sEyeTextures[eyeIdx];
+    const void* eyeSegment = sEyeTextures[eyeIdx];
     SkelAnime* skelAnime = &thisv->skelAnime;
     GraphicsContext* localGfxCtx = globalCtx->state.gfxCtx;
     GraphicsContext* gfxCtx = localGfxCtx;
@@ -2415,7 +2415,7 @@ void EnXc_Draw(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-const ActorInit En_Xc_InitVars = {
+ActorInit En_Xc_InitVars = {
     ACTOR_EN_XC,
     ACTORCAT_NPC,
     FLAGS,

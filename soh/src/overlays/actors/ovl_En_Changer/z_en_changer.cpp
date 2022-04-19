@@ -24,7 +24,7 @@ void EnChanger_Wait(EnChanger* thisv, GlobalContext* globalCtx);
 void EnChanger_OpenChests(EnChanger* thisv, GlobalContext* globalCtx);
 void EnChanger_SetHeartPieceFlag(EnChanger* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Changer_InitVars = {
+ActorInit En_Changer_InitVars = {
     ACTOR_EN_CHANGER,
     ACTORCAT_PROP,
     FLAGS,

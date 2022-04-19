@@ -299,9 +299,9 @@ u8 func_8097E69C(GlobalContext* globalCtx) {
     }
 }
 
-CsCmdActorAction* DemoGt_GetNpcAction(GlobalContext* globalCtx, u32 actionIdx) {
+const CsCmdActorAction* DemoGt_GetNpcAction(GlobalContext* globalCtx, u32 actionIdx) {
     s32 pad[2];
-    CsCmdActorAction* ret = NULL;
+    const CsCmdActorAction* ret = NULL;
 
     if (!func_8097E69C(globalCtx)) {
         ret = globalCtx->csCtx.npcActions[actionIdx];
@@ -311,7 +311,7 @@ CsCmdActorAction* DemoGt_GetNpcAction(GlobalContext* globalCtx, u32 actionIdx) {
 }
 
 u8 func_8097E704(GlobalContext* globalCtx, u16 arg1, s32 arg2) {
-    CsCmdActorAction* action = DemoGt_GetNpcAction(globalCtx, arg2);
+    const CsCmdActorAction* action = DemoGt_GetNpcAction(globalCtx, arg2);
 
     if ((action != NULL) && (action->action == arg1)) {
         return true;
@@ -321,7 +321,7 @@ u8 func_8097E704(GlobalContext* globalCtx, u16 arg1, s32 arg2) {
 }
 
 void func_8097E744(DemoGt* thisv, GlobalContext* globalCtx, u32 actionIdx) {
-    CsCmdActorAction* npcAction = DemoGt_GetNpcAction(globalCtx, actionIdx);
+    const CsCmdActorAction* npcAction = DemoGt_GetNpcAction(globalCtx, actionIdx);
     Vec3f* pos = &thisv->dyna.actor.world.pos;
     f32 startX;
     f32 startY;
@@ -451,9 +451,9 @@ static InitChainEntry sInitChain[] = {
     ICHAIN_VEC3F_DIV1000(scale, 100, ICHAIN_STOP),
 };
 
-void func_8097EDD8(DemoGt* thisv, GlobalContext* globalCtx, CollisionHeader* collision) {
+void func_8097EDD8(DemoGt* thisv, GlobalContext* globalCtx, const CollisionHeader* collision) {
     s32 pad[3];
-    CollisionHeader* colHeader;
+    const CollisionHeader* colHeader;
 
     if (collision != NULL) {
         Actor_ProcessInitChain(&thisv->dyna.actor, sInitChain);
@@ -464,7 +464,7 @@ void func_8097EDD8(DemoGt* thisv, GlobalContext* globalCtx, CollisionHeader* col
     }
 }
 
-u8 func_8097EE44(DemoGt* thisv, GlobalContext* globalCtx, s32 updateMode, s32 drawConfig, CollisionHeader* colHeader) {
+u8 func_8097EE44(DemoGt* thisv, GlobalContext* globalCtx, s32 updateMode, s32 drawConfig, const CollisionHeader* colHeader) {
 
     if (func_8097ED94()) {
         thisv->updateMode = updateMode;
@@ -647,7 +647,7 @@ void DemoGt_Draw1(DemoGt* thisv, GlobalContext* globalCtx) {
     spBC = kREG(71);
     spB8 = (s16)((s32)kREG(70)) + 0x4000;
     spBA = kREG(70);
-    spB4 = Graph_Alloc(gfxCtx, sizeof(Mtx));
+    spB4 = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
     sp98 = 1.0f - Math_CosS(spC6);
 
     OPEN_DISPS(gfxCtx, "../z_demo_gt_part1.c", 458);
@@ -1268,7 +1268,7 @@ void DemoGt_Draw4(DemoGt* thisv, GlobalContext* globalCtx2) {
         sp68 = (s16)((s32)kREG(58)) + 0x4000;
         sp6A = kREG(58);
         gfxCtx = globalCtx->state.gfxCtx;
-        sp60 = Graph_Alloc(gfxCtx, sizeof(Mtx));
+        sp60 = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
         sp44 = 1.0f - Math_CosS(sp76);
 
         OPEN_DISPS(gfxCtx, "../z_demo_gt_part4_1.c", 217);
@@ -1387,7 +1387,7 @@ void DemoGt_Draw5(DemoGt* thisv, GlobalContext* globalCtx) {
     sp6A = kREG(59) - 0x4000;
     sp68 = (s16)(kREG(59) - 0x4000) + 0x4000;
     gfxCtx = globalCtx->state.gfxCtx;
-    sp60 = Graph_Alloc(gfxCtx, sizeof(Mtx));
+    sp60 = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
     sp44 = 1 - Math_CosS(sp76);
 
     OPEN_DISPS(gfxCtx, "../z_demo_gt_part4_2.c", 212);
@@ -1483,7 +1483,7 @@ void DemoGt_Draw6(DemoGt* thisv, GlobalContext* globalCtx) {
     sp6C = kREG(60) + 0x4000;
     sp6C += 0x4000;
     gfxCtx = globalCtx->state.gfxCtx;
-    sp64 = Graph_Alloc(gfxCtx, sizeof(Mtx));
+    sp64 = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
     sp48 = 1.0f - Math_CosS(sp78);
 
     OPEN_DISPS(gfxCtx, "../z_demo_gt_part4_3.c", 276);
@@ -1575,7 +1575,7 @@ void DemoGt_Draw7(DemoGt* thisv, GlobalContext* globalCtx) {
     sp62 = kREG(74) + 0x7FEC;
     sp60 = kREG(74) + 0x7FEC;
     sp60 = sp60 + 0x4000;
-    sp5C = Graph_Alloc(gfxCtx, sizeof(Mtx));
+    sp5C = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
     sp40 = 1.0f - Math_CosS(sp6E);
 
     OPEN_DISPS(gfxCtx, "../z_demo_gt_part5.c", 136);
@@ -1666,7 +1666,7 @@ void DemoGt_Draw8(DemoGt* thisv, GlobalContext* globalCtx) {
     sp62 = kREG(77) + 0xBE80;
     sp60 = kREG(77) + 0xBE80;
     sp60 += 0x4000;
-    sp5C = Graph_Alloc(gfxCtx, sizeof(Mtx));
+    sp5C = static_cast<Mtx*>(Graph_Alloc(gfxCtx, sizeof(Mtx)));
     sp40 = 1.0f - Math_CosS(sp6E);
 
     OPEN_DISPS(gfxCtx, "../z_demo_gt_part6.c", 137);
@@ -1770,7 +1770,7 @@ void DemoGt_Draw(Actor* thisx, GlobalContext* globalCtx) {
     drawFunc(thisv, globalCtx);
 }
 
-const ActorInit Demo_Gt_InitVars = {
+ActorInit Demo_Gt_InitVars = {
     ACTOR_DEMO_GT,
     ACTORCAT_PROP,
     FLAGS,

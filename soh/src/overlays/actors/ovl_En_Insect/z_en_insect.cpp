@@ -36,7 +36,7 @@ static f32 D_80A7DEB0 = 0.0f;
 static s16 D_80A7DEB4 = 0;
 static s16 D_80A7DEB8 = 0;
 
-const ActorInit En_Insect_InitVars = {
+ActorInit En_Insect_InitVars = {
     ACTOR_EN_INSECT,
     ACTORCAT_ITEMACTION,
     FLAGS,

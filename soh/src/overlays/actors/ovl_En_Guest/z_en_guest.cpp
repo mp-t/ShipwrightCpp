@@ -20,7 +20,7 @@ void func_80A50518(EnGuest* thisv, GlobalContext* globalCtx);
 void func_80A5057C(EnGuest* thisv, GlobalContext* globalCtx);
 void func_80A505CC(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Guest_InitVars = {
+ActorInit En_Guest_InitVars = {
     ACTOR_EN_GUEST,
     ACTORCAT_NPC,
     FLAGS,
@@ -172,14 +172,14 @@ void func_80A505CC(Actor* thisx, GlobalContext* globalCtx) {
 Gfx* func_80A50708(GraphicsContext* gfxCtx, u8 r, u8 g, u8 b, u8 a) {
     Gfx* dlist;
 
-    dlist = Graph_Alloc(gfxCtx, 2 * sizeof(Gfx));
+    dlist = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 2 * sizeof(Gfx)));
     gDPSetEnvColor(dlist, r, g, b, a);
     gSPEndDisplayList(dlist + 1);
 
     return dlist;
 }
 
-s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                              void* thisx) {
     EnGuest* thisv = (EnGuest*)thisx;
     Vec3s sp3C;
@@ -212,7 +212,7 @@ s32 EnGuest_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
 }
 
 void EnGuest_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* D_80A50BA4[] = {
+    static const void* D_80A50BA4[] = {
         object_boj_Tex_0005FC,
         object_boj_Tex_0006FC,
         object_boj_Tex_0007FC,

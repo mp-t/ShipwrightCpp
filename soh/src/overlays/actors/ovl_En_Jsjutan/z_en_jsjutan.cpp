@@ -14,7 +14,7 @@ void EnJsjutan_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnJsjutan_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Jsjutan_InitVars = {
+ActorInit En_Jsjutan_InitVars = {
     ACTOR_EN_JSJUTAN,
     ACTORCAT_NPC,
     FLAGS,
@@ -39,7 +39,7 @@ static s32 sUnused[2] = { 0, 0 };
 void EnJsjutan_Init(Actor* thisx, GlobalContext* globalCtx) {
     EnJsjutan* thisv = (EnJsjutan*)thisx;
     s32 pad;
-    CollisionHeader* header = NULL;
+    const CollisionHeader* header = NULL;
 
     thisv->dyna.actor.flags &= ~ACTOR_FLAG_0;
     DynaPolyActor_Init(&thisv->dyna, DPM_UNK);
@@ -117,16 +117,18 @@ void func_80A89A6C(EnJsjutan* thisv, GlobalContext* globalCtx) {
     Actor* actorExplosive = globalCtx->actorCtx.actorLists[ACTORCAT_EXPLOSIVE].head;
     u8 isInCreditsScene = false; // sp8B
 
+	const char* carpetVtxName;
+	const char* shadowVtxName;
     if (globalCtx->gameplayFrames % 2 != 0) {
-        carpetVtx = SEGMENTED_TO_VIRTUAL(sCarpetOddVtx);
-        shadowVtx = SEGMENTED_TO_VIRTUAL(gShadowOddVtx);
+        carpetVtxName = SEGMENTED_TO_VIRTUAL(sCarpetOddVtx);
+        shadowVtxName = SEGMENTED_TO_VIRTUAL(gShadowOddVtx);
     } else {
-        carpetVtx = SEGMENTED_TO_VIRTUAL(sCarpetEvenVtx);
-        shadowVtx = SEGMENTED_TO_VIRTUAL(sShadowEvenVtx);
+        carpetVtxName = SEGMENTED_TO_VIRTUAL(sCarpetEvenVtx);
+        shadowVtxName = SEGMENTED_TO_VIRTUAL(sShadowEvenVtx);
     }
 
-    carpetVtx = ResourceMgr_LoadVtxByName(carpetVtx);
-    shadowVtx = ResourceMgr_LoadVtxByName(shadowVtx);
+    carpetVtx = ResourceMgr_LoadVtxByName(carpetVtxName);
+    shadowVtx = ResourceMgr_LoadVtxByName(shadowVtxName);
 
     // Distance of player to carpet.
     spB8 = (player->actor.world.pos.x - thisv->dyna.actor.world.pos.x) * 50.0f;
@@ -367,8 +369,6 @@ void EnJsjutan_Update(Actor* thisx, GlobalContext* globalCtx2) {
     thisx->shape.rot.z = Math_CosS(globalCtx->gameplayFrames * 3500) * 300.0f;
 }
 
-extern uintptr_t jsjutanShadowTex;
-
 void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     EnJsjutan* thisv = (EnJsjutan*)thisx;
     GlobalContext* globalCtx = globalCtx2;
@@ -396,11 +396,10 @@ void EnJsjutan_Draw(Actor* thisx, GlobalContext* globalCtx2) {
     }
 
     func_80A89A6C(thisv, globalCtx);
-    jsjutanShadowTex = sShadowTex;
 
     if (thisv->unk_164) {
         thisv->unk_164 = false;
-        u8* carpTex = ResourceMgr_LoadTexByName(sCarpetTex);
+        u8* carpTex = reinterpret_cast<u8*>(ResourceMgr_LoadTexByName(sCarpetTex));
         u8* shadTex = sShadowTex;
         for (i = 0; i < ARRAY_COUNT(shadTex); i++) {
             if (((u16*)carpTex)[i] != 0) { // Hack to bypass ZAPD exporting textures as u64.

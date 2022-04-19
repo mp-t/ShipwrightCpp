@@ -17,7 +17,7 @@ void func_80AF95C4(EnSda* thisv, u8* shadowTexture, Player* player, GlobalContex
 void func_80AF9C70(u8* shadowTexture, Player* player, GlobalContext* globalCtx);
 void func_80AF8F60(Player* player, u8* shadowTexture, f32 arg2);
 
-const ActorInit En_Sda_InitVars = {
+ActorInit En_Sda_InitVars = {
     ACTOR_EN_SDA,
     ACTORCAT_BOSS,
     FLAGS,
@@ -116,7 +116,7 @@ void EnSda_Update(Actor* thisx, GlobalContext* globalCtx) {
 void EnSda_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnSda* thisv = (EnSda*)thisx;
     Player* player;
-    u8* shadowTexture = Graph_Alloc(globalCtx->state.gfxCtx, 0x1000);
+    u8* shadowTexture = static_cast<u8*>(Graph_Alloc(globalCtx->state.gfxCtx, 0x1000));
 
     osSyncPrintf("SDA DRAW \n");
 

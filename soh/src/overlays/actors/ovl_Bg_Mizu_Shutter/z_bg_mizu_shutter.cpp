@@ -16,7 +16,7 @@ void BgMizuShutter_WaitForSwitch(BgMizuShutter* thisv, GlobalContext* globalCtx)
 void BgMizuShutter_Move(BgMizuShutter* thisv, GlobalContext* globalCtx);
 void BgMizuShutter_WaitForCutscene(BgMizuShutter* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Mizu_Shutter_InitVars = {
+ActorInit Bg_Mizu_Shutter_InitVars = {
     ACTOR_BG_MIZU_SHUTTER,
     ACTORCAT_PROP,
     FLAGS,

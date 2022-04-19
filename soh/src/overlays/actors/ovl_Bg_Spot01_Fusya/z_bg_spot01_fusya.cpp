@@ -16,7 +16,7 @@ void BgSpot01Fusya_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void func_808AAA50(BgSpot01Fusya* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot01_Fusya_InitVars = {
+ActorInit Bg_Spot01_Fusya_InitVars = {
     ACTOR_BG_SPOT01_FUSYA,
     ACTORCAT_BG,
     FLAGS,

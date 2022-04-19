@@ -38,7 +38,7 @@ static ColliderCylinderInit sCylinderInit = {
 
 static CollisionCheckInfoInit2 sColChkInfoInit = { 0, 0, 0, 0, MASS_IMMOVABLE };
 
-const ActorInit En_Tg_InitVars = {
+ActorInit En_Tg_InitVars = {
     ACTOR_EN_TG,
     ACTORCAT_NPC,
     FLAGS,
@@ -156,11 +156,11 @@ void EnTg_Update(Actor* thisx, GlobalContext* globalCtx) {
     func_800343CC(globalCtx, &thisv->actor, &thisv->isTalking, temp, EnTg_GetTextId, EnTg_OnTextComplete);
 }
 
-s32 EnTg_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnTg_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     return false;
 }
 
-void EnTg_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnTg_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnTg* thisv = (EnTg*)thisx;
     Vec3f targetOffset = { 0.0f, 800.0f, 0.0f };
 
@@ -171,7 +171,7 @@ void EnTg_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec
 }
 
 Gfx* EnTg_SetColor(GraphicsContext* gfxCtx, u8 r, u8 g, u8 b, u8 a) {
-    Gfx* displayList = Graph_Alloc(gfxCtx, 2 * sizeof(Gfx));
+    Gfx* displayList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, 2 * sizeof(Gfx)));
 
     gDPSetEnvColor(displayList, r, g, b, a);
     gSPEndDisplayList(displayList + 1);

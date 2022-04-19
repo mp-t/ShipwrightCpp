@@ -77,7 +77,7 @@ static ColliderCylinderInitType1 sCylinderInit = {
     { 25, 80, 0, { 0, 0, 0 } },
 };
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     gNabooruEyeOpenTex,
     gNabooruEyeHalfTex,
     gNabooruEyeClosedTex,
@@ -85,7 +85,7 @@ static void* sEyeTextures[] = {
 
 static s32 D_80AB4318 = 0;
 
-#include "z_en_nb_cutscene_data.c" EARLY
+#include "z_en_nb_cutscene_data.cpp" EARLY
 
 s32 EnNb_GetPath(EnNb* thisv) {
     s32 path = thisv->actor.params >> 8;
@@ -229,7 +229,7 @@ s32 EnNb_UpdateSkelAnime(EnNb* thisv) {
     return SkelAnime_Update(&thisv->skelAnime);
 }
 
-CsCmdActorAction* EnNb_GetNpcCsAction(GlobalContext* globalCtx, s32 npcActionIdx) {
+const CsCmdActorAction* EnNb_GetNpcCsAction(GlobalContext* globalCtx, s32 npcActionIdx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[npcActionIdx];
     }
@@ -237,7 +237,7 @@ CsCmdActorAction* EnNb_GetNpcCsAction(GlobalContext* globalCtx, s32 npcActionIdx
 }
 
 void EnNb_SetupCsPosRot(EnNb* thisv, GlobalContext* globalCtx, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, npcActionIdx);
     s16 newRotY;
     Actor* thisx = &thisv->actor;
 
@@ -250,7 +250,7 @@ void EnNb_SetupCsPosRot(EnNb* thisv, GlobalContext* globalCtx, s32 npcActionIdx)
 }
 
 s32 func_80AB1390(EnNb* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if ((globalCtx->csCtx.state != CS_STATE_IDLE) &&
         (csCmdNPCAction = globalCtx->csCtx.npcActions[npcActionIdx], csCmdNPCAction != NULL) &&
@@ -261,7 +261,7 @@ s32 func_80AB1390(EnNb* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcAction
 }
 
 s32 func_80AB13D8(EnNb* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if ((globalCtx->csCtx.state != CS_STATE_IDLE) &&
         (csCmdNPCAction = globalCtx->csCtx.npcActions[npcActionIdx], csCmdNPCAction != NULL) &&
@@ -272,7 +272,7 @@ s32 func_80AB13D8(EnNb* thisv, GlobalContext* globalCtx, u16 arg2, s32 npcAction
 }
 
 void EnNb_SetInitialCsPosRot(EnNb* thisv, GlobalContext* globalCtx, s32 npcActionIdx) {
-    CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, npcActionIdx);
+    const CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, npcActionIdx);
     Actor* thisx = &thisv->actor;
 
     if (csCmdNPCAction != NULL) {
@@ -283,7 +283,7 @@ void EnNb_SetInitialCsPosRot(EnNb* thisv, GlobalContext* globalCtx, s32 npcActio
     }
 }
 
-void EnNb_SetCurrentAnim(EnNb* thisv, AnimationHeader* animation, u8 mode, f32 transitionRate, s32 arg4) {
+void EnNb_SetCurrentAnim(EnNb* thisv, const AnimationHeader* animation, u8 mode, f32 transitionRate, s32 arg4) {
     f32 frameCount = Animation_GetLastFrame(animation);
     f32 playbackSpeed;
     f32 unk0;
@@ -347,7 +347,7 @@ void EnNb_SetupChamberCsImpl(EnNb* thisv, GlobalContext* globalCtx) {
 
 void EnNb_SetupChamberWarpImpl(EnNb* thisv, GlobalContext* globalCtx) {
     CutsceneContext* csCtx = &globalCtx->csCtx;
-    CsCmdActorAction* csCmdNPCAction;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if (csCtx->state != CS_STATE_IDLE) {
         csCmdNPCAction = csCtx->npcActions[1];
@@ -367,8 +367,8 @@ void EnNb_SetupDefaultChamberIdle(EnNb* thisv) {
 }
 
 void EnNb_SetupArmRaise(EnNb* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* animation = &gNabooruRaisingArmsGivingMedallionAnim;
-    CsCmdActorAction* csCmdNPCAction;
+    const AnimationHeader* animation = &gNabooruRaisingArmsGivingMedallionAnim;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdNPCAction = globalCtx->csCtx.npcActions[1];
@@ -381,7 +381,7 @@ void EnNb_SetupArmRaise(EnNb* thisv, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupRaisedArmTransition(EnNb* thisv, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruArmsRaisedGivingMedallionAnim;
+    const AnimationHeader* animation = &gNabooruArmsRaisedGivingMedallionAnim;
 
     if (animFinished) {
         Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -391,7 +391,7 @@ void EnNb_SetupRaisedArmTransition(EnNb* thisv, s32 animFinished) {
 }
 
 void EnNb_SetupMedallion(EnNb* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction;
+    const CsCmdActorAction* csCmdNPCAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         csCmdNPCAction = globalCtx->csCtx.npcActions[6];
@@ -544,7 +544,7 @@ void EnNb_CreateLightOrb(EnNb* thisv, GlobalContext* globalCtx) {
 void EnNb_DrawTransparency(EnNb* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeSegIdx = thisv->eyeIdx;
-    void* eyeTex = sEyeTextures[eyeSegIdx];
+    const void* eyeTex = sEyeTextures[eyeSegIdx];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inKenjyanomaDemo02.c", 263);
@@ -580,7 +580,7 @@ void EnNb_PlayAgonySFX(EnNb* thisv, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetPosInPortal(EnNb* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, 1);
+    const CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, 1);
     Vec3f* pos = &thisv->actor.world.pos;
     f32 f0;
     s32 pad;
@@ -610,7 +610,7 @@ void EnNb_SetupCaptureCutsceneState(EnNb* thisv, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetRaisedArmCaptureAnim(EnNb* thisv, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruSuckedByVortexAnim;
+    const AnimationHeader* animation = &gNabooruSuckedByVortexAnim;
 
     if (animFinished) {
         Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -619,7 +619,7 @@ void EnNb_SetRaisedArmCaptureAnim(EnNb* thisv, s32 animFinished) {
 }
 
 void EnNb_SetupLookAroundInKidnap(EnNb* thisv) {
-    AnimationHeader* animation = &gNabooruTrappedInVortexPushingGroundAnim;
+    const AnimationHeader* animation = &gNabooruTrappedInVortexPushingGroundAnim;
 
     Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP, -8.0f);
     thisv->action = NB_KIDNAPPED_LOOK_AROUND;
@@ -627,7 +627,7 @@ void EnNb_SetupLookAroundInKidnap(EnNb* thisv) {
 }
 
 void EnNb_SetupKidnap(EnNb* thisv) {
-    AnimationHeader* animation = &gNabooruTrappedInVortexRaisingArmAnim;
+    const AnimationHeader* animation = &gNabooruTrappedInVortexRaisingArmAnim;
 
     Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_ONCE, -8.0f);
     thisv->action = NB_PORTAL_FALLTHROUGH;
@@ -635,7 +635,7 @@ void EnNb_SetupKidnap(EnNb* thisv) {
 }
 
 void EnNb_CheckKidnapCsMode(EnNb* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, 1);
+    const CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, 1);
     s32 action;
     s32 previousCsAction;
 
@@ -690,7 +690,7 @@ void EnNb_SuckedInByPortal(EnNb* thisv, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupConfrontation(EnNb* thisv, GlobalContext* globalCtx) {
-    AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
+    const AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
 
     EnNb_SetCurrentAnim(thisv, animation, 0, 0.0f, 0);
     thisv->action = NB_IN_CONFRONTATION;
@@ -749,7 +749,7 @@ void func_80AB26C8(EnNb* thisv) {
 
 void func_80AB26DC(EnNb* thisv, GlobalContext* globalCtx) {
     s32 pad;
-    AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
+    const AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     EnNb_SetupCsPosRot(thisv, globalCtx, 1);
@@ -760,7 +760,7 @@ void func_80AB26DC(EnNb* thisv, GlobalContext* globalCtx) {
 }
 
 void EnNb_SetupKneel(EnNb* thisv) {
-    AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
+    const AnimationHeader* animation = &gNabooruCollapseFromStandingToKneelingTransitionAnim;
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, 0.0f);
@@ -770,7 +770,7 @@ void EnNb_SetupKneel(EnNb* thisv) {
 }
 
 void EnNb_CheckIfKneeling(EnNb* thisv, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruOnAllFoursAnim;
+    const AnimationHeader* animation = &gNabooruOnAllFoursAnim;
 
     if (animFinished) {
         Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -780,7 +780,7 @@ void EnNb_CheckIfKneeling(EnNb* thisv, s32 animFinished) {
 }
 
 void EnNb_SetupLookRight(EnNb* thisv) {
-    AnimationHeader* animation = &gNabooruOnAllFoursToOnOneKneeLookingRightTransitionAnim;
+    const AnimationHeader* animation = &gNabooruOnAllFoursToOnOneKneeLookingRightTransitionAnim;
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -8.0f);
@@ -790,7 +790,7 @@ void EnNb_SetupLookRight(EnNb* thisv) {
 }
 
 void EnNb_CheckIfLookingRight(EnNb* thisv, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruOnOneKneeLookingRightAnim;
+    const AnimationHeader* animation = &gNabooruOnOneKneeLookingRightAnim;
 
     if (animFinished) {
         Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -800,7 +800,7 @@ void EnNb_CheckIfLookingRight(EnNb* thisv, s32 animFinished) {
 }
 
 void EnNb_SetupLookLeft(EnNb* thisv) {
-    AnimationHeader* animation = &gNabooruOnOneKneeTurningHeadRightToLeftTransitionAnim;
+    const AnimationHeader* animation = &gNabooruOnOneKneeTurningHeadRightToLeftTransitionAnim;
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -8.0f);
@@ -810,7 +810,7 @@ void EnNb_SetupLookLeft(EnNb* thisv) {
 }
 
 void EnNb_CheckIfLookLeft(EnNb* thisv, s32 animFinished) {
-    AnimationHeader* animation = &gNabooruOnOneKneeLookingLeftAnim;
+    const AnimationHeader* animation = &gNabooruOnOneKneeLookingLeftAnim;
 
     if (animFinished) {
         Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, Animation_GetLastFrame(animation), ANIMMODE_LOOP,
@@ -826,7 +826,7 @@ void EnNb_SetupDemo6KInConfrontation(EnNb* thisv, GlobalContext* globalCtx, s32 
 }
 
 void EnNb_SetupRun(EnNb* thisv) {
-    AnimationHeader* animation = &gNabooruKneeingToRunningToHitAnim;
+    const AnimationHeader* animation = &gNabooruKneeingToRunningToHitAnim;
     f32 lastFrame = Animation_GetLastFrame(animation);
 
     Animation_Change(&thisv->skelAnime, animation, 1.0f, 0.0f, lastFrame, ANIMMODE_ONCE, -8.0f);
@@ -842,7 +842,7 @@ void EnNb_SetupConfrontationDestroy(EnNb* thisv) {
 }
 
 void EnNb_CheckConfrontationCsMode(EnNb* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction;
+    const CsCmdActorAction* csCmdNPCAction;
     s32 csAction;
     s32 previousCsAction;
 
@@ -968,7 +968,7 @@ void func_80AB2E70(EnNb* thisv, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inConfrontion.c", 593);
 }
 
-s32 func_80AB2FC0(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 func_80AB2FC0(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnNb* thisv = (EnNb*)thisx;
 
     if (limbIndex == NB_LIMB_HEAD) {
@@ -982,7 +982,7 @@ void func_80AB2FE4(EnNb* thisv, GlobalContext* globalCtx) {
     s32 pad;
     s16 eyeIdx = thisv->eyeIdx;
     SkelAnime* skelAnime = &thisv->skelAnime;
-    void* eyeTexture = sEyeTextures[eyeIdx];
+    const void* eyeTexture = sEyeTextures[eyeIdx];
     s32 pad1;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb_inConfrontion.c", 623);
@@ -1046,7 +1046,7 @@ void EnNb_CheckIfLookingUp(EnNb* thisv, s32 animFinished) {
 }
 
 void EnNb_CheckCreditsCsModeImpl(EnNb* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, 1);
+    const CsCmdActorAction* csCmdNPCAction = EnNb_GetNpcCsAction(globalCtx, 1);
     s32 action;
     s32 previousCsAction;
 
@@ -1453,7 +1453,7 @@ void EnNb_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnNb_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnNb_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnNb* thisv = (EnNb*)thisx;
     struct_80034A14_arg1* unk_300 = &thisv->unk_300;
     s32 ret = false;
@@ -1473,7 +1473,7 @@ s32 EnNb_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return ret;
 }
 
-void EnNb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnNb_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnNb* thisv = (EnNb*)thisx;
 
     if (limbIndex == NB_LIMB_HEAD) {
@@ -1497,7 +1497,7 @@ void EnNb_DrawDefault(EnNb* thisv, GlobalContext* globalCtx) {
     s32 pad;
     s16 eyeIdx = thisv->eyeIdx;
     SkelAnime* skelAnime = &thisv->skelAnime;
-    void* eyeTexture = sEyeTextures[eyeIdx];
+    const void* eyeTexture = sEyeTextures[eyeIdx];
     s32 pad1;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_nb.c", 992);
@@ -1529,7 +1529,7 @@ void EnNb_Draw(Actor* thisx, GlobalContext* globalCtx) {
     sDrawFuncs[thisv->drawMode](thisv, globalCtx);
 }
 
-const ActorInit En_Nb_InitVars = {
+ActorInit En_Nb_InitVars = {
     ACTOR_EN_NB,
     ACTORCAT_NPC,
     FLAGS,

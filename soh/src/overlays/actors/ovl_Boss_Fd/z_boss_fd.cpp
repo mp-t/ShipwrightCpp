@@ -44,7 +44,7 @@ void BossFd_Wait(BossFd* thisv, GlobalContext* globalCtx);
 void BossFd_UpdateEffects(BossFd* thisv, GlobalContext* globalCtx);
 void BossFd_DrawBody(GlobalContext* globalCtx, BossFd* thisv);
 
-const ActorInit Boss_Fd_InitVars = {
+ActorInit Boss_Fd_InitVars = {
     ACTOR_BOSS_FD,
     ACTORCAT_BOSS,
     FLAGS,

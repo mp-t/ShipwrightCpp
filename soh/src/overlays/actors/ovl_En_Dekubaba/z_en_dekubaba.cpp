@@ -30,7 +30,7 @@ void EnDekubaba_DeadStickDrop(EnDekubaba* thisv, GlobalContext* globalCtx);
 
 static Vec3f sZeroVec = { 0.0f, 0.0f, 0.0f };
 
-const ActorInit En_Dekubaba_InitVars = {
+ActorInit En_Dekubaba_InitVars = {
     ACTOR_EN_DEKUBABA,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -1167,7 +1167,7 @@ void EnDekubaba_DrawStemRetracted(EnDekubaba* thisv, GlobalContext* globalCtx) {
 }
 
 void EnDekubaba_DrawStemExtended(EnDekubaba* thisv, GlobalContext* globalCtx) {
-    static Gfx* stemDLists[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
+    static const Gfx* stemDLists[] = { gDekuBabaStemTopDL, gDekuBabaStemMiddleDL, gDekuBabaStemBaseDL };
     MtxF mtx;
     s32 i;
     f32 horizontalStepSize;
@@ -1195,10 +1195,10 @@ void EnDekubaba_DrawStemExtended(EnDekubaba* thisv, GlobalContext* globalCtx) {
     }
 
     for (i = 0; i < stemSections; i++) {
-        mtx.yw += 20.0f * Math_SinS(thisv->stemSectionAngle[i]) * thisv->size;
+        mtx.mf_raw.yw += 20.0f * Math_SinS(thisv->stemSectionAngle[i]) * thisv->size;
         horizontalStepSize = 20.0f * Math_CosS(thisv->stemSectionAngle[i]) * thisv->size;
-        mtx.xw -= horizontalStepSize * Math_SinS(thisv->actor.shape.rot.y);
-        mtx.zw -= horizontalStepSize * Math_CosS(thisv->actor.shape.rot.y);
+        mtx.mf_raw.xw -= horizontalStepSize * Math_SinS(thisv->actor.shape.rot.y);
+        mtx.mf_raw.zw -= horizontalStepSize * Math_CosS(thisv->actor.shape.rot.y);
 
         Matrix_Put(&mtx);
         Matrix_RotateZYX(thisv->stemSectionAngle[i], thisv->actor.shape.rot.y, 0, MTXMODE_APPLY);
@@ -1212,9 +1212,9 @@ void EnDekubaba_DrawStemExtended(EnDekubaba* thisv, GlobalContext* globalCtx) {
 
         if (i == 0) {
             if (thisv->actionFunc != EnDekubaba_Sway) {
-                thisv->actor.focus.pos.x = mtx.xw;
-                thisv->actor.focus.pos.y = mtx.yw;
-                thisv->actor.focus.pos.z = mtx.zw;
+                thisv->actor.focus.pos.x = mtx.mf_raw.xw;
+                thisv->actor.focus.pos.y = mtx.mf_raw.yw;
+                thisv->actor.focus.pos.z = mtx.mf_raw.zw;
             } else {
                 thisv->actor.focus.pos.x = thisv->actor.home.pos.x;
                 thisv->actor.focus.pos.y = thisv->actor.home.pos.y + (40.0f * thisv->size);
@@ -1224,9 +1224,9 @@ void EnDekubaba_DrawStemExtended(EnDekubaba* thisv, GlobalContext* globalCtx) {
 
         if ((i < 2) && (thisv->actor.colorFilterTimer != 0)) {
             // checking colorFilterTimer ensures that spA4 has been initialized earlier, so not a bug
-            thisv->bodyPartsPos[i].x = mtx.xw;
-            thisv->bodyPartsPos[i].y = mtx.yw - spA4;
-            thisv->bodyPartsPos[i].z = mtx.zw;
+            thisv->bodyPartsPos[i].x = mtx.mf_raw.xw;
+            thisv->bodyPartsPos[i].y = mtx.mf_raw.yw - spA4;
+            thisv->bodyPartsPos[i].z = mtx.mf_raw.zw;
         }
     }
 
@@ -1266,7 +1266,7 @@ void EnDekubaba_DrawBaseShadow(EnDekubaba* thisv, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_dekubaba.c", 2715);
 }
 
-void EnDekubaba_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnDekubaba_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnDekubaba* thisv = (EnDekubaba*)thisx;
 
     if (limbIndex == 1) {

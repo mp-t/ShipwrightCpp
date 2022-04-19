@@ -39,7 +39,7 @@ void EnGe1_Wait_Archery(EnGe1* thisv, GlobalContext* globalCtx);
 void EnGe1_CueUpAnimation(EnGe1* thisv);
 void EnGe1_StopFidget(EnGe1* thisv);
 
-const ActorInit En_Ge1_InitVars = {
+ActorInit En_Ge1_InitVars = {
     ACTOR_EN_GE1,
     ACTORCAT_NPC,
     FLAGS,
@@ -72,7 +72,7 @@ static ColliderCylinderInit sCylinderInit = {
     { 20, 40, 0, { 0, 0, 0 } },
 };
 
-static Gfx* sHairstyleDLists[] = {
+static const Gfx* sHairstyleDLists[] = {
     gGerudoWhiteHairstyleBobDL,
     gGerudoWhiteHairstyleStraightFringeDL,
     gGerudoWhiteHairstyleSpikyDL,
@@ -80,7 +80,7 @@ static Gfx* sHairstyleDLists[] = {
 
 static Vec3f D_80A327A8 = { 600.0f, 700.0f, 0.0f };
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     gGerudoWhiteEyeOpenTex,
     gGerudoWhiteEyeHalfTex,
     gGerudoWhiteEyeClosedTex,
@@ -763,7 +763,7 @@ void EnGe1_StopFidget(EnGe1* thisv) {
     }
 }
 
-s32 EnGe1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnGe1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     s32 pad;
     EnGe1* thisv = (EnGe1*)thisx;
 
@@ -786,7 +786,7 @@ s32 EnGe1_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return 0;
 }
 
-void EnGe1_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnGe1_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnGe1* thisv = (EnGe1*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_ge1.c", 1419);

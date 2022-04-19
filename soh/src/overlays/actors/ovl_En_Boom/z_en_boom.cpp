@@ -16,7 +16,7 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnBoom_Fly(EnBoom* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Boom_InitVars = {
+ActorInit En_Boom_InitVars = {
     ACTOR_EN_BOOM,
     ACTORCAT_MISC,
     FLAGS,
@@ -264,7 +264,7 @@ void EnBoom_Draw(Actor* thisx, GlobalContext* globalCtx) {
     Matrix_MultVec3f(&sMultVec2, &vec2);
 
     if (func_80090480(globalCtx, &thisv->collider, &thisv->boomerangInfo, &vec1, &vec2) != 0) {
-        EffectBlure_AddVertex(Effect_GetByIndex(thisv->effectIndex), &vec1, &vec2);
+        EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->effectIndex)), &vec1, &vec2);
     }
 
     func_80093D18(globalCtx->state.gfxCtx);

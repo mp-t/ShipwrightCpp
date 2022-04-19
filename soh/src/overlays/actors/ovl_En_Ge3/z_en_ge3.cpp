@@ -18,7 +18,7 @@ void EnGe3_WaitLookAtPlayer(EnGe3* thisv, GlobalContext* globalCtx);
 void EnGe3_ForceTalk(EnGe3* thisv, GlobalContext* globalCtx);
 void EnGe3_UpdateWhenNotTalking(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Ge3_InitVars = {
+ActorInit En_Ge3_InitVars = {
     ACTOR_EN_GE3,
     ACTORCAT_NPC,
     FLAGS,
@@ -52,7 +52,7 @@ static ColliderCylinderInit sCylinderInit = {
 };
 
 static EnGe3ActionFunc sActionFuncs[] = { EnGe3_WaitLookAtPlayer };
-static AnimationHeader* sAnimations[] = { &gGerudoRedStandAnim }; // Idle with right hand on hip and left over mouth
+static const AnimationHeader* sAnimations[] = { &gGerudoRedStandAnim }; // Idle with right hand on hip and left over mouth
 static u8 sAnimationModes[] = { ANIMMODE_LOOP };
 
 void EnGe3_ChangeAction(EnGe3* thisv, s32 i) {
@@ -225,7 +225,7 @@ void EnGe3_Update(Actor* thisx, GlobalContext* globalCtx) {
     EnGe3_MoveAndBlink(thisv, globalCtx);
 }
 
-s32 EnGe3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnGe3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnGe3* thisv = (EnGe3*)thisx;
 
     switch (limbIndex) {
@@ -266,7 +266,7 @@ s32 EnGe3_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnGe3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnGe3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnGe3* thisv = (EnGe3*)thisx;
     Vec3f D_80A351C8 = { 600.0f, 700.0f, 0.0f };
 
@@ -276,7 +276,7 @@ void EnGe3_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 }
 
 void EnGe3_Draw(Actor* thisx, GlobalContext* globalCtx2) {
-    static void* eyeTextures[] = {
+    static const void* eyeTextures[] = {
         gGerudoRedEyeOpenTex,
         gGerudoRedEyeHalfTex,
         gGerudoRedEyeShutTex,

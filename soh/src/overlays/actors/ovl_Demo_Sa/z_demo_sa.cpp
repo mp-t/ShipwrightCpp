@@ -60,18 +60,18 @@ typedef enum {
     /* 4 */ SARIA_MOUTH_FROWNING
 } SariaMouthState;
 
-static void* sEyeTextures[] = {
+static const void* sEyeTextures[] = {
     gSariaEyeOpenTex, gSariaEyeHalfTex, gSariaEyeClosedTex, gSariaEyeSuprisedTex, gSariaEyeSadTex,
 };
 
-static void* sMouthTextures[] = {
+static const void* sMouthTextures[] = {
     gSariaMouthClosed2Tex,     gSariaMouthSuprisedTex, gSariaMouthClosedTex,
     gSariaMouthSmilingOpenTex, gSariaMouthFrowningTex,
 };
 
 static u32 D_80990108 = 0;
 
-#include "z_demo_sa_cutscene_data.c" EARLY
+#include "z_demo_sa_cutscene_data.cpp" EARLY
 
 static DemoSaActionFunc sActionFuncs[] = {
     func_8098EBB8, func_8098EBD8, func_8098EBF8, func_8098EC28, func_8098EC60, func_8098EC94, func_8098ECCC,
@@ -85,7 +85,7 @@ static DemoSaDrawFunc sDrawFuncs[] = {
     DemoSa_DrawXlu,
 };
 
-const ActorInit Demo_Sa_InitVars = {
+ActorInit Demo_Sa_InitVars = {
     ACTOR_DEMO_SA,
     ACTORCAT_NPC,
     FLAGS,
@@ -159,7 +159,7 @@ s32 DemoSa_UpdateSkelAnime(DemoSa* thisv) {
     return SkelAnime_Update(&thisv->skelAnime);
 }
 
-CsCmdActorAction* DemoSa_GetNpcAction(GlobalContext* globalCtx, s32 idx) {
+const CsCmdActorAction* DemoSa_GetNpcAction(GlobalContext* globalCtx, s32 idx) {
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         return globalCtx->csCtx.npcActions[idx];
     }
@@ -167,7 +167,7 @@ CsCmdActorAction* DemoSa_GetNpcAction(GlobalContext* globalCtx, s32 idx) {
 }
 
 s32 func_8098E654(DemoSa* thisv, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
-    CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, arg3);
+    const CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, arg3);
 
     if ((npcAction != NULL) && (npcAction->action == arg2)) {
         return 1;
@@ -176,7 +176,7 @@ s32 func_8098E654(DemoSa* thisv, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
 }
 
 s32 func_8098E6A0(DemoSa* thisv, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
-    CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, arg3);
+    const CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, arg3);
 
     if ((npcAction != NULL) && (npcAction->action != arg2)) {
         return 1;
@@ -185,7 +185,7 @@ s32 func_8098E6A0(DemoSa* thisv, GlobalContext* globalCtx, u16 arg2, s32 arg3) {
 }
 
 void func_8098E6EC(DemoSa* thisv, GlobalContext* globalCtx, s32 actionIdx) {
-    CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, actionIdx);
+    const CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, actionIdx);
 
     if (npcAction != NULL) {
         thisv->actor.world.pos.x = npcAction->startPos.x;
@@ -195,7 +195,7 @@ void func_8098E6EC(DemoSa* thisv, GlobalContext* globalCtx, s32 actionIdx) {
     }
 }
 
-void func_8098E76C(DemoSa* thisv, AnimationHeader* animHeaderSeg, u8 arg2, f32 transitionRate, s32 arg4) {
+void func_8098E76C(DemoSa* thisv, const AnimationHeader* animHeaderSeg, u8 arg2, f32 transitionRate, s32 arg4) {
     s32 pad[2];
     f32 frameCount = Animation_GetLastFrame(animHeaderSeg);
     f32 playbackSpeed;
@@ -262,7 +262,7 @@ void func_8098E960(DemoSa* thisv, GlobalContext* globalCtx) {
 }
 
 void func_8098E9EC(DemoSa* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         npcAction = globalCtx->csCtx.npcActions[4];
@@ -282,7 +282,7 @@ void func_8098EA3C(DemoSa* thisv) {
 }
 
 void func_8098EA68(DemoSa* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         npcAction = globalCtx->csCtx.npcActions[4];
@@ -303,7 +303,7 @@ void func_8098EB00(DemoSa* thisv, s32 arg1) {
 }
 
 void func_8098EB6C(DemoSa* thisv, GlobalContext* globalCtx) {
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
 
     if (globalCtx->csCtx.state != CS_STATE_IDLE) {
         npcAction = globalCtx->csCtx.npcActions[6];
@@ -458,10 +458,10 @@ void func_8098F16C(DemoSa* thisv, GlobalContext* globalCtx) {
 void DemoSa_DrawXlu(DemoSa* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeIndex = thisv->eyeIndex;
-    void* sp78 = sEyeTextures[eyeIndex];
+    const void* sp78 = sEyeTextures[eyeIndex];
     s16 mouthIndex = thisv->mouthIndex;
     s32 pad2;
-    void* sp6C = sMouthTextures[mouthIndex];
+    const void* sp6C = sMouthTextures[mouthIndex];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_sa_inKenjyanomaDemo02.c", 296);
@@ -547,7 +547,7 @@ void func_8098F610(DemoSa* thisv, s32 arg1) {
 void func_8098F654(DemoSa* thisv, GlobalContext* globalCtx) {
     s32 unk_1AC;
     s32 action;
-    CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, 4);
+    const CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, 4);
 
     if (npcAction != NULL) {
         action = npcAction->action;
@@ -692,7 +692,7 @@ void func_8098FB34(DemoSa* thisv, s32 arg1) {
 void func_8098FB68(DemoSa* thisv, GlobalContext* globalCtx) {
     s32 unk_1AC;
     s32 action;
-    CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, 1);
+    const CsCmdActorAction* npcAction = DemoSa_GetNpcAction(globalCtx, 1);
 
     if (npcAction != NULL) {
         action = npcAction->action;
@@ -781,7 +781,7 @@ void DemoSa_Init(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 DemoSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 DemoSa_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     DemoSa* thisv = (DemoSa*)thisx;
 
     if ((limbIndex == 15) && (thisv->unk_1B0 != 0)) {
@@ -796,10 +796,10 @@ void DemoSa_DrawNothing(DemoSa* thisv, GlobalContext* globalCtx) {
 void DemoSa_DrawOpa(DemoSa* thisv, GlobalContext* globalCtx) {
     s32 pad[2];
     s16 eyeIndex = thisv->eyeIndex;
-    void* eyeTex = sEyeTextures[eyeIndex];
+    const void* eyeTex = sEyeTextures[eyeIndex];
     s32 pad2;
     s16 mouthIndex = thisv->mouthIndex;
-    void* mouthTex = sMouthTextures[mouthIndex];
+    const void* mouthTex = sMouthTextures[mouthIndex];
     SkelAnime* skelAnime = &thisv->skelAnime;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_demo_sa.c", 602);

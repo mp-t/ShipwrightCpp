@@ -34,7 +34,7 @@ void EnBomBowMan_SetupChooseShowPrize(EnBomBowlMan* thisv, GlobalContext* global
 void EnBomBowMan_ChooseShowPrize(EnBomBowlMan* thisv, GlobalContext* globalCtx);
 void EnBomBowlMan_BeginPlayGame(EnBomBowlMan* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Bom_Bowl_Man_InitVars = {
+ActorInit En_Bom_Bowl_Man_InitVars = {
     ACTOR_EN_BOM_BOWL_MAN,
     ACTORCAT_NPC,
     FLAGS,
@@ -510,7 +510,7 @@ void EnBomBowlMan_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actionFunc(thisv, globalCtx);
 }
 
-s32 EnBomBowlMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnBomBowlMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                   void* thisx) {
     EnBomBowlMan* thisv = (EnBomBowlMan*)thisx;
 
@@ -523,7 +523,7 @@ s32 EnBomBowlMan_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx**
 }
 
 void EnBomBowlMan_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* eyeTextures[] = { gChuGirlEyeOpenTex, gChuGirlEyeHalfTex, gChuGirlEyeClosedTex };
+    static const void* eyeTextures[] = { gChuGirlEyeOpenTex, gChuGirlEyeHalfTex, gChuGirlEyeClosedTex };
     EnBomBowlMan* thisv = (EnBomBowlMan*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_bom_bowl_man.c", 907);

@@ -19,7 +19,7 @@ void func_80B92C80(ObjElevator* thisv, GlobalContext* globalCtx);
 void func_80B92D20(ObjElevator* thisv);
 void func_80B92D44(ObjElevator* thisv, GlobalContext* globalCtx);
 
-const ActorInit Obj_Elevator_InitVars = {
+ActorInit Obj_Elevator_InitVars = {
     ACTOR_OBJ_ELEVATOR,
     ACTORCAT_BG,
     FLAGS,

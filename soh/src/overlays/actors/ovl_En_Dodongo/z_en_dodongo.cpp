@@ -36,7 +36,7 @@ void EnDodongo_Stunned(EnDodongo* thisv, GlobalContext* globalCtx);
 void EnDodongo_Death(EnDodongo* thisv, GlobalContext* globalCtx);
 void EnDodongo_SweepTail(EnDodongo* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dodongo_InitVars = {
+ActorInit En_Dodongo_InitVars = {
     ACTOR_EN_DODONGO,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -616,7 +616,7 @@ void EnDodongo_SweepTail(EnDodongo* thisv, GlobalContext* globalCtx) {
             thisv->timer = Rand_S16Offset(5, 10);
         } else {
             s16 yawDiff2 = thisv->actor.yawTowardsPlayer - thisv->actor.shape.rot.y;
-            AnimationHeader* animation;
+            const AnimationHeader* animation;
 
             thisv->tailSwipeSpeed = (0xFFFF - ABS(yawDiff2)) / 0xF;
             if ((s16)(thisv->actor.yawTowardsPlayer - thisv->actor.shape.rot.y) >= 0) {
@@ -795,7 +795,7 @@ void EnDodongo_Update(Actor* thisx, GlobalContext* globalCtx) {
     thisv->actor.focus.pos.z = thisv->actor.world.pos.z + Math_CosS(thisv->actor.shape.rot.y) * -30.0f;
 }
 
-s32 EnDodongo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 EnDodongo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                void* thisx) {
     EnDodongo* thisv = (EnDodongo*)thisx;
 
@@ -805,7 +805,7 @@ s32 EnDodongo_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dL
     return false;
 }
 
-void EnDodongo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnDodongo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f legOffsets[3] = {
         { 1100.0f, -700.0f, 0.0f },
         { 0.0f, 0.0f, 0.0f },
@@ -863,9 +863,9 @@ void EnDodongo_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList
             if ((thisv->actionState == DODONGO_SWEEP_TAIL) && (thisv->timer >= 2)) {
                 Matrix_MultVec3f(&tailTipOffset, &tailTip);
                 Matrix_MultVec3f(&baseOffset, &tailBase);
-                EffectBlure_AddVertex(Effect_GetByIndex(thisv->blureIdx), &tailTip, &tailBase);
+                EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)), &tailTip, &tailBase);
             } else if ((thisv->actionState == DODONGO_SWEEP_TAIL) && (thisv->timer != 0)) {
-                EffectBlure_AddSpace(Effect_GetByIndex(thisv->blureIdx));
+                EffectBlure_AddSpace(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blureIdx)));
             }
             break;
         case 21:

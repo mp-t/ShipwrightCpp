@@ -36,10 +36,10 @@ void func_80AAE50C(EnMm* thisv, GlobalContext* globalCtx);
 void func_80AAE224(EnMm* thisv, GlobalContext* globalCtx);
 s32 func_80AADA70(void);
 
-s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
-void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void*);
+s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx);
+void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void*);
 
-const ActorInit En_Mm_InitVars = {
+ActorInit En_Mm_InitVars = {
     ACTOR_EN_MM,
     ACTORCAT_NPC,
     FLAGS,
@@ -511,7 +511,7 @@ void EnMm_Update(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
-    static void* mouthTextures[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
+    static const void* mouthTextures[] = { gRunningManMouthOpenTex, gRunningManMouthClosedTex };
     s32 pad;
     EnMm* thisv = (EnMm*)thisx;
 
@@ -532,7 +532,7 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
             Vec3s sp50;
             Mtx* mtx2;
 
-            mtx = Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 2);
+            mtx = static_cast<Mtx*>(Graph_Alloc(globalCtx->state.gfxCtx, sizeof(Mtx) * 2));
 
             Matrix_Put(&thisv->unk_208);
             mtx2 = Matrix_NewMtx(globalCtx->state.gfxCtx, "../z_en_mm.c", 1111);
@@ -563,7 +563,7 @@ void EnMm_Draw(Actor* thisx, GlobalContext* globalCtx) {
     CLOSE_DISPS(globalCtx->state.gfxCtx, "../z_en_mm.c", 1141);
 }
 
-s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnMm* thisv = (EnMm*)thisx;
 
     if (thisv->unk_254 & 1) {
@@ -584,7 +584,7 @@ s32 EnMm_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, 
     return 0;
 }
 
-void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnMm_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     static Vec3f headOffset = { 200.0f, 800.0f, 0.0f };
     EnMm* thisv = (EnMm*)thisx;
 

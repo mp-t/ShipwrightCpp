@@ -14,7 +14,7 @@ void EnPubox_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnPubox_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPubox_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Pu_box_InitVars = {
+ActorInit En_Pu_box_InitVars = {
     ACTOR_EN_PU_BOX,
     ACTORCAT_BG,
     FLAGS,
@@ -28,7 +28,7 @@ const ActorInit En_Pu_box_InitVars = {
 };
 
 void EnPubox_Init(Actor* thisx, GlobalContext* globalCtx) {
-    CollisionHeader* colHeader = NULL;
+    const CollisionHeader* colHeader = NULL;
     EnPubox* thisv = (EnPubox*)thisx;
 
     switch (thisx->params) {

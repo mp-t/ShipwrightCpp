@@ -16,7 +16,7 @@ void BgPushbox_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void BgPushbox_UpdateImpl(BgPushbox* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Pushbox_InitVars = {
+ActorInit Bg_Pushbox_InitVars = {
     ACTOR_BG_PUSHBOX,
     ACTORCAT_BG,
     FLAGS,

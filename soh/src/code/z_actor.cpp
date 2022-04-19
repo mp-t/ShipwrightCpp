@@ -3322,7 +3322,7 @@ void BodyBreak_Alloc(BodyBreak* bodyBreak, s32 count, GlobalContext* globalCtx) 
 
     if (bodyBreak->matrices != NULL) {
         dListsSize = (count + 1) * sizeof(*bodyBreak->dLists);
-        bodyBreak->dLists = static_cast<Gfx**>(ZeldaArena_MallocDebug(dListsSize, "../z_actor.c", 7543));
+        bodyBreak->dLists = static_cast<const Gfx**>(ZeldaArena_MallocDebug(dListsSize, "../z_actor.c", 7543));
 
         if (bodyBreak->dLists != NULL) {
             objectIdsSize = (count + 1) * sizeof(*bodyBreak->objectIds);
@@ -3351,7 +3351,7 @@ void BodyBreak_Alloc(BodyBreak* bodyBreak, s32 count, GlobalContext* globalCtx) 
     }
 }
 
-void BodyBreak_SetInfo(BodyBreak* bodyBreak, s32 limbIndex, s32 minLimbIndex, s32 maxLimbIndex, u32 count, Gfx** dList,
+void BodyBreak_SetInfo(BodyBreak* bodyBreak, s32 limbIndex, s32 minLimbIndex, s32 maxLimbIndex, u32 count, const Gfx** dList,
                        s16 objectId) {
     GlobalContext* globalCtx = Effect_GetGlobalCtx();
 

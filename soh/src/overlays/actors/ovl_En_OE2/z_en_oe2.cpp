@@ -15,7 +15,7 @@ void EnOE2_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnOE2_DoNothing(EnOE2* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_OE2_InitVars = {
+ActorInit En_OE2_InitVars = {
     ACTOR_EN_OE2,
     ACTORCAT_NPC,
     FLAGS,

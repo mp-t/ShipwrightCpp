@@ -23,7 +23,7 @@ void EnNy_SetupDie(EnNy* thisv, GlobalContext* globalCtx);
 void EnNy_DrawDeathEffect(Actor* thisx, GlobalContext* GlobalContext);
 void func_80ABD3B8(EnNy* thisv, f32, f32);
 
-const ActorInit En_Ny_InitVars = {
+ActorInit En_Ny_InitVars = {
     ACTOR_EN_NY,
     ACTORCAT_ENEMY,
     FLAGS,

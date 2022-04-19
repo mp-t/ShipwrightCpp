@@ -236,7 +236,7 @@ static Color_RGBA8 sBodyColor = { 255, 255, 255, 255 };
 static Color_RGBA8 sStaticColor = { 0, 0, 0, 255 };
 static s32 sHandState[] = { HAND_WAIT, HAND_WAIT };
 
-const ActorInit Boss_Sst_InitVars = {
+ActorInit Boss_Sst_InitVars = {
     ACTOR_BOSS_SST,
     ACTORCAT_BOSS,
     FLAGS,
@@ -2693,7 +2693,7 @@ void BossSst_PostHandDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** d
     Collider_UpdateSpheres(limbIndex, &thisv->colliderJntSph);
 }
 
-s32 BossSst_OverrideHandTrailDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot,
+s32 BossSst_OverrideHandTrailDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot,
                                   void* data, Gfx** gfx) {
     BossSstHandTrail* trail = (BossSstHandTrail*)data;
 
@@ -2762,7 +2762,7 @@ void BossSst_DrawHand(Actor* thisx, GlobalContext* globalCtx) {
     BossSst_DrawEffect(&thisv->actor, globalCtx);
 }
 
-s32 BossSst_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+s32 BossSst_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
                              Gfx** gfx) {
     BossSst* thisv = (BossSst*)thisx;
     s32 shakeAmp;
@@ -2838,7 +2838,7 @@ s32 BossSst_OverrideHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dLis
     return false;
 }
 
-void BossSst_PostHeadDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
+void BossSst_PostHeadDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx, Gfx** gfx) {
     static Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     static Vec3f headVec = { 1000.0f, 0.0f, 0.0f };
     BossSst* thisv = (BossSst*)thisx;

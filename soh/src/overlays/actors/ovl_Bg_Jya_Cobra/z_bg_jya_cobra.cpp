@@ -21,7 +21,7 @@ void func_80896ABC(BgJyaCobra* thisv, GlobalContext* globalCtx);
 
 #include "overlays/ovl_Bg_Jya_Cobra/ovl_Bg_Jya_Cobra.h"
 
-const ActorInit Bg_Jya_Cobra_InitVars = {
+ActorInit Bg_Jya_Cobra_InitVars = {
     ACTOR_BG_JYA_COBRA,
     ACTORCAT_PROP,
     FLAGS,

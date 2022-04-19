@@ -43,7 +43,7 @@ void EnGoma_SetupLand(EnGoma* thisv);
 void EnGoma_SetupJump(EnGoma* thisv);
 void EnGoma_SetupStunned(EnGoma* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Goma_InitVars = {
+ActorInit En_Goma_InitVars = {
     ACTOR_BOSS_GOMA,
     ACTORCAT_ENEMY,
     FLAGS,
@@ -747,7 +747,7 @@ void EnGoma_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-s32 EnGoma_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnGoma_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnGoma* thisv = (EnGoma*)thisx;
 
     OPEN_DISPS(globalCtx->state.gfxCtx, "../z_en_goma.c", 1976);
@@ -770,7 +770,7 @@ Gfx* EnGoma_NoBackfaceCullingDlist(GraphicsContext* gfxCtx) {
     Gfx* dListHead;
     Gfx* dList;
 
-    dListHead = dList = Graph_Alloc(gfxCtx, sizeof(Gfx) * 4);
+    dListHead = dList = static_cast<Gfx*>(Graph_Alloc(gfxCtx, sizeof(Gfx) * 4));
     gDPPipeSync(dListHead++);
     gDPSetRenderMode(dListHead++, G_RM_PASS, G_RM_AA_ZB_TEX_EDGE2);
     gSPClearGeometryMode(dListHead++, G_CULL_BACK);

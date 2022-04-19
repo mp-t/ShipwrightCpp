@@ -20,7 +20,7 @@ void func_808B29F0(BgSpot11Oasis* thisv, GlobalContext* globalCtx);
 void func_808B2AA8(BgSpot11Oasis* thisv);
 void func_808B2AB8(BgSpot11Oasis* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Spot11_Oasis_InitVars = {
+ActorInit Bg_Spot11_Oasis_InitVars = {
     ACTOR_BG_SPOT11_OASIS,
     ACTORCAT_BG,
     FLAGS,

@@ -33,7 +33,7 @@ static Vec3s D_80AD8C30[] = {
     { 0x0B4E, 0xFE66, 0xF87E }, { 0x0B4A, 0xFE66, 0xF97A }, { 0x0B4A, 0xFE98, 0xF9FC }, { 0x0BAE, 0xFE98, 0xF9FC },
 };
 
-const ActorInit En_Po_Relay_InitVars = {
+ActorInit En_Po_Relay_InitVars = {
     ACTOR_EN_PO_RELAY,
     ACTORCAT_NPC,
     FLAGS,
@@ -79,7 +79,7 @@ static Vec3f D_80AD8D3C = { 0.0f, 0.0f, 0.0f };
 
 static Vec3f D_80AD8D48 = { 0.0f, 1200.0f, 0.0f };
 
-static void* sEyesTextures[] = {
+static const void* sEyesTextures[] = {
     gDampeEyeOpenTex,
     gDampeEyeHalfTex,
     gDampeEyeClosedTex,
@@ -374,7 +374,7 @@ void EnPoRelay_Update(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void EnPoRelay_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnPoRelay_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnPoRelay* thisv = (EnPoRelay*)thisx;
 
     if (limbIndex == 14) {

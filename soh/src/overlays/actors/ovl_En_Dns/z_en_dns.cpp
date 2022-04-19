@@ -43,7 +43,7 @@ void func_809F008C(EnDns* thisv, GlobalContext* globalCtx);
 void EnDns_SetupBurrow(EnDns* thisv, GlobalContext* globalCtx);
 void EnDns_Burrow(EnDns* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Dns_InitVars = {
+ActorInit En_Dns_InitVars = {
     ACTOR_EN_DNS,
     ACTORCAT_BG,
     FLAGS,
@@ -82,7 +82,7 @@ static u16 D_809F040C[] = {
 // Debug text: "sells"  { "Deku Nuts",    "Deku Sticks",        "Piece of Heart",  "Deku Seeds",
 //                        "Deku Shield",  "Bombs",              "Arrows",          "Red Potion",
 //                        "Green Potion", "Deku Stick Upgrade", "Deku Nut Upgrade" }
-static char* D_809F0424[] = {
+static const char* D_809F0424[] = {
     "デクの実売り            ", "デクの棒売り            ", "ハートの欠片売り        ", "デクの種売り            ",
     "デクの盾売り            ", "バクダン売り            ", "矢売り                  ", "赤のくすり売り          ",
     "緑のくすり売り          ", "デクの棒持てる数を増やす", "デクの実持てる数を増やす",

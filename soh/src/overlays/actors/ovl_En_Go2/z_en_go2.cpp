@@ -64,7 +64,7 @@ void EnGo2_BiggoronEyedrops(EnGo2* thisv, GlobalContext* globalCtx);
 void EnGo2_GoronLinkStopRolling(EnGo2* thisv, GlobalContext* globalCtx);
 void EnGo2_GoronFireGenericAction(EnGo2* thisv, GlobalContext* globalCtx);
 
-static void* sDustTex[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
+static const void* sDustTex[] = { gDust8Tex, gDust7Tex, gDust6Tex, gDust5Tex, gDust4Tex, gDust3Tex, gDust2Tex, gDust1Tex };
 
 static Vec3f sPos = { 0.0f, 0.0f, 0.0f };
 static Vec3f sVelocity = { 0.0f, 0.0f, 0.0f };
@@ -94,7 +94,7 @@ static CollisionCheckInfoInit2 sColChkInfoInit = {
     0, 0, 0, 0, MASS_IMMOVABLE,
 };
 
-const ActorInit En_Go2_InitVars = {
+ActorInit En_Go2_InitVars = {
     ACTOR_EN_GO2,
     ACTORCAT_NPC,
     FLAGS,
@@ -1997,7 +1997,7 @@ s32 EnGo2_DrawRolling(EnGo2* thisv, GlobalContext* globalCtx) {
     return 1;
 }
 
-s32 EnGo2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnGo2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnGo2* thisv = (EnGo2*)thisx;
     Vec3s vec1;
     f32 float1;
@@ -2027,7 +2027,7 @@ s32 EnGo2_OverrideLimbDraw(GlobalContext* globalCtx, s32 limb, Gfx** dList, Vec3
     return 0;
 }
 
-void EnGo2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnGo2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     EnGo2* thisv = (EnGo2*)thisx;
     Vec3f D_80A4856C = { 600.0f, 0.0f, 0.0f };
 
@@ -2038,8 +2038,8 @@ void EnGo2_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 
 void EnGo2_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnGo2* thisv = (EnGo2*)thisx;
-    void* eyeTextures[] = { gGoronCsEyeClosed2Tex, gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
-    void* mouthTextures[] = { gGoronCsMouthNeutralTex, gGoronCsMouthSmileTex };
+    const void* eyeTextures[] = { gGoronCsEyeClosed2Tex, gGoronCsEyeOpenTex, gGoronCsEyeHalfTex, gGoronCsEyeClosedTex };
+    const void* mouthTextures[] = { gGoronCsMouthNeutralTex, gGoronCsMouthSmileTex };
 
     EnGo2_UpdateDust(thisv);
     Matrix_Push();

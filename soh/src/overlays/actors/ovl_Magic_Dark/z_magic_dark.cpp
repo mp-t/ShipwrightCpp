@@ -18,7 +18,7 @@ void MagicDark_DiamondDraw(Actor* thisvx, GlobalContext* globalCtx);
 
 void MagicDark_DimLighting(GlobalContext* globalCtx, f32 intensity);
 
-const ActorInit Magic_Dark_InitVars = {
+ActorInit Magic_Dark_InitVars = {
     ACTOR_MAGIC_DARK,
     ACTORCAT_ITEMACTION,
     FLAGS,

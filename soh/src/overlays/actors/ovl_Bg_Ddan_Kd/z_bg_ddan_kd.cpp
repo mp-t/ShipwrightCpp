@@ -19,7 +19,7 @@ void BgDdanKd_CheckForExplosions(BgDdanKd* thisv, GlobalContext* globalCtx);
 void BgDdanKd_LowerStairs(BgDdanKd* thisv, GlobalContext* globalCtx);
 void BgDdanKd_DoNothing(BgDdanKd* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Ddan_Kd_InitVars = {
+ActorInit Bg_Ddan_Kd_InitVars = {
     ACTOR_BG_DDAN_KD,
     ACTORCAT_BG,
     FLAGS,

@@ -18,7 +18,7 @@ void ElfMsg_Draw(Actor* thisx, GlobalContext* globalCtx);
 void ElfMsg_CallNaviCuboid(ElfMsg* thisv, GlobalContext* globalCtx);
 void ElfMsg_CallNaviCylinder(ElfMsg* thisv, GlobalContext* globalCtx);
 
-const ActorInit Elf_Msg_InitVars = {
+ActorInit Elf_Msg_InitVars = {
     ACTOR_ELF_MSG,
     ACTORCAT_ITEMACTION,
     FLAGS,

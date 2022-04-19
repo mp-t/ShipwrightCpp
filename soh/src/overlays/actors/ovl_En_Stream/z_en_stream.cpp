@@ -15,7 +15,7 @@ void EnStream_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnStream_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnStream_WaitForPlayer(EnStream* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Stream_InitVars = {
+ActorInit En_Stream_InitVars = {
     ACTOR_EN_STREAM,
     ACTORCAT_BG,
     FLAGS,

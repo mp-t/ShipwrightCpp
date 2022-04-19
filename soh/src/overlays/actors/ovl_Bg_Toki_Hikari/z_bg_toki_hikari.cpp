@@ -21,7 +21,7 @@ void func_808BA22C(BgTokiHikari* thisv, GlobalContext* globalCtx);
 void func_808BA274(BgTokiHikari* thisv, GlobalContext* globalCtx);
 void func_808BA2CC(BgTokiHikari* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Toki_Hikari_InitVars = {
+ActorInit Bg_Toki_Hikari_InitVars = {
     ACTOR_BG_TOKI_HIKARI,
     ACTORCAT_BG,
     FLAGS,

@@ -32,7 +32,7 @@ std::unique_ptr<std::byte[]> MemoryStream::Read(const std::size_t length)
 {
 	auto result = std::make_unique<std::byte[]>(length);
 
-	memcpy_s(result.get(), length, &buffer[baseAddress], buffer.size() - baseAddress); //memcpy_s(result.get(), length, &buffer[baseAddress], length);
+	memcpy_s(result.get(), length, &buffer[baseAddress], length);
 	baseAddress += length;
 
 	return result;
@@ -40,7 +40,7 @@ std::unique_ptr<std::byte[]> MemoryStream::Read(const std::size_t length)
 
 void MemoryStream::Read(std::byte* const dest, const std::size_t length)
 {
-	memcpy_s(dest, length, &buffer[baseAddress], buffer.size() - baseAddress);
+	memcpy_s(dest, length, &buffer[baseAddress], length);
 	baseAddress += length;
 }
 

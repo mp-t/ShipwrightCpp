@@ -16,7 +16,7 @@ void EnLight_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnLight_UpdateSwitch(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit En_Light_InitVars = {
+ActorInit En_Light_InitVars = {
     ACTOR_EN_LIGHT,
     ACTORCAT_ITEMACTION,
     FLAGS,
@@ -154,7 +154,7 @@ void EnLight_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnLight* thisv = (EnLight*)thisx;
     s32 pad;
     FlameParams* flameParams;
-    Gfx* dList;
+    const Gfx* dList;
 
     if (1) {}
 

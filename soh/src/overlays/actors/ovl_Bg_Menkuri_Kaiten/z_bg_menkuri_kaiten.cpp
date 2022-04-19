@@ -14,7 +14,7 @@ void BgMenkuriKaiten_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriKaiten_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgMenkuriKaiten_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-const ActorInit Bg_Menkuri_Kaiten_InitVars = {
+ActorInit Bg_Menkuri_Kaiten_InitVars = {
     ACTOR_BG_MENKURI_KAITEN,
     ACTORCAT_BG,
     FLAGS,

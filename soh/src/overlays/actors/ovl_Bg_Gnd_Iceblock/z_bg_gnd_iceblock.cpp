@@ -23,7 +23,7 @@ void BgGndIceblock_Draw(Actor* thisx, GlobalContext* globalCtx);
 void BgGndIceblock_Idle(BgGndIceblock* thisv, GlobalContext* globalCtx);
 void BgGndIceblock_Slide(BgGndIceblock* thisv, GlobalContext* globalCtx);
 
-const ActorInit Bg_Gnd_Iceblock_InitVars = {
+ActorInit Bg_Gnd_Iceblock_InitVars = {
     ACTOR_BG_GND_ICEBLOCK,
     ACTORCAT_PROP,
     FLAGS,

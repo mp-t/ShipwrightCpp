@@ -117,7 +117,7 @@ void BossTw_TwinrovaChargeBlast(BossTw* thisv, GlobalContext* globalCtx);
 void BossTw_TwinrovaSetupSpin(BossTw* thisv, GlobalContext* globalCtx);
 void BossTw_UpdateEffects(GlobalContext* globalCtx);
 
-const ActorInit Boss_Tw_InitVars = {
+ActorInit Boss_Tw_InitVars = {
     ACTOR_BOSS_TW,
     ACTORCAT_BOSS,
     FLAGS,

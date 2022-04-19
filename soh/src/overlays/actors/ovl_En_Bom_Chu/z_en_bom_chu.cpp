@@ -15,7 +15,7 @@ void EnBomChu_WaitForRelease(EnBomChu* thisv, GlobalContext* globalCtx);
 void EnBomChu_Move(EnBomChu* thisv, GlobalContext* globalCtx);
 void EnBomChu_WaitForKill(EnBomChu* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Bom_Chu_InitVars = {
+ActorInit En_Bom_Chu_InitVars = {
     ACTOR_EN_BOM_CHU,
     ACTORCAT_EXPLOSIVE,
     FLAGS,
@@ -176,17 +176,17 @@ void EnBomChu_UpdateFloorPoly(EnBomChu* thisv, CollisionPoly* floorPoly, GlobalC
 
             // mf = (axisLeft | axisUp | axisForwards)
 
-            mf.xx = thisv->axisLeft.x;
-            mf.yx = thisv->axisLeft.y;
-            mf.zx = thisv->axisLeft.z;
+            mf.mf_raw.xx = thisv->axisLeft.x;
+            mf.mf_raw.yx = thisv->axisLeft.y;
+            mf.mf_raw.zx = thisv->axisLeft.z;
 
-            mf.xy = normal.x;
-            mf.yy = normal.y;
-            mf.zy = normal.z;
+            mf.mf_raw.xy = normal.x;
+            mf.mf_raw.yy = normal.y;
+            mf.mf_raw.zy = normal.z;
 
-            mf.xz = thisv->axisForwards.x;
-            mf.yz = thisv->axisForwards.y;
-            mf.zz = thisv->axisForwards.z;
+            mf.mf_raw.xz = thisv->axisForwards.x;
+            mf.mf_raw.yz = thisv->axisForwards.y;
+            mf.mf_raw.zz = thisv->axisForwards.z;
 
             Matrix_MtxFToYXZRotS(&mf, &thisv->actor.world.rot, 0);
 
@@ -444,10 +444,10 @@ void EnBomChu_Update(Actor* thisx, GlobalContext* globalCtx2) {
         EnBomChu_ModelToWorld(thisv, &blureP1Model, &blureP1);
 
         EnBomChu_ModelToWorld(thisv, &blureP2LeftModel, &blureP2);
-        EffectBlure_AddVertex(Effect_GetByIndex(thisv->blure1Index), &blureP1, &blureP2);
+        EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blure1Index)), &blureP1, &blureP2);
 
         EnBomChu_ModelToWorld(thisv, &blureP2RightModel, &blureP2);
-        EffectBlure_AddVertex(Effect_GetByIndex(thisv->blure2Index), &blureP1, &blureP2);
+        EffectBlure_AddVertex(static_cast<EffectBlure*>(Effect_GetByIndex(thisv->blure2Index)), &blureP1, &blureP2);
 
         waterY = thisv->actor.world.pos.y;
 

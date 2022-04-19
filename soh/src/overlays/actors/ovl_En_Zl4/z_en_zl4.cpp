@@ -58,7 +58,7 @@ void EnZl4_Cutscene(EnZl4* thisv, GlobalContext* globalCtx);
 void EnZl4_Idle(EnZl4* thisv, GlobalContext* globalCtx);
 void EnZl4_TheEnd(EnZl4* thisv, GlobalContext* globalCtx);
 
-const ActorInit En_Zl4_InitVars = {
+ActorInit En_Zl4_InitVars = {
     ACTOR_EN_ZL4,
     ACTORCAT_NPC,
     FLAGS,
@@ -177,7 +177,7 @@ static AnimationInfo sAnimationInfo[] = {
     /* 33 */ /* transition to standing */ { &gChildZeldaAnim_000654, 1.0f, 0.0f, -1.0f, ANIMMODE_LOOP, -8.0f },
 };
 
-#include "z_en_zl4_cutscene_data.c"
+#include "z_en_zl4_cutscene_data.cpp"
 
 void EnZl4_SetCsCameraAngle(GlobalContext* globalCtx, s16 index) {
     Camera* activeCam = GET_ACTIVE_CAM(globalCtx);
@@ -310,7 +310,7 @@ void func_80B5BB78(EnZl4* thisv, GlobalContext* globalCtx) {
     func_80034A14(&thisv->actor, &thisv->unk_1E0, 2, 2);
 }
 
-void EnZl4_GetActionStartPos(CsCmdActorAction* action, Vec3f* vec) {
+void EnZl4_GetActionStartPos(const CsCmdActorAction* action, Vec3f* vec) {
     vec->x = action->startPos.x;
     vec->y = action->startPos.y;
     vec->z = action->startPos.z;
@@ -1202,7 +1202,7 @@ void EnZl4_Idle(EnZl4* thisv, GlobalContext* globalCtx) {
 void EnZl4_TheEnd(EnZl4* thisv, GlobalContext* globalCtx) {
     s32 animIndex[] = { ZL4_ANIM_0, ZL4_ANIM_0, ZL4_ANIM_0,  ZL4_ANIM_0,  ZL4_ANIM_0,
                         ZL4_ANIM_0, ZL4_ANIM_0, ZL4_ANIM_26, ZL4_ANIM_21, ZL4_ANIM_3 };
-    CsCmdActorAction* npcAction;
+    const CsCmdActorAction* npcAction;
     Vec3f pos;
 
     if (SkelAnime_Update(&thisv->skelAnime) && (thisv->skelAnime.animation == &gChildZeldaAnim_010DF8)) {
@@ -1249,7 +1249,7 @@ void EnZl4_Update(Actor* thisx, GlobalContext* globalCtx) {
     CollisionCheck_SetOC(globalCtx, &globalCtx->colChkCtx, &thisv->collider.base);
 }
 
-s32 EnZl4_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
+s32 EnZl4_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx) {
     EnZl4* thisv = (EnZl4*)thisx;
     Vec3s sp1C;
 
@@ -1271,7 +1271,7 @@ s32 EnZl4_OverrideLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList,
     return false;
 }
 
-void EnZl4_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Vec3s* rot, void* thisx) {
+void EnZl4_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, const Gfx** dList, Vec3s* rot, void* thisx) {
     Vec3f zeroVec = { 0.0f, 0.0f, 0.0f };
     EnZl4* thisv = (EnZl4*)thisx;
 
@@ -1282,9 +1282,9 @@ void EnZl4_PostLimbDraw(GlobalContext* globalCtx, s32 limbIndex, Gfx** dList, Ve
 
 void EnZl4_Draw(Actor* thisx, GlobalContext* globalCtx) {
     EnZl4* thisv = (EnZl4*)thisx;
-    void* mouthTex[] = { gChildZeldaMouthNeutralTex, gChildZeldaMouthHappyTex, gChildZeldaMouthWorriedTex,
+    const void* mouthTex[] = { gChildZeldaMouthNeutralTex, gChildZeldaMouthHappyTex, gChildZeldaMouthWorriedTex,
                          gChildZeldaMouthSurprisedTex };
-    void* eyeTex[] = {
+    const void* eyeTex[] = {
         gChildZeldaEyeOpenTex,   gChildZeldaEyeBlinkTex, gChildZeldaEyeShutTex, gChildZeldaEyeWideTex,
         gChildZeldaEyeSquintTex, gChildZeldaEyeOutTex,   gChildZeldaEyeInTex,
     };
