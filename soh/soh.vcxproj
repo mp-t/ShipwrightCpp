@@ -136,7 +136,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libultraship.lib;ZAPDUtils.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;glfw3dll.lib;glew32s.lib;winmm.lib;imm32.lib;version.lib;setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/FORCE:MULTIPLE  /ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
