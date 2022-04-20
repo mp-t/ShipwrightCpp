@@ -26,9 +26,9 @@ namespace Ship {
     int32_t stoi(const std::string& s, int32_t defaultVal) {
         try {
             return std::stoi(s);
-        } catch (const std::invalid_argument& e) {
+        } catch ([[maybe_unused]] const std::invalid_argument& e) {
             SPDLOG_DEBUG("Failed to parse int32_t from string due to invalid argument: {} ({})", e.what(), s);
-        } catch (const std::out_of_range& e) {
+        } catch ([[maybe_unused]] const std::out_of_range& e) {
             SPDLOG_DEBUG("Failed to parse int32_t from string due to out of range: {} ({})", e.what(), s);
         }
 
@@ -39,10 +39,10 @@ namespace Ship {
         try {
             return std::stof(s);
         }
-        catch (const std::invalid_argument& e) {
+        catch ([[maybe_unused]] const std::invalid_argument& e) {
             SPDLOG_DEBUG("Failed to parse float from string due to invalid argument: {} ({})", e.what(), s);
         }
-        catch (const std::out_of_range& e) {
+        catch ([[maybe_unused]] const std::out_of_range& e) {
             SPDLOG_DEBUG("Failed to parse float from string due to out of range: {} ({})", e.what(), s);
         }
 
@@ -52,9 +52,9 @@ namespace Ship {
     int64_t stoll(const std::string& s, int64_t defaultVal) {
         try {
             return std::stoll(s);
-        } catch (const std::invalid_argument& e) {
+        } catch ([[maybe_unused]] const std::invalid_argument& e) {
             SPDLOG_DEBUG("Failed to parse int32_t from string due to invalid argument: {} ({})", e.what(), s);
-        } catch (const std::out_of_range& e) {
+        } catch ([[maybe_unused]] const std::out_of_range& e) {
             SPDLOG_DEBUG("Failed to parse int32_t from string due to out of range: {} ({})", e.what(), s);
         }
 
