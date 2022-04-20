@@ -1,3 +1,5 @@
+#pragma once
+
 #include "CollisionHeader.h"
 
 class BinaryReader;

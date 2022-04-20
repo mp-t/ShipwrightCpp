@@ -1,3 +1,5 @@
+#pragma once
+
 #include "DisplayList.h"
 
 class BinaryReader;

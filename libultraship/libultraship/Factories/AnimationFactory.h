@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Animation.h"
 
 class BinaryReader;

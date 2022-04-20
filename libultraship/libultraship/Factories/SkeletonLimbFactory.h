@@ -1,3 +1,5 @@
+#pragma once
+
 #include "SkeletonLimb.h"
 
 class BinaryReader;

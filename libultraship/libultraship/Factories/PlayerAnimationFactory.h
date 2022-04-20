@@ -1,3 +1,5 @@
+#pragma once
+
 #include "PlayerAnimation.h"
 
 class BinaryReader;

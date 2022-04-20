@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Resource.h"
 
 namespace Ship
