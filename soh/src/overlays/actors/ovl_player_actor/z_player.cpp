@@ -2320,9 +2320,9 @@ s32 func_8083501C(Player* thisv, GlobalContext* globalCtx) {
         !func_80834F2C(thisv, globalCtx)) {
         return 0;
     }
-    else
+    else if (thisv->rideActor != nullptr)
     {
-        thisv->unk_6AD = 2;  // OTRTODO: THIS IS A BAD IDEA BUT IT FIXES THE HORSE FIRST PERSON?
+       thisv->unk_6AD = 2; // OTRTODO: THIS IS A BAD IDEA BUT IT FIXES THE HORSE FIRST PERSON?
     }
 
     return 1;
