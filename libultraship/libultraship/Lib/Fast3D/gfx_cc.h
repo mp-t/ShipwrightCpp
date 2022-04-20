@@ -1,8 +1,7 @@
 #ifndef GFX_CC_H
 #define GFX_CC_H
 
-#include <stdint.h>
-#include <stdbool.h>
+#include <cstdint>
 
 /*enum {
     CC_0,
@@ -46,7 +45,7 @@ enum {
 #define CC_SHADER_OPT_POS 56
 
 struct CCFeatures {
-    uint8_t c[2][2][4];
+    std::uint8_t c[2][2][4];
     bool opt_alpha;
     bool opt_fog;
     bool opt_texture_edge;
@@ -63,6 +62,6 @@ struct CCFeatures {
     bool color_alpha_same[2];
 };
 
-void gfx_cc_get_features(uint64_t shader_id0, uint32_t shader_id1, struct CCFeatures *cc_features);
+void gfx_cc_get_features(std::uint64_t shader_id0, std::uint32_t shader_id1, struct CCFeatures *cc_features);
 
 #endif

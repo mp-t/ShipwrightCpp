@@ -3,7 +3,7 @@
 #include "SohConsole.h"
 
 struct GameAsset {
-    uint32_t textureId;
+    std::uint32_t textureId;
     int width;
     int height;
 };

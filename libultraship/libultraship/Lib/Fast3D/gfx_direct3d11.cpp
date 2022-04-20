@@ -36,18 +36,18 @@ using namespace Microsoft::WRL; // For ComPtr
 namespace {
 
 struct PerFrameCB {
-    uint32_t noise_frame;
+    std::uint32_t noise_frame;
     float noise_scale_x;
     float noise_scale_y;
-    uint32_t padding;
+    std::uint32_t padding;
 };
 
 struct PerDrawCB {
     struct Texture {
-        uint32_t width;
-        uint32_t height;
-        uint32_t linear_filtering;
-        uint32_t padding;
+        std::uint32_t width;
+        std::uint32_t height;
+        std::uint32_t linear_filtering;
+        std::uint32_t padding;
     } textures[2];
 };
 
@@ -59,15 +59,15 @@ struct CoordCB {
 struct TextureData {
     ComPtr<ID3D11ShaderResourceView> resource_view;
     ComPtr<ID3D11SamplerState> sampler_state;
-    uint32_t width;
-    uint32_t height;
+    std::uint32_t width;
+    std::uint32_t height;
     bool linear_filtering;
 };
 
 struct FramebufferData {
     ComPtr<ID3D11RenderTargetView> render_target_view;
     ComPtr<ID3D11DepthStencilView> depth_stencil_view;
-    uint32_t texture_id;
+    std::uint32_t texture_id;
 };
 
 struct ShaderProgramD3D11 {
@@ -76,10 +76,10 @@ struct ShaderProgramD3D11 {
     ComPtr<ID3D11InputLayout> input_layout;
     ComPtr<ID3D11BlendState> blend_state;
 
-    uint64_t shader_id0;
-    uint32_t shader_id1;
-    uint8_t num_inputs;
-    uint8_t num_floats;
+    std::uint64_t shader_id0;
+    std::uint32_t shader_id1;
+    std::uint8_t num_inputs;
+    std::uint8_t num_floats;
     bool used_textures[2];
 };
 
@@ -122,11 +122,11 @@ static struct {
     PerFrameCB per_frame_cb_data;
     PerDrawCB per_draw_cb_data;
 
-    std::map<std::pair<uint64_t, uint32_t>, struct ShaderProgramD3D11> shader_program_pool;
+    std::map<std::pair<std::uint64_t, std::uint32_t>, struct ShaderProgramD3D11> shader_program_pool;
 
     std::vector<struct TextureData> textures;
     int current_tile;
-    uint32_t current_texture_ids[2];
+    std::uint32_t current_texture_ids[2];
 
     std::vector<FramebufferData> framebuffers;
 
@@ -134,29 +134,29 @@ static struct {
 
     struct ShaderProgramD3D11 *shader_program;
 
-    uint32_t current_width, current_height;
-    uint32_t render_target_height;
+    std::uint32_t current_width, current_height;
+    std::uint32_t render_target_height;
 
-    int8_t depth_test;
-    int8_t depth_mask;
-    int8_t zmode_decal;
+    std::int8_t depth_test;
+    std::int8_t depth_mask;
+    std::int8_t zmode_decal;
 
     // Previous states (to prevent setting states needlessly)
 
     struct ShaderProgramD3D11 *last_shader_program = nullptr;
-    uint32_t last_vertex_buffer_stride = 0;
+    std::uint32_t last_vertex_buffer_stride = 0;
     ComPtr<ID3D11BlendState> last_blend_state = nullptr;
     ComPtr<ID3D11ShaderResourceView> last_resource_views[2] = { nullptr, nullptr };
     ComPtr<ID3D11SamplerState> last_sampler_states[2] = { nullptr, nullptr };
-    int8_t last_depth_test = -1;
-    int8_t last_depth_mask = -1;
-    int8_t last_zmode_decal = -1;
+    std::int8_t last_depth_test = -1;
+    std::int8_t last_depth_mask = -1;
+    std::int8_t last_zmode_decal = -1;
     D3D_PRIMITIVE_TOPOLOGY last_primitive_topology = D3D_PRIMITIVE_TOPOLOGY_UNDEFINED;
 } d3d;
 
 static LARGE_INTEGER last_time, accumulated_time, frequency;
 
-void create_depth_stencil_objects(uint32_t width, uint32_t height, ID3D11Texture2D **texture, ID3D11DepthStencilView **view, ID3D11ShaderResourceView **srv) {
+void create_depth_stencil_objects(std::uint32_t width, std::uint32_t height, ID3D11Texture2D **texture, ID3D11DepthStencilView **view, ID3D11ShaderResourceView **srv) {
     D3D11_TEXTURE2D_DESC texture_desc;
     texture_desc.Width = width;
     texture_desc.Height = height;
@@ -456,7 +456,7 @@ static void gfx_d3d11_load_shader(struct ShaderProgram *new_prg) {
     d3d.shader_program = (struct ShaderProgramD3D11 *)new_prg;
 }
 
-static struct ShaderProgram *gfx_d3d11_create_and_load_new_shader(uint64_t shader_id0, uint32_t shader_id1) {
+static struct ShaderProgram *gfx_d3d11_create_and_load_new_shader(std::uint64_t shader_id0, std::uint32_t shader_id1) {
     CCFeatures cc_features;
     gfx_cc_get_features(shader_id0, shader_id1, &cc_features);
 
@@ -498,7 +498,7 @@ static struct ShaderProgram *gfx_d3d11_create_and_load_new_shader(uint64_t shade
     // Input Layout
 
     D3D11_INPUT_ELEMENT_DESC ied[16];
-    uint8_t ied_index = 0;
+    std::uint8_t ied_index = 0;
     ied[ied_index++] = { "POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
     for (UINT i = 0; i < 2; i++) {
         if (cc_features.used_textures[i]) {
@@ -554,12 +554,12 @@ static struct ShaderProgram *gfx_d3d11_create_and_load_new_shader(uint64_t shade
     return (struct ShaderProgram *)(d3d.shader_program = prg);
 }
 
-static struct ShaderProgram *gfx_d3d11_lookup_shader(uint64_t shader_id0, uint32_t shader_id1) {
+static struct ShaderProgram *gfx_d3d11_lookup_shader(std::uint64_t shader_id0, std::uint32_t shader_id1) {
     auto it = d3d.shader_program_pool.find(std::make_pair(shader_id0, shader_id1));
     return it == d3d.shader_program_pool.end() ? nullptr : (struct ShaderProgram *)&it->second;
 }
 
-static void gfx_d3d11_shader_get_info(struct ShaderProgram *prg, uint8_t *num_inputs, bool used_textures[2]) {
+static void gfx_d3d11_shader_get_info(struct ShaderProgram *prg, std::uint8_t *num_inputs, bool used_textures[2]) {
     struct ShaderProgramD3D11 *p = (struct ShaderProgramD3D11 *)prg;
 
     *num_inputs = p->num_inputs;
@@ -567,20 +567,20 @@ static void gfx_d3d11_shader_get_info(struct ShaderProgram *prg, uint8_t *num_in
     used_textures[1] = p->used_textures[1];
 }
 
-static uint32_t gfx_d3d11_new_texture(void) {
+static std::uint32_t gfx_d3d11_new_texture(void) {
     d3d.textures.resize(d3d.textures.size() + 1);
-    return (uint32_t)(d3d.textures.size() - 1);
+    return (std::uint32_t)(d3d.textures.size() - 1);
 }
 
-static void gfx_d3d11_delete_texture(uint32_t) {
+static void gfx_d3d11_delete_texture(std::uint32_t) {
 }
 
-static void gfx_d3d11_select_texture(int tile, uint32_t texture_id) {
+static void gfx_d3d11_select_texture(int tile, std::uint32_t texture_id) {
     d3d.current_tile = tile;
     d3d.current_texture_ids[tile] = texture_id;
 }
 
-static D3D11_TEXTURE_ADDRESS_MODE gfx_cm_to_d3d11(uint32_t val) {
+static D3D11_TEXTURE_ADDRESS_MODE gfx_cm_to_d3d11(std::uint32_t val) {
     // TODO: handle G_TX_MIRROR | G_TX_CLAMP
     if (val & G_TX_CLAMP) {
         return D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -588,7 +588,7 @@ static D3D11_TEXTURE_ADDRESS_MODE gfx_cm_to_d3d11(uint32_t val) {
     return (val & G_TX_MIRROR) ? D3D11_TEXTURE_ADDRESS_MIRROR : D3D11_TEXTURE_ADDRESS_WRAP;
 }
 
-static void gfx_d3d11_upload_texture(const uint8_t *rgba32_buf, uint32_t width, uint32_t height) {
+static void gfx_d3d11_upload_texture(const std::uint8_t *rgba32_buf, std::uint32_t width, std::uint32_t height) {
     // Create texture
 
     D3D11_TEXTURE2D_DESC texture_desc;
@@ -628,7 +628,7 @@ static void gfx_d3d11_upload_texture(const uint8_t *rgba32_buf, uint32_t width, 
     ThrowIfFailed(d3d.device->CreateShaderResourceView(texture.Get(), nullptr, texture_data->resource_view.GetAddressOf()));
 }
 
-static void gfx_d3d11_set_sampler_parameters(int tile, bool linear_filter, uint32_t cms, uint32_t cmt) {
+static void gfx_d3d11_set_sampler_parameters(int tile, bool linear_filter, std::uint32_t cms, std::uint32_t cmt) {
     D3D11_SAMPLER_DESC sampler_desc;
     ZeroMemory(&sampler_desc, sizeof(D3D11_SAMPLER_DESC));
 
@@ -773,8 +773,8 @@ static void gfx_d3d11_draw_triangles(float buf_vbo[], size_t buf_vbo_len, size_t
     memcpy(ms.pData, buf_vbo, buf_vbo_len * sizeof(float));
     d3d.context->Unmap(d3d.vertex_buffer.Get(), 0);
 
-    uint32_t stride = d3d.shader_program->num_floats * sizeof(float);
-    uint32_t offset = 0;
+    std::uint32_t stride = d3d.shader_program->num_floats * sizeof(float);
+    std::uint32_t offset = 0;
 
     if (d3d.last_vertex_buffer_stride != stride) {
         d3d.last_vertex_buffer_stride = stride;
@@ -846,7 +846,7 @@ static void gfx_d3d11_finish_render(void) {
     d3d.context->Flush();
 }
 
-void gfx_d3d11_resize_framebuffer(int fb, uint32_t width, uint32_t height) {
+void gfx_d3d11_resize_framebuffer(int fb, std::uint32_t width, std::uint32_t height) {
     FramebufferData& fd = d3d.framebuffers[fb];
     TextureData& td = d3d.textures[fd.texture_id];
 
@@ -874,8 +874,8 @@ void gfx_d3d11_resize_framebuffer(int fb, uint32_t width, uint32_t height) {
     td.height = height;
 }
 
-int gfx_d3d11_create_framebuffer(uint32_t width, uint32_t height) {
-    uint32_t texture_id = gfx_d3d11_new_texture();
+int gfx_d3d11_create_framebuffer(std::uint32_t width, std::uint32_t height) {
+    std::uint32_t texture_id = gfx_d3d11_new_texture();
     TextureData& t = d3d.textures[texture_id];
     t.width = width;
     t.height = height;
@@ -885,8 +885,8 @@ int gfx_d3d11_create_framebuffer(uint32_t width, uint32_t height) {
     FramebufferData& data = d3d.framebuffers.back();
     data.texture_id = texture_id;
 
-    uint32_t tile = 0;
-    uint32_t saved = d3d.current_texture_ids[tile];
+    std::uint32_t tile = 0;
+    std::uint32_t saved = d3d.current_texture_ids[tile];
     d3d.current_texture_ids[tile] = texture_id;
     gfx_d3d11_set_sampler_parameters(0, true, G_TX_WRAP, G_TX_WRAP);
     d3d.current_texture_ids[tile] = saved;
@@ -916,7 +916,7 @@ void gfx_d3d11_select_texture_fb(int fbID) {
     gfx_d3d11_select_texture(tile, d3d.framebuffers[fbID].texture_id);
 }
 
-uint16_t gfx_d3d11_get_pixel_depth(float x, float y) {
+std::uint16_t gfx_d3d11_get_pixel_depth(float x, float y) {
     D3D11_MAPPED_SUBRESOURCE ms;
 
     // ImGui overwrites these values, so we cannot set them once at init
@@ -950,7 +950,7 @@ uint16_t gfx_d3d11_get_pixel_depth(float x, float y) {
     return static_cast<std::uint16_t>(res * 65532.0f);
 }
 
-uint16_t gfx_d3d11_get_pixel_depth_old(float x, float y) {
+std::uint16_t gfx_d3d11_get_pixel_depth_old(float x, float y) {
     // This approach, compared to using a compute shader, might have better performance on nvidia cards
 
     if (!d3d.copied_depth_buffer) {
@@ -963,9 +963,9 @@ uint16_t gfx_d3d11_get_pixel_depth_old(float x, float y) {
     float res = 0;
     if (mapping_desc.pData != nullptr) {
         float *addr = (float *)mapping_desc.pData;
-        uint32_t num_pixels = mapping_desc.DepthPitch / sizeof(float);
-        uint32_t width = mapping_desc.RowPitch / sizeof(float);
-        uint32_t height = width == 0 ? 0 : num_pixels / width;
+        std::uint32_t num_pixels = mapping_desc.DepthPitch / sizeof(float);
+        std::uint32_t width = mapping_desc.RowPitch / sizeof(float);
+        std::uint32_t height = width == 0 ? 0 : num_pixels / width;
         if (x >= 0 && x < width && y >= 0 && y < height) {
             res = addr[width * (height - 1 - (int)y) + (int)x];
         }

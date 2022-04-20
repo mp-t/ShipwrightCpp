@@ -10,15 +10,15 @@ struct GfxWindowManagerAPI;
 
 struct GfxDimensions
 {
-    uint32_t internal_mul;
-    uint32_t width, height;
+    std::uint32_t internal_mul;
+    std::uint32_t width, height;
     float aspect_ratio;
 };
 
 struct TextureCacheKey {
-    const uint8_t* texture_addr;
-    uint8_t fmt, siz;
-    uint8_t palette_index;
+    const std::uint8_t* texture_addr;
+    std::uint8_t fmt, siz;
+    std::uint8_t palette_index;
 
     bool operator==(const TextureCacheKey&) const noexcept = default;
 
@@ -34,8 +34,8 @@ typedef std::unordered_map<TextureCacheKey, struct TextureCacheValue, TextureCac
 typedef std::pair<const TextureCacheKey, struct TextureCacheValue> TextureCacheNode;
 
 struct TextureCacheValue {
-    uint32_t texture_id;
-    uint8_t cms, cmt;
+    std::uint32_t texture_id;
+    std::uint8_t cms, cmt;
     bool linear_filter;
 
     // Old versions of libstdc++ fail to compile this
@@ -55,7 +55,7 @@ void gfx_run(Gfx* commands);
 void gfx_end_frame(void);
 void gfx_set_framedivisor(int);
 void gfx_texture_cache_clear();
-int gfx_create_framebuffer(uint32_t width, uint32_t height);
-uint16_t gfx_get_pixel_depth(float x, float y);
+int gfx_create_framebuffer(std::uint32_t width, std::uint32_t height);
+std::uint16_t gfx_get_pixel_depth(float x, float y);
 
 #endif

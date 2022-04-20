@@ -25,7 +25,7 @@ namespace Ship
 		std::shared_ptr<Archive> GetArchive() { return OTR; }
 		std::shared_ptr<GlobalCtx2> GetContext() { return Context.lock(); }
 
-		std::string HashToString(uint64_t Hash);
+		std::string HashToString(std::uint64_t Hash);
 
 		void InvalidateResourceCache();
 		

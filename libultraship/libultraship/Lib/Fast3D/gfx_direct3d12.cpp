@@ -46,11 +46,11 @@ using namespace Microsoft::WRL; // For ComPtr
 namespace {
 
 struct ShaderProgramD3D12 {
-    uint32_t shader_id;
-    uint8_t num_inputs;
+    std::uint32_t shader_id;
+    std::uint8_t num_inputs;
     bool used_textures[2];
-    uint8_t num_floats;
-    uint8_t num_attribs;
+    std::uint8_t num_floats;
+    std::uint8_t num_attribs;
     
     ComPtr<ID3DBlob> vertex_shader;
     ComPtr<ID3DBlob> pixel_shader;
@@ -58,7 +58,7 @@ struct ShaderProgramD3D12 {
 };
 
 struct PipelineDesc {
-    uint32_t shader_id;
+    std::uint32_t shader_id;
     bool depth_test;
     bool depth_mask;
     bool zmode_decal;
@@ -75,24 +75,24 @@ struct PipelineDesc {
 
 struct TextureHeap {
     ComPtr<ID3D12Heap> heap;
-    std::vector<uint8_t> free_list;
+    std::vector<std::uint8_t> free_list;
 };
 
 struct TextureData {
     ComPtr<ID3D12Resource> resource;
     struct TextureHeap *heap;
-    uint8_t heap_offset;
+    std::uint8_t heap_offset;
     
-    uint64_t last_frame_counter;
-    uint32_t descriptor_index;
+    std::uint64_t last_frame_counter;
+    std::uint32_t descriptor_index;
     int sampler_parameters;
 };
 
 struct NoiseCB {
-    uint32_t noise_frame;
+    std::uint32_t noise_frame;
     float noise_scale_x;
     float noise_scale_y;
-    uint32_t padding;
+    std::uint32_t padding;
 };
 
 static struct {
@@ -104,9 +104,9 @@ static struct {
     pD3DCompile D3DCompile;
     
     struct ShaderProgramD3D12 shader_program_pool[64];
-    uint8_t shader_program_pool_size;
+    std::uint8_t shader_program_pool_size;
     
-    uint32_t current_width, current_height;
+    std::uint32_t current_width, current_height;
     
     ComPtr<ID3D12Device> device;
     ComPtr<ID3D12CommandQueue> command_queue;
@@ -126,23 +126,23 @@ static struct {
     ComPtr<ID3D12DescriptorHeap> sampler_heap;
     UINT sampler_descriptor_size;
     
-    std::map<std::pair<uint32_t, uint32_t>, std::list<struct TextureHeap>> texture_heaps;
+    std::map<std::pair<std::uint32_t, std::uint32_t>, std::list<struct TextureHeap>> texture_heaps;
     
     std::map<size_t, std::vector<ComPtr<ID3D12Resource>>> upload_heaps;
     std::vector<std::pair<size_t, ComPtr<ID3D12Resource>>> upload_heaps_in_flight;
     ComPtr<ID3D12Fence> copy_fence;
-    uint64_t copy_fence_value;
+    std::uint64_t copy_fence_value;
     
     std::vector<struct TextureData> textures;
     int current_tile;
-    uint32_t current_texture_ids[2];
-    uint32_t srv_pos;
+    std::uint32_t current_texture_ids[2];
+    std::uint32_t srv_pos;
 
     int frame_index;
     ComPtr<ID3D12Fence> fence;
     HANDLE fence_event;
     
-    uint64_t frame_counter;
+    std::uint64_t frame_counter;
     
     ComPtr<ID3D12Resource> noise_cb;
     void *mapped_noise_cb_address;
@@ -153,7 +153,7 @@ static struct {
     int vbuf_pos;
     
     std::vector<ComPtr<ID3D12Resource>> resources_to_clean_at_end_of_frame;
-    std::vector<std::pair<struct TextureHeap *, uint8_t>> texture_heap_allocations_to_reclaim_at_end_of_frame;
+    std::vector<std::pair<struct TextureHeap *, std::uint8_t>> texture_heap_allocations_to_reclaim_at_end_of_frame;
     
     std::map<PipelineDesc, ComPtr<ID3D12PipelineState>> pipeline_states;
     bool must_reload_pipeline;
@@ -230,7 +230,7 @@ static void gfx_direct3d12_load_shader(struct ShaderProgram *new_prg) {
     d3d.must_reload_pipeline = true;
 }
 
-static struct ShaderProgram *gfx_direct3d12_create_and_load_new_shader(uint32_t shader_id) {
+static struct ShaderProgram *gfx_direct3d12_create_and_load_new_shader(std::uint32_t shader_id) {
     /*static FILE *fp;
     if (!fp) {
         fp = fopen("shaders.txt", "w");
@@ -266,7 +266,7 @@ static struct ShaderProgram *gfx_direct3d12_create_and_load_new_shader(uint32_t 
     return (struct ShaderProgram *)(d3d.shader_program = prg);
 }
 
-static struct ShaderProgram *gfx_direct3d12_lookup_shader(uint32_t shader_id) {
+static struct ShaderProgram *gfx_direct3d12_lookup_shader(std::uint32_t shader_id) {
     for (size_t i = 0; i < d3d.shader_program_pool_size; i++) {
         if (d3d.shader_program_pool[i].shader_id == shader_id) {
             return (struct ShaderProgram *)&d3d.shader_program_pool[i];
@@ -275,7 +275,7 @@ static struct ShaderProgram *gfx_direct3d12_lookup_shader(uint32_t shader_id) {
     return nullptr;
 }
 
-static void gfx_direct3d12_shader_get_info(struct ShaderProgram *prg, uint8_t *num_inputs, bool used_textures[2]) {
+static void gfx_direct3d12_shader_get_info(struct ShaderProgram *prg, std::uint8_t *num_inputs, bool used_textures[2]) {
     struct ShaderProgramD3D12 *p = (struct ShaderProgramD3D12 *)prg;
     
     *num_inputs = p->num_inputs;
@@ -283,17 +283,17 @@ static void gfx_direct3d12_shader_get_info(struct ShaderProgram *prg, uint8_t *n
     used_textures[1] = p->used_textures[1];
 }
 
-static uint32_t gfx_direct3d12_new_texture(void) {
+static std::uint32_t gfx_direct3d12_new_texture(void) {
     d3d.textures.resize(d3d.textures.size() + 1);
-    return (uint32_t)(d3d.textures.size() - 1);
+    return (std::uint32_t)(d3d.textures.size() - 1);
 }
 
-static void gfx_direct3d12_select_texture(int tile, uint32_t texture_id) {
+static void gfx_direct3d12_select_texture(int tile, std::uint32_t texture_id) {
     d3d.current_tile = tile;
     d3d.current_texture_ids[tile] = texture_id;
 }
 
-static void gfx_direct3d12_upload_texture(const uint8_t *rgba32_buf, int width, int height) {
+static void gfx_direct3d12_upload_texture(const std::uint8_t *rgba32_buf, int width, int height) {
     texture_uploads++;
     
     ComPtr<ID3D12Resource> texture_resource;
@@ -313,7 +313,7 @@ static void gfx_direct3d12_upload_texture(const uint8_t *rgba32_buf, int width, 
     
     D3D12_RESOURCE_ALLOCATION_INFO alloc_info = get_resource_allocation_info(&texture_desc);
     
-    std::list<struct TextureHeap>& heaps = d3d.texture_heaps[std::pair<uint32_t, uint32_t>(alloc_info.SizeInBytes, alloc_info.Alignment)];
+    std::list<struct TextureHeap>& heaps = d3d.texture_heaps[std::pair<std::uint32_t, std::uint32_t>(alloc_info.SizeInBytes, alloc_info.Alignment)];
     
     struct TextureHeap *found_heap = nullptr;
     for (struct TextureHeap& heap : heaps) {
@@ -350,7 +350,7 @@ static void gfx_direct3d12_upload_texture(const uint8_t *rgba32_buf, int width, 
         }
     }
     
-    uint8_t heap_offset = found_heap->free_list.back();
+    std::uint8_t heap_offset = found_heap->free_list.back();
     found_heap->free_list.pop_back();
     ThrowIfFailed(d3d.device->CreatePlacedResource(found_heap->heap.Get(), heap_offset * alloc_info.SizeInBytes, &texture_desc, D3D12_RESOURCE_STATE_COPY_DEST, nullptr, IID_PPV_ARGS(&texture_resource)));
     
@@ -385,7 +385,7 @@ static void gfx_direct3d12_upload_texture(const uint8_t *rgba32_buf, int width, 
         
         void *data;
         upload_heap->Map(0, nullptr, &data);
-        D3D12_MEMCPY_DEST dest_data = { (uint8_t *)data + layout.Offset, layout.Footprint.RowPitch, SIZE_T(layout.Footprint.RowPitch) * SIZE_T(num_rows) };
+        D3D12_MEMCPY_DEST dest_data = { (std::uint8_t *)data + layout.Offset, layout.Footprint.RowPitch, SIZE_T(layout.Footprint.RowPitch) * SIZE_T(num_rows) };
         MemcpySubresource(&dest_data, &texture_data, static_cast<SIZE_T>(row_size_in_bytes), num_rows, layout.Footprint.Depth);
         upload_heap->Unmap(0, nullptr);
 
@@ -410,7 +410,7 @@ static void gfx_direct3d12_upload_texture(const uint8_t *rgba32_buf, int width, 
     td.heap_offset = heap_offset;
 }
 
-static int gfx_cm_to_index(uint32_t val) {
+static int gfx_cm_to_index(std::uint32_t val) {
     // TODO: handle G_TX_MIRROR | G_TX_CLAMP
     if (val & G_TX_CLAMP) {
         return 2;
@@ -418,7 +418,7 @@ static int gfx_cm_to_index(uint32_t val) {
     return (val & G_TX_MIRROR) ? 1 : 0;
 }
 
-static void gfx_direct3d12_set_sampler_parameters(int tile, bool linear_filter, uint32_t cms, uint32_t cmt) {
+static void gfx_direct3d12_set_sampler_parameters(int tile, bool linear_filter, std::uint32_t cms, std::uint32_t cmt) {
     d3d.textures[d3d.current_texture_ids[tile]].sampler_parameters = linear_filter * 9 + gfx_cm_to_index(cms) * 3 + gfx_cm_to_index(cmt);
 }
 
@@ -464,7 +464,7 @@ static void gfx_direct3d12_draw_triangles(float buf_vbo[], size_t buf_vbo_len, s
             D3D12_INPUT_ELEMENT_DESC ied[7] = {
                {"POSITION", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
             };
-            uint32_t ied_pos = 1;
+            std::uint32_t ied_pos = 1;
             if (prg->used_textures[0] || prg->used_textures[1]) {
                 ied[ied_pos++] = D3D12_INPUT_ELEMENT_DESC{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D12_APPEND_ALIGNED_ELEMENT, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0};
             }
@@ -564,7 +564,7 @@ static void gfx_direct3d12_draw_triangles(float buf_vbo[], size_t buf_vbo_len, s
     d3d.command_list->RSSetScissorRects(1, &d3d.scissor);
     
     int current_pos = d3d.vbuf_pos;
-    memcpy((uint8_t *)d3d.mapped_vbuf_address + current_pos, buf_vbo, buf_vbo_len * sizeof(float));
+    memcpy((std::uint8_t *)d3d.mapped_vbuf_address + current_pos, buf_vbo, buf_vbo_len * sizeof(float));
     d3d.vbuf_pos += buf_vbo_len * sizeof(float);
     static int maxpos;
     if (d3d.vbuf_pos > maxpos) {
@@ -922,7 +922,7 @@ static void gfx_direct3d12_finish_render(void) {
         d3d.upload_heaps[heap.first].push_back(std::move(heap.second));
     }
     d3d.upload_heaps_in_flight.clear();
-    for (std::pair<struct TextureHeap *, uint8_t>& item : d3d.texture_heap_allocations_to_reclaim_at_end_of_frame) {
+    for (std::pair<struct TextureHeap *, std::uint8_t>& item : d3d.texture_heap_allocations_to_reclaim_at_end_of_frame) {
         item.first->free_list.push_back(item.second);
     }
     d3d.texture_heap_allocations_to_reclaim_at_end_of_frame.clear();
@@ -937,7 +937,7 @@ static void gfx_direct3d12_finish_render(void) {
     //printf("done %llu gpu:%d wait:%d freed:%llu frame:%u %u monitor:%u t:%llu\n", (unsigned long long)(t0.QuadPart - d3d.qpc_init), (int)(t1.QuadPart - t0.QuadPart), (int)(t2.QuadPart - t0.QuadPart), (unsigned long long)(t2.QuadPart - d3d.qpc_init), d3d.pending_frame_stats.rbegin()->first, stats.PresentCount, stats.SyncRefreshCount, (unsigned long long)(stats.SyncQPCTime.QuadPart - d3d.qpc_init));
 }
 
-static uint16_t gfx_direct3d12_get_pixel_depth(float x, float y) {
+static std::uint16_t gfx_direct3d12_get_pixel_depth(float x, float y) {
     return 0; // OTRTODO
 }
 

@@ -6,12 +6,12 @@ void Ship::CutsceneV0::ParseFileBinary(BinaryReader* reader, Resource* res)
 
 	ResourceFile::ParseFileBinary(reader, res);
 
-	uint32_t numEntries = reader->ReadUInt32();
+	std::uint32_t numEntries = reader->ReadUInt32();
 	cs->commands.reserve(numEntries);
 
-	for (uint32_t i = 0; i < numEntries; i++)
+	for (std::uint32_t i = 0; i < numEntries; i++)
 	{
-		uint32_t data = reader->ReadUInt32();
+		std::uint32_t data = reader->ReadUInt32();
 
 		cs->commands.push_back(data);
 	}

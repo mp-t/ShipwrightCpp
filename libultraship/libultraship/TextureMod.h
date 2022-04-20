@@ -11,7 +11,7 @@ namespace Ship {
 
 	struct TextureData {
 		char* data;
-		uint32_t size;
+		std::uint32_t size;
 		int width;
 		int height;
 		char* loaded_data;
@@ -45,13 +45,13 @@ namespace Ship {
 		return path;
 	}
 
-	inline void GrayOutTexture(uint8_t* data, int width, int height) {
+	inline void GrayOutTexture(std::uint8_t* data, int width, int height) {
 		for (int x = 0; x < width * height * 4; x += 4) {
 
 			int red = data[x];
 			int green = data[x + 1];
 			int blue = data[x + 2];
-			std::uint8_t gray = static_cast<uint8_t>((red + green + blue) / 3);
+			std::uint8_t gray = static_cast<std::uint8_t>((red + green + blue) / 3);
 			data[x] = gray;
 			data[x + 1] = gray;
 			data[x + 2] = gray;

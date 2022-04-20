@@ -4,7 +4,7 @@ namespace Ship
 {
 	Matrix* MtxFactory::ReadMtx(BinaryReader* reader) {
 		Matrix* mtx = new Matrix();
-		uint32_t version = reader->ReadUInt32();
+		std::uint32_t version = reader->ReadUInt32();
 		switch (version)
 		{
 		case 0:

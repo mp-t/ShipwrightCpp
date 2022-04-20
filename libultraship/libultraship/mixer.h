@@ -32,32 +32,32 @@
 #undef aUnkCmd19
 
 
-void aClearBufferImpl(uint16_t addr, int nbytes);
-void aLoadBufferImpl(const void *source_addr, uint16_t dest_addr, uint16_t nbytes);
-void aSaveBufferImpl(uint16_t source_addr, int16_t *dest_addr, uint16_t nbytes);
-void aLoadADPCMImpl(int num_entries_times_16, const int16_t *book_source_addr);
-void aSetBufferImpl(uint8_t flags, uint16_t in, uint16_t out, uint16_t nbytes);
-void aInterleaveImpl(uint16_t dest, uint16_t left, uint16_t right, uint16_t c);
-void aDMEMMoveImpl(uint16_t in_addr, uint16_t out_addr, int nbytes);
+void aClearBufferImpl(std::uint16_t addr, int nbytes);
+void aLoadBufferImpl(const void *source_addr, std::uint16_t dest_addr, std::uint16_t nbytes);
+void aSaveBufferImpl(std::uint16_t source_addr, std::int16_t *dest_addr, std::uint16_t nbytes);
+void aLoadADPCMImpl(int num_entries_times_16, const std::int16_t *book_source_addr);
+void aSetBufferImpl(std::uint8_t flags, std::uint16_t in, std::uint16_t out, std::uint16_t nbytes);
+void aInterleaveImpl(std::uint16_t dest, std::uint16_t left, std::uint16_t right, std::uint16_t c);
+void aDMEMMoveImpl(std::uint16_t in_addr, std::uint16_t out_addr, int nbytes);
 void aSetLoopImpl(ADPCM_STATE *adpcm_loop_state);
-void aADPCMdecImpl(uint8_t flags, ADPCM_STATE state);
-void aResampleImpl(uint8_t flags, uint16_t pitch, RESAMPLE_STATE state);
-void aEnvSetup1Impl(uint8_t initial_vol_wet, uint16_t rate_wet, uint16_t rate_left, uint16_t rate_right);
-void aEnvSetup2Impl(uint16_t initial_vol_left, uint16_t initial_vol_right);
-void aEnvMixerImpl(uint16_t in_addr, uint16_t n_samples, bool swap_reverb,
+void aADPCMdecImpl(std::uint8_t flags, ADPCM_STATE state);
+void aResampleImpl(std::uint8_t flags, std::uint16_t pitch, RESAMPLE_STATE state);
+void aEnvSetup1Impl(std::uint8_t initial_vol_wet, std::uint16_t rate_wet, std::uint16_t rate_left, std::uint16_t rate_right);
+void aEnvSetup2Impl(std::uint16_t initial_vol_left, std::uint16_t initial_vol_right);
+void aEnvMixerImpl(std::uint16_t in_addr, std::uint16_t n_samples, bool swap_reverb,
 				   bool neg_3, bool neg_2,
                    bool neg_left, bool neg_right,
-                   int32_t wet_dry_addr, u32 unk);
-void aMixImpl(uint16_t count, int16_t gain, uint16_t in_addr, uint16_t out_addr);
-void aS8DecImpl(uint8_t flags, ADPCM_STATE state);
-void aAddMixerImpl(uint16_t in_addr, uint16_t out_addr, uint16_t count);
-void aDuplicateImpl(uint16_t count, uint16_t in_addr, uint16_t out_addr);
-void aResampleZohImpl(uint16_t pitch, uint16_t start_fract);
-void aInterlImpl(uint16_t in_addr, uint16_t out_addr, uint16_t n_samples);
-void aFilterImpl(uint8_t flags, uint16_t count_or_buf, int16_t *state_or_filter);
-void aHiLoGainImpl(uint8_t g, uint16_t count, uint16_t addr);
-void aUnkCmd3Impl(uint16_t a, uint16_t b, uint16_t c);
-void aUnkCmd19Impl(uint8_t f, uint16_t count, uint16_t out_addr, uint16_t in_addr);
+                   std::int32_t wet_dry_addr, u32 unk);
+void aMixImpl(std::uint16_t count, std::int16_t gain, std::uint16_t in_addr, std::uint16_t out_addr);
+void aS8DecImpl(std::uint8_t flags, ADPCM_STATE state);
+void aAddMixerImpl(std::uint16_t in_addr, std::uint16_t out_addr, std::uint16_t count);
+void aDuplicateImpl(std::uint16_t count, std::uint16_t in_addr, std::uint16_t out_addr);
+void aResampleZohImpl(std::uint16_t pitch, std::uint16_t start_fract);
+void aInterlImpl(std::uint16_t in_addr, std::uint16_t out_addr, std::uint16_t n_samples);
+void aFilterImpl(std::uint8_t flags, std::uint16_t count_or_buf, std::int16_t *state_or_filter);
+void aHiLoGainImpl(std::uint8_t g, std::uint16_t count, std::uint16_t addr);
+void aUnkCmd3Impl(std::uint16_t a, std::uint16_t b, std::uint16_t c);
+void aUnkCmd19Impl(std::uint8_t f, std::uint16_t count, std::uint16_t out_addr, std::uint16_t in_addr);
 
 #define aSegment(pkt, s, b) do { } while(0)
 #define aClearBuffer(pkt, d, c) aClearBufferImpl(d, c)

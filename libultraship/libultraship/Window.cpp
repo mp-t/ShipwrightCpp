@@ -28,10 +28,10 @@
 
 struct OSMesgQueue;
 
-uint8_t __osMaxControllers = MAXCONTROLLERS;
-uint8_t __enableGameInput = 1;
+std::uint8_t __osMaxControllers = MAXCONTROLLERS;
+std::uint8_t __enableGameInput = 1;
 
-int32_t osContInit(OSMesgQueue*, uint8_t* controllerBits, OSContStatus*) {
+std::int32_t osContInit(OSMesgQueue*, std::uint8_t* controllerBits, OSContStatus*) {
 	std::shared_ptr<Ship::ConfigFile> pConf = Ship::GlobalCtx2::GetInstance()->GetConfig();
 	Ship::ConfigFile& Conf = *pConf.get();
 
@@ -64,7 +64,7 @@ int32_t osContInit(OSMesgQueue*, uint8_t* controllerBits, OSContStatus*) {
 		}
 	}
 
-	for (int32_t i = 0; i < __osMaxControllers; i++) {
+	for (std::int32_t i = 0; i < __osMaxControllers; i++) {
 		std::string ControllerType = Conf["CONTROLLERS"]["CONTROLLER " + std::to_string(i + 1)];
 		mINI::INIStringUtil::toLower(ControllerType);
 
@@ -96,7 +96,7 @@ int32_t osContInit(OSMesgQueue*, uint8_t* controllerBits, OSContStatus*) {
 	return 0;
 }
 
-int32_t osContStartReadData(OSMesgQueue*) {
+std::int32_t osContStartReadData(OSMesgQueue*) {
 	return 0;
 }
 
@@ -124,13 +124,13 @@ void osContGetReadData(OSContPad* pad) {
 	ModInternal::callBindHook(0);
 }
 
-char* ResourceMgr_GetNameByCRC(uint64_t crc, char* alloc) {
+char* ResourceMgr_GetNameByCRC(std::uint64_t crc, char* alloc) {
 	std::string hashStr = Ship::GlobalCtx2::GetInstance()->GetResourceManager()->HashToString(crc);
 	strcpy(alloc, hashStr.c_str());
 	return (char*)hashStr.c_str();
 }
 
-Vtx* ResourceMgr_LoadVtxByCRC(uint64_t crc) {
+Vtx* ResourceMgr_LoadVtxByCRC(std::uint64_t crc) {
 	std::string hashStr = Ship::GlobalCtx2::GetInstance()->GetResourceManager()->HashToString(crc);
 
 	if (hashStr != "") {
@@ -146,19 +146,19 @@ Vtx* ResourceMgr_LoadVtxByCRC(uint64_t crc) {
 	}
 }
 
-int32_t* ResourceMgr_LoadMtxByCRC(uint64_t crc) {
+std::int32_t* ResourceMgr_LoadMtxByCRC(std::uint64_t crc) {
 	std::string hashStr = Ship::GlobalCtx2::GetInstance()->GetResourceManager()->HashToString(crc);
 
 	if (hashStr != "") {
 		auto res = std::static_pointer_cast<Ship::Matrix>(Ship::GlobalCtx2::GetInstance()->GetResourceManager()->LoadResource(hashStr));
-		return (int32_t*)res->mtx.data();
+		return (std::int32_t*)res->mtx.data();
 	}
 	else {
 		return nullptr;
 	}
 }
 
-Gfx* ResourceMgr_LoadGfxByCRC(uint64_t crc) {
+Gfx* ResourceMgr_LoadGfxByCRC(std::uint64_t crc) {
 	std::string hashStr = Ship::GlobalCtx2::GetInstance()->GetResourceManager()->HashToString(crc);
 
 	if (hashStr != "") {
@@ -170,7 +170,7 @@ Gfx* ResourceMgr_LoadGfxByCRC(uint64_t crc) {
 	}
 }
 
-char* ResourceMgr_LoadTexByCRC(uint64_t crc) {
+char* ResourceMgr_LoadTexByCRC(std::uint64_t crc) {
 	const std::string hashStr = Ship::GlobalCtx2::GetInstance()->GetResourceManager()->HashToString(crc);
 
 	if (!hashStr.empty()) {
@@ -190,7 +190,7 @@ char* ResourceMgr_LoadTexByCRC(uint64_t crc) {
 	}
 }
 
-void ResourceMgr_RegisterResourcePatch(uint64_t hash, uint32_t instrIndex, uintptr_t origData)
+void ResourceMgr_RegisterResourcePatch(std::uint64_t hash, std::uint32_t instrIndex, uintptr_t origData)
 {
 	std::string hashStr = Ship::GlobalCtx2::GetInstance()->GetResourceManager()->HashToString(hash);
 
@@ -238,11 +238,11 @@ char* ResourceMgr_LoadBlobByName(char* blobPath) {
 }
 
 /* Should these go in their own file?*/
-uint64_t osGetTime(void) {
+std::uint64_t osGetTime(void) {
 	return std::chrono::steady_clock::now().time_since_epoch().count();
 }
 
-uint32_t osGetCount(void) {
+std::uint32_t osGetCount(void) {
 	return static_cast<std::uint32_t>(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now().time_since_epoch()).count());
 }
 
@@ -251,7 +251,7 @@ void SetWindowManager(GfxWindowManagerAPI** WmApi, GfxRenderingAPI** RenderingAp
 
 namespace Ship {
     std::map<size_t, std::vector<std::shared_ptr<Controller>>> Window::Controllers;
-    int32_t Window::lastScancode;
+    std::int32_t Window::lastScancode;
 
     Window::Window(std::shared_ptr<GlobalCtx2> Context) : Context(Context), APlayer(nullptr) {
         WmApi = nullptr;
@@ -295,7 +295,7 @@ namespace Ship {
         //gfx_set_framedivisor(0);
     }
 
-    uint16_t Window::GetPixelDepth(float x, float y) {
+    std::uint16_t Window::GetPixelDepth(float x, float y) {
         return gfx_get_pixel_depth(x, y);
     }
 
@@ -320,7 +320,7 @@ namespace Ship {
     void Window::MainLoop(void (*MainFunction)(void)) {
         WmApi->main_loop(MainFunction);
     }
-    bool Window::KeyUp(int32_t dwScancode) {
+    bool Window::KeyUp(std::int32_t dwScancode) {
         std::shared_ptr<ConfigFile> pConf = GlobalCtx2::GetInstance()->GetConfig();
         ConfigFile& Conf = *pConf.get();
 
@@ -348,7 +348,7 @@ namespace Ship {
         return bIsProcessed;
     }
 
-    bool Window::KeyDown(int32_t dwScancode) {
+    bool Window::KeyDown(std::int32_t dwScancode) {
         bool bIsProcessed = false;
         for (size_t i = 0; i < __osMaxControllers; i++) {
             for (size_t j = 0; j < Controllers[i].size(); j++) {
@@ -388,12 +388,12 @@ namespace Ship {
 
 
 
-    uint32_t Window::GetCurrentWidth() {
+    std::uint32_t Window::GetCurrentWidth() {
         WmApi->get_dimensions(&dwWidth, &dwHeight);
         return dwWidth;
     }
 
-    uint32_t Window::GetCurrentHeight() {
+    std::uint32_t Window::GetCurrentHeight() {
         WmApi->get_dimensions(&dwWidth, &dwHeight);
         return dwHeight;
     }

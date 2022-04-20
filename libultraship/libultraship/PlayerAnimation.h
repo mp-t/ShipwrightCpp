@@ -18,6 +18,6 @@ namespace Ship
     class PlayerAnimation : public Resource
     {
     public:
-		std::vector<int16_t> limbRotData;
+		std::vector<std::int16_t> limbRotData;
     };
 }

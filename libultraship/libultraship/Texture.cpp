@@ -12,12 +12,12 @@ namespace Ship
         tex->width = static_cast<std::uint16_t>(reader->ReadUInt32());
         tex->height = static_cast<std::uint16_t>(reader->ReadUInt32());
 
-        uint32_t dataSize = reader->ReadUInt32();
+        std::uint32_t dataSize = reader->ReadUInt32();
 
         tex->imageDataSize = dataSize;
-        tex->imageData = new uint8_t[dataSize];
+        tex->imageData = new std::uint8_t[dataSize];
 
-        for (uint32_t i = 0; i < dataSize; i++)
+        for (std::uint32_t i = 0; i < dataSize; i++)
             tex->imageData[i] = reader->ReadUByte();
     }
 }

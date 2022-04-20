@@ -1,6 +1,6 @@
 #include "gfx_cc.h"
 
-void gfx_cc_get_features(uint64_t shader_id0, uint32_t shader_id1, struct CCFeatures *cc_features) {
+void gfx_cc_get_features(std::uint64_t shader_id0, std::uint32_t shader_id1, struct CCFeatures *cc_features) {
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 2; j++) {
             for (int k = 0; k < 4; k++) {

@@ -301,7 +301,7 @@ namespace Ship {
 		ResourceCache.clear();
 	}
 
-	std::string ResourceMgr::HashToString(uint64_t Hash) {
+	std::string ResourceMgr::HashToString(std::uint64_t Hash) {
 		return OTR->HashToString(Hash);
 	}
 }

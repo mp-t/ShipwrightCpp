@@ -14,6 +14,6 @@ namespace Ship
 	class Blob : public Resource
 	{
 	public:
-		std::vector<uint8_t> data;
+		std::vector<std::uint8_t> data;
 	};
 };

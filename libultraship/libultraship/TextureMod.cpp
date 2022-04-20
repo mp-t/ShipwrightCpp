@@ -45,11 +45,11 @@ namespace Ship {
 		const auto api = BIND_PTR("gfx_api", const GfxRenderingAPI*);
 		const auto path = normalize(raw_path) + ".png";
 		auto node = BIND_VAR("node", TextureCacheNode* const*); // WAT
-		const auto fmt = BIND_VAR("fmt", const uint32_t*);
-		const auto siz = BIND_VAR("siz", const uint32_t*);
+		const auto fmt = BIND_VAR("fmt", const std::uint32_t*);
+		const auto siz = BIND_VAR("siz", const std::uint32_t*);
 		const auto tile = BIND_VAR("tile", const int*);
-		const auto palette = BIND_VAR("palette", const uint32_t*);
-		const auto orig_addr = BIND_VAR("addr", uint8_t* const *);
+		const auto palette = BIND_VAR("palette", const std::uint32_t*);
+		const auto orig_addr = BIND_VAR("addr", std::uint8_t* const *);
 
 		// INFO("The game is trying to load %s", path.c_str());
 
@@ -80,14 +80,14 @@ namespace Ship {
 
 		if (!this->TextureCache.contains(path)) this->TextureCache[path].resize(10);
 
-		TextureCacheKey key = { orig_addr, static_cast<uint8_t>(fmt), static_cast<uint8_t>(siz), static_cast<uint8_t>(palette) };
+		TextureCacheKey key = { orig_addr, static_cast<std::uint8_t>(fmt), static_cast<std::uint8_t>(siz), static_cast<std::uint8_t>(palette) };
 		TextureCacheValue value = { api->new_texture(), 0, 0, false };
 		const auto entry = new TextureCacheNode(key, value);
 		api->select_texture(tile, entry->second.texture_id);
 		api->set_sampler_parameters(tile, false, 0, 0);
 		node = entry;
 
-		uint8_t* img_data = stbi_load_from_memory(reinterpret_cast<const stbi_uc*>(tex_data->data), tex_data->size, &tex_data->width, &tex_data->height, nullptr, 4);
+		std::uint8_t* img_data = stbi_load_from_memory(reinterpret_cast<const stbi_uc*>(tex_data->data), tex_data->size, &tex_data->width, &tex_data->height, nullptr, 4);
 
 		if (!img_data)
 			return;

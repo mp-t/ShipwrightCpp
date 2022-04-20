@@ -49,7 +49,7 @@ static struct {
     HWND h_wnd;
     bool in_paint;
     bool recursive_paint_detected;
-    uint32_t current_width, current_height;
+    std::uint32_t current_width, current_height;
     std::string game_name;
 
     HMODULE dxgi_module;
@@ -64,14 +64,14 @@ static struct {
     ComPtr<IDXGIFactory2> factory;
     ComPtr<IDXGISwapChain1> swap_chain;
     HANDLE waitable_object;
-    uint64_t qpc_init, qpc_freq;
-    uint64_t frame_timestamp; // in units of 1/FRAME_INTERVAL_US_DENOMINATOR microseconds
+    std::uint64_t qpc_init, qpc_freq;
+    std::uint64_t frame_timestamp; // in units of 1/FRAME_INTERVAL_US_DENOMINATOR microseconds
     std::map<UINT, DXGI_FRAME_STATISTICS> frame_stats;
     std::set<std::pair<UINT, UINT>> pending_frame_stats;
     bool dropped_frame;
     bool zero_latency;
     UINT length_in_vsync_frames;
-    uint32_t frame_divisor;
+    std::uint32_t frame_divisor;
     HANDLE timer;
     bool use_timer;
     LARGE_INTEGER previous_present_time;
@@ -354,7 +354,7 @@ static void gfx_dxgi_main_loop(void (*run_one_game_iter)(void)) {
     }
 }
 
-static void gfx_dxgi_get_dimensions(uint32_t *width, uint32_t *height) {
+static void gfx_dxgi_get_dimensions(std::uint32_t *width, std::uint32_t *height) {
     *width = dxgi.current_width;
     *height = dxgi.current_height;
 }
@@ -367,11 +367,11 @@ static void gfx_dxgi_handle_events(void) {
     }*/
 }
 
-static uint64_t qpc_to_us(uint64_t qpc) {
+static std::uint64_t qpc_to_us(std::uint64_t qpc) {
     return qpc / dxgi.qpc_freq * 1000000 + qpc % dxgi.qpc_freq * 1000000 / dxgi.qpc_freq;
 }
 
-static uint64_t qpc_to_100ns(uint64_t qpc) {
+static std::uint64_t qpc_to_100ns(std::uint64_t qpc) {
     return qpc / dxgi.qpc_freq * 10000000 + qpc % dxgi.qpc_freq * 10000000 / dxgi.qpc_freq;
 }
 
@@ -411,7 +411,7 @@ static bool gfx_dxgi_start_frame(void) {
     if (dxgi.frame_stats.size() >= 2) {
         DXGI_FRAME_STATISTICS *first = &dxgi.frame_stats.begin()->second;
         DXGI_FRAME_STATISTICS *last = &dxgi.frame_stats.rbegin()->second;
-        uint64_t sync_qpc_diff = last->SyncQPCTime.QuadPart - first->SyncQPCTime.QuadPart;
+        std::uint64_t sync_qpc_diff = last->SyncQPCTime.QuadPart - first->SyncQPCTime.QuadPart;
         UINT sync_vsync_diff = last->SyncRefreshCount - first->SyncRefreshCount;
 
         if (sync_vsync_diff == 0) {
@@ -419,7 +419,7 @@ static bool gfx_dxgi_start_frame(void) {
         }
 
         double estimated_vsync_interval = (double)sync_qpc_diff / (double)sync_vsync_diff;
-        uint64_t estimated_vsync_interval_us = qpc_to_us(static_cast<std::uint64_t>(estimated_vsync_interval));
+        std::uint64_t estimated_vsync_interval_us = qpc_to_us(static_cast<std::uint64_t>(estimated_vsync_interval));
         //printf("Estimated vsync_interval: %d\n", (int)estimated_vsync_interval_us);
         if (estimated_vsync_interval_us < 2 || estimated_vsync_interval_us > 1000000) {
             // Unreasonable, maybe a monitor change
@@ -432,16 +432,16 @@ static bool gfx_dxgi_start_frame(void) {
             queued_vsyncs += p.second;
         }
 
-        uint64_t last_frame_present_end_qpc = static_cast<std::uint64_t>((last->SyncQPCTime.QuadPart - dxgi.qpc_init) + estimated_vsync_interval * queued_vsyncs);
-        uint64_t last_end_us = qpc_to_us(last_frame_present_end_qpc);
+        std::uint64_t last_frame_present_end_qpc = static_cast<std::uint64_t>((last->SyncQPCTime.QuadPart - dxgi.qpc_init) + estimated_vsync_interval * queued_vsyncs);
+        std::uint64_t last_end_us = qpc_to_us(last_frame_present_end_qpc);
 
-        double vsyncs_to_wait = (double)(int64_t)(dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR - last_end_us) / estimated_vsync_interval_us;
+        double vsyncs_to_wait = (double)(std::int64_t)(dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR - last_end_us) / estimated_vsync_interval_us;
         //printf("ts: %llu, last_end_us: %llu, Init v: %f\n", dxgi.frame_timestamp / 3, last_end_us, vsyncs_to_wait);
 
         if (vsyncs_to_wait <= 0) {
             // Too late
 
-            if ((int64_t)(dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR - last_end_us) < -66666) {
+            if ((std::int64_t)(dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR - last_end_us) < -66666) {
                 // The application must have been paused or similar
                 vsyncs_to_wait = round(((double)FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR) / estimated_vsync_interval_us);
                 if (vsyncs_to_wait < 1) {
@@ -457,11 +457,11 @@ static bool gfx_dxgi_start_frame(void) {
         }
 
         if (floor(vsyncs_to_wait) != vsyncs_to_wait) {
-            uint64_t left = static_cast<std::uint64_t>(last_end_us + floor(vsyncs_to_wait) * estimated_vsync_interval_us);
-            uint64_t right = static_cast<std::uint64_t>(last_end_us + ceil(vsyncs_to_wait) * estimated_vsync_interval_us);
-            uint64_t adjusted_desired_time = dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR + (last_end_us + (FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR) > dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR ? 2000 : -2000);
-            int64_t diff_left = adjusted_desired_time - left;
-            int64_t diff_right = right - adjusted_desired_time;
+            std::uint64_t left = static_cast<std::uint64_t>(last_end_us + floor(vsyncs_to_wait) * estimated_vsync_interval_us);
+            std::uint64_t right = static_cast<std::uint64_t>(last_end_us + ceil(vsyncs_to_wait) * estimated_vsync_interval_us);
+            std::uint64_t adjusted_desired_time = dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR + (last_end_us + (FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR) > dxgi.frame_timestamp / FRAME_INTERVAL_US_DENOMINATOR ? 2000 : -2000);
+            std::int64_t diff_left = adjusted_desired_time - left;
+            std::int64_t diff_right = right - adjusted_desired_time;
             if (diff_left < 0) {
                 diff_left = -diff_left;
             }
@@ -499,8 +499,8 @@ static void gfx_dxgi_swap_buffers_begin(void) {
     LARGE_INTEGER t;
     if (dxgi.use_timer) {
         QueryPerformanceCounter(&t);
-        int64_t next = qpc_to_100ns(dxgi.previous_present_time.QuadPart) + 10 * FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR;
-        int64_t left = next - qpc_to_100ns(t.QuadPart);
+        std::int64_t next = qpc_to_100ns(dxgi.previous_present_time.QuadPart) + 10 * FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR;
+        std::int64_t left = next - qpc_to_100ns(t.QuadPart);
         if (left > 0) {
             LARGE_INTEGER li;
             li.QuadPart = -left;

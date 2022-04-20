@@ -22,9 +22,9 @@ namespace Ship
 	{
 	public:
 		TextureType texType;
-		uint16_t width, height;
-		uint32_t offsetToImageData;
-		uint32_t offsetToPaletteData;
+		std::uint16_t width, height;
+		std::uint32_t offsetToImageData;
+		std::uint32_t offsetToPaletteData;
 
 		void ParseFileBinary(BinaryReader* reader, Resource* res) override;
 	};
@@ -33,9 +33,9 @@ namespace Ship
 	{
 	public:
 		TextureType texType;
-		uint16_t width, height;
-		uint32_t imageDataSize;
-		uint8_t* imageData;
-		uint8_t* paletteData;
+		std::uint16_t width, height;
+		std::uint32_t imageDataSize;
+		std::uint8_t* imageData;
+		std::uint8_t* paletteData;
 	};
 }

@@ -103,81 +103,81 @@
 #define BTN_STICKUP     0x80000
 
 typedef struct {
-    /* 0x00 */ int32_t ram[15];
-    /* 0x3C */ int32_t status;
+    /* 0x00 */ std::int32_t ram[15];
+    /* 0x3C */ std::int32_t status;
 } OSPifRam; // size = 0x40
 
 typedef struct {
-    /* 0x00 */ uint16_t type;
-    /* 0x02 */ uint8_t status;
-    /* 0x03 */ uint8_t err_no;
+    /* 0x00 */ std::uint16_t type;
+    /* 0x02 */ std::uint8_t status;
+    /* 0x03 */ std::uint8_t err_no;
 } OSContStatus; // size = 0x04
 
 typedef struct {
-    /* 0x00 */ uint16_t button;
-    /* 0x02 */ int8_t stick_x;
-    /* 0x03 */ int8_t stick_y;
-    /* 0x04 */ uint8_t err_no;
+    /* 0x00 */ std::uint16_t button;
+    /* 0x02 */ std::int8_t stick_x;
+    /* 0x03 */ std::int8_t stick_y;
+    /* 0x04 */ std::uint8_t err_no;
     /* 0x05 */ float gyro_x;
     /* 0x09 */ float gyro_y;
 } OSContPad; // size = 0x0D
 
 typedef struct {
-    /* 0x00 */ uint8_t rumble;
-    /* 0x01 */ uint8_t ledColor;
+    /* 0x00 */ std::uint8_t rumble;
+    /* 0x01 */ std::uint8_t ledColor;
 } ControllerCallback; // size = 0x02
 
 typedef struct {
     /* 0x00 */ void* address;
-    /* 0x04 */ uint8_t databuffer[32];
-    /* 0x24 */ uint8_t addressCrc;
-    /* 0x25 */ uint8_t dataCrc;
-    /* 0x26 */ uint8_t err_no;
+    /* 0x04 */ std::uint8_t databuffer[32];
+    /* 0x24 */ std::uint8_t addressCrc;
+    /* 0x25 */ std::uint8_t dataCrc;
+    /* 0x26 */ std::uint8_t err_no;
 } OSContRamIo; // size = 0x28
 
 // Original name: __OSContRequesFormat
 typedef struct {
-    /* 0x00 */ uint8_t align;
-    /* 0x01 */ uint8_t txsize;
-    /* 0x02 */ uint8_t rxsize;
-    /* 0x03 */ uint8_t poll;
-    /* 0x04 */ uint8_t typeh;
-    /* 0x05 */ uint8_t typel;
-    /* 0x06 */ uint8_t status;
-    /* 0x07 */ uint8_t align1;
+    /* 0x00 */ std::uint8_t align;
+    /* 0x01 */ std::uint8_t txsize;
+    /* 0x02 */ std::uint8_t rxsize;
+    /* 0x03 */ std::uint8_t poll;
+    /* 0x04 */ std::uint8_t typeh;
+    /* 0x05 */ std::uint8_t typel;
+    /* 0x06 */ std::uint8_t status;
+    /* 0x07 */ std::uint8_t align1;
 } __OSContRequestHeader; // size = 0x8
 
 // Original name: __OSContRequesHeaderFormatShort
 typedef struct {
-    /* 0x00 */ uint8_t txsize;
-    /* 0x01 */ uint8_t rxsize;
-    /* 0x02 */ uint8_t poll;
-    /* 0x03 */ uint8_t typeh;
-    /* 0x04 */ uint8_t typel;
-    /* 0x05 */ uint8_t status;
+    /* 0x00 */ std::uint8_t txsize;
+    /* 0x01 */ std::uint8_t rxsize;
+    /* 0x02 */ std::uint8_t poll;
+    /* 0x03 */ std::uint8_t typeh;
+    /* 0x04 */ std::uint8_t typel;
+    /* 0x05 */ std::uint8_t status;
 } __OSContRequestHeaderAligned; // size = 0x6
 
 // Original Name: __OSContRamReadFormat
 typedef struct {
-    /* 0x00 */ uint8_t unk_00;
-    /* 0x01 */ uint8_t txsize;
-    /* 0x02 */ uint8_t rxsize;
-    /* 0x03 */ uint8_t poll;
-    /* 0x04 */ uint8_t hi;
-    /* 0x05 */ uint8_t lo;
-    /* 0x06 */ uint8_t data[BLOCKSIZE];
-    /* 0x26 */ uint8_t datacrc;
+    /* 0x00 */ std::uint8_t unk_00;
+    /* 0x01 */ std::uint8_t txsize;
+    /* 0x02 */ std::uint8_t rxsize;
+    /* 0x03 */ std::uint8_t poll;
+    /* 0x04 */ std::uint8_t hi;
+    /* 0x05 */ std::uint8_t lo;
+    /* 0x06 */ std::uint8_t data[BLOCKSIZE];
+    /* 0x26 */ std::uint8_t datacrc;
 } __OSContRamHeader; // size = 0x27
 
 // Original name: __OSContReadFormat
 typedef struct {
-    /* 0x00 */ uint8_t align;
-    /* 0x01 */ uint8_t txsize;
-    /* 0x02 */ uint8_t rxsize;
-    /* 0x03 */ uint8_t poll;
-    /* 0x04 */ uint16_t button;
-    /* 0x06 */ int8_t joyX;
-    /* 0x07 */ int8_t joyY;
+    /* 0x00 */ std::uint8_t align;
+    /* 0x01 */ std::uint8_t txsize;
+    /* 0x02 */ std::uint8_t rxsize;
+    /* 0x03 */ std::uint8_t poll;
+    /* 0x04 */ std::uint16_t button;
+    /* 0x06 */ std::int8_t joyX;
+    /* 0x07 */ std::int8_t joyY;
 } __OSContReadHeader; // size = 0x8
 
 #endif

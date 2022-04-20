@@ -13,9 +13,9 @@ namespace Ship
         limb->skinDList = reader->ReadString();
 
         limb->skinVtxCnt = reader->ReadUInt16();
-        uint32_t skinCnt = reader->ReadUInt32();
+        std::uint32_t skinCnt = reader->ReadUInt32();
 
-        for (uint32_t i = 0; i < skinCnt; i++)
+        for (std::uint32_t i = 0; i < skinCnt; i++)
         {
             Struct_800A598C struc;
 

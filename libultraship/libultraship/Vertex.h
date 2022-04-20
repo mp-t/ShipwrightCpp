@@ -7,10 +7,10 @@ namespace Ship
 	class Vtx 
 	{
 	public:
-		int16_t x, y, z;
-		uint16_t flag;
-		int16_t s, t;
-		uint8_t r, g, b, a;
+		std::int16_t x, y, z;
+		std::uint16_t flag;
+		std::int16_t s, t;
+		std::uint8_t r, g, b, a;
 	};
 
 	class VertexV0 : public ResourceFile

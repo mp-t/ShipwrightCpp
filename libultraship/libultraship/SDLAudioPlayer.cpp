@@ -24,7 +24,7 @@ namespace Ship {
 		}
 
 		int SDLAudioPlayer::Buffered(void) {
-            // 4 is sizeof(int16_t) * num_channels (2 for stereo)
+            // 4 is sizeof(std::int16_t) * num_channels (2 for stereo)
             return SDL_GetQueuedAudioSize(Device) / 4;
 		}
 
@@ -32,7 +32,7 @@ namespace Ship {
             return 1680;
 		}
 
-		void SDLAudioPlayer::Play(const uint8_t* Buffer, uint32_t BufferLen) {
+		void SDLAudioPlayer::Play(const std::uint8_t* Buffer, std::uint32_t BufferLen) {
             if (Buffered() < 6000) {
                 // Don't fill the audio buffer too much in case this happens
                 SDL_QueueAudio(Device, Buffer, BufferLen);

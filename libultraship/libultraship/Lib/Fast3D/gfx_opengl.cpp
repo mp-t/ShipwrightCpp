@@ -43,22 +43,22 @@ using namespace std;
 
 struct ShaderProgram {
     GLuint opengl_program_id;
-    uint8_t num_inputs;
+    std::uint8_t num_inputs;
     bool used_textures[2];
-    uint8_t num_floats;
+    std::uint8_t num_floats;
     GLint attrib_locations[16];
-    uint8_t attrib_sizes[16];
-    uint8_t num_attribs;
+    std::uint8_t attrib_sizes[16];
+    std::uint8_t num_attribs;
     bool used_noise;
     GLint frame_count_location;
     GLint window_height_location;
 };
 
-static map<pair<uint64_t, uint32_t>, struct ShaderProgram> shader_program_pool;
+static map<pair<std::uint64_t, std::uint32_t>, struct ShaderProgram> shader_program_pool;
 static GLuint opengl_vbo;
 
-static uint32_t frame_count;
-static uint32_t current_height;
+static std::uint32_t frame_count;
+static std::uint32_t current_height;
 static map<int, pair<GLuint, GLuint>> fb2tex;
 static bool current_depth_mask;
 
@@ -108,7 +108,7 @@ static void append_line(char *buf, size_t *len, const char *str) {
     buf[(*len)++] = '\n';
 }
 
-static const char *shader_item_to_str(uint32_t item, bool with_alpha, bool only_alpha, bool inputs_have_alpha, bool hint_single_element) {
+static const char *shader_item_to_str(std::uint32_t item, bool with_alpha, bool only_alpha, bool inputs_have_alpha, bool hint_single_element) {
     if (!only_alpha) {
         switch (item) {
             case SHADER_0:
@@ -165,7 +165,7 @@ static const char *shader_item_to_str(uint32_t item, bool with_alpha, bool only_
 	return nullptr;
 }
 
-static void append_formula(char *buf, size_t *len, uint8_t c[2][4], bool do_single, bool do_multiply, bool do_mix, bool with_alpha, bool only_alpha, bool opt_alpha) {
+static void append_formula(char *buf, size_t *len, std::uint8_t c[2][4], bool do_single, bool do_multiply, bool do_mix, bool with_alpha, bool only_alpha, bool opt_alpha) {
     if (do_single) {
         append_str(buf, len, shader_item_to_str(c[only_alpha][3], with_alpha, only_alpha, opt_alpha, false));
     } else if (do_multiply) {
@@ -192,7 +192,7 @@ static void append_formula(char *buf, size_t *len, uint8_t c[2][4], bool do_sing
     }
 }
 
-static struct ShaderProgram* gfx_opengl_create_and_load_new_shader(uint64_t shader_id0, uint32_t shader_id1) {
+static struct ShaderProgram* gfx_opengl_create_and_load_new_shader(std::uint64_t shader_id0, std::uint32_t shader_id1) {
     struct CCFeatures cc_features;
     gfx_cc_get_features(shader_id0, shader_id1, &cc_features);
 
@@ -469,12 +469,12 @@ static struct ShaderProgram* gfx_opengl_create_and_load_new_shader(uint64_t shad
     return prg;
 }
 
-static struct ShaderProgram *gfx_opengl_lookup_shader(uint64_t shader_id0, uint32_t shader_id1) {
+static struct ShaderProgram *gfx_opengl_lookup_shader(std::uint64_t shader_id0, std::uint32_t shader_id1) {
     auto it = shader_program_pool.find(make_pair(shader_id0, shader_id1));
     return it == shader_program_pool.end() ? nullptr : &it->second;
 }
 
-static void gfx_opengl_shader_get_info(struct ShaderProgram *prg, uint8_t *num_inputs, bool used_textures[2]) {
+static void gfx_opengl_shader_get_info(struct ShaderProgram *prg, std::uint8_t *num_inputs, bool used_textures[2]) {
     *num_inputs = prg->num_inputs;
     used_textures[0] = prg->used_textures[0];
     used_textures[1] = prg->used_textures[1];
@@ -486,7 +486,7 @@ static GLuint gfx_opengl_new_texture(void) {
     return ret;
 }
 
-static void gfx_opengl_delete_texture(uint32_t texID) {
+static void gfx_opengl_delete_texture(std::uint32_t texID) {
     glDeleteTextures(1, &texID);
 }
 
@@ -495,11 +495,11 @@ static void gfx_opengl_select_texture(int tile, GLuint texture_id) {
     glBindTexture(GL_TEXTURE_2D, texture_id);
 }
 
-static void gfx_opengl_upload_texture(const uint8_t *rgba32_buf, uint32_t width, uint32_t height) {
+static void gfx_opengl_upload_texture(const std::uint8_t *rgba32_buf, std::uint32_t width, std::uint32_t height) {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba32_buf);
 }
 
-static uint32_t gfx_cm_to_opengl(uint32_t val) {
+static std::uint32_t gfx_cm_to_opengl(std::uint32_t val) {
     switch (val) {
         case G_TX_NOMIRROR | G_TX_CLAMP:
             return GL_CLAMP_TO_EDGE;
@@ -513,7 +513,7 @@ static uint32_t gfx_cm_to_opengl(uint32_t val) {
     }
 }
 
-static void gfx_opengl_set_sampler_parameters(int tile, bool linear_filter, uint32_t cms, uint32_t cmt) {
+static void gfx_opengl_set_sampler_parameters(int tile, bool linear_filter, std::uint32_t cms, std::uint32_t cmt) {
     glActiveTexture(GL_TEXTURE0 + tile);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, linear_filter ? GL_LINEAR : GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, linear_filter ? GL_LINEAR : GL_NEAREST);
@@ -631,7 +631,7 @@ static void gfx_opengl_end_frame(void) {
 static void gfx_opengl_finish_render(void) {
 }
 
-static int gfx_opengl_create_framebuffer(uint32_t width, uint32_t height) {
+static int gfx_opengl_create_framebuffer(std::uint32_t width, std::uint32_t height) {
     GLuint newTextureColorbuffer;
 
     glGenTextures(1, &newTextureColorbuffer);
@@ -662,7 +662,7 @@ static int gfx_opengl_create_framebuffer(uint32_t width, uint32_t height) {
     return fbo;
 }
 
-static void gfx_opengl_resize_framebuffer(int fb, uint32_t width, uint32_t height) {
+static void gfx_opengl_resize_framebuffer(int fb, std::uint32_t width, std::uint32_t height) {
     glBindTexture(GL_TEXTURE_2D, fb2tex[fb].first);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -698,12 +698,12 @@ void gfx_opengl_select_texture_fb(int fbID)
     glBindTexture(GL_TEXTURE_2D, fb2tex[fbID].first);
 }
 
-static uint16_t gfx_opengl_get_pixel_depth(float x, float y) {
+static std::uint16_t gfx_opengl_get_pixel_depth(float x, float y) {
     float depth;
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     glReadPixels(static_cast<GLint>(x), static_cast<GLint>(y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    return static_cast<uint16_t>(depth * 65532.0f);
+    return static_cast<std::uint16_t>(depth * 65532.0f);
 }
 
 struct GfxRenderingAPI gfx_opengl_api = {

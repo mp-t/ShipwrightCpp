@@ -13,19 +13,19 @@ void Ship::AnimationV0::ParseFileBinary(BinaryReader* reader, Resource* res)
 	{
 		anim->frameCount = reader->ReadInt16();
 
-		uint32_t rotValuesCnt = reader->ReadUInt32();
+		std::uint32_t rotValuesCnt = reader->ReadUInt32();
 		anim->rotationValues.reserve(rotValuesCnt);
-		for (uint32_t i = 0; i < rotValuesCnt; i++)
+		for (std::uint32_t i = 0; i < rotValuesCnt; i++)
 			anim->rotationValues.push_back(reader->ReadUInt16());
 
 
-		uint32_t rotIndCnt = reader->ReadUInt32();
+		std::uint32_t rotIndCnt = reader->ReadUInt32();
 		anim->rotationIndices.reserve(rotIndCnt);
 		for (std::uint32_t i = 0; i < rotIndCnt; i++)
 		{
-			uint16_t x = reader->ReadUInt16();
-			uint16_t y = reader->ReadUInt16();
-			uint16_t z = reader->ReadUInt16();
+			std::uint16_t x = reader->ReadUInt16();
+			std::uint16_t y = reader->ReadUInt16();
+			std::uint16_t z = reader->ReadUInt16();
 			anim->rotationIndices.push_back(RotationIndex(x, y, z));
 		}
 		anim->limit = reader->ReadInt16();
@@ -34,14 +34,14 @@ void Ship::AnimationV0::ParseFileBinary(BinaryReader* reader, Resource* res)
 	{
 		anim->frameCount = reader->ReadInt16();
 
-		uint32_t refArrCnt = reader->ReadUInt32();
+		std::uint32_t refArrCnt = reader->ReadUInt32();
 		anim->refIndexArr.reserve(refArrCnt);
-		for (uint32_t i = 0; i < refArrCnt; i++)
+		for (std::uint32_t i = 0; i < refArrCnt; i++)
 			anim->refIndexArr.push_back(reader->ReadUByte());
 
-		uint32_t transformDataCnt = reader->ReadUInt32();
+		std::uint32_t transformDataCnt = reader->ReadUInt32();
 		anim->transformDataArr.reserve(transformDataCnt);
-		for (uint32_t i = 0; i < transformDataCnt; i++)
+		for (std::uint32_t i = 0; i < transformDataCnt; i++)
 		{
 			TransformData data;
 			data.unk_00 = reader->ReadUInt16();
@@ -53,9 +53,9 @@ void Ship::AnimationV0::ParseFileBinary(BinaryReader* reader, Resource* res)
 			anim->transformDataArr.push_back(data);
 		}
 
-		uint32_t copyValuesCnt = reader->ReadUInt32();
+		std::uint32_t copyValuesCnt = reader->ReadUInt32();
 		anim->copyValuesArr.reserve(copyValuesCnt);
-		for (uint32_t i = 0; i < copyValuesCnt; i++)
+		for (std::uint32_t i = 0; i < copyValuesCnt; i++)
 		{
 			anim->copyValuesArr.push_back(reader->ReadInt16());
 		}

@@ -18,6 +18,6 @@ namespace Ship
     class DisplayList : public Resource
     {
     public:
-		std::vector<uint64_t> instructions;
+		std::vector<std::uint64_t> instructions;
     };
 }

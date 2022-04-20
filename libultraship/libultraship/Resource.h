@@ -65,8 +65,8 @@ namespace Ship
 
     struct Patch
     {
-        uint64_t crc;
-        uint32_t index;
+        std::uint64_t crc;
+        std::uint32_t index;
         uintptr_t origData;
     };
 
@@ -74,7 +74,7 @@ namespace Ship
     {
     public:
         ResourceMgr* resMgr;
-        uint64_t id; // Unique Resource ID
+        std::uint64_t id; // Unique Resource ID
         ResourceType resType;
         bool isDirty = false;
         void* cachedGameAsset = 0; // Conversion to OoT friendly struct cached...
@@ -87,10 +87,10 @@ namespace Ship
     {
     public:
         Endianess endianess;    // 0x00 - Endianess of the file
-        uint32_t resourceType;  // 0x01 - 4 byte MAGIC
+        std::uint32_t resourceType;  // 0x01 - 4 byte MAGIC
         Version version;     // 0x05 - Based on Ship release numbers
-        uint64_t id;            // 0x09 - Unique Resource ID
-        uint32_t resourceVersion; // 0x11 - Resource Minor Version Number
+        std::uint64_t id;            // 0x09 - Unique Resource ID
+        std::uint32_t resourceVersion; // 0x11 - Resource Minor Version Number
 
         virtual void ParseFileBinary(BinaryReader* reader, Resource* res);
         virtual void ParseFileXML(tinyxml2::XMLElement* reader, Resource* res);

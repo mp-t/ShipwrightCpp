@@ -10,9 +10,9 @@ namespace Ship
 		ResourceFile::ParseFileBinary(reader, res);
 
 		ZResourceType resType = (ZResourceType)reader->ReadUInt32();
-		uint32_t arrayCnt = reader->ReadUInt32();
+		std::uint32_t arrayCnt = reader->ReadUInt32();
 
-		for (uint32_t i = 0; i < arrayCnt; i++)
+		for (std::uint32_t i = 0; i < arrayCnt; i++)
 		{
 			if (resType == ZResourceType::Vertex)
 			{

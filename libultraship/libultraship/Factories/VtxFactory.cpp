@@ -4,7 +4,7 @@ namespace Ship
 {
 	Vertex* VertexFactory::ReadVtx(BinaryReader* reader) {
 		Vertex* vtx = new Vertex();
-		uint32_t version = reader->ReadUInt32();
+		std::uint32_t version = reader->ReadUInt32();
 		switch (version)
 		{
 		case 0:

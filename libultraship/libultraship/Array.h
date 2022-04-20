@@ -3,21 +3,23 @@
 #include "Resource.h"
 #include "Vertex.h"
 
+#include <cstdint>
+
 namespace Ship
 {
-	typedef union ScalarData
+	union ScalarData
 	{
-		uint8_t u8;
-		int8_t s8;
-		uint16_t u16;
-		int16_t s16;
-		uint32_t u32;
-		int32_t s32;
-		uint64_t u64;
-		int64_t s64;
+		std::uint8_t u8;
+		std::int8_t s8;
+		std::uint16_t u16;
+		std::int16_t s16;
+		std::uint32_t u32;
+		std::int32_t s32;
+		std::uint64_t u64;
+		std::int64_t s64;
 		float f32;
 		double f64;
-	} ScalarData;
+	};
 
 	enum class ScalarType
 	{

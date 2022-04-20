@@ -14,7 +14,7 @@ namespace Ship {
 		bool Init(void);
 		int Buffered(void);
 		int GetDesiredBuffered(void);
-		void Play(const uint8_t* Buffer, uint32_t BufferLen);
+		void Play(const std::uint8_t* Buffer, std::uint32_t BufferLen);
 
 	protected:
 		virtual HRESULT STDMETHODCALLTYPE OnDeviceStateChanged(LPCWSTR pwstrDeviceId, DWORD dwNewState);

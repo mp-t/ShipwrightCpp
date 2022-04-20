@@ -15,7 +15,7 @@ static void append_line(char *buf, size_t *len, const char *str) {
     buf[(*len)++] = '\n';
 }
 
-static const char *shader_item_to_str(uint32_t item, bool with_alpha, bool only_alpha, bool inputs_have_alpha, bool hint_single_element) {
+static const char *shader_item_to_str(std::uint32_t item, bool with_alpha, bool only_alpha, bool inputs_have_alpha, bool hint_single_element) {
     if (!only_alpha) {
         switch (item) {
             default:
@@ -71,7 +71,7 @@ static const char *shader_item_to_str(uint32_t item, bool with_alpha, bool only_
     }
 }
 
-static void append_formula(char *buf, size_t *len, const uint8_t c[2][4], bool do_single, bool do_multiply, bool do_mix, bool with_alpha, bool only_alpha, bool opt_alpha) {
+static void append_formula(char *buf, size_t *len, const std::uint8_t c[2][4], bool do_single, bool do_multiply, bool do_mix, bool with_alpha, bool only_alpha, bool opt_alpha) {
     if (do_single) {
         append_str(buf, len, shader_item_to_str(c[only_alpha][3], with_alpha, only_alpha, opt_alpha, false));
     } else if (do_multiply) {

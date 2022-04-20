@@ -12,9 +12,9 @@ namespace Ship
 	class PolygonEntry
 	{
 	public:
-		uint16_t type;
-		uint16_t vtxA, vtxB, vtxC;
-		uint16_t a, b, c, d;
+		std::uint16_t type;
+		std::uint16_t vtxA, vtxB, vtxC;
+		std::uint16_t a, b, c, d;
 
 		PolygonEntry(BinaryReader* reader);
 	};
@@ -22,13 +22,13 @@ namespace Ship
 	class WaterBoxHeader
 	{
 	public:
-		int16_t xMin;
-		int16_t ySurface;
-		int16_t zMin;
-		int16_t xLength;
-		int16_t zLength;
-		int16_t pad;
-		int32_t properties;
+		std::int16_t xMin;
+		std::int16_t ySurface;
+		std::int16_t zMin;
+		std::int16_t xLength;
+		std::int16_t zLength;
+		std::int16_t pad;
+		std::int32_t properties;
 
 		WaterBoxHeader();
 	};
@@ -37,15 +37,15 @@ namespace Ship
 	class CameraDataEntry
 	{
 	public:
-		uint16_t cameraSType;
-		int16_t numData;
-		int32_t cameraPosDataIdx;
+		std::uint16_t cameraSType;
+		std::int16_t numData;
+		std::int32_t cameraPosDataIdx;
 	};
 
 	class CameraPositionData
 	{
 	public:
-		int16_t x, y, z;
+		std::int16_t x, y, z;
 	};
 
 	class CameraDataList
@@ -58,12 +58,12 @@ namespace Ship
 	class CollisionHeaderV0 : public ResourceFile
 	{
 	public:
-		int16_t absMinX, absMinY, absMinZ;
-		int16_t absMaxX, absMaxY, absMaxZ;
+		std::int16_t absMinX, absMinY, absMinZ;
+		std::int16_t absMaxX, absMaxY, absMaxZ;
 		
 		std::vector<Vec3f> vertices;
 		std::vector<PolygonEntry> polygons;
-		std::vector<uint64_t> polygonTypes;
+		std::vector<std::uint64_t> polygonTypes;
 		std::vector<WaterBoxHeader> waterBoxes;
 		CameraDataList* camData = nullptr;
 
@@ -73,12 +73,12 @@ namespace Ship
     class CollisionHeader : public Resource
     {
     public:
-		int16_t absMinX, absMinY, absMinZ;
-		int16_t absMaxX, absMaxY, absMaxZ;
+		std::int16_t absMinX, absMinY, absMinZ;
+		std::int16_t absMaxX, absMaxY, absMaxZ;
 
 		std::vector<Vec3f> vertices;
 		std::vector<PolygonEntry> polygons;
-		std::vector<uint64_t> polygonTypes;
+		std::vector<std::uint64_t> polygonTypes;
 		std::vector<WaterBoxHeader> waterBoxes;
 		CameraDataList* camData = nullptr;
     };

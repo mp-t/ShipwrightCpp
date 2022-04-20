@@ -13,8 +13,8 @@ namespace Ship
 	class CutsceneCommand
 	{
 	public:
-		uint32_t commandID;
-		uint32_t commandIndex;
+		std::uint32_t commandID;
+		std::uint32_t commandIndex;
 
 		CutsceneCommand() {};
 	};
@@ -22,7 +22,7 @@ namespace Ship
 	class Cutscene : public Resource
 	{
 	public:
-		//int32_t endFrame;
-		std::vector<uint32_t> commands;
+		//std::int32_t endFrame;
+		std::vector<std::uint32_t> commands;
 	};
 }

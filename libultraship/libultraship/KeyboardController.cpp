@@ -2,7 +2,7 @@
 #include "GlobalCtx2.h"
 
 namespace Ship {
-	KeyboardController::KeyboardController(int32_t dwControllerNumber) : Controller(dwControllerNumber) {
+	KeyboardController::KeyboardController(std::int32_t dwControllerNumber) : Controller(dwControllerNumber) {
 		LoadBinding();
 	}
 
@@ -10,7 +10,7 @@ namespace Ship {
 		
 	}
 
-	bool KeyboardController::PressButton(int32_t dwScancode) {
+	bool KeyboardController::PressButton(std::int32_t dwScancode) {
 		if (ButtonMapping.contains(dwScancode)) {
 			dwPressedButtons |= ButtonMapping[dwScancode];
 			return true;
@@ -19,7 +19,7 @@ namespace Ship {
 		return false;
 	}
 
-	bool KeyboardController::ReleaseButton(int32_t dwScancode) {
+	bool KeyboardController::ReleaseButton(std::int32_t dwScancode) {
 		if (ButtonMapping.contains(dwScancode)) {
 			dwPressedButtons &= ~ButtonMapping[dwScancode];
 			return true;

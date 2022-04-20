@@ -144,7 +144,7 @@ namespace Ship {
 		GetSystemTime(&sysTime);
 		FILETIME t;
 		SystemTimeToFileTime(&sysTime, &t);
-		ULONGLONG stupidHack = static_cast<uint64_t>(t.dwHighDateTime) << (sizeof(t.dwHighDateTime) * 8) | t.dwLowDateTime;
+		ULONGLONG stupidHack = static_cast<std::uint64_t>(t.dwHighDateTime) << (sizeof(t.dwHighDateTime) * 8) | t.dwLowDateTime;
 
 		if (!SFileCreateFile(mainMPQ, path.c_str(), stupidHack, dwFileSize, 0, MPQ_FILE_COMPRESS, &hFile)) {
 			SPDLOG_ERROR("({}) Failed to create file of {} bytes {} in archive {}", GetLastError(), dwFileSize, path.c_str(), MainPath.c_str());
@@ -255,7 +255,7 @@ namespace Ship {
 		return result;
 	}
 
-	std::string Archive::HashToString(uint64_t hash) {
+	std::string Archive::HashToString(std::uint64_t hash) {
 		return hashes[hash];
 	}
 
@@ -317,9 +317,9 @@ namespace Ship {
 
 			for (size_t i = 0; i < lines.size(); i++) {
 				std::string line = StringHelper::Strip(lines[i], "\r");
-				//uint64_t hash = StringHelper::StrToL(lines[i], 16);
+				//std::uint64_t hash = StringHelper::StrToL(lines[i], 16);
 
-				uint64_t hash = CRC64(line.c_str());
+				std::uint64_t hash = CRC64(line.c_str());
 				hashes[hash] = line;
 			}
 		}

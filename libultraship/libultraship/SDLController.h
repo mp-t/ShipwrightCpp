@@ -7,7 +7,7 @@
 namespace Ship {
 	class SDLController : public Controller {
 		public:
-			SDLController(int32_t dwControllerNumber);
+			SDLController(std::int32_t dwControllerNumber);
 			~SDLController();
 
 			void ReadFromSource();
@@ -17,7 +17,7 @@ namespace Ship {
 
 		protected:
 			std::string GetControllerType();
-			void SetButtonMapping(const std::string& szButtonName, int32_t dwScancode);
+			void SetButtonMapping(const std::string& szButtonName, std::int32_t dwScancode);
 			std::string GetConfSection();
 			std::string GetBindingConfSection();
 			void CreateDefaultBinding();
@@ -26,10 +26,10 @@ namespace Ship {
 		private:
 			std::string guid;
 			SDL_GameController* Cont;
-			std::map<int32_t, int16_t> ThresholdMapping;
+			std::map<std::int32_t, std::int16_t> ThresholdMapping;
 
 			void LoadAxisThresholds();
-			void NormalizeStickAxis(int16_t wAxisValueX, int16_t wAxisValueY, int16_t wAxisThreshold);
+			void NormalizeStickAxis(std::int16_t wAxisValueX, std::int16_t wAxisValueY, std::int16_t wAxisThreshold);
 			bool Open();
 			bool Close();
 	};

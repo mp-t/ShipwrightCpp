@@ -25,7 +25,7 @@ namespace Ship
         mat->shaderID = shaderID;
         mat->shaderParams.reserve(shaderParamsCnt);
 
-        for (uint32_t i = 0; i < shaderParamsCnt; i++)
+        for (std::uint32_t i = 0; i < shaderParamsCnt; i++)
             mat->shaderParams.push_back(new ShaderParam(reader));
 
         mat->cmtH = cmtH;

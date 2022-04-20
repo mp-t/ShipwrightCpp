@@ -115,7 +115,7 @@ static void set_fullscreen(bool on, bool call_callback) {
     }
 }
 
-static uint64_t previous_time;
+static std::uint64_t previous_time;
 static HANDLE timer;
 
 static int frameDivisor = 1;
@@ -193,7 +193,7 @@ static void gfx_sdl_main_loop(void (*run_one_game_iter)(void)) {
     }
 }
 
-static void gfx_sdl_get_dimensions(uint32_t *width, uint32_t *height) {
+static void gfx_sdl_get_dimensions(std::uint32_t *width, std::uint32_t *height) {
     *width = window_width;
     *height = window_height;
 }
@@ -252,17 +252,17 @@ static bool gfx_sdl_start_frame(void) {
     return true;
 }
 
-static uint64_t qpc_to_100ns(uint64_t qpc) {
-    const uint64_t qpc_freq = SDL_GetPerformanceFrequency();
+static std::uint64_t qpc_to_100ns(std::uint64_t qpc) {
+    const std::uint64_t qpc_freq = SDL_GetPerformanceFrequency();
     return qpc / qpc_freq * 10000000 + qpc % qpc_freq * 10000000 / qpc_freq;
 }
 
 static inline void sync_framerate_with_timer(void) {
-    uint64_t t;
+    std::uint64_t t;
     t = SDL_GetPerformanceCounter();
 
-    const int64_t next = qpc_to_100ns(previous_time) + 10 * FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR;
-    const int64_t left = next - qpc_to_100ns(t);
+    const std::int64_t next = qpc_to_100ns(previous_time) + 10 * FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR;
+    const std::int64_t left = next - qpc_to_100ns(t);
     if (left > 0) {
 #ifdef __linux__
         const timespec spec = { 0, left * 100 };

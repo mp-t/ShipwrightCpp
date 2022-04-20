@@ -157,7 +157,7 @@ namespace SohImGui {
         const auto res = GlobalCtx2::GetInstance()->GetResourceManager()->LoadFile(normalize(path));
 
         const auto asset = new GameAsset{ api->new_texture() };
-        uint8_t* img_data = stbi_load_from_memory(reinterpret_cast<const stbi_uc*>(res->buffer.get()), res->dwBufferSize, &asset->width, &asset->height, nullptr, 4);
+        std::uint8_t* img_data = stbi_load_from_memory(reinterpret_cast<const stbi_uc*>(res->buffer.get()), res->dwBufferSize, &asset->width, &asset->height, nullptr, 4);
 
         if (img_data == nullptr) {
             std::cout << "Found error: " << stbi_failure_reason() << std::endl;

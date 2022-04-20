@@ -6,7 +6,7 @@
 
 namespace Ship
 {
-	enum class SceneCommandID : uint8_t
+	enum class SceneCommandID : std::uint8_t
 	{
 		SetStartPositionList = 0x00,
 		SetActorList = 0x01,
@@ -59,14 +59,14 @@ namespace Ship
 	class LightingSettings
 	{
 	public:
-		uint8_t ambientClrR, ambientClrG, ambientClrB;
-		uint8_t diffuseDirA_X, diffuseDirA_Y, diffuseDirA_Z;
-		uint8_t diffuseClrA_R, diffuseClrA_G, diffuseClrA_B;
-		uint8_t diffuseDirB_X, diffuseDirB_Y, diffuseDirB_Z;
-		uint8_t diffuseClrB_R, diffuseClrB_G, diffuseClrB_B;
-		uint8_t fogClrR, fogClrG, fogClrB;
-		uint16_t fogNear;
-		uint16_t fogFar;
+		std::uint8_t ambientClrR, ambientClrG, ambientClrB;
+		std::uint8_t diffuseDirA_X, diffuseDirA_Y, diffuseDirA_Z;
+		std::uint8_t diffuseClrA_R, diffuseClrA_G, diffuseClrA_B;
+		std::uint8_t diffuseDirB_X, diffuseDirB_Y, diffuseDirB_Z;
+		std::uint8_t diffuseClrB_R, diffuseClrB_G, diffuseClrB_B;
+		std::uint8_t fogClrR, fogClrG, fogClrB;
+		std::uint16_t fogNear;
+		std::uint16_t fogFar;
 	};
 
 	class LightInfo
@@ -74,21 +74,21 @@ namespace Ship
 	public:
 		LightInfo();
 	public:
-		uint8_t type;
-		int16_t x, y, z;
-		uint8_t r, g, b;
-		uint8_t drawGlow;
-		int16_t radius;
+		std::uint8_t type;
+		std::int16_t x, y, z;
+		std::uint8_t r, g, b;
+		std::uint8_t drawGlow;
+		std::int16_t radius;
 	};
 
 
 	class SetWind : public SceneCommand
 	{
 	public:
-		uint8_t windWest;
-		uint8_t windVertical;
-		uint8_t windSouth;
-		uint8_t clothFlappingStrength;
+		std::uint8_t windWest;
+		std::uint8_t windVertical;
+		std::uint8_t windSouth;
+		std::uint8_t clothFlappingStrength;
 
 		SetWind(BinaryReader* reader);
 	};
@@ -96,7 +96,7 @@ namespace Ship
 	class ExitList : public SceneCommand
 	{
 	public:
-		std::vector<uint16_t> exits;
+		std::vector<std::uint16_t> exits;
 
 		ExitList(BinaryReader* reader);
 	};
@@ -104,9 +104,9 @@ namespace Ship
 	class SetTimeSettings : public SceneCommand
 	{
 	public:
-		uint8_t hour;
-		uint8_t min;
-		uint8_t unk;
+		std::uint8_t hour;
+		std::uint8_t min;
+		std::uint8_t unk;
 
 		SetTimeSettings(BinaryReader* reader);
 	};
@@ -114,8 +114,8 @@ namespace Ship
 	class SetSkyboxModifier : public SceneCommand
 	{
 	public:
-		uint8_t disableSky;
-		uint8_t disableSunMoon;
+		std::uint8_t disableSky;
+		std::uint8_t disableSunMoon;
 
 		SetSkyboxModifier(BinaryReader* reader);
 	};
@@ -123,7 +123,7 @@ namespace Ship
 	class SetEchoSettings : public SceneCommand
 	{
 	public:
-		uint8_t echo;
+		std::uint8_t echo;
 
 		SetEchoSettings(BinaryReader* reader);
 	};
@@ -131,9 +131,9 @@ namespace Ship
 	class SetSoundSettings : public SceneCommand
 	{
 	public:
-		uint8_t reverb;
-		uint8_t nightTimeSFX;
-		uint8_t musicSequence;
+		std::uint8_t reverb;
+		std::uint8_t nightTimeSFX;
+		std::uint8_t musicSequence;
 
 		SetSoundSettings(BinaryReader* reader);
 	};
@@ -141,10 +141,10 @@ namespace Ship
 	class SetSkyboxSettings : public SceneCommand
 	{
 	public:
-		uint8_t unk1;  // (MM Only)
-		uint8_t skyboxNumber;
-		uint8_t cloudsType;
-		uint8_t isIndoors;
+		std::uint8_t unk1;  // (MM Only)
+		std::uint8_t skyboxNumber;
+		std::uint8_t cloudsType;
+		std::uint8_t isIndoors;
 
 		SetSkyboxSettings(BinaryReader* reader);
 	};
@@ -152,18 +152,18 @@ namespace Ship
 	class SetRoomBehavior : public SceneCommand
 	{
 	public:
-		uint8_t gameplayFlags;
-		uint32_t gameplayFlags2;
+		std::uint8_t gameplayFlags;
+		std::uint32_t gameplayFlags2;
 
-		uint8_t currRoomUnk2;
+		std::uint8_t currRoomUnk2;
 
-		uint8_t showInvisActors;
-		uint8_t currRoomUnk5;
+		std::uint8_t showInvisActors;
+		std::uint8_t currRoomUnk5;
 
-		uint8_t msgCtxUnk;
+		std::uint8_t msgCtxUnk;
 
-		uint8_t enablePosLights;
-		uint8_t kankyoContextUnkE2;
+		std::uint8_t enablePosLights;
+		std::uint8_t kankyoContextUnkE2;
 
 		SetRoomBehavior(BinaryReader* reader);
 	};
@@ -177,17 +177,17 @@ namespace Ship
 	class BGImage
 	{
 	public:
-		uint16_t unk_00;
-		uint8_t id;
+		std::uint16_t unk_00;
+		std::uint8_t id;
 		std::string sourceBackground;
-		uint32_t unk_0C;
-		uint32_t tlut;
-		uint16_t width;
-		uint16_t height;
-		uint8_t fmt;
-		uint8_t siz;
-		uint16_t mode0;
-		uint16_t tlutCount;
+		std::uint32_t unk_0C;
+		std::uint32_t tlut;
+		std::uint16_t width;
+		std::uint16_t height;
+		std::uint8_t fmt;
+		std::uint8_t siz;
+		std::uint16_t mode0;
+		std::uint16_t tlutCount;
 	};
 
 	class MeshData
@@ -198,7 +198,7 @@ namespace Ship
 		std::string opa, xlu;
 
 		// Do I look like I know what a JPEG is?
-		uint8_t imgFmt;
+		std::uint8_t imgFmt;
 		std::string imgOpa, imgXlu;
 		std::vector<BGImage> images;
 
@@ -208,8 +208,8 @@ namespace Ship
 	class SetMesh : public SceneCommand
 	{
 	public:
-		uint8_t data;
-		uint8_t meshHeaderType;
+		std::uint8_t data;
+		std::uint8_t meshHeaderType;
 		std::vector<MeshData> meshes;
 		//std::shared_ptr<PolygonTypeBase> polyType;
 
@@ -219,8 +219,8 @@ namespace Ship
 	class SetCameraSettings : public SceneCommand
 	{
 	public:
-		uint8_t cameraMovement;
-		uint32_t mapHighlights;
+		std::uint8_t cameraMovement;
+		std::uint32_t mapHighlights;
 
 		SetCameraSettings(BinaryReader* reader);
 	};
@@ -245,8 +245,8 @@ namespace Ship
 	{
 	public:
 		std::string name;
-		uint32_t vromStart;
-		uint32_t vromEnd;
+		std::uint32_t vromStart;
+		std::uint32_t vromEnd;
 
 		SetRoom(BinaryReader* reader);
 	};
@@ -270,8 +270,8 @@ namespace Ship
 	class EntranceEntry
 	{
 	public:
-		uint8_t startPositionIndex;
-		uint8_t roomToLoad;
+		std::uint8_t startPositionIndex;
+		std::uint8_t roomToLoad;
 	};
 
 	class SetEntranceList : public SceneCommand
@@ -285,8 +285,8 @@ namespace Ship
 	class SetSpecialObjects : public SceneCommand
 	{
 	public:
-		uint8_t elfMessage;
-		uint16_t globalObject;
+		std::uint8_t elfMessage;
+		std::uint16_t globalObject;
 		
 		SetSpecialObjects(BinaryReader* reader);
 	};
@@ -294,7 +294,7 @@ namespace Ship
 	class SetObjectList : public SceneCommand
 	{
 	public:
-		std::vector<uint16_t> objects;
+		std::vector<std::uint16_t> objects;
 
 		SetObjectList(BinaryReader* reader);
 	};
@@ -326,27 +326,27 @@ namespace Ship
 	class TransitionActorEntry
 	{
 	public:
-		uint8_t frontObjectRoom;
-		uint8_t frontTransitionReaction;
-		uint8_t backObjectRoom;
-		uint8_t backTransitionReaction;
-		uint16_t actorNum;
-		int16_t posX, posY, posZ;
-		int16_t rotY;
-		uint16_t initVar;
+		std::uint8_t frontObjectRoom;
+		std::uint8_t frontTransitionReaction;
+		std::uint8_t backObjectRoom;
+		std::uint8_t backTransitionReaction;
+		std::uint16_t actorNum;
+		std::int16_t posX, posY, posZ;
+		std::int16_t rotY;
+		std::uint16_t initVar;
 	};
 
 	class ActorSpawnEntry
 	{
 	public:
-		uint16_t actorNum;
-		int16_t posX;
-		int16_t posY;
-		int16_t posZ;
-		int16_t rotX;
-		int16_t rotY;
-		int16_t rotZ;
-		uint16_t initVar;
+		std::uint16_t actorNum;
+		std::int16_t posX;
+		std::int16_t posY;
+		std::int16_t posZ;
+		std::int16_t rotX;
+		std::int16_t rotY;
+		std::int16_t rotZ;
+		std::uint16_t initVar;
 	};
 
 

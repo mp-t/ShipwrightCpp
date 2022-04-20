@@ -83,7 +83,7 @@ namespace Ship {
 		return 1680;
 	}
 
-	void WasapiAudioPlayer::Play(const uint8_t* Buffer, uint32_t BufferLen) {
+	void WasapiAudioPlayer::Play(const std::uint8_t* Buffer, std::uint32_t BufferLen) {
 		if (!initialized) {
 			if (!SetupStream()) {
 				return;

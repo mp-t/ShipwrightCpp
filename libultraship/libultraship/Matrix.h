@@ -13,6 +13,6 @@ namespace Ship
 	class Matrix : public Resource
 	{
 	public:
-		std::array<std::array<int32_t, 4>, 4> mtx;
+		std::array<std::array<std::int32_t, 4>, 4> mtx;
 	};
 }

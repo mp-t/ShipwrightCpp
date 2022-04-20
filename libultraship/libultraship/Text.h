@@ -7,9 +7,9 @@ namespace Ship
 	class MessageEntry
 	{
 	public:
-		uint16_t id;
-		uint8_t textboxType;
-		uint8_t textboxYPos;
+		std::uint16_t id;
+		std::uint8_t textboxType;
+		std::uint8_t textboxYPos;
 		std::string msg;
 	};
 

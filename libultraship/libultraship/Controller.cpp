@@ -4,7 +4,7 @@
 #include <memory>
 
 namespace Ship {
-	Controller::Controller(int32_t dwControllerNumber) : dwControllerNumber(dwControllerNumber) {
+	Controller::Controller(std::int32_t dwControllerNumber) : dwControllerNumber(dwControllerNumber) {
 		dwPressedButtons = 0;
 		wStickX = 0;
 		wStickY = 0;
@@ -46,7 +46,7 @@ namespace Ship {
 		pad->gyro_y = wGyroY;
 	}
 
-	void Controller::SetButtonMapping(const std::string& szButtonName, int32_t dwScancode) {
+	void Controller::SetButtonMapping(const std::string& szButtonName, std::int32_t dwScancode) {
 		// Update the config value.
 		std::string ConfSection = GetBindingConfSection();
 		std::shared_ptr<ConfigFile> pConf = GlobalCtx2::GetInstance()->GetConfig();

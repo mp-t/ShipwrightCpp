@@ -5,14 +5,14 @@
 namespace Ship {
 	class KeyboardController : public Controller {
 		public:
-			KeyboardController(int32_t dwControllerNumber);
+			KeyboardController(std::int32_t dwControllerNumber);
 			~KeyboardController();
 
 			void ReadFromSource();
 			void WriteToSource(ControllerCallback* controller);
 
-			bool PressButton(int32_t dwScancode);
-			bool ReleaseButton(int32_t dwScancode);
+			bool PressButton(std::int32_t dwScancode);
+			bool ReleaseButton(std::int32_t dwScancode);
 			void ReleaseAllButtons();
 
 		protected:

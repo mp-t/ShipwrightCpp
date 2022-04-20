@@ -82,13 +82,13 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <stdint.h>
+#include <cstdint>
 
-#define u8 uint8_t
-#define u16 uint16_t
-#define u32 uint32_t
-#define u64 uint64_t
-#define unint uint32_t
+#define u8 std::uint8_t
+#define u16 std::uint16_t
+#define u32 std::uint32_t
+#define u64 std::uint64_t
+#define unint std::uint32_t
 
 #define INITIAL_CRC64 0xffffffffffffffffULL
 
@@ -224,7 +224,7 @@ static const u64 CRC64_Table[256] = {
 	CONST64(0xd80c07cd676f8394), CONST64(0x9afce626ce85b507)
 };
 
-uint64_t update_crc64(const void* buf, unint len, u64 crc)
+std::uint64_t update_crc64(const void* buf, unint len, u64 crc)
 {
 	const u8* b = (const u8*)buf;
 	unint		i;

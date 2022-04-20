@@ -174,44 +174,44 @@ static struct {
     PFNGLXWAITVIDEOSYNCSGIPROC glXWaitVideoSyncSGI;
     
     bool has_oml_sync_control;
-    uint64_t ust0;
-    int64_t last_msc;
-    uint64_t wanted_ust; // multiplied by FRAME_INTERVAL_US_DENOMINATOR
-    uint64_t vsync_interval;
-    uint64_t last_ust;
-    int64_t target_msc;
+    std::uint64_t ust0;
+    std::int64_t last_msc;
+    std::uint64_t wanted_ust; // multiplied by FRAME_INTERVAL_US_DENOMINATOR
+    std::uint64_t vsync_interval;
+    std::uint64_t last_ust;
+    std::int64_t target_msc;
     bool dropped_frame;
     
     bool has_sgi_video_sync;
-    uint64_t last_sync_counter;
-    int64_t this_msc;
-    int64_t this_ust;
+    std::uint64_t last_sync_counter;
+    std::int64_t this_msc;
+    std::int64_t this_ust;
 } glx;
 
-static int64_t get_time(void) {
+static std::int64_t get_time(void) {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
-    return (int64_t)ts.tv_sec * 1000000 + ts.tv_nsec / 1000;
+    return (std::int64_t)ts.tv_sec * 1000000 + ts.tv_nsec / 1000;
 }
 
-static int64_t adjust_sync_counter(uint32_t counter) {
-    uint32_t hi = glx.last_sync_counter >> 32;
-    uint32_t lo = (uint32_t)glx.last_sync_counter;
+static std::int64_t adjust_sync_counter(std::uint32_t counter) {
+    std::uint32_t hi = glx.last_sync_counter >> 32;
+    std::uint32_t lo = (std::uint32_t)glx.last_sync_counter;
     if (lo >= 0x80000000U && counter < 0x80000000U) {
         // Wrapped
         ++hi;
     }
-    glx.last_sync_counter = ((uint64_t)hi << 32) | counter;
+    glx.last_sync_counter = ((std::uint64_t)hi << 32) | counter;
     return glx.last_sync_counter;
 }
 
-static int64_t glXWaitVideoSyncSGI_wrapper(void) {
+static std::int64_t glXWaitVideoSyncSGI_wrapper(void) {
     unsigned int counter = 0;
     glx.glXWaitVideoSyncSGI(1, 0, &counter);
     return adjust_sync_counter(counter);
 }
 
-static int64_t glXGetVideoSyncSGI_wrapper(void) {
+static std::int64_t glXGetVideoSyncSGI_wrapper(void) {
     unsigned int counter = 0;
     glx.glXGetVideoSyncSGI(&counter);
     return adjust_sync_counter(counter);
@@ -361,10 +361,10 @@ static void gfx_glx_init(const char *game_name, bool start_in_fullscreen) {
         glx.glXWaitVideoSyncSGI = (PFNGLXWAITVIDEOSYNCSGIPROC)glXGetProcAddressARB((const GLubyte *)"glXWaitVideoSyncSGI");
     }
     
-    int64_t ust, msc, sbc;
+    std::int64_t ust, msc, sbc;
     if (glx.glXGetSyncValuesOML != NULL && glx.glXGetSyncValuesOML(glx.dpy, glx.win, &ust, &msc, &sbc)) {
         glx.has_oml_sync_control = true;
-        glx.ust0 = (uint64_t)ust;
+        glx.ust0 = (std::uint64_t)ust;
     } else {
         glx.ust0 = get_time();
         if (glx.glXSwapIntervalEXT != NULL) {
@@ -404,7 +404,7 @@ static void gfx_glx_main_loop(void (*run_one_game_iter)(void)) {
     }
 }
 
-static void gfx_glx_get_dimensions(uint32_t *width, uint32_t *height) {
+static void gfx_glx_get_dimensions(std::uint32_t *width, std::uint32_t *height) {
     XWindowAttributes attributes;
     XGetWindowAttributes(glx.dpy, glx.win, &attributes);
     *width = attributes.width;
@@ -455,9 +455,9 @@ static void gfx_glx_swap_buffers_begin(void) {
     if (!glx.has_oml_sync_control && !glx.has_sgi_video_sync) {
         glFlush();
         
-        uint64_t target = glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR;
-        uint64_t now;
-        while (target > (now = (uint64_t)get_time() - glx.ust0)) {
+        std::uint64_t target = glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR;
+        std::uint64_t now;
+        while (target > (now = (std::uint64_t)get_time() - glx.ust0)) {
             struct timespec ts = {(target - now) / 1000000, ((target - now) % 1000000) * 1000};
             if (nanosleep(&ts, NULL) == 0) {
                 break;
@@ -480,7 +480,7 @@ static void gfx_glx_swap_buffers_begin(void) {
         return;
     }
     
-    double vsyncs_to_wait = (int64_t)(glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR - glx.last_ust) / (double)glx.vsync_interval;
+    double vsyncs_to_wait = (std::int64_t)(glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR - glx.last_ust) / (double)glx.vsync_interval;
     if (vsyncs_to_wait <= 0) {
         printf("Dropping frame\n");
         // Drop frame
@@ -488,11 +488,11 @@ static void gfx_glx_swap_buffers_begin(void) {
         return;
     }
     if (floor(vsyncs_to_wait) != vsyncs_to_wait) {
-        uint64_t left_ust = glx.last_ust + floor(vsyncs_to_wait) * glx.vsync_interval;
-        uint64_t right_ust = glx.last_ust + ceil(vsyncs_to_wait) * glx.vsync_interval;
-        uint64_t adjusted_wanted_ust = glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR + (glx.last_ust + FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR > glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR ? 2000 : -2000);
-        int64_t diff_left = adjusted_wanted_ust - left_ust;
-        int64_t diff_right = right_ust - adjusted_wanted_ust;
+        std::uint64_t left_ust = glx.last_ust + floor(vsyncs_to_wait) * glx.vsync_interval;
+        std::uint64_t right_ust = glx.last_ust + ceil(vsyncs_to_wait) * glx.vsync_interval;
+        std::uint64_t adjusted_wanted_ust = glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR + (glx.last_ust + FRAME_INTERVAL_US_NUMERATOR / FRAME_INTERVAL_US_DENOMINATOR > glx.wanted_ust / FRAME_INTERVAL_US_DENOMINATOR ? 2000 : -2000);
+        std::int64_t diff_left = adjusted_wanted_ust - left_ust;
+        std::int64_t diff_right = right_ust - adjusted_wanted_ust;
         if (diff_left < 0) {
             diff_left = -diff_left;
         }
@@ -513,7 +513,7 @@ static void gfx_glx_swap_buffers_begin(void) {
         }
     }
     glx.dropped_frame = false;
-    //printf("Vsyncs to wait: %d, diff: %d\n", (int)vsyncs_to_wait, (int)(glx.last_ust + (int64_t)vsyncs_to_wait * glx.vsync_interval - glx.wanted_ust / 3));
+    //printf("Vsyncs to wait: %d, diff: %d\n", (int)vsyncs_to_wait, (int)(glx.last_ust + (std::int64_t)vsyncs_to_wait * glx.vsync_interval - glx.wanted_ust / 3));
     if (vsyncs_to_wait > 30) {
         // Unreasonable, so change to 2
         vsyncs_to_wait = 2;
@@ -525,28 +525,28 @@ static void gfx_glx_swap_buffers_begin(void) {
     } else if (glx.has_sgi_video_sync) {
         glFlush(); // Try to submit pending work. Don't use glFinish since that busy loops on NVIDIA proprietary driver.
         
-        //uint64_t counter0;
-        uint64_t counter1, counter2;
+        //std::uint64_t counter0;
+        std::uint64_t counter1, counter2;
         
-        //uint64_t before_wait = get_time();
+        //std::uint64_t before_wait = get_time();
         
         counter1 = glXGetVideoSyncSGI_wrapper();
         //counter0 = counter1;
         //int waits = 0;
-        while (counter1 < (uint64_t)glx.target_msc - 1) {
+        while (counter1 < (std::uint64_t)glx.target_msc - 1) {
             counter1 = glXWaitVideoSyncSGI_wrapper();
             //++waits;
         }
         
-        //uint64_t before = get_time();
+        //std::uint64_t before = get_time();
         glXSwapBuffers(glx.dpy, glx.win);
         
         
         counter2 = glXGetVideoSyncSGI_wrapper();
-        while (counter2 < (uint64_t)glx.target_msc) {
+        while (counter2 < (std::uint64_t)glx.target_msc) {
             counter2 = glXWaitVideoSyncSGI_wrapper();
         }
-        uint64_t after = get_time();
+        std::uint64_t after = get_time();
         
         //printf("%.3f %.3f %.3f\t%.3f\t%u %d %.2f %u %d\n", before_wait * 0.000060, before * 0.000060, after * 0.000060, (after - before) * 0.000060, counter0, counter2 - counter0, vsyncs_to_wait, (unsigned int)glx.target_msc, waits);
         glx.this_msc = counter2;
@@ -559,7 +559,7 @@ static void gfx_glx_swap_buffers_end(void) {
         return;
     }
     
-    int64_t ust, msc, sbc;
+    std::int64_t ust, msc, sbc;
     if (glx.has_oml_sync_control) {
         if (!glx.glXWaitForSbcOML(glx.dpy, glx.win, 0, &ust, &msc, &sbc)) {
             // X connection broke or something?
@@ -571,11 +571,11 @@ static void gfx_glx_swap_buffers_end(void) {
         ust = glx.this_ust;
         msc = glx.this_msc;
     }
-    uint64_t this_ust = ust - glx.ust0;
-    uint64_t vsyncs_passed = msc - glx.last_msc;
+    std::uint64_t this_ust = ust - glx.ust0;
+    std::uint64_t vsyncs_passed = msc - glx.last_msc;
     bool bad_vsync_interval = false;
     if (glx.last_ust != 0 && vsyncs_passed != 0) {
-        uint64_t new_vsync_interval = (this_ust - glx.last_ust) / vsyncs_passed;
+        std::uint64_t new_vsync_interval = (this_ust - glx.last_ust) / vsyncs_passed;
         if (new_vsync_interval <= 500000) {
             // Should be less than 0.5 seconds to be trusted
             glx.vsync_interval = new_vsync_interval;

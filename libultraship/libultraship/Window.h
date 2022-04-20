@@ -12,7 +12,7 @@ namespace Ship {
 	class Window {
 		public:
 			static std::map<size_t, std::vector<std::shared_ptr<Controller>>> Controllers;
-			static int32_t lastScancode;
+			static std::int32_t lastScancode;
 
 			Window(std::shared_ptr<GlobalCtx2> Context);
 			~Window();
@@ -20,22 +20,22 @@ namespace Ship {
 			void Init();
 			void RunCommands(Gfx* Commands);
 			void SetFrameDivisor(int divisor);
-			uint16_t GetPixelDepth(float x, float y);
+			std::uint16_t GetPixelDepth(float x, float y);
 			void ToggleFullscreen();
 			void SetFullscreen(bool bIsFullscreen);
 			void ShowCursor(bool hide);
 
 			bool IsFullscreen() { return bIsFullscreen; }
-			uint32_t GetCurrentWidth();
-			uint32_t GetCurrentHeight();
-			uint32_t dwMenubar;
+			std::uint32_t GetCurrentWidth();
+			std::uint32_t GetCurrentHeight();
+			std::uint32_t dwMenubar;
 			std::shared_ptr<GlobalCtx2> GetContext() { return Context.lock(); }
 			std::shared_ptr<AudioPlayer> GetAudioPlayer() { return APlayer; }
 
 		protected:
 		private:
-			static bool KeyDown(int32_t dwScancode);
-			static bool KeyUp(int32_t dwScancode);
+			static bool KeyDown(std::int32_t dwScancode);
+			static bool KeyUp(std::int32_t dwScancode);
 			static void AllKeysUp(void);
 			static void OnFullscreenChanged(bool bIsNowFullscreen);
 			void SetAudioPlayer();
@@ -46,8 +46,8 @@ namespace Ship {
 			GfxWindowManagerAPI* WmApi;
 			GfxRenderingAPI* RenderingApi;
 			bool bIsFullscreen;
-			uint32_t dwWidth;
-			uint32_t dwHeight;
+			std::uint32_t dwWidth;
+			std::uint32_t dwHeight;
 	};
 }
 

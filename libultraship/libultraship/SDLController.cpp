@@ -6,14 +6,14 @@
 #include "stox.h"
 #include "Window.h"
 
-extern uint8_t __osMaxControllers;
+extern std::uint8_t __osMaxControllers;
 float gyroDriftX;
 float gyroDriftY;
 
 namespace Ship {
 
 
-	SDLController::SDLController(int32_t dwControllerNumber) : Controller(dwControllerNumber), Cont(nullptr), guid(INVALID_SDL_CONTROLLER_GUID) {
+	SDLController::SDLController(std::int32_t dwControllerNumber) : Controller(dwControllerNumber), Cont(nullptr), guid(INVALID_SDL_CONTROLLER_GUID) {
 
 	}
 
@@ -116,16 +116,16 @@ namespace Ship {
         std::shared_ptr<ConfigFile> pConf = GlobalCtx2::GetInstance()->GetConfig();
         ConfigFile& Conf = *pConf.get();
 
-        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTX] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTX) + "_threshold"]));
-        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTY] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTY) + "_threshold"]));
-        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTX] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTX) + "_threshold"]));
-        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTY] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTY) + "_threshold"]));
-        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERLEFT] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERLEFT) + "_threshold"]));
-        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERRIGHT] = static_cast<int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTX] = static_cast<std::int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTX) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_LEFTY] = static_cast<std::int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_LEFTY) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTX] = static_cast<std::int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTX) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_RIGHTY] = static_cast<std::int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_RIGHTY) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERLEFT] = static_cast<std::int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERLEFT) + "_threshold"]));
+        ThresholdMapping[SDL_CONTROLLER_AXIS_TRIGGERRIGHT] = static_cast<std::int16_t>(Ship::stoi(Conf[ConfSection][STR(SDL_CONTROLLER_AXIS_TRIGGERRIGHT) + "_threshold"]));
     }
 
 
-    void SDLController::NormalizeStickAxis(int16_t wAxisValueX, int16_t wAxisValueY, int16_t wAxisThreshold) {
+    void SDLController::NormalizeStickAxis(std::int16_t wAxisValueX, std::int16_t wAxisValueY, std::int16_t wAxisThreshold) {
         //scale {-32768 ... +32767} to {-84 ... +84}
         auto ax = wAxisValueX * 85.0 / 32767.0;
         auto ay = wAxisValueY * 85.0 / 32767.0;
@@ -213,7 +213,7 @@ namespace Ship {
             wGyroY *= gyroSensitivity;
         }
 
-        for (int32_t i = SDL_CONTROLLER_BUTTON_A; i < SDL_CONTROLLER_BUTTON_MAX; i++) {
+        for (std::int32_t i = SDL_CONTROLLER_BUTTON_A; i < SDL_CONTROLLER_BUTTON_MAX; i++) {
             if (ButtonMapping.contains(i)) {
                 if (SDL_GameControllerGetButton(Cont, (SDL_GameControllerButton)i)) {
                     dwPressedButtons |= ButtonMapping[i];
@@ -226,9 +226,9 @@ namespace Ship {
 
         SDL_GameControllerAxis StickAxisX = SDL_CONTROLLER_AXIS_INVALID;
         SDL_GameControllerAxis StickAxisY = SDL_CONTROLLER_AXIS_INVALID;
-        int32_t StickDeadzone = 0;
+        std::int32_t StickDeadzone = 0;
 
-        for (int32_t i = SDL_CONTROLLER_AXIS_LEFTX; i < SDL_CONTROLLER_AXIS_MAX; i++) {
+        for (std::int32_t i = SDL_CONTROLLER_AXIS_LEFTX; i < SDL_CONTROLLER_AXIS_MAX; i++) {
             auto Axis = (SDL_GameControllerAxis)i;
             auto PosScancode = i + AXIS_SCANCODE_BIT;
             auto NegScancode = -PosScancode;
@@ -240,7 +240,7 @@ namespace Ship {
 #ifdef TARGET_WEB
             // Firefox has a bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1606562
             // It sets down y to 32768.0f / 32767.0f, which is greater than the allowed 1.0f,
-            // which SDL then converts to a int16_t by multiplying by 32767.0f, which overflows into -32768.
+            // which SDL then converts to a std::int16_t by multiplying by 32767.0f, which overflows into -32768.
             // Maximum up will hence never become -32768 with the current version of SDL2,
             // so this workaround should be safe in compliant browsers.
             if (AxisValue == -32768) {
@@ -385,7 +385,7 @@ namespace Ship {
         Conf.Save();
     }
 
-    void SDLController::SetButtonMapping(const std::string& szButtonName, int32_t dwScancode) {
+    void SDLController::SetButtonMapping(const std::string& szButtonName, std::int32_t dwScancode) {
         if (guid.compare(INVALID_SDL_CONTROLLER_GUID)) {
             return;
         }

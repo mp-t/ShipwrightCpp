@@ -16,7 +16,7 @@ namespace Ship
     public:
         strhash name;
         DataType dataType;
-        uint64_t value;
+        std::uint64_t value;
 
         ShaderParam(BinaryReader* reader);
     };
@@ -26,12 +26,12 @@ namespace Ship
     public:
         // Typical N64 Stuff
         MaterialCmt cmtH, cmtV;
-        uint8_t clrR, clrG, clrB, clrA, clrM, clrL;
+        std::uint8_t clrR, clrG, clrB, clrA, clrM, clrL;
 
         // Modern Stuff
         strhash shaderID;
-        uint32_t shaderParamsCnt;
-        uint32_t offsetToShaderEntries;
+        std::uint32_t shaderParamsCnt;
+        std::uint32_t offsetToShaderEntries;
 
         void ParseFileBinary(BinaryReader* reader, Resource* res) override;
     };
@@ -41,7 +41,7 @@ namespace Ship
     public:
         // Typical N64 Stuff
         MaterialCmt cmtH, cmtV;
-        uint8_t clrR, clrG, clrB, clrA, clrM, clrL;
+        std::uint8_t clrR, clrG, clrB, clrA, clrM, clrL;
 
         // Modern Stuff
         strhash shaderID;

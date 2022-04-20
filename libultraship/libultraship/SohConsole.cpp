@@ -94,7 +94,7 @@ void Console::Update() {
 	}
 }
 
-extern uint8_t __enableGameInput;
+extern std::uint8_t __enableGameInput;
 
 void Console::Draw() {
 	bool input_focus = false;
