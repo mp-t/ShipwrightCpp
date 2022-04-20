@@ -1,85 +1,82 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include "Resource.h"
-#include "Vec2f.h"
-#include "Vec3f.h"
-#include "Color3b.h"
+
+#include <Utils/BinaryReader.h>
+#include <Vec3f.h>
+
+#include <cstdint>
+#include <vector>
 
 namespace Ship
 {
-	class PolygonEntry
-	{
-	public:
-		std::uint16_t type;
-		std::uint16_t vtxA, vtxB, vtxC;
-		std::uint16_t a, b, c, d;
 
-		PolygonEntry(BinaryReader* reader);
-	};
+class PolygonEntry
+{
+public:
+	std::uint16_t type;
+	std::uint16_t vtxA, vtxB, vtxC;
+	std::uint16_t a, b, c, d;
 
-	class WaterBoxHeader
-	{
-	public:
-		std::int16_t xMin;
-		std::int16_t ySurface;
-		std::int16_t zMin;
-		std::int16_t xLength;
-		std::int16_t zLength;
-		std::int16_t pad;
-		std::int32_t properties;
+	explicit PolygonEntry(BinaryReader* reader);
+};
 
-		WaterBoxHeader();
-	};
+struct WaterBoxHeader
+{
+	std::int16_t xMin;
+	std::int16_t ySurface;
+	std::int16_t zMin;
+	std::int16_t xLength;
+	std::int16_t zLength;
+	std::int16_t pad;
+	std::int32_t properties;
+};
 
 
-	class CameraDataEntry
-	{
-	public:
-		std::uint16_t cameraSType;
-		std::int16_t numData;
-		std::int32_t cameraPosDataIdx;
-	};
+struct CameraDataEntry
+{
+	std::uint16_t cameraSType;
+	std::int16_t numData;
+	std::int32_t cameraPosDataIdx;
+};
 
-	class CameraPositionData
-	{
-	public:
-		std::int16_t x, y, z;
-	};
+struct CameraPositionData
+{
+	std::int16_t x, y, z;
+};
 
-	class CameraDataList
-	{
-	public:
-		std::vector<CameraDataEntry*> entries;
-		std::vector<CameraPositionData*> cameraPositionData;
-	};
+struct CameraDataList
+{
+	std::vector<CameraDataEntry*> entries;
+	std::vector<CameraPositionData*> cameraPositionData;
+};
 
-	class CollisionHeaderV0 : public ResourceFile
-	{
-	public:
-		std::int16_t absMinX, absMinY, absMinZ;
-		std::int16_t absMaxX, absMaxY, absMaxZ;
-		
-		std::vector<Vec3f> vertices;
-		std::vector<PolygonEntry> polygons;
-		std::vector<std::uint64_t> polygonTypes;
-		std::vector<WaterBoxHeader> waterBoxes;
-		CameraDataList* camData = nullptr;
+class CollisionHeaderV0 : public ResourceFile
+{
+public:
+	std::int16_t absMinX, absMinY, absMinZ;
+	std::int16_t absMaxX, absMaxY, absMaxZ;
 
-		void ParseFileBinary(BinaryReader* reader, Resource* res) override;
-	};
+	std::vector<Vec3f> vertices;
+	std::vector<PolygonEntry> polygons;
+	std::vector<std::uint64_t> polygonTypes;
+	std::vector<WaterBoxHeader> waterBoxes;
+	CameraDataList* camData = nullptr;
 
-    class CollisionHeader : public Resource
-    {
-    public:
-		std::int16_t absMinX, absMinY, absMinZ;
-		std::int16_t absMaxX, absMaxY, absMaxZ;
+	void ParseFileBinary(BinaryReader* reader, Resource* res) override;
+};
 
-		std::vector<Vec3f> vertices;
-		std::vector<PolygonEntry> polygons;
-		std::vector<std::uint64_t> polygonTypes;
-		std::vector<WaterBoxHeader> waterBoxes;
-		CameraDataList* camData = nullptr;
-    };
+class CollisionHeader : public Resource
+{
+public:
+	std::int16_t absMinX, absMinY, absMinZ;
+	std::int16_t absMaxX, absMaxY, absMaxZ;
+
+	std::vector<Vec3f> vertices;
+	std::vector<PolygonEntry> polygons;
+	std::vector<std::uint64_t> polygonTypes;
+	std::vector<WaterBoxHeader> waterBoxes;
+	CameraDataList* camData = nullptr;
+};
+
 }

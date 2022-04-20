@@ -2,7 +2,10 @@
 
 #include "Resource.h"
 
+#include <Utils/BinaryReader.h>
+
 #include <cstdint>
+#include <vector>
 
 namespace Ship
 {
@@ -60,6 +63,6 @@ public:
 
 	// LINK
 	std::uint32_t segPtr; // This is temp
-
 };
+
 }

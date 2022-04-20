@@ -1,23 +1,25 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include "Resource.h"
-#include "Vec2f.h"
-#include "Vec3f.h"
-#include "Color3b.h"
+
+#include <Utils/BinaryReader.h>
+
+#include <cstdint>
+#include <vector>
 
 namespace Ship
 {
-	class DisplayListV0 : public ResourceFile
-	{
-	public:
-		void ParseFileBinary(BinaryReader* reader, Resource* res) override;
-	};
 
-    class DisplayList : public Resource
-    {
-    public:
-		std::vector<std::uint64_t> instructions;
-    };
+class DisplayListV0 : public ResourceFile
+{
+public:
+	void ParseFileBinary(BinaryReader* reader, Resource* res) override;
+};
+
+class DisplayList : public Resource
+{
+public:
+	std::vector<std::uint64_t> instructions;
+};
+
 }

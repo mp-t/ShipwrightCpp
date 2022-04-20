@@ -2,9 +2,6 @@
 
 namespace Ship
 {
-	Scene::~Scene()
-	{
-	}
 
 	void SceneV0::ParseFileBinary(BinaryReader* reader, Resource* res)
 	{	
@@ -128,16 +125,6 @@ namespace Ship
 		[[maybe_unused]] const auto segOffset = reader->ReadInt32();
 
 		// OTRTODO: FINISH!
-	}
-
-	MeshData::MeshData()
-	{
-		x = 0;
-		y = 0;
-		z = 0;
-		unk_06 = 0;
-		opa;
-		xlu;
 	}
 
 	SetMesh::SetMesh(BinaryReader* reader) : SceneCommand(reader)
@@ -378,10 +365,6 @@ namespace Ship
 	}
 
 	EndMarker::EndMarker(BinaryReader* reader) : SceneCommand(reader)
-	{
-	}
-
-	LightInfo::LightInfo()
 	{
 	}
 

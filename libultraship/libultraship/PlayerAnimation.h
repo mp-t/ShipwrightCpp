@@ -1,23 +1,25 @@
 #pragma once
 
-#include <vector>
-#include <string>
 #include "Resource.h"
-#include "Vec2f.h"
-#include "Vec3f.h"
-#include "Color3b.h"
+
+#include <Utils/BinaryReader.h>
+
+#include <cstdint>
+#include <vector>
 
 namespace Ship
 {
-	class PlayerAnimationV0 : public ResourceFile
-	{
-	public:
-		void ParseFileBinary(BinaryReader* reader, Resource* res) override;
-	};
 
-    class PlayerAnimation : public Resource
-    {
-    public:
-		std::vector<std::int16_t> limbRotData;
-    };
+class PlayerAnimationV0 : public ResourceFile
+{
+public:
+	void ParseFileBinary(BinaryReader* reader, Resource* res) override;
+};
+
+class PlayerAnimation : public Resource
+{
+public:
+	std::vector<std::int16_t> limbRotData;
+};
+
 }

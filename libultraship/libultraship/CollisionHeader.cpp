@@ -93,7 +93,3 @@ Ship::PolygonEntry::PolygonEntry(BinaryReader* reader)
 	c = reader->ReadUInt16();
 	d = reader->ReadUInt16();
 }
-
-Ship::WaterBoxHeader::WaterBoxHeader()
-{
-}

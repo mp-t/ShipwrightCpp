@@ -2,27 +2,30 @@
 
 #include "Resource.h"
 
+#include <Utils/BinaryReader.h>
+
+#include <cstdint>
+#include <vector>
+
 namespace Ship
 {
-	class CutsceneV0 : public ResourceFile
-	{
-	public:
-		void ParseFileBinary(BinaryReader* reader, Resource* res) override;
-	};
 
-	class CutsceneCommand
-	{
-	public:
-		std::uint32_t commandID;
-		std::uint32_t commandIndex;
+class CutsceneV0 : public ResourceFile
+{
+public:
+	void ParseFileBinary(BinaryReader* reader, Resource* res) override;
+};
 
-		CutsceneCommand() {};
-	};
+struct CutsceneCommand
+{
+	std::uint32_t commandID;
+	std::uint32_t commandIndex;
+};
 
-	class Cutscene : public Resource
-	{
-	public:
-		//std::int32_t endFrame;
-		std::vector<std::uint32_t> commands;
-	};
+class Cutscene : public Resource
+{
+public:
+	std::vector<std::uint32_t> commands;
+};
+
 }

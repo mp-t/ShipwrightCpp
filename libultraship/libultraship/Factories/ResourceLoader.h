@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../Resource.h"
-#include "../File.h"
+#include "File.h"
+#include "Resource.h"
 
-namespace Ship
+#include <memory>
+
+namespace Ship::ResourceLoader
 {
-    class ResourceLoader
-    {
-    public:
-        static Resource* LoadResource(std::shared_ptr<File> FileToLoad);
-    };
+
+[[nodiscard]] Resource* LoadResource(std::shared_ptr<File> FileToLoad);
+
 }

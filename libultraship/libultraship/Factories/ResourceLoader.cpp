@@ -17,9 +17,9 @@
 #include "MtxFactory.h"
 #include <Utils/MemoryStream.h>
 
-namespace Ship
+namespace Ship::ResourceLoader
 {
-    Resource* ResourceLoader::LoadResource(std::shared_ptr<File> FileToLoad)
+    Resource* LoadResource(std::shared_ptr<File> FileToLoad)
     {
         auto reader = std::make_shared<BinaryReader>(std::make_unique<MemoryStream>(FileToLoad->buffer.get(), FileToLoad->dwBufferSize));
 
