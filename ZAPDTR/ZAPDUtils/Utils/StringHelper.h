@@ -33,11 +33,9 @@ namespace StringHelper
 	[[nodiscard]] constexpr std::string Strip(std::string s, const std::string& delimiter)
 	{
 		std::size_t pos = 0;
-		std::string token;
 
 		while ((pos = s.find(delimiter)) != std::string::npos)
 		{
-			token = s.substr(0, pos);
 			s.erase(pos, pos + delimiter.length());
 		}
 
