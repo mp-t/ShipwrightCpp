@@ -17,4 +17,6 @@ void lusprintf(const char* file, std::int32_t line, std::int32_t logLevel, const
 
 	vsnprintf(buffer, sizeof(buffer), fmt, args);
 	luslog(file, line, logLevel, buffer);
+
+	va_end(args);
 }
