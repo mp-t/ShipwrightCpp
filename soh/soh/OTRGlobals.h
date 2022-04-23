@@ -46,7 +46,7 @@ char* ResourceMgr_LoadFileFromDisk(const char* filePath);
 char* ResourceMgr_LoadTexByName(const char* texPath);
 char* ResourceMgr_LoadTexOrDListByName(char* filePath);
 char* ResourceMgr_LoadPlayerAnimByName(char* animPath);
-char* ResourceMgr_GetNameByCRC(uint64_t crc, char* alloc);
+void ResourceMgr_GetNameByCRC(uint64_t crc, char* alloc);
 Gfx* ResourceMgr_LoadGfxByCRC(uint64_t crc);
 Gfx* ResourceMgr_LoadGfxByName(const char* path);
 Vtx* ResourceMgr_LoadVtxByCRC(uint64_t crc);

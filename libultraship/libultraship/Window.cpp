@@ -124,10 +124,9 @@ void osContGetReadData(OSContPad* pad) {
 	ModInternal::callBindHook(0);
 }
 
-char* ResourceMgr_GetNameByCRC(std::uint64_t crc, char* alloc) {
+void ResourceMgr_GetNameByCRC(std::uint64_t crc, char* alloc) {
 	std::string hashStr = Ship::GlobalCtx2::GetInstance()->GetResourceManager()->HashToString(crc);
 	strcpy(alloc, hashStr.c_str());
-	return (char*)hashStr.c_str();
 }
 
 Vtx* ResourceMgr_LoadVtxByCRC(std::uint64_t crc) {

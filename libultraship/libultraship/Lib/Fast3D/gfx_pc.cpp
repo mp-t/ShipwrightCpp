@@ -27,7 +27,7 @@
 #include "../StrHash64.h"
 
 // OTRTODO: fix header files for these
-char* ResourceMgr_GetNameByCRC(std::uint64_t crc, char* alloc);
+void ResourceMgr_GetNameByCRC(std::uint64_t crc, char* alloc);
 std::int32_t* ResourceMgr_LoadMtxByCRC(std::uint64_t crc);
 Vtx* ResourceMgr_LoadVtxByCRC(std::uint64_t crc);
 Gfx* ResourceMgr_LoadGfxByCRC(std::uint64_t crc);
